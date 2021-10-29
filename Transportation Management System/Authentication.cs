@@ -6,36 +6,13 @@ using System.Threading.Tasks;
 
 using MySql.Data;
 using MySql.Data.MySqlClient;
-using BCrypt;
+using BC = BCrypt.Net.BCrypt;
 
 
 namespace Transportation_Management_System
 {
     class Authentication
     {
-        static void Main(string[] args)
-        {
-            // Display the number of command line arguments.
-            Authentication auth = new Authentication();
-            auth.ConnectToDB();
-        }
-
-
-        private MySqlConnection conn;
-
-        public bool ConnectToDB()
-        {
-            
-
-
-            
-
-            //conn.Close();
-            Console.WriteLine("Done.");
-
-            return true;
-        }
-
         private bool CheckUsername(string userName)
         {
             bool existent = false;
@@ -75,6 +52,7 @@ namespace Transportation_Management_System
         }
 
 
+
         private bool CheckPassword(string password)
         {
             // Compare Hased password
@@ -98,7 +76,7 @@ namespace Transportation_Management_System
                         while (rdr.Read())
                         {
                             string DbPassword = rdr[2].ToString();
-                            if (password == DbPassword)
+                            if (BC.Verify(password, DbPassword))
                             {
                                 isValid = true;
                             }
@@ -117,7 +95,9 @@ namespace Transportation_Management_System
 
         private string HashPass(string password)
         {
-
+            BC.GenerateSalt();
+            
+            return BC.HashPassword(password);
         }
     }
 }
