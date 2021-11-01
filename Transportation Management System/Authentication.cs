@@ -94,7 +94,7 @@ namespace Transportation_Management_System
 
 
 
-        public bool CheckUserType(string type, string userId)
+        public bool CheckUserType(string type, string username)
         {
             bool IsTypeValid = false;
 
@@ -106,7 +106,7 @@ namespace Transportation_Management_System
                 conn.Open();
                 try
                 {
-                    string sql = $"SELECT * FROM Users WHERE Type='{type}' AND UserId='{userId}'";
+                    string sql = $"SELECT * FROM Users WHERE Type='{type}' AND Username='{username}'";
                     MySqlCommand cmd = new MySqlCommand(sql, conn);
                     MySqlDataReader rdr = cmd.ExecuteReader();
 
@@ -115,9 +115,9 @@ namespace Transportation_Management_System
                     {
                         while (rdr.Read())
                         {
-                            string DbUserId = rdr[0].ToString();
+                            string DbUsername = rdr[0].ToString();
                             string DbUserType = rdr[3].ToString();
-                            if (type == DbUserType && userId == DbUserId)
+                            if (type == DbUserType && username == DbUsername)
                             {
                                 IsTypeValid = true;
                             }
