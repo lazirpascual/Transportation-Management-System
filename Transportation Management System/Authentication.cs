@@ -13,7 +13,7 @@ namespace Transportation_Management_System
 {
     class Authentication
     {
-        private bool CheckUsername(string userName)
+        public bool CheckUsername(string userName)
         {
             bool existent = false;
 
@@ -52,8 +52,8 @@ namespace Transportation_Management_System
         }
 
 
-        
-        private bool CheckPassword(string password)
+
+        public bool CheckPassword(string password)
         {
             // Compare Hased password
             bool isValid = false;
@@ -93,7 +93,49 @@ namespace Transportation_Management_System
         }
 
 
-        private string HashPass(string password)
+
+        public bool CheckUserType(string type, string userId)
+        {
+            bool IsTypeValid = false;
+
+            Database db = new Database();
+
+            using (MySqlConnection conn = new MySqlConnection(db.GetConnectionStr()))
+            {
+                Console.WriteLine("Connecting to MySQL...");
+                conn.Open();
+                try
+                {
+                    string sql = $"SELECT * FROM Users WHERE Type='{type}' AND UserId='{userId}'";
+                    MySqlCommand cmd = new MySqlCommand(sql, conn);
+                    MySqlDataReader rdr = cmd.ExecuteReader();
+
+                    // If data is found
+                    if (rdr.HasRows)
+                    {
+                        while (rdr.Read())
+                        {
+                            string DbUserId = rdr[0].ToString();
+                            string DbUserType = rdr[3].ToString();
+                            if (type == DbUserType && userId == DbUserId)
+                            {
+                                IsTypeValid = true;
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                }
+            }
+
+            return IsTypeValid;
+        }
+
+
+
+        public string HashPass(string password)
         {
             BC.GenerateSalt();
             

@@ -13,11 +13,11 @@ namespace Transportation_Management_System
     {
         private MySqlConnection Connection { get; set; }
         private MySqlTransaction Transaction { get; set; }
-        public string Server { get; set; }
-        public string User { get; set; }
-        public string Port { get; set; }
-        public string Password { get; set; }
-        public string DatabaseName { get; set; }
+        private string Server { get; set; }
+        private string User { get; set; }
+        private string Port { get; set; }
+        private string Password { get; set; }
+        private string DatabaseName { get; set; }
 
         public Database()
         {
