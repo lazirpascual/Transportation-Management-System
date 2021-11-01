@@ -115,7 +115,7 @@ namespace Transportation_Management_System
                     {
                         while (rdr.Read())
                         {
-                            string DbUsername = rdr[0].ToString();
+                            string DbUsername = rdr[1].ToString();
                             string DbUserType = rdr[3].ToString();
                             if (type == DbUserType && username == DbUsername)
                             {
