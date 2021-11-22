@@ -33,5 +33,10 @@ namespace Transportation_Management_System
                 DragMove();
             }
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
     }
 }

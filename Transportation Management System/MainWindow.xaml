@@ -10,35 +10,35 @@
         WindowStyle="None" ResizeMode="NoResize"
         MouseDown="MainWindow_OnMouseDown">
     <Grid>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-
-            </Grid.RowDefinitions>
-            <Border CornerRadius="10" Grid.RowSpan="2">
-                <Border.Background>
-                    <LinearGradientBrush>
-                        <GradientStop Color="LightBlue" Offset="0.0"/>
-                        <GradientStop Color="Navy" Offset="1.5"/>
-                    </LinearGradientBrush>
-                </Border.Background>
+        <Grid RenderTransformOrigin="0.539,0.309">
+        <Grid.RowDefinitions>
+           <RowDefinition/>
+           <RowDefinition/>
+        </Grid.RowDefinitions>
+           <Border CornerRadius="10" Grid.RowSpan="2">
+              <Border.Background>
+                  <LinearGradientBrush>
+                      <GradientStop Color="LightBlue" Offset="0.0"/>
+                      <GradientStop Color="Navy" Offset="1.5"/>
+                  </LinearGradientBrush>
+              </Border.Background>
+                <Button Content="X" FontFamily="Elephant" Margin="352,0,0,424" Background="Transparent" Click="Button_Click" BorderThickness="0"/>
             </Border>
-            <StackPanel VerticalAlignment="center" HorizontalAlignment="center" Margin="0,0,0,20">
-                <TextBlock Text="Transportation Management System" FontSize="15" FontFamily="Verdana" HorizontalAlignment="center" Margin="0,0,0,20"/>
+                <StackPanel VerticalAlignment="center" HorizontalAlignment="center" Margin="0,0,0,20">
+                <TextBlock Text="Transportation Management System" FontSize="18" Foreground="DarkBlue" FontFamily="Bernard MT Condensed" HorizontalAlignment="center" Margin="0,0,0,20"/>
                 <Image Source="logo_white.png" Height="125" Margin="66,0,72,0" Width="154"/>
             </StackPanel>
             <StackPanel Grid.Row="1">
                 <StackPanel Orientation="Horizontal" Margin="50,10,0,0">
-                    <TextBlock FontFamily="Verdana" FontSize="15"  Text="Username" Background="Transparent" Width="100" HorizontalAlignment="Right"/>
+                    <TextBlock FontFamily="Elephant" FontSize="16" Foreground="DarkBlue" Text="Username" Background="Transparent" Width="100" HorizontalAlignment="Right"/>
                     <TextBox FontFamily="Verdana" FontSize="15" HorizontalAlignment="Center" Background="WhiteSmoke" BorderThickness="0" Width="185" Height="25"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="50,30,0,0">
-                    <TextBlock FontFamily="Verdana" FontSize="15" Text="Password" Background="Transparent" Width="100"/>
+                    <TextBlock FontFamily="Elephant" Foreground="DarkBlue" FontSize="16" Text="Password" Background="Transparent" Width="100"/>
                     <PasswordBox FontFamily="Verdana" FontWeight="Light" FontSize="15" HorizontalAlignment="Center" Background="WhiteSmoke" BorderThickness="0" Width="185" Height="25"/>
                 </StackPanel>
                 <StackPanel Margin="0,30,45,0">
-                    <Button Content="Sign in" FontFamily="Verdana" HorizontalAlignment="Right" Width="60" Background="WhiteSmoke"/>
+                    <Button Content="Sign in" Foreground="CornflowerBlue" FontFamily="Elephant" HorizontalAlignment="Right" Width="60" Background="WhiteSmoke"/>
                 </StackPanel>
             </StackPanel>
         </Grid>
