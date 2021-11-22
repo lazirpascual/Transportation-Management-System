@@ -62,3 +62,5 @@ C:\Users\guilh\Desktop\TeamBlank_Group16\Transportation Management System\obj\De
 C:\Users\guilh\Desktop\TeamBlank_Group16\Transportation Management System\obj\Debug\Transportation Management System.csproj.CopyComplete
 C:\Users\guilh\Desktop\TeamBlank_Group16\Transportation Management System\obj\Debug\Transportation Management System.exe
 C:\Users\guilh\Desktop\TeamBlank_Group16\Transportation Management System\obj\Debug\Transportation Management System.pdb
+C:\Users\guilh\Desktop\TeamBlank_Group16\Transportation Management System\obj\Debug\AdminPage.g.cs
+C:\Users\guilh\Desktop\TeamBlank_Group16\Transportation Management System\obj\Debug\AdminPage.baml
