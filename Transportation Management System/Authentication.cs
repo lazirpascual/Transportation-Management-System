@@ -61,7 +61,15 @@ namespace Transportation_Management_System
 
 
 
-        public bool CheckPassword(string password)
+        ///
+        /// \brief Check if the user password is valid
+        ///
+        /// \param userName  - <b>string</b> - Username to check the password
+        /// \param password  - <b>string</b> - Password to be validated
+        /// 
+        /// \return True if the password is correct, false otherwise
+        ///
+        public bool CheckUserPassword(string userName, string password)
         {
             // Compare Hased password
             bool isValid = false;
@@ -74,7 +82,7 @@ namespace Transportation_Management_System
                 conn.Open();
                 try
                 {
-                    string sql = $"SELECT * FROM Users WHERE Password='{password}'";
+                    string sql = $"SELECT * FROM Users WHERE Username='{userName}";
                     MySqlCommand cmd = new MySqlCommand(sql, conn);
                     MySqlDataReader rdr = cmd.ExecuteReader();
                     
