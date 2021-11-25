@@ -13,13 +13,21 @@ namespace Transportation_Management_System
 {
     class Authentication
     {
+
+        ///
+        /// \brief Check if the username exists in the User tables
+        ///
+        /// \param userName  - <b>string</b> - Username of ther user
+        /// 
+        /// \return True if it exists, false otherwise
+        ///
         public bool CheckUsername(string userName)
         {
             bool existent = false;
 
             DAL db = new DAL();
 
-            using (MySqlConnection conn = new MySqlConnection(db.GetConnectionStr()))
+            using (MySqlConnection conn = new MySqlConnection(db.ToString()))
             {
                 Console.WriteLine("Connecting to MySQL...");
                 conn.Open();
@@ -60,7 +68,7 @@ namespace Transportation_Management_System
 
             DAL db = new DAL();
 
-            using (MySqlConnection conn = new MySqlConnection(db.GetConnectionStr()))
+            using (MySqlConnection conn = new MySqlConnection(db.ToString()))
             {
                 Console.WriteLine("Connecting to MySQL...");
                 conn.Open();

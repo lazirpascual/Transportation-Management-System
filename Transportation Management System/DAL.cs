@@ -43,7 +43,6 @@ namespace Transportation_Management_System
         
         ///
         /// \brief Inserts a new user in the User table
-        /// \details <b>Details</b>
         ///
         /// \param usr  - <b>User</b> - An User object with all their information
         public void CreateUser(User usr)
