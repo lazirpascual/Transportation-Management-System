@@ -9,7 +9,7 @@ using MySql.Data.MySqlClient;
 
 namespace Transportation_Management_System
 {
-    class Database : Authentication
+    class DAL : Authentication
     {
         private MySqlConnection Connection { get; set; }
         private MySqlTransaction Transaction { get; set; }
@@ -19,7 +19,7 @@ namespace Transportation_Management_System
         private string Password { get; set; }
         private string DatabaseName { get; set; }
 
-        public Database()
+        public DAL()
         {
             Server = "phtfaw4p6a970uc0.cbetxkdyhwsb.us-east-1.rds.amazonaws.com";
             User = "x4sqrh7d39h1orji;database=qbwrvu2d70g3dyis";

@@ -17,7 +17,7 @@ namespace Transportation_Management_System
         {
             bool existent = false;
 
-            Database db = new Database();
+            DAL db = new DAL();
 
             using (MySqlConnection conn = new MySqlConnection(db.GetConnectionStr()))
             {
@@ -58,7 +58,7 @@ namespace Transportation_Management_System
             // Compare Hased password
             bool isValid = false;
 
-            Database db = new Database();
+            DAL db = new DAL();
 
             using (MySqlConnection conn = new MySqlConnection(db.GetConnectionStr()))
             {
@@ -98,7 +98,7 @@ namespace Transportation_Management_System
         {
             bool IsTypeValid = false;
 
-            Database db = new Database();
+            DAL db = new DAL();
 
             using (MySqlConnection conn = new MySqlConnection(db.GetConnectionStr()))
             {

@@ -26,7 +26,7 @@
             <Button x:Name ="Activities" Content="Activities" Background="WhiteSmoke" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="0,261,0,0"/>
             <Button x:Name ="Trip" Content="Trip Management" Background="WhiteSmoke" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="0,312,0,0"/>
             <Button x:Name ="Orders" Content="Orders" Background="WhiteSmoke" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="0,363,0,0"/>
-            <Frame  x:Name="Planner" Margin="145,61,21,10" NavigationUIVisibility="Hidden" Background="GhostWhite" Content=""/>
+            <Frame  x:Name ="PlannerFrame" Margin="145,61,21,10" NavigationUIVisibility="Hidden" Background="GhostWhite" Content=""/>
         </Grid>
     </Viewbox>
 </Window>
