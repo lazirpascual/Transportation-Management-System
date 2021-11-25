@@ -126,7 +126,7 @@
     <Compile Include="Buyer.xaml.cs">
       <DependentUpon>Buyer.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Database.cs" />
+    <Compile Include="DAL.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
