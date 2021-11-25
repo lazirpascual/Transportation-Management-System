@@ -9,7 +9,7 @@ using MySql.Data.MySqlClient;
 
 namespace Transportation_Management_System
 {
-    class Database
+    class Database : Authentication
     {
         private MySqlConnection Connection { get; set; }
         private MySqlTransaction Transaction { get; set; }
@@ -31,6 +31,13 @@ namespace Transportation_Management_System
         public string GetConnectionStr()
         {
             return $"server={Server};user={User};database={DatabaseName};port={Port};password={Password}";
+
+        }
+
+
+
+        public void CreateUser(User usr)
+        {
 
         }
 

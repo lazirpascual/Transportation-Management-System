@@ -212,6 +212,26 @@
             <param name="seedBytes"></param>
             <returns></returns>
         </member>
+        <member name="T:MySql.Data.MySqlClient.Authentication.OciAuthenticationPlugin">
+            <summary>
+            Enables connections from a user account set with the authentication_iam authentication plugin.
+            </summary>
+        </member>
+        <member name="M:MySql.Data.MySqlClient.Authentication.OciAuthenticationPlugin.CheckConstraints">
+            <summary>
+            Verify that OCI .NET SDK is referenced.
+            </summary>
+        </member>
+        <member name="M:MySql.Data.MySqlClient.Authentication.OciAuthenticationPlugin.GetValues(System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.Dictionary{System.String,System.String}},System.String@,System.String@)">
+            <summary>
+            Get the values for the key_file and fingerprint entries.
+            </summary>
+        </member>
+        <member name="M:MySql.Data.MySqlClient.Authentication.OciAuthenticationPlugin.SignData(System.Byte[],System.String,System.String)">
+            <summary>
+            Sign nonce sent by server using SHA256 algorithm and the private key provided by the user.
+            </summary>
+        </member>
         <member name="T:MySql.Data.MySqlClient.Authentication.ScramBase">
             <summary>
             Base class to handle SCRAM authentication methods
@@ -348,94 +368,7 @@
         </member>
         <member name="T:MySql.Data.MySqlClient.Authentication.MySqlWindowsAuthenticationPlugin">
             <summary>
-            
-            </summary>
-        </member>
-        <member name="T:MySql.Data.MySqlClient.Authentication.SecBufferType">
-            <summary>
-            Defines the type of the security buffer.
-            </summary>
-        </member>
-        <member name="T:MySql.Data.MySqlClient.Authentication.SecHandle">
-            <summary>
-            Defines a security handle.
-            </summary>
-        </member>
-        <member name="T:MySql.Data.MySqlClient.Authentication.SecBuffer">
-            <summary>
-            Describes a buffer allocated by a transport to pass to a security package.
-            </summary>
-        </member>
-        <member name="F:MySql.Data.MySqlClient.Authentication.SecBuffer.cbBuffer">
-            <summary>
-            Specifies the size, in bytes, of the buffer.
-            </summary>
-        </member>
-        <member name="F:MySql.Data.MySqlClient.Authentication.SecBuffer.BufferType">
-            <summary>
-            Bit flags that indicate the type of the buffer.
-            </summary>
-        </member>
-        <member name="F:MySql.Data.MySqlClient.Authentication.SecBuffer.pvBuffer">
-            <summary>
-            Pointer to a buffer.
-            </summary>
-        </member>
-        <member name="T:MySql.Data.MySqlClient.Authentication.SECURITY_INTEGER">
-            <summary>
-            Hold a numeric value used in defining other data types.
-            </summary>
-        </member>
-        <member name="F:MySql.Data.MySqlClient.Authentication.SECURITY_INTEGER.LowPart">
-            <summary>
-            Least significant digits.
-            </summary>
-        </member>
-        <member name="F:MySql.Data.MySqlClient.Authentication.SECURITY_INTEGER.HighPart">
-            <summary>
-            Most significant digits.
-            </summary>
-        </member>
-        <member name="T:MySql.Data.MySqlClient.Authentication.SECURITY_HANDLE">
-            <summary>
-            Holds a pointer used to define a security handle.
-            </summary>
-        </member>
-        <member name="F:MySql.Data.MySqlClient.Authentication.SECURITY_HANDLE.LowPart">
-            <summary>
-            Least significant digits.
-            </summary>
-        </member>
-        <member name="F:MySql.Data.MySqlClient.Authentication.SECURITY_HANDLE.HighPart">
-            <summary>
-            Most significant digits.
-            </summary>
-        </member>
-        <member name="T:MySql.Data.MySqlClient.Authentication.SecPkgContext_Sizes">
-            <summary>
-            Indicates the sizes of important structures used in the message support functions.
-            </summary>
-        </member>
-        <member name="F:MySql.Data.MySqlClient.Authentication.SecPkgContext_Sizes.cbMaxToken">
-            <summary>
-            Specifies the maximum size of the security token used in the authentication changes.
-            </summary>
-        </member>
-        <member name="F:MySql.Data.MySqlClient.Authentication.SecPkgContext_Sizes.cbMaxSignature">
-            <summary>
-            Specifies the maximum size of the signature created by the <b>MakeSignature</b> function.
-            This member must be zero if integrity services are not requested or available.
-            </summary>
-        </member>
-        <member name="F:MySql.Data.MySqlClient.Authentication.SecPkgContext_Sizes.cbBlockSize">
-            <summary>
-            Specifies the preferred integral size of the messages.
-            </summary>
-        </member>
-        <member name="F:MySql.Data.MySqlClient.Authentication.SecPkgContext_Sizes.cbSecurityTrailer">
-            <summary>
-            Size of the security trailer to be appended to messages.
-            This member should be zero if the relevant services are not requested or available.
+            Allows connections to a user account set with the authentication_windows authentication plugin.
             </summary>
         </member>
         <member name="T:MySql.Data.MySqlClient.MySqlBulkLoader">
@@ -682,34 +615,36 @@
       passes to it a connection string and a query string that consists of a SQL INSERT statement, and closes the connection.
       <code lang="vbnet">
         Public Sub InsertRow(myConnectionString As String)
-        " If the connection string is null, use a default.
-        If myConnectionString = "" Then
-        myConnectionString = "Database=Test;Data Source=localhost;User Id=username;Password=pass"
-        End If
-        Dim myConnection As New MySqlConnection(myConnectionString)
-        Dim myInsertQuery As String = "INSERT INTO Orders (id, customerId, amount) Values(1001, 23, 30.66)"
-        Dim myCommand As New MySqlCommand(myInsertQuery)
-        myCommand.Connection = myConnection
-        myConnection.Open()
-        myCommand.ExecuteNonQuery()
-        myCommand.Connection.Close()
+          " If the connection string is null, use a default.
+          If myConnectionString = "" Then
+            myConnectionString = "Database=Test;Data Source=localhost;User Id=username;Password=pass"
+          End If
+          
+          Dim myConnection As New MySqlConnection(myConnectionString)
+          Dim myInsertQuery As String = "INSERT INTO Orders (id, customerId, amount) Values(1001, 23, 30.66)"
+          Dim myCommand As New MySqlCommand(myInsertQuery)
+          myCommand.Connection = myConnection
+          myConnection.Open()
+          myCommand.ExecuteNonQuery()
+          myCommand.Connection.Close()
         End Sub
       </code>
       <code lang="C#">
         public void InsertRow(string myConnectionString)
         {
-        // If the connection string is null, use a default.
-        if(myConnectionString == "")
-        {
-        myConnectionString = "Database=Test;Data Source=localhost;User Id=username;Password=pass";
-        }
-        MySqlConnection myConnection = new MySqlConnection(myConnectionString);
-        string myInsertQuery = "INSERT INTO Orders (id, customerId, amount) Values(1001, 23, 30.66)";
-        MySqlCommand myCommand = new MySqlCommand(myInsertQuery);
-        myCommand.Connection = myConnection;
-        myConnection.Open();
-        myCommand.ExecuteNonQuery();
-        myCommand.Connection.Close();
+          // If the connection string is null, use a default.
+          if(myConnectionString == "")
+          {
+            myConnectionString = "Database=Test;Data Source=localhost;User Id=username;Password=pass";
+          }
+          
+          MySqlConnection myConnection = new MySqlConnection(myConnectionString);
+          string myInsertQuery = "INSERT INTO Orders (id, customerId, amount) Values(1001, 23, 30.66)";
+          MySqlCommand myCommand = new MySqlCommand(myInsertQuery);
+          myCommand.Connection = myConnection;
+          myConnection.Open();
+          myCommand.ExecuteNonQuery();
+          myCommand.Connection.Close();
         }
       </code>
     </example> 
@@ -730,39 +665,25 @@
 
         <code lang="vbnet">
           Public Sub CreateMySqlCommand()
-          Dim myConnection As New MySqlConnection _
-          ("Persist Security Info=False;database=test;server=myServer")
-          myConnection.Open()
-          Dim myTrans As MySqlTransaction = myConnection.BeginTransaction()
-          Dim mySelectQuery As String = "SELECT * FROM MyTable"
-          Dim myCommand As New MySqlCommand(mySelectQuery, myConnection, myTrans)
-          myCommand.CommandTimeout = 20
+            Dim myConnection As New MySqlConnection _
+            ("Persist Security Info=False;database=test;server=myServer")
+            myConnection.Open()
+            Dim myTrans As MySqlTransaction = myConnection.BeginTransaction()
+            Dim mySelectQuery As String = "SELECT * FROM MyTable"
+            Dim myCommand As New MySqlCommand(mySelectQuery, myConnection, myTrans)
+            myCommand.CommandTimeout = 20
           End Sub
         </code>
         <code lang="C#">
           public void CreateMySqlCommand()
           {
-          MySqlConnection myConnection = new MySqlConnection("Persist Security Info=False;
-          database=test;server=myServer");
-          myConnection.Open();
-          MySqlTransaction myTrans = myConnection.BeginTransaction();
-          string mySelectQuery = "SELECT * FROM myTable";
-          MySqlCommand myCommand = new MySqlCommand(mySelectQuery, myConnection,myTrans);
-          myCommand.CommandTimeout = 20;
+            MySqlConnection myConnection = new MySqlConnection("Persist Security Info=False;database=test;server=myServer");
+            myConnection.Open();
+            MySqlTransaction myTrans = myConnection.BeginTransaction();
+            string mySelectQuery = "SELECT * FROM myTable";
+            MySqlCommand myCommand = new MySqlCommand(mySelectQuery, myConnection,myTrans);
+            myCommand.CommandTimeout = 20;
           }
-        </code>
-        <code lang="C++">
-          public:
-          void CreateMySqlCommand()
-          {
-          MySqlConnection* myConnection = new MySqlConnection(S"Persist Security Info=False;
-          database=test;server=myServer");
-          myConnection-&gt;Open();
-          MySqlTransaction* myTrans = myConnection-&gt;BeginTransaction();
-          String* mySelectQuery = S"SELECT * FROM myTable";
-          MySqlCommand* myCommand = new MySqlCommand(mySelectQuery, myConnection, myTrans);
-          myCommand-&gt;CommandTimeout = 20;
-          };
         </code>
       </example>
     </overloads><summary>
@@ -810,15 +731,15 @@
 
       <code lang="vbnet">
         Public Sub CreateMySqlCommand()
-        Dim myCommand As New MySqlCommand()
-        myCommand.CommandType = CommandType.Text
+          Dim myCommand As New MySqlCommand()
+          myCommand.CommandType = CommandType.Text
         End Sub
       </code>
       <code lang="C#">
         public void CreateMySqlCommand()
         {
-        MySqlCommand myCommand = new MySqlCommand();
-        myCommand.CommandType = CommandType.Text;
+          MySqlCommand myCommand = new MySqlCommand();
+          myCommand.CommandType = CommandType.Text;
         }
       </code>
     </example>
@@ -872,17 +793,17 @@
 
       <code lang="vbnet">
         Public Sub CreateMySqlCommand()
-        Dim sql as String = "SELECT * FROM mytable"
-        Dim myCommand As New MySqlCommand(sql)
-        myCommand.CommandType = CommandType.Text
+          Dim sql as String = "SELECT * FROM mytable"
+          Dim myCommand As New MySqlCommand(sql)
+          myCommand.CommandType = CommandType.Text
         End Sub
       </code>
       <code lang="C#">
         public void CreateMySqlCommand()
         {
-        string sql = "SELECT * FROM mytable";
-        MySqlCommand myCommand = new MySqlCommand(sql);
-        myCommand.CommandType = CommandType.Text;
+          string sql = "SELECT * FROM mytable";
+          MySqlCommand myCommand = new MySqlCommand(sql);
+          myCommand.CommandType = CommandType.Text;
         }
       </code>
     </example>
@@ -942,19 +863,19 @@
 
       <code lang="vbnet">
         Public Sub CreateMySqlCommand()
-        Dim conn as new MySqlConnection("server=myServer")
-        Dim sql as String = "SELECT * FROM mytable"
-        Dim myCommand As New MySqlCommand(sql, conn)
-        myCommand.CommandType = CommandType.Text
+          Dim conn as new MySqlConnection("server=myServer")
+          Dim sql as String = "SELECT * FROM mytable"
+          Dim myCommand As New MySqlCommand(sql, conn)
+          myCommand.CommandType = CommandType.Text
         End Sub
       </code>
       <code lang="C#">
         public void CreateMySqlCommand()
         {
-        MySqlConnection conn = new MySqlConnection("server=myserver")
-        string sql = "SELECT * FROM mytable";
-        MySqlCommand myCommand = new MySqlCommand(sql, conn);
-        myCommand.CommandType = CommandType.Text;
+          MySqlConnection conn = new MySqlConnection("server=myserver")
+          string sql = "SELECT * FROM mytable";
+          MySqlCommand myCommand = new MySqlCommand(sql, conn);
+          myCommand.CommandType = CommandType.Text;
         }
       </code>
     </example>
@@ -1017,23 +938,23 @@
 
       <code lang="vbnet">
         Public Sub CreateMySqlCommand()
-        Dim conn as new MySqlConnection("server=myServer")
-        conn.Open();
-        Dim txn as MySqlTransaction = conn.BeginTransaction()
-        Dim sql as String = "SELECT * FROM mytable"
-        Dim myCommand As New MySqlCommand(sql, conn, txn)
-        myCommand.CommandType = CommandType.Text
+          Dim conn as new MySqlConnection("server=myServer")
+          conn.Open();
+          Dim txn as MySqlTransaction = conn.BeginTransaction()
+          Dim sql as String = "SELECT * FROM mytable"
+          Dim myCommand As New MySqlCommand(sql, conn, txn)
+          myCommand.CommandType = CommandType.Text
         End Sub
       </code>
       <code lang="C#">
         public void CreateMySqlCommand()
         {
-        MySqlConnection conn = new MySqlConnection("server=myserver")
-        conn.Open();
-        MySqlTransaction txn = conn.BeginTransaction();
-        string sql = "SELECT * FROM mytable";
-        MySqlCommand myCommand = new MySqlCommand(sql, conn, txn);
-        myCommand.CommandType = CommandType.Text;
+          MySqlConnection conn = new MySqlConnection("server=myserver")
+          conn.Open();
+          MySqlTransaction txn = conn.BeginTransaction();
+          string sql = "SELECT * FROM mytable";
+          MySqlCommand myCommand = new MySqlCommand(sql, conn, txn);
+          myCommand.CommandType = CommandType.Text;
         }
       </code>
     </example>
@@ -1070,7 +991,7 @@
       </code>
       <code lang="C#">
         public void CreateMySqlCommand()
-          {
+        {
           MySqlCommand myCommand = new MySqlCommand();
           myCommand.CommandText = "SELECT * FROM mytable ORDER BY id";
           myCommand.CommandType = CommandType.Text;
@@ -1114,7 +1035,7 @@
       </code>
       <code lang="C#">
         public void CreateMySqlCommand()
-          {
+        {
           MySqlCommand myCommand = new MySqlCommand();
           myCommand.CommandType = CommandType.Text;
         }
@@ -1146,21 +1067,21 @@
       The following example creates a <see cref="T:MySql.Data.MySqlClient.MySqlCommand" /> and sets some of its properties.
       <code lang="vbnet">
         Public Sub CreateMySqlCommand()
-        Dim mySelectQuery As String = "SELECT * FROM mytable ORDER BY id"
-        Dim myConnectString As String = "Persist Security Info=False;database=test;server=myServer"
-        Dim myCommand As New MySqlCommand(mySelectQuery)
-        myCommand.Connection = New MySqlConnection(myConnectString)
-        myCommand.CommandType = CommandType.Text
+          Dim mySelectQuery As String = "SELECT * FROM mytable ORDER BY id"
+          Dim myConnectString As String = "Persist Security Info=False;database=test;server=myServer"
+          Dim myCommand As New MySqlCommand(mySelectQuery)
+          myCommand.Connection = New MySqlConnection(myConnectString)
+          myCommand.CommandType = CommandType.Text
         End Sub
       </code>
       <code lang="C#">
         public void CreateMySqlCommand()
         {
-        string mySelectQuery = "SELECT * FROM mytable ORDER BY id";
-        string myConnectString = "Persist Security Info=False;database=test;server=myServer";
-        MySqlCommand myCommand = new MySqlCommand(mySelectQuery);
-        myCommand.Connection = new MySqlConnection(myConnectString);
-        myCommand.CommandType = CommandType.Text;
+          string mySelectQuery = "SELECT * FROM mytable ORDER BY id";
+          string myConnectString = "Persist Security Info=False;database=test;server=myServer";
+          MySqlCommand myCommand = new MySqlCommand(mySelectQuery);
+          myCommand.Connection = new MySqlConnection(myConnectString);
+          myCommand.CommandType = CommandType.Text;
         }
       </code>
     </example>
@@ -1357,19 +1278,19 @@
       connect to the data source.
       <code lang="vbnet">
         Public Sub CreateMySqlCommand(myExecuteQuery As String, myConnection As MySqlConnection)
-        Dim myCommand As New MySqlCommand(myExecuteQuery, myConnection)
-        myCommand.Connection.Open()
-        myCommand.ExecuteNonQuery()
-        myConnection.Close()
+          Dim myCommand As New MySqlCommand(myExecuteQuery, myConnection)
+          myCommand.Connection.Open()
+          myCommand.ExecuteNonQuery()
+          myConnection.Close()
         End Sub
       </code>
       <code lang="C#">
         public void CreateMySqlCommand(string myExecuteQuery, MySqlConnection myConnection)
         {
-        MySqlCommand myCommand = new MySqlCommand(myExecuteQuery, myConnection);
-        myCommand.Connection.Open();
-        myCommand.ExecuteNonQuery();
-        myConnection.Close();
+          MySqlCommand myCommand = new MySqlCommand(myExecuteQuery, myConnection);
+          myCommand.Connection.Open();
+          myCommand.ExecuteNonQuery();
+          myConnection.Close();
         }
       </code>
     </example>
@@ -1410,39 +1331,40 @@
       data source.
       <code lang="vbnet">
         Public Sub CreateMySqlDataReader(mySelectQuery As String, myConnection As MySqlConnection)
-        Dim myCommand As New MySqlCommand(mySelectQuery, myConnection)
-        myConnection.Open()
-        Dim myReader As MySqlDataReader
-        myReader = myCommand.ExecuteReader()
-        Try
-        While myReader.Read()
-        Console.WriteLine(myReader.GetString(0))
-        End While
-        Finally
-        myReader.Close
-        myConnection.Close
-        End Try
+          Dim myCommand As New MySqlCommand(mySelectQuery, myConnection)
+          myConnection.Open()
+          Dim myReader As MySqlDataReader
+          myReader = myCommand.ExecuteReader()
+          
+          Try
+            While myReader.Read()
+            Console.WriteLine(myReader.GetString(0))
+            End While
+            Finally
+            myReader.Close
+            myConnection.Close
+          End Try
         End Sub
       </code>
       <code lang="C#">
         public void CreateMySqlDataReader(string mySelectQuery, MySqlConnection myConnection)
         {
-        MySqlCommand myCommand = new MySqlCommand(mySelectQuery, myConnection);
-        myConnection.Open();
-        MMySqlDataReader myReader;
-        myReader = myCommand.ExecuteReader();
-        try
-        {
-        while(myReader.Read())
-        {
-        Console.WriteLine(myReader.GetString(0));
-        }
-        }
-        finally
-        {
-        myReader.Close();
-        myConnection.Close();
-        }
+          MySqlCommand myCommand = new MySqlCommand(mySelectQuery, myConnection);
+          myConnection.Open();
+          MMySqlDataReader myReader;
+          myReader = myCommand.ExecuteReader();
+          try
+          {
+            while(myReader.Read())
+            {
+              Console.WriteLine(myReader.GetString(0));
+            }
+          }
+          finally
+          {
+            myReader.Close();
+            myConnection.Close();
+          }
         }
       </code>
     </example>
@@ -1507,32 +1429,21 @@
 
       <code lang="vbnet">
         Public Sub CreateMySqlCommand(myScalarQuery As String, myConnection As MySqlConnection)
-        Dim myCommand As New MySqlCommand(myScalarQuery, myConnection)
-        myCommand.Connection.Open()
-        myCommand.ExecuteScalar()
-        myConnection.Close()
+          Dim myCommand As New MySqlCommand(myScalarQuery, myConnection)
+          myCommand.Connection.Open()
+          myCommand.ExecuteScalar()
+          myConnection.Close()
         End Sub
       </code>
       <code lang="C#">
         public void CreateMySqlCommand(string myScalarQuery, MySqlConnection myConnection)
         {
-        MySqlCommand myCommand = new MySqlCommand(myScalarQuery, myConnection);
-        myCommand.Connection.Open();
-        myCommand.ExecuteScalar();
-        myConnection.Close();
+          MySqlCommand myCommand = new MySqlCommand(myScalarQuery, myConnection);
+          myCommand.Connection.Open();
+          myCommand.ExecuteScalar();
+          myConnection.Close();
         }
       </code>
-      <code lang="C++">
-        public:
-        void CreateMySqlCommand(String* myScalarQuery, MySqlConnection* myConnection)
-        {
-        MySqlCommand* myCommand = new MySqlCommand(myScalarQuery, myConnection);
-        myCommand-&gt;Connection-&gt;Open();
-        myCommand-&gt;ExecuteScalar();
-        myConnection-&gt;Close();
-        }
-      </code>
-
     </example>
         </member>
         <member name="M:MySql.Data.MySqlClient.MySqlCommand.Prepare(System.Int32)">
@@ -1551,25 +1462,25 @@
       The following example demonstrates the use of the <b>Prepare</b> method.
       <code lang="VB.NET">
         public sub PrepareExample()
-        Dim cmd as New MySqlCommand("INSERT INTO mytable VALUES (@val)", myConnection)
-        cmd.Parameters.Add( "@val", 10 )
-        cmd.Prepare()
-        cmd.ExecuteNonQuery()
+          Dim cmd as New MySqlCommand("INSERT INTO mytable VALUES (@val)", myConnection)
+          cmd.Parameters.Add( "@val", 10 )
+          cmd.Prepare()
+          cmd.ExecuteNonQuery()
 
-        cmd.Parameters(0).Value = 20
-        cmd.ExecuteNonQuery()
+          cmd.Parameters(0).Value = 20
+          cmd.ExecuteNonQuery()
         end sub
       </code>
       <code lang="C#">
         private void PrepareExample()
         {
-        MySqlCommand cmd = new MySqlCommand("INSERT INTO mytable VALUES (@val)", myConnection);
-        cmd.Parameters.Add( "@val", 10 );
-        cmd.Prepare();
-        cmd.ExecuteNonQuery();
+          MySqlCommand cmd = new MySqlCommand("INSERT INTO mytable VALUES (@val)", myConnection);
+          cmd.Parameters.Add( "@val", 10 );
+          cmd.Prepare();
+          cmd.ExecuteNonQuery();
 
-        cmd.Parameters[0].Value = 20;
-        cmd.ExecuteNonQuery();
+          cmd.Parameters[0].Value = 20;
+          cmd.ExecuteNonQuery();
         }
       </code>
     </example>
@@ -1690,17 +1601,17 @@
       <code lang="vbnet">
         <c>
           Public Sub InsertRow(myConnectionString As String)
-          ' If the connection string is null, use a default.
-          If myConnectionString = "" Then
-          myConnectionString = "Database=Test;Data Source=localhost;User Id=username;Password=pass"
-          End If
-          Dim myConnection As New MySqlConnection(myConnectionString)
-          Dim myInsertQuery As String = "INSERT INTO Orders (id, customerId, amount) Values(1001, 23, 30.66)"
-          Dim myCommand As New MySqlCommand(myInsertQuery)
-          myCommand.Connection = myConnection
-          myConnection.Open()
-          myCommand.ExecuteNonQuery()
-          myCommand.Connection.Close()
+            ' If the connection string is null, use a default.
+            If myConnectionString = "" Then
+              myConnectionString = "Database=Test;Data Source=localhost;User Id=username;Password=pass"
+            End If
+            Dim myConnection As New MySqlConnection(myConnectionString)
+            Dim myInsertQuery As String = "INSERT INTO Orders (id, customerId, amount) Values(1001, 23, 30.66)"
+            Dim myCommand As New MySqlCommand(myInsertQuery)
+            myCommand.Connection = myConnection
+            myConnection.Open()
+            myCommand.ExecuteNonQuery()
+            myCommand.Connection.Close()
           End Sub
         </c>
       </code>
@@ -1708,18 +1619,18 @@
         <c>
           public void InsertRow(string myConnectionString)
           {
-          // If the connection string is null, use a default.
-          if(myConnectionString == "")
-          {
-          myConnectionString = "Database=Test;Data Source=localhost;User Id=username;Password=pass";
-          }
-          MySqlConnection myConnection = new MySqlConnection(myConnectionString);
-          string myInsertQuery = "INSERT INTO Orders (id, customerId, amount) Values(1001, 23, 30.66)";
-          MySqlCommand myCommand = new MySqlCommand(myInsertQuery);
-          myCommand.Connection = myConnection;
-          myConnection.Open();
-          myCommand.ExecuteNonQuery();
-          myCommand.Connection.Close();
+            // If the connection string is null, use a default.
+            if(myConnectionString == "")
+            {
+              myConnectionString = "Database=Test;Data Source=localhost;User Id=username;Password=pass";
+            }
+            MySqlConnection myConnection = new MySqlConnection(myConnectionString);
+            string myInsertQuery = "INSERT INTO Orders (id, customerId, amount) Values(1001, 23, 30.66)";
+            MySqlCommand myCommand = new MySqlCommand(myInsertQuery);
+            myCommand.Connection = myConnection;
+            myConnection.Open();
+            myCommand.ExecuteNonQuery();
+            myCommand.Connection.Close();
           }
         </c>
       </code>
@@ -1736,7 +1647,6 @@
       When a new instance of <see cref="T:MySql.Data.MySqlClient.MySqlConnection" /> is created, the read/write
       properties are set to the following initial values unless they are specifically
       set using their associated keywords in the <see cref="P:MySql.Data.MySqlClient.MySqlConnection.ConnectionString" /> property.
-      <para />
       <list type="table">
         <listheader>
           <term>Properties</term>
@@ -1773,14 +1683,8 @@
           <term>empty string ("")</term>
         </item>
       </list>
-      <para />
       You can change the value for these properties only by using the <B>ConnectionString</B> property.
-    </remarks><example>
-    </example><overloads>
-      <summary>
-        Initializes a new instance of the <see cref="T:MySql.Data.MySqlClient.MySqlConnection" /> class.
-      </summary>
-    </overloads>
+    </remarks>
         </member>
         <member name="M:MySql.Data.MySqlClient.MySqlConnection.#ctor(System.String)">
             <summary>
@@ -1860,17 +1764,17 @@
       and sets some of its properties in the connection string.
       <code lang="vbnet">
         Public Sub CreateSqlConnection()
-        Dim myConnection As New MySqlConnection()
-        myConnection.ConnectionString = "Persist Security Info=False;Username=user;Password=pass;database=test1;server=localhost;Connect Timeout=30"
-        myConnection.Open()
+          Dim myConnection As New MySqlConnection()
+          myConnection.ConnectionString = "Persist Security Info=False;Username=user;Password=pass;database=test1;server=localhost;Connect Timeout=30"
+          myConnection.Open()
         End Sub
       </code>
       <code lang="C#">
         public void CreateSqlConnection()
         {
-        MySqlConnection myConnection = new MySqlConnection();
-        myConnection.ConnectionString = "Persist Security Info=False;Username=user;Password=pass;database=test1;server=localhost;Connect Timeout=30";
-        myConnection.Open();
+          MySqlConnection myConnection = new MySqlConnection();
+          myConnection.ConnectionString = "Persist Security Info=False;Username=user;Password=pass;database=test1;server=localhost;Connect Timeout=30";
+          myConnection.Open();
         }
       </code>
     </example>
@@ -1889,32 +1793,32 @@
 
       <code lang="vbnet">
         Public Sub CreateMySqlConnection()
-        Dim myConnString As String = _
-        "Persist Security Info=False;database=test;server=localhost;user id=joeuser;pwd=pass"
-        Dim myConnection As New MySqlConnection( myConnString )
-        myConnection.Open()
-        MessageBox.Show( "Server Version: " + myConnection.ServerVersion _
-        + ControlChars.NewLine + "Database: " + myConnection.Database )
-        myConnection.ChangeDatabase( "test2" )
-        MessageBox.Show( "ServerVersion: " + myConnection.ServerVersion _
-        + ControlChars.NewLine + "Database: " + myConnection.Database )
-        myConnection.Close()
+          Dim myConnString As String = _
+          "Persist Security Info=False;database=test;server=localhost;user id=joeuser;pwd=pass"
+          Dim myConnection As New MySqlConnection( myConnString )
+          myConnection.Open()
+          MessageBox.Show( "Server Version: " + myConnection.ServerVersion _
+          + ControlChars.NewLine + "Database: " + myConnection.Database )
+          myConnection.ChangeDatabase( "test2" )
+          MessageBox.Show( "ServerVersion: " + myConnection.ServerVersion _
+          + ControlChars.NewLine + "Database: " + myConnection.Database )
+          myConnection.Close()
         End Sub
       </code>
 
       <code lang="C#">
         public void CreateMySqlConnection()
         {
-        string myConnString =
-        "Persist Security Info=False;database=test;server=localhost;user id=joeuser;pwd=pass";
-        MySqlConnection myConnection = new MySqlConnection( myConnString );
-        myConnection.Open();
-        MessageBox.Show( "Server Version: " + myConnection.ServerVersion
-        + "\nDatabase: " + myConnection.Database );
-        myConnection.ChangeDatabase( "test2" );
-        MessageBox.Show( "ServerVersion: " + myConnection.ServerVersion
-        + "\nDatabase: " + myConnection.Database );
-        myConnection.Close();
+          string myConnString =
+          "Persist Security Info=False;database=test;server=localhost;user id=joeuser;pwd=pass";
+          MySqlConnection myConnection = new MySqlConnection( myConnString );
+          myConnection.Open();
+          MessageBox.Show( "Server Version: " + myConnection.ServerVersion
+          + "\nDatabase: " + myConnection.Database );
+          myConnection.ChangeDatabase( "test2" );
+          MessageBox.Show( "ServerVersion: " + myConnection.ServerVersion
+          + "\nDatabase: " + myConnection.Database );
+          myConnection.Close();
         }
       </code>
     </example>
@@ -1943,21 +1847,21 @@
 
       <code lang="vbnet">
         Public Sub CreateMySqlConnection(myConnString As String)
-        Dim myConnection As New MySqlConnection(myConnString)
-        myConnection.Open()
-        MessageBox.Show("ServerVersion: " + myConnection.ServerVersion _
-        + ControlChars.Cr + "State: " + myConnection.State.ToString())
-        myConnection.Close()
+          Dim myConnection As New MySqlConnection(myConnString)
+          myConnection.Open()
+          MessageBox.Show("ServerVersion: " + myConnection.ServerVersion _
+          + ControlChars.Cr + "State: " + myConnection.State.ToString())
+          myConnection.Close()
         End Sub
       </code>
       <code lang="C#">
         public void CreateMySqlConnection(string myConnString)
         {
-        MySqlConnection myConnection = new MySqlConnection(myConnString);
-        myConnection.Open();
-        MessageBox.Show("ServerVersion: " + myConnection.ServerVersion +
-        "\nState: " + myConnection.State.ToString());
-        myConnection.Close();
+          MySqlConnection myConnection = new MySqlConnection(myConnString);
+          myConnection.Open();
+          MessageBox.Show("ServerVersion: " + myConnection.ServerVersion +
+          "\nState: " + myConnection.State.ToString());
+          myConnection.Close();
         }
       </code>
     </example>
@@ -1969,21 +1873,21 @@
 
       <code lang="vbnet">
         Public Sub CreateMySqlConnection(myConnString As String)
-        Dim myConnection As New MySqlConnection(myConnString)
-        myConnection.Open()
-        MessageBox.Show("ServerVersion: " + myConnection.ServerVersion _
-        + ControlChars.Cr + "State: " + myConnection.State.ToString())
-        myConnection.Close()
+          Dim myConnection As New MySqlConnection(myConnString)
+          myConnection.Open()
+          MessageBox.Show("ServerVersion: " + myConnection.ServerVersion _
+          + ControlChars.Cr + "State: " + myConnection.State.ToString())
+          myConnection.Close()
         End Sub
       </code>
       <code lang="C#">
         public void CreateMySqlConnection(string myConnString)
         {
-        MySqlConnection myConnection = new MySqlConnection(myConnString);
-        myConnection.Open();
-        MessageBox.Show("ServerVersion: " + myConnection.ServerVersion +
-        "\nState: " + myConnection.State.ToString());
-        myConnection.Close();
+          MySqlConnection myConnection = new MySqlConnection(myConnString);
+          myConnection.Open();
+          MessageBox.Show("ServerVersion: " + myConnection.ServerVersion +
+          "\nState: " + myConnection.State.ToString());
+          myConnection.Close();
         }
       </code>
     </example>
@@ -2406,34 +2310,34 @@
       The following example creates a <see cref="T:MySql.Data.MySqlClient.MySqlConnection" /> and sets some of its properties
       <code lang="vbnet">
         Public Sub CreateConnection()
-        Dim myConnection As New MySqlConnection()
-        myConnection.ConnectionString = "Persist Security Info=False;database=myDB;server=myHost;Connect Timeout=30;user id=myUser; pwd=myPass"
-        myConnection.Open()
+          Dim myConnection As New MySqlConnection()
+          myConnection.ConnectionString = "Persist Security Info=False;database=myDB;server=myHost;Connect Timeout=30;user id=myUser; pwd=myPass"
+          myConnection.Open()
         End Sub 'CreateConnection
       </code>
       <code lang="C#">
         public void CreateConnection()
         {
-        MySqlConnection myConnection = new MySqlConnection();
-        myConnection.ConnectionString = "Persist Security Info=False;database=myDB;server=myHost;Connect Timeout=30;user id=myUser; pwd=myPass";
-        myConnection.Open();
+          MySqlConnection myConnection = new MySqlConnection();
+          myConnection.ConnectionString = "Persist Security Info=False;database=myDB;server=myHost;Connect Timeout=30;user id=myUser; pwd=myPass";
+          myConnection.Open();
         }
       </code>
     </example><example>
       The following example creates a <see cref="T:MySql.Data.MySqlClient.MySqlConnection" /> in Unix environment with Mono installed. MySQL socket filename used in this example is "/var/lib/mysql/mysql.sock". The actual filename depends on your MySQL configuration.
       <code lang="vbnet">
         Public Sub CreateConnection()
-        Dim myConnection As New MySqlConnection()
-        myConnection.ConnectionString = "database=myDB;server=/var/lib/mysql/mysql.sock;user id=myUser; pwd=myPass"
-        myConnection.Open()
+          Dim myConnection As New MySqlConnection()
+          myConnection.ConnectionString = "database=myDB;server=/var/lib/mysql/mysql.sock;user id=myUser; pwd=myPass"
+          myConnection.Open()
         End Sub 'CreateConnection
       </code>
       <code lang="C#">
         public void CreateConnection()
         {
-        MySqlConnection myConnection = new MySqlConnection();
-        myConnection.ConnectionString = "database=myDB;server=/var/lib/mysql/mysql.sock;user id=myUser; pwd=myPass";
-        myConnection.Open();
+          MySqlConnection myConnection = new MySqlConnection();
+          myConnection.ConnectionString = "database=myDB;server=/var/lib/mysql/mysql.sock;user id=myUser; pwd=myPass";
+          myConnection.Open();
         }
       </code>
     </example>
@@ -2462,92 +2366,92 @@
       <see cref="M:MySql.Data.MySqlClient.MySqlTransaction.Commit" />, and <see cref="M:MySql.Data.MySqlClient.MySqlTransaction.Rollback" /> methods.
       <code lang="vbnet">
         Public Sub RunTransaction(myConnString As String)
-        Dim myConnection As New MySqlConnection(myConnString)
-        myConnection.Open()
+          Dim myConnection As New MySqlConnection(myConnString)
+          myConnection.Open()
 
-        Dim myCommand As MySqlCommand = myConnection.CreateCommand()
-        Dim myTrans As MySqlTransaction
+          Dim myCommand As MySqlCommand = myConnection.CreateCommand()
+          Dim myTrans As MySqlTransaction
 
-        ' Start a local transaction
-        myTrans = myConnection.BeginTransaction()
-        ' Must assign both transaction object and connection
-        ' to Command object for a pending local transaction
-        myCommand.Connection = myConnection
-        myCommand.Transaction = myTrans
+          ' Start a local transaction
+          myTrans = myConnection.BeginTransaction()
+          ' Must assign both transaction object and connection
+          ' to Command object for a pending local transaction
+          myCommand.Connection = myConnection
+          myCommand.Transaction = myTrans
 
-        Try
-        myCommand.CommandText = "Insert into Test (id, desc) VALUES (100, 'Description')"
-        myCommand.ExecuteNonQuery()
-        myCommand.CommandText = "Insert into Test (id, desc) VALUES (101, 'Description')"
-        myCommand.ExecuteNonQuery()
-        myTrans.Commit()
-        Console.WriteLine("Both records are written to database.")
-        Catch e As Exception
-        Try
-        myTrans.Rollback()
-        Catch ex As MySqlException
-        If Not myTrans.Connection Is Nothing Then
-        Console.WriteLine("An exception of type " + ex.GetType().ToString() + _
-        " was encountered while attempting to roll back the transaction.")
-        End If
-        End Try
+          Try
+            myCommand.CommandText = "Insert into Test (id, desc) VALUES (100, 'Description')"
+            myCommand.ExecuteNonQuery()
+            myCommand.CommandText = "Insert into Test (id, desc) VALUES (101, 'Description')"
+            myCommand.ExecuteNonQuery()
+            myTrans.Commit()
+            Console.WriteLine("Both records are written to database.")
+          Catch e As Exception
+            Try
+              myTrans.Rollback()
+              Catch ex As MySqlException
+              If Not myTrans.Connection Is Nothing Then
+                Console.WriteLine("An exception of type " + ex.GetType().ToString() + _
+                " was encountered while attempting to roll back the transaction.")
+              End If
+            End Try
 
-        Console.WriteLine("An exception of type " + e.GetType().ToString() + _
-        "was encountered while inserting the data.")
-        Console.WriteLine("Neither record was written to database.")
-        Finally
-        myConnection.Close()
-        End Try
+            Console.WriteLine("An exception of type " + e.GetType().ToString() + _
+            "was encountered while inserting the data.")
+            Console.WriteLine("Neither record was written to database.")
+          Finally
+            myConnection.Close()
+          End Try
         End Sub
       </code>
       <code lang="C#">
         public void RunTransaction(string myConnString)
         {
-        MySqlConnection myConnection = new MySqlConnection(myConnString);
-        myConnection.Open();
+          MySqlConnection myConnection = new MySqlConnection(myConnString);
+          myConnection.Open();
 
-        MySqlCommand myCommand = myConnection.CreateCommand();
-        MySqlTransaction myTrans;
+          MySqlCommand myCommand = myConnection.CreateCommand();
+          MySqlTransaction myTrans;
 
-        // Start a local transaction
-        myTrans = myConnection.BeginTransaction();
-        // Must assign both transaction object and connection
-        // to Command object for a pending local transaction
-        myCommand.Connection = myConnection;
-        myCommand.Transaction = myTrans;
+          // Start a local transaction
+          myTrans = myConnection.BeginTransaction();
+          // Must assign both transaction object and connection
+          // to Command object for a pending local transaction
+          myCommand.Connection = myConnection;
+          myCommand.Transaction = myTrans;
 
-        try
-        {
-        myCommand.CommandText = "insert into Test (id, desc) VALUES (100, 'Description')";
-        myCommand.ExecuteNonQuery();
-        myCommand.CommandText = "insert into Test (id, desc) VALUES (101, 'Description')";
-        myCommand.ExecuteNonQuery();
-        myTrans.Commit();
-        Console.WriteLine("Both records are written to database.");
-        }
-        catch(Exception e)
-        {
-        try
-        {
-        myTrans.Rollback();
-        }
-        catch (SqlException ex)
-        {
-        if (myTrans.Connection != null)
-        {
-        Console.WriteLine("An exception of type " + ex.GetType() +
-        " was encountered while attempting to roll back the transaction.");
-        }
-        }
+          try
+          {
+            myCommand.CommandText = "insert into Test (id, desc) VALUES (100, 'Description')";
+            myCommand.ExecuteNonQuery();
+            myCommand.CommandText = "insert into Test (id, desc) VALUES (101, 'Description')";
+            myCommand.ExecuteNonQuery();
+            myTrans.Commit();
+            Console.WriteLine("Both records are written to database.");
+          }
+          catch(Exception e)
+          {
+            try
+            {
+              myTrans.Rollback();
+            }
+            catch (SqlException ex)
+            {
+              if (myTrans.Connection != null)
+              {
+                Console.WriteLine("An exception of type " + ex.GetType() +
+                " was encountered while attempting to roll back the transaction.");
+              }
+            }
 
-        Console.WriteLine("An exception of type " + e.GetType() +
-        " was encountered while inserting the data.");
-        Console.WriteLine("Neither record was written to database.");
-        }
-        finally
-        {
-        myConnection.Close();
-        }
+            Console.WriteLine("An exception of type " + e.GetType() +
+            " was encountered while inserting the data.");
+            Console.WriteLine("Neither record was written to database.");
+          }
+          finally
+          {
+            myConnection.Close();
+          }
         }
       </code>
     </example>
@@ -2571,92 +2475,92 @@
       <see cref="M:MySql.Data.MySqlClient.MySqlTransaction.Commit" />, and <see cref="M:MySql.Data.MySqlClient.MySqlTransaction.Rollback" /> methods.
       <code lang="vbnet">
         Public Sub RunTransaction(myConnString As String)
-        Dim myConnection As New MySqlConnection(myConnString)
-        myConnection.Open()
+          Dim myConnection As New MySqlConnection(myConnString)
+          myConnection.Open()
 
-        Dim myCommand As MySqlCommand = myConnection.CreateCommand()
-        Dim myTrans As MySqlTransaction
+          Dim myCommand As MySqlCommand = myConnection.CreateCommand()
+          Dim myTrans As MySqlTransaction
 
-        ' Start a local transaction
-        myTrans = myConnection.BeginTransaction()
-        ' Must assign both transaction object and connection
-        ' to Command object for a pending local transaction
-        myCommand.Connection = myConnection
-        myCommand.Transaction = myTrans
+          ' Start a local transaction
+          myTrans = myConnection.BeginTransaction()
+          ' Must assign both transaction object and connection
+          ' to Command object for a pending local transaction
+          myCommand.Connection = myConnection
+          myCommand.Transaction = myTrans
 
-        Try
-        myCommand.CommandText = "Insert into Test (id, desc) VALUES (100, 'Description')"
-        myCommand.ExecuteNonQuery()
-        myCommand.CommandText = "Insert into Test (id, desc) VALUES (101, 'Description')"
-        myCommand.ExecuteNonQuery()
-        myTrans.Commit()
-        Console.WriteLine("Both records are written to database.")
-        Catch e As Exception
-        Try
-        myTrans.Rollback()
-        Catch ex As MySqlException
-        If Not myTrans.Connection Is Nothing Then
-        Console.WriteLine("An exception of type " + ex.GetType().ToString() + _
-        " was encountered while attempting to roll back the transaction.")
-        End If
-        End Try
+          Try
+            myCommand.CommandText = "Insert into Test (id, desc) VALUES (100, 'Description')"
+            myCommand.ExecuteNonQuery()
+            myCommand.CommandText = "Insert into Test (id, desc) VALUES (101, 'Description')"
+            myCommand.ExecuteNonQuery()
+            myTrans.Commit()
+            Console.WriteLine("Both records are written to database.")
+          Catch e As Exception
+            Try
+            myTrans.Rollback()
+            Catch ex As MySqlException
+              If Not myTrans.Connection Is Nothing Then
+                Console.WriteLine("An exception of type " + ex.GetType().ToString() + _
+                " was encountered while attempting to roll back the transaction.")
+              End If
+            End Try
 
-        Console.WriteLine("An exception of type " + e.GetType().ToString() + _
-        "was encountered while inserting the data.")
-        Console.WriteLine("Neither record was written to database.")
-        Finally
-        myConnection.Close()
-        End Try
+            Console.WriteLine("An exception of type " + e.GetType().ToString() + _
+            "was encountered while inserting the data.")
+            Console.WriteLine("Neither record was written to database.")
+          Finally
+            myConnection.Close()
+          End Try
         End Sub
       </code>
       <code lang="C#">
         public void RunTransaction(string myConnString)
         {
-        MySqlConnection myConnection = new MySqlConnection(myConnString);
-        myConnection.Open();
+          MySqlConnection myConnection = new MySqlConnection(myConnString);
+          myConnection.Open();
 
-        MySqlCommand myCommand = myConnection.CreateCommand();
-        MySqlTransaction myTrans;
+          MySqlCommand myCommand = myConnection.CreateCommand();
+          MySqlTransaction myTrans;
 
-        // Start a local transaction
-        myTrans = myConnection.BeginTransaction();
-        // Must assign both transaction object and connection
-        // to Command object for a pending local transaction
-        myCommand.Connection = myConnection;
-        myCommand.Transaction = myTrans;
+          // Start a local transaction
+          myTrans = myConnection.BeginTransaction();
+          // Must assign both transaction object and connection
+          // to Command object for a pending local transaction
+          myCommand.Connection = myConnection;
+          myCommand.Transaction = myTrans;
 
-        try
-        {
-        myCommand.CommandText = "insert into Test (id, desc) VALUES (100, 'Description')";
-        myCommand.ExecuteNonQuery();
-        myCommand.CommandText = "insert into Test (id, desc) VALUES (101, 'Description')";
-        myCommand.ExecuteNonQuery();
-        myTrans.Commit();
-        Console.WriteLine("Both records are written to database.");
-        }
-        catch(Exception e)
-        {
-        try
-        {
-        myTrans.Rollback();
-        }
-        catch (SqlException ex)
-        {
-        if (myTrans.Connection != null)
-        {
-        Console.WriteLine("An exception of type " + ex.GetType() +
-        " was encountered while attempting to roll back the transaction.");
-        }
-        }
+          try
+          {
+            myCommand.CommandText = "insert into Test (id, desc) VALUES (100, 'Description')";
+            myCommand.ExecuteNonQuery();
+            myCommand.CommandText = "insert into Test (id, desc) VALUES (101, 'Description')";
+            myCommand.ExecuteNonQuery();
+            myTrans.Commit();
+            Console.WriteLine("Both records are written to database.");
+          }
+          catch(Exception e)
+          {
+            try
+            {
+              myTrans.Rollback();
+            }
+            catch (SqlException ex)
+            {
+              if (myTrans.Connection != null)
+              {
+                Console.WriteLine("An exception of type " + ex.GetType() +
+                " was encountered while attempting to roll back the transaction.");
+              }
+            }
 
-        Console.WriteLine("An exception of type " + e.GetType() +
-        " was encountered while inserting the data.");
-        Console.WriteLine("Neither record was written to database.");
-        }
-        finally
-        {
-        myConnection.Close();
-        }
+            Console.WriteLine("An exception of type " + e.GetType() +
+            " was encountered while inserting the data.");
+            Console.WriteLine("Neither record was written to database.");
+          }
+          finally
+          {
+            myConnection.Close();
+          }
         }
       </code>
     </example>
@@ -2681,32 +2585,32 @@
 
       <code lang="vbnet">
         Public Sub CreateMySqlConnection()
-        Dim myConnString As String = _
-        "Persist Security Info=False;database=test;server=localhost;user id=joeuser;pwd=pass"
-        Dim myConnection As New MySqlConnection( myConnString )
-        myConnection.Open()
-        MessageBox.Show( "Server Version: " + myConnection.ServerVersion _
-        + ControlChars.NewLine + "Database: " + myConnection.Database )
-        myConnection.ChangeDatabase( "test2" )
-        MessageBox.Show( "ServerVersion: " + myConnection.ServerVersion _
-        + ControlChars.NewLine + "Database: " + myConnection.Database )
-        myConnection.Close()
+          Dim myConnString As String = _
+          "Persist Security Info=False;database=test;server=localhost;user id=joeuser;pwd=pass"
+          Dim myConnection As New MySqlConnection( myConnString )
+          myConnection.Open()
+          MessageBox.Show( "Server Version: " + myConnection.ServerVersion _
+          + ControlChars.NewLine + "Database: " + myConnection.Database )
+          myConnection.ChangeDatabase( "test2" )
+          MessageBox.Show( "ServerVersion: " + myConnection.ServerVersion _
+          + ControlChars.NewLine + "Database: " + myConnection.Database )
+          myConnection.Close()
         End Sub
       </code>
 
       <code lang="C#">
         public void CreateMySqlConnection()
         {
-        string myConnString =
-        "Persist Security Info=False;database=test;server=localhost;user id=joeuser;pwd=pass";
-        MySqlConnection myConnection = new MySqlConnection( myConnString );
-        myConnection.Open();
-        MessageBox.Show( "Server Version: " + myConnection.ServerVersion
-        + "\nDatabase: " + myConnection.Database );
-        myConnection.ChangeDatabase( "test2" );
-        MessageBox.Show( "ServerVersion: " + myConnection.ServerVersion
-        + "\nDatabase: " + myConnection.Database );
-        myConnection.Close();
+          string myConnString =
+          "Persist Security Info=False;database=test;server=localhost;user id=joeuser;pwd=pass";
+          MySqlConnection myConnection = new MySqlConnection( myConnString );
+          myConnection.Open();
+          MessageBox.Show( "Server Version: " + myConnection.ServerVersion
+          + "\nDatabase: " + myConnection.Database );
+          myConnection.ChangeDatabase( "test2" );
+          MessageBox.Show( "ServerVersion: " + myConnection.ServerVersion
+          + "\nDatabase: " + myConnection.Database );
+          myConnection.Close();
         }
       </code>
     </example>
@@ -2729,21 +2633,21 @@
 
       <code lang="vbnet">
         Public Sub CreateMySqlConnection(myConnString As String)
-        Dim myConnection As New MySqlConnection(myConnString)
-        myConnection.Open()
-        MessageBox.Show("ServerVersion: " + myConnection.ServerVersion _
-        + ControlChars.Cr + "State: " + myConnection.State.ToString())
-        myConnection.Close()
+          Dim myConnection As New MySqlConnection(myConnString)
+          myConnection.Open()
+          MessageBox.Show("ServerVersion: " + myConnection.ServerVersion _
+          + ControlChars.Cr + "State: " + myConnection.State.ToString())
+          myConnection.Close()
         End Sub
       </code>
       <code lang="C#">
         public void CreateMySqlConnection(string myConnString)
         {
-        MySqlConnection myConnection = new MySqlConnection(myConnString);
-        myConnection.Open();
-        MessageBox.Show("ServerVersion: " + myConnection.ServerVersion +
-        "\nState: " + myConnection.State.ToString());
-        myConnection.Close();
+          MySqlConnection myConnection = new MySqlConnection(myConnString);
+          myConnection.Open();
+          MessageBox.Show("ServerVersion: " + myConnection.ServerVersion +
+          "\nState: " + myConnection.State.ToString());
+          myConnection.Close();
         }
       </code>
     </example>
@@ -2772,21 +2676,21 @@
 
       <code lang="vbnet">
         Public Sub CreateMySqlConnection(myConnString As String)
-        Dim myConnection As New MySqlConnection(myConnString)
-        myConnection.Open()
-        MessageBox.Show("ServerVersion: " + myConnection.ServerVersion _
-        + ControlChars.Cr + "State: " + myConnection.State.ToString())
-        myConnection.Close()
+          Dim myConnection As New MySqlConnection(myConnString)
+          myConnection.Open()
+          MessageBox.Show("ServerVersion: " + myConnection.ServerVersion _
+          + ControlChars.Cr + "State: " + myConnection.State.ToString())
+          myConnection.Close()
         End Sub
       </code>
       <code lang="C#">
         public void CreateMySqlConnection(string myConnString)
         {
-        MySqlConnection myConnection = new MySqlConnection(myConnString);
-        myConnection.Open();
-        MessageBox.Show("ServerVersion: " + myConnection.ServerVersion +
-        "\nState: " + myConnection.State.ToString());
-        myConnection.Close();
+          MySqlConnection myConnection = new MySqlConnection(myConnString);
+          myConnection.Open();
+          MessageBox.Show("ServerVersion: " + myConnection.ServerVersion +
+          "\nState: " + myConnection.State.ToString());
+          myConnection.Close();
         }
       </code>
     </example>
@@ -3070,38 +2974,38 @@
       <B>MySqlConnection</B>.
       <code lang="vbnet">
         Public Sub ReadMyData(myConnString As String)
-        Dim mySelectQuery As String = "SELECT OrderID, CustomerID FROM Orders"
-        Dim myConnection As New MySqlConnection(myConnString)
-        Dim myCommand As New MySqlCommand(mySelectQuery, myConnection)
-        myConnection.Open()
-        Dim myReader As MySqlDataReader
-        myReader = myCommand.ExecuteReader()
-        ' Always call Read before accessing data.
-        While myReader.Read()
-        Console.WriteLine((myReader.GetInt32(0) &amp; ", " &amp; myReader.GetString(1)))
-        End While
-        ' always call Close when done reading.
-        myReader.Close()
-        ' Close the connection when done with it.
-        myConnection.Close()
+          Dim mySelectQuery As String = "SELECT OrderID, CustomerID FROM Orders"
+          Dim myConnection As New MySqlConnection(myConnString)
+          Dim myCommand As New MySqlCommand(mySelectQuery, myConnection)
+          myConnection.Open()
+          Dim myReader As MySqlDataReader
+          myReader = myCommand.ExecuteReader()
+          ' Always call Read before accessing data.
+          While myReader.Read()
+          Console.WriteLine((myReader.GetInt32(0) &amp; ", " &amp; myReader.GetString(1)))
+          End While
+          ' always call Close when done reading.
+          myReader.Close()
+          ' Close the connection when done with it.
+          myConnection.Close()
         End Sub 'ReadMyData
       </code>
       <code lang="C#">
         public void ReadMyData(string myConnString) {
-        string mySelectQuery = "SELECT OrderID, CustomerID FROM Orders";
-        MySqlConnection myConnection = new MySqlConnection(myConnString);
-        MySqlCommand myCommand = new MySqlCommand(mySelectQuery,myConnection);
-        myConnection.Open();
-        MySqlDataReader myReader;
-        myReader = myCommand.ExecuteReader();
-        // Always call Read before accessing data.
-        while (myReader.Read()) {
-        Console.WriteLine(myReader.GetInt32(0) + ", " + myReader.GetString(1));
-        }
-        // always call Close when done reading.
-        myReader.Close();
-        // Close the connection when done with it.
-        myConnection.Close();
+          string mySelectQuery = "SELECT OrderID, CustomerID FROM Orders";
+          MySqlConnection myConnection = new MySqlConnection(myConnString);
+          MySqlCommand myCommand = new MySqlCommand(mySelectQuery,myConnection);
+          myConnection.Open();
+          MySqlDataReader myReader;
+          myReader = myCommand.ExecuteReader();
+          // Always call Read before accessing data.
+          while (myReader.Read()) {
+          Console.WriteLine(myReader.GetInt32(0) + ", " + myReader.GetString(1));
+          }
+          // always call Close when done reading.
+          myReader.Close();
+          // Close the connection when done with it.
+          myConnection.Close();
         }
       </code>
     </example>
@@ -3691,33 +3595,33 @@
 
       <code lang="vbnet">
         Public Sub ShowException()
-        Dim mySelectQuery As String = "SELECT column1 FROM table1"
-        Dim myConnection As New MySqlConnection ("Data Source=localhost;Database=Sample;")
-        Dim myCommand As New MySqlCommand(mySelectQuery, myConnection)
+          Dim mySelectQuery As String = "SELECT column1 FROM table1"
+          Dim myConnection As New MySqlConnection ("Data Source=localhost;Database=Sample;")
+          Dim myCommand As New MySqlCommand(mySelectQuery, myConnection)
 
-        Try
-        myCommand.Connection.Open()
-        Catch e As MySqlException
-        MessageBox.Show( e.Message )
-        End Try
+          Try
+            myCommand.Connection.Open()
+            Catch e As MySqlException
+            MessageBox.Show( e.Message )
+          End Try
         End Sub
       </code>
       <code lang="C#">
         public void ShowException()
         {
-        string mySelectQuery = "SELECT column1 FROM table1";
-        MySqlConnection myConnection =
-        new MySqlConnection("Data Source=localhost;Database=Sample;");
-        MySqlCommand myCommand = new MySqlCommand(mySelectQuery,myConnection);
+          string mySelectQuery = "SELECT column1 FROM table1";
+          MySqlConnection myConnection =
+          new MySqlConnection("Data Source=localhost;Database=Sample;");
+          MySqlCommand myCommand = new MySqlCommand(mySelectQuery,myConnection);
 
-        try
-        {
-        myCommand.Connection.Open();
-        }
-        catch (MySqlException e)
-        {
-        MessageBox.Show( e.Message );
-        }
+          try
+          {
+            myCommand.Connection.Open();
+          }
+          catch (MySqlException e)
+          {
+            MessageBox.Show( e.Message );
+          }
         }
       </code>
     </example>
@@ -3836,45 +3740,45 @@
 
       <code lang="vbnet">
         Public Shared Function SelectRows(myConnection As String, mySelectQuery As String, myTableName As String) As DataSet
-        Dim myConn As New MySqlConnection(myConnection)
-        Dim myDataAdapter As New MySqlDataAdapter()
-        myDataAdapter.SelectCommand = New MySqlCommand(mySelectQuery, myConn)
-        Dim cb As SqlCommandBuilder = New MySqlCommandBuilder(myDataAdapter)
+          Dim myConn As New MySqlConnection(myConnection)
+          Dim myDataAdapter As New MySqlDataAdapter()
+          myDataAdapter.SelectCommand = New MySqlCommand(mySelectQuery, myConn)
+          Dim cb As SqlCommandBuilder = New MySqlCommandBuilder(myDataAdapter)
 
-        myConn.Open()
+          myConn.Open()
 
-        Dim ds As DataSet = New DataSet
-        myDataAdapter.Fill(ds, myTableName)
+          Dim ds As DataSet = New DataSet
+          myDataAdapter.Fill(ds, myTableName)
 
-        ' Code to modify data in DataSet here
+          ' Code to modify data in DataSet here
 
-        ' Without the MySqlCommandBuilder this line would fail.
-        myDataAdapter.Update(ds, myTableName)
+          ' Without the MySqlCommandBuilder this line would fail.
+          myDataAdapter.Update(ds, myTableName)
 
-        myConn.Close()
+          myConn.Close()
         End Function 'SelectRows
       </code>
       <code lang="C#">
         public static DataSet SelectRows(string myConnection, string mySelectQuery, string myTableName)
         {
-        MySqlConnection myConn = new MySqlConnection(myConnection);
-        MySqlDataAdapter myDataAdapter = new MySqlDataAdapter();
-        myDataAdapter.SelectCommand = new MySqlCommand(mySelectQuery, myConn);
-        MySqlCommandBuilder cb = new MySqlCommandBuilder(myDataAdapter);
+          MySqlConnection myConn = new MySqlConnection(myConnection);
+          MySqlDataAdapter myDataAdapter = new MySqlDataAdapter();
+          myDataAdapter.SelectCommand = new MySqlCommand(mySelectQuery, myConn);
+          MySqlCommandBuilder cb = new MySqlCommandBuilder(myDataAdapter);
 
-        myConn.Open();
+          myConn.Open();
 
-        DataSet ds = new DataSet();
-        myDataAdapter.Fill(ds, myTableName);
+          DataSet ds = new DataSet();
+          myDataAdapter.Fill(ds, myTableName);
 
-        //code to modify data in DataSet here
+          //code to modify data in DataSet here
 
-        //Without the MySqlCommandBuilder this line would fail
-        myDataAdapter.Update(ds, myTableName);
+          //Without the MySqlCommandBuilder this line would fail
+          myDataAdapter.Update(ds, myTableName);
 
-        myConn.Close();
+          myConn.Close();
 
-        return ds;
+          return ds;
         }
 
       </code>
@@ -4012,21 +3916,21 @@
       statement.
       <code lang="vbnet">
         Public Function SelectRows(dataSet As DataSet, connection As String, query As String) As DataSet
-        Dim conn As New MySqlConnection(connection)
-        Dim adapter As New MySqlDataAdapter()
-        adapter.SelectCommand = new MySqlCommand(query, conn)
-        adapter.Fill(dataset)
-        Return dataset
+          Dim conn As New MySqlConnection(connection)
+          Dim adapter As New MySqlDataAdapter()
+          adapter.SelectCommand = new MySqlCommand(query, conn)
+          adapter.Fill(dataset)
+          Return dataset
         End Function
       </code>
       <code lang="C#">
         public DataSet SelectRows(DataSet dataset,string connection,string query)
         {
-        MySqlConnection conn = new MySqlConnection(connection);
-        MySqlDataAdapter adapter = new MySqlDataAdapter();
-        adapter.SelectCommand = new MySqlCommand(query, conn);
-        adapter.Fill(dataset);
-        return dataset;
+          MySqlConnection conn = new MySqlConnection(connection);
+          MySqlDataAdapter adapter = new MySqlDataAdapter();
+          adapter.SelectCommand = new MySqlCommand(query, conn);
+          adapter.Fill(dataset);
+          return dataset;
         }
       </code>
     </example>
@@ -4081,50 +3985,50 @@
       its properties.
       <code lang="vbnet">
         Public Sub CreateSqlDataAdapter()
-        Dim conn As MySqlConnection = New MySqlConnection("Data Source=localhost;" &amp; _
-        "database=test")
-        Dim da As MySqlDataAdapter = New MySqlDataAdapter
-        da.MissingSchemaAction = MissingSchemaAction.AddWithKey
+          Dim conn As MySqlConnection = New MySqlConnection("Data Source=localhost;" &amp; _
+          "database=test")
+          Dim da As MySqlDataAdapter = New MySqlDataAdapter
+          da.MissingSchemaAction = MissingSchemaAction.AddWithKey
 
-        da.SelectCommand = New MySqlCommand("SELECT id, name FROM mytable", conn)
-        da.InsertCommand = New MySqlCommand("INSERT INTO mytable (id, name) " &amp; _
-        "VALUES (@id, @name)", conn)
-        da.UpdateCommand = New MySqlCommand("UPDATE mytable SET id=@id, name=@name " &amp; _
-        "WHERE id=@oldId", conn)
-        da.DeleteCommand = New MySqlCommand("DELETE FROM mytable WHERE id=@id", conn)
+          da.SelectCommand = New MySqlCommand("SELECT id, name FROM mytable", conn)
+          da.InsertCommand = New MySqlCommand("INSERT INTO mytable (id, name) " &amp; _
+          "VALUES (@id, @name)", conn)
+          da.UpdateCommand = New MySqlCommand("UPDATE mytable SET id=@id, name=@name " &amp; _
+          "WHERE id=@oldId", conn)
+          da.DeleteCommand = New MySqlCommand("DELETE FROM mytable WHERE id=@id", conn)
 
-        da.InsertCommand.Parameters.Add("@id", MySqlDbType.VarChar, 5, "id")
-        da.InsertCommand.Parameters.Add("@name", MySqlDbType.VarChar, 40, "name")
+          da.InsertCommand.Parameters.Add("@id", MySqlDbType.VarChar, 5, "id")
+          da.InsertCommand.Parameters.Add("@name", MySqlDbType.VarChar, 40, "name")
 
-        da.UpdateCommand.Parameters.Add("@id", MySqlDbType.VarChar, 5, "id")
-        da.UpdateCommand.Parameters.Add("@name", MySqlDbType.VarChar, 40, "name")
-        da.UpdateCommand.Parameters.Add("@oldId", MySqlDbType.VarChar, 5, "id").SourceVersion = DataRowVersion.Original
+          da.UpdateCommand.Parameters.Add("@id", MySqlDbType.VarChar, 5, "id")
+          da.UpdateCommand.Parameters.Add("@name", MySqlDbType.VarChar, 40, "name")
+          da.UpdateCommand.Parameters.Add("@oldId", MySqlDbType.VarChar, 5, "id").SourceVersion = DataRowVersion.Original
 
-        da.DeleteCommand.Parameters.Add("@id", MySqlDbType.VarChar, 5, "id").SourceVersion = DataRowVersion.Original
+          da.DeleteCommand.Parameters.Add("@id", MySqlDbType.VarChar, 5, "id").SourceVersion = DataRowVersion.Original
         End Sub
       </code>
       <code lang="C#">
         public static void CreateSqlDataAdapter()
         {
-        MySqlConnection conn = new MySqlConnection("Data Source=localhost;database=test");
-        MySqlDataAdapter da = new MySqlDataAdapter();
-        da.MissingSchemaAction = MissingSchemaAction.AddWithKey;
+          MySqlConnection conn = new MySqlConnection("Data Source=localhost;database=test");
+          MySqlDataAdapter da = new MySqlDataAdapter();
+          da.MissingSchemaAction = MissingSchemaAction.AddWithKey;
 
-        da.SelectCommand = new MySqlCommand("SELECT id, name FROM mytable", conn);
-        da.InsertCommand = new MySqlCommand("INSERT INTO mytable (id, name) " +
-        "VALUES (@id, @name)", conn);
-        da.UpdateCommand = new MySqlCommand("UPDATE mytable SET id=@id, name=@name " +
-        "WHERE id=@oldId", conn);
-        da.DeleteCommand = new MySqlCommand("DELETE FROM mytable WHERE id=@id", conn);
+          da.SelectCommand = new MySqlCommand("SELECT id, name FROM mytable", conn);
+          da.InsertCommand = new MySqlCommand("INSERT INTO mytable (id, name) " +
+          "VALUES (@id, @name)", conn);
+          da.UpdateCommand = new MySqlCommand("UPDATE mytable SET id=@id, name=@name " +
+          "WHERE id=@oldId", conn);
+          da.DeleteCommand = new MySqlCommand("DELETE FROM mytable WHERE id=@id", conn);
 
-        da.InsertCommand.Parameters.Add("@id", MySqlDbType.VarChar, 5, "id");
-        da.InsertCommand.Parameters.Add("@name", MySqlDbType.VarChar, 40, "name");
+          da.InsertCommand.Parameters.Add("@id", MySqlDbType.VarChar, 5, "id");
+          da.InsertCommand.Parameters.Add("@name", MySqlDbType.VarChar, 40, "name");
 
-        da.UpdateCommand.Parameters.Add("@id", MySqlDbType.VarChar, 5, "id");
-        da.UpdateCommand.Parameters.Add("@name", MySqlDbType.VarChar, 40, "name");
-        da.UpdateCommand.Parameters.Add("@oldId", MySqlDbType.VarChar, 5, "id").SourceVersion = DataRowVersion.Original;
+          da.UpdateCommand.Parameters.Add("@id", MySqlDbType.VarChar, 5, "id");
+          da.UpdateCommand.Parameters.Add("@name", MySqlDbType.VarChar, 40, "name");
+          da.UpdateCommand.Parameters.Add("@oldId", MySqlDbType.VarChar, 5, "id").SourceVersion = DataRowVersion.Original;
 
-        da.DeleteCommand.Parameters.Add("@id", MySqlDbType.VarChar, 5, "id").SourceVersion = DataRowVersion.Original;
+          da.DeleteCommand.Parameters.Add("@id", MySqlDbType.VarChar, 5, "id").SourceVersion = DataRowVersion.Original;
         }
       </code>
     </example>
@@ -4180,50 +4084,50 @@
       its properties.
       <code lang="vbnet">
         Public Sub CreateSqlDataAdapter()
-        Dim conn As MySqlConnection = New MySqlConnection("Data Source=localhost;" &amp; _
-        "database=test")
-        Dim cmd as new MySqlCommand("SELECT id, name FROM mytable", conn)
-        Dim da As MySqlDataAdapter = New MySqlDataAdapter(cmd)
-        da.MissingSchemaAction = MissingSchemaAction.AddWithKey
+          Dim conn As MySqlConnection = New MySqlConnection("Data Source=localhost;" &amp; _
+          "database=test")
+          Dim cmd as new MySqlCommand("SELECT id, name FROM mytable", conn)
+          Dim da As MySqlDataAdapter = New MySqlDataAdapter(cmd)
+          da.MissingSchemaAction = MissingSchemaAction.AddWithKey
 
-        da.InsertCommand = New MySqlCommand("INSERT INTO mytable (id, name) " &amp; _
-        "VALUES (@id, @name)", conn)
-        da.UpdateCommand = New MySqlCommand("UPDATE mytable SET id=@id, name=@name " &amp; _
-        "WHERE id=@oldId", conn)
-        da.DeleteCommand = New MySqlCommand("DELETE FROM mytable WHERE id=@id", conn)
+          da.InsertCommand = New MySqlCommand("INSERT INTO mytable (id, name) " &amp; _
+          "VALUES (@id, @name)", conn)
+          da.UpdateCommand = New MySqlCommand("UPDATE mytable SET id=@id, name=@name " &amp; _
+          "WHERE id=@oldId", conn)
+          da.DeleteCommand = New MySqlCommand("DELETE FROM mytable WHERE id=@id", conn)
 
-        da.InsertCommand.Parameters.Add("@id", MySqlDbType.VarChar, 5, "id")
-        da.InsertCommand.Parameters.Add("@name", MySqlDbType.VarChar, 40, "name")
+          da.InsertCommand.Parameters.Add("@id", MySqlDbType.VarChar, 5, "id")
+          da.InsertCommand.Parameters.Add("@name", MySqlDbType.VarChar, 40, "name")
 
-        da.UpdateCommand.Parameters.Add("@id", MySqlDbType.VarChar, 5, "id")
-        da.UpdateCommand.Parameters.Add("@name", MySqlDbType.VarChar, 40, "name")
-        da.UpdateCommand.Parameters.Add("@oldId", MySqlDbType.VarChar, 5, "id").SourceVersion = DataRowVersion.Original
+          da.UpdateCommand.Parameters.Add("@id", MySqlDbType.VarChar, 5, "id")
+          da.UpdateCommand.Parameters.Add("@name", MySqlDbType.VarChar, 40, "name")
+          da.UpdateCommand.Parameters.Add("@oldId", MySqlDbType.VarChar, 5, "id").SourceVersion = DataRowVersion.Original
 
-        da.DeleteCommand.Parameters.Add("@id", MySqlDbType.VarChar, 5, "id").SourceVersion = DataRowVersion.Original
+          da.DeleteCommand.Parameters.Add("@id", MySqlDbType.VarChar, 5, "id").SourceVersion = DataRowVersion.Original
         End Sub
       </code>
       <code lang="C#">
         public static void CreateSqlDataAdapter()
         {
-        MySqlConnection conn = new MySqlConnection("Data Source=localhost;database=test");
-        MySqlCommand cmd = new MySqlCommand("SELECT id, name FROM mytable", conn);
-        MySqlDataAdapter da = new MySqlDataAdapter(cmd);
-        da.MissingSchemaAction = MissingSchemaAction.AddWithKey;
+          MySqlConnection conn = new MySqlConnection("Data Source=localhost;database=test");
+          MySqlCommand cmd = new MySqlCommand("SELECT id, name FROM mytable", conn);
+          MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+          da.MissingSchemaAction = MissingSchemaAction.AddWithKey;
 
-        da.InsertCommand = new MySqlCommand("INSERT INTO mytable (id, name) " +
-        "VALUES (@id, @name)", conn);
-        da.UpdateCommand = new MySqlCommand("UPDATE mytable SET id=@id, name=@name " +
-        "WHERE id=@oldId", conn);
-        da.DeleteCommand = new MySqlCommand("DELETE FROM mytable WHERE id=@id", conn);
+          da.InsertCommand = new MySqlCommand("INSERT INTO mytable (id, name) " +
+          "VALUES (@id, @name)", conn);
+          da.UpdateCommand = new MySqlCommand("UPDATE mytable SET id=@id, name=@name " +
+          "WHERE id=@oldId", conn);
+          da.DeleteCommand = new MySqlCommand("DELETE FROM mytable WHERE id=@id", conn);
 
-        da.InsertCommand.Parameters.Add("@id", MySqlDbType.VarChar, 5, "id");
-        da.InsertCommand.Parameters.Add("@name", MySqlDbType.VarChar, 40, "name");
+          da.InsertCommand.Parameters.Add("@id", MySqlDbType.VarChar, 5, "id");
+          da.InsertCommand.Parameters.Add("@name", MySqlDbType.VarChar, 40, "name");
 
-        da.UpdateCommand.Parameters.Add("@id", MySqlDbType.VarChar, 5, "id");
-        da.UpdateCommand.Parameters.Add("@name", MySqlDbType.VarChar, 40, "name");
-        da.UpdateCommand.Parameters.Add("@oldId", MySqlDbType.VarChar, 5, "id").SourceVersion = DataRowVersion.Original;
+          da.UpdateCommand.Parameters.Add("@id", MySqlDbType.VarChar, 5, "id");
+          da.UpdateCommand.Parameters.Add("@name", MySqlDbType.VarChar, 40, "name");
+          da.UpdateCommand.Parameters.Add("@oldId", MySqlDbType.VarChar, 5, "id").SourceVersion = DataRowVersion.Original;
 
-        da.DeleteCommand.Parameters.Add("@id", MySqlDbType.VarChar, 5, "id").SourceVersion = DataRowVersion.Original;
+          da.DeleteCommand.Parameters.Add("@id", MySqlDbType.VarChar, 5, "id").SourceVersion = DataRowVersion.Original;
         }
       </code>
     </example>
@@ -4281,48 +4185,48 @@
       its properties.
       <code lang="vbnet">
         Public Sub CreateSqlDataAdapter()
-        Dim conn As MySqlConnection = New MySqlConnection("Data Source=localhost;" &amp; _
-        "database=test")
-        Dim da As MySqlDataAdapter = New MySqlDataAdapter("SELECT id, name FROM mytable", conn)
-        da.MissingSchemaAction = MissingSchemaAction.AddWithKey
+          Dim conn As MySqlConnection = New MySqlConnection("Data Source=localhost;" &amp; _
+          "database=test")
+          Dim da As MySqlDataAdapter = New MySqlDataAdapter("SELECT id, name FROM mytable", conn)
+          da.MissingSchemaAction = MissingSchemaAction.AddWithKey
 
-        da.InsertCommand = New MySqlCommand("INSERT INTO mytable (id, name) " &amp; _
-        "VALUES (@id, @name)", conn)
-        da.UpdateCommand = New MySqlCommand("UPDATE mytable SET id=@id, name=@name " &amp; _
-        "WHERE id=@oldId", conn)
-        da.DeleteCommand = New MySqlCommand("DELETE FROM mytable WHERE id=@id", conn)
+          da.InsertCommand = New MySqlCommand("INSERT INTO mytable (id, name) " &amp; _
+          "VALUES (@id, @name)", conn)
+          da.UpdateCommand = New MySqlCommand("UPDATE mytable SET id=@id, name=@name " &amp; _
+          "WHERE id=@oldId", conn)
+          da.DeleteCommand = New MySqlCommand("DELETE FROM mytable WHERE id=@id", conn)
 
-        da.InsertCommand.Parameters.Add("@id", MySqlDbType.VarChar, 5, "id")
-        da.InsertCommand.Parameters.Add("@name", MySqlDbType.VarChar, 40, "name")
+          da.InsertCommand.Parameters.Add("@id", MySqlDbType.VarChar, 5, "id")
+          da.InsertCommand.Parameters.Add("@name", MySqlDbType.VarChar, 40, "name")
 
-        da.UpdateCommand.Parameters.Add("@id", MySqlDbType.VarChar, 5, "id")
-        da.UpdateCommand.Parameters.Add("@name", MySqlDbType.VarChar, 40, "name")
-        da.UpdateCommand.Parameters.Add("@oldId", MySqlDbType.VarChar, 5, "id").SourceVersion = DataRowVersion.Original
+          da.UpdateCommand.Parameters.Add("@id", MySqlDbType.VarChar, 5, "id")
+          da.UpdateCommand.Parameters.Add("@name", MySqlDbType.VarChar, 40, "name")
+          da.UpdateCommand.Parameters.Add("@oldId", MySqlDbType.VarChar, 5, "id").SourceVersion = DataRowVersion.Original
 
-        da.DeleteCommand.Parameters.Add("@id", MySqlDbType.VarChar, 5, "id").SourceVersion = DataRowVersion.Original
+          da.DeleteCommand.Parameters.Add("@id", MySqlDbType.VarChar, 5, "id").SourceVersion = DataRowVersion.Original
         End Sub
       </code>
       <code lang="C#">
         public static void CreateSqlDataAdapter()
         {
-        MySqlConnection conn = new MySqlConnection("Data Source=localhost;database=test");
-        MySqlDataAdapter da = new MySqlDataAdapter("SELECT id, name FROM mytable", conn);
-        da.MissingSchemaAction = MissingSchemaAction.AddWithKey;
+          MySqlConnection conn = new MySqlConnection("Data Source=localhost;database=test");
+          MySqlDataAdapter da = new MySqlDataAdapter("SELECT id, name FROM mytable", conn);
+          da.MissingSchemaAction = MissingSchemaAction.AddWithKey;
 
-        da.InsertCommand = new MySqlCommand("INSERT INTO mytable (id, name) " +
-        "VALUES (@id, @name)", conn);
-        da.UpdateCommand = new MySqlCommand("UPDATE mytable SET id=@id, name=@name " +
-        "WHERE id=@oldId", conn);
-        da.DeleteCommand = new MySqlCommand("DELETE FROM mytable WHERE id=@id", conn);
+          da.InsertCommand = new MySqlCommand("INSERT INTO mytable (id, name) " +
+          "VALUES (@id, @name)", conn);
+          da.UpdateCommand = new MySqlCommand("UPDATE mytable SET id=@id, name=@name " +
+          "WHERE id=@oldId", conn);
+          da.DeleteCommand = new MySqlCommand("DELETE FROM mytable WHERE id=@id", conn);
 
-        da.InsertCommand.Parameters.Add("@id", MySqlDbType.VarChar, 5, "id");
-        da.InsertCommand.Parameters.Add("@name", MySqlDbType.VarChar, 40, "name");
+          da.InsertCommand.Parameters.Add("@id", MySqlDbType.VarChar, 5, "id");
+          da.InsertCommand.Parameters.Add("@name", MySqlDbType.VarChar, 40, "name");
 
-        da.UpdateCommand.Parameters.Add("@id", MySqlDbType.VarChar, 5, "id");
-        da.UpdateCommand.Parameters.Add("@name", MySqlDbType.VarChar, 40, "name");
-        da.UpdateCommand.Parameters.Add("@oldId", MySqlDbType.VarChar, 5, "id").SourceVersion = DataRowVersion.Original;
+          da.UpdateCommand.Parameters.Add("@id", MySqlDbType.VarChar, 5, "id");
+          da.UpdateCommand.Parameters.Add("@name", MySqlDbType.VarChar, 40, "name");
+          da.UpdateCommand.Parameters.Add("@oldId", MySqlDbType.VarChar, 5, "id").SourceVersion = DataRowVersion.Original;
 
-        da.DeleteCommand.Parameters.Add("@id", MySqlDbType.VarChar, 5, "id").SourceVersion = DataRowVersion.Original;
+          da.DeleteCommand.Parameters.Add("@id", MySqlDbType.VarChar, 5, "id").SourceVersion = DataRowVersion.Original;
         }
       </code>
     </example>
@@ -4371,47 +4275,47 @@
       its properties.
       <code lang="vbnet">
         Public Sub CreateSqlDataAdapter()
-        Dim da As MySqlDataAdapter = New MySqlDataAdapter("SELECT id, name FROM mytable", "Data Source=localhost;database=test")
-        Dim conn As MySqlConnection = da.SelectCommand.Connection
-        da.MissingSchemaAction = MissingSchemaAction.AddWithKey
+          Dim da As MySqlDataAdapter = New MySqlDataAdapter("SELECT id, name FROM mytable", "Data Source=localhost;database=test")
+          Dim conn As MySqlConnection = da.SelectCommand.Connection
+          da.MissingSchemaAction = MissingSchemaAction.AddWithKey
 
-        da.InsertCommand = New MySqlCommand("INSERT INTO mytable (id, name) " &amp; _
-        "VALUES (@id, @name)", conn)
-        da.UpdateCommand = New MySqlCommand("UPDATE mytable SET id=@id, name=@name " &amp; _
-        "WHERE id=@oldId", conn)
-        da.DeleteCommand = New MySqlCommand("DELETE FROM mytable WHERE id=@id", conn)
+          da.InsertCommand = New MySqlCommand("INSERT INTO mytable (id, name) " &amp; _
+          "VALUES (@id, @name)", conn)
+          da.UpdateCommand = New MySqlCommand("UPDATE mytable SET id=@id, name=@name " &amp; _
+          "WHERE id=@oldId", conn)
+          da.DeleteCommand = New MySqlCommand("DELETE FROM mytable WHERE id=@id", conn)
 
-        da.InsertCommand.Parameters.Add("@id", MySqlDbType.VarChar, 5, "id")
-        da.InsertCommand.Parameters.Add("@name", MySqlDbType.VarChar, 40, "name")
+          da.InsertCommand.Parameters.Add("@id", MySqlDbType.VarChar, 5, "id")
+          da.InsertCommand.Parameters.Add("@name", MySqlDbType.VarChar, 40, "name")
 
-        da.UpdateCommand.Parameters.Add("@id", MySqlDbType.VarChar, 5, "id")
-        da.UpdateCommand.Parameters.Add("@name", MySqlDbType.VarChar, 40, "name")
-        da.UpdateCommand.Parameters.Add("@oldId", MySqlDbType.VarChar, 5, "id").SourceVersion = DataRowVersion.Original
+          da.UpdateCommand.Parameters.Add("@id", MySqlDbType.VarChar, 5, "id")
+          da.UpdateCommand.Parameters.Add("@name", MySqlDbType.VarChar, 40, "name")
+          da.UpdateCommand.Parameters.Add("@oldId", MySqlDbType.VarChar, 5, "id").SourceVersion = DataRowVersion.Original
 
-        da.DeleteCommand.Parameters.Add("@id", MySqlDbType.VarChar, 5, "id").SourceVersion = DataRowVersion.Original
+          da.DeleteCommand.Parameters.Add("@id", MySqlDbType.VarChar, 5, "id").SourceVersion = DataRowVersion.Original
         End Sub
       </code>
       <code lang="C#">
         public static void CreateSqlDataAdapter()
         {
-        MySqlDataAdapter da = new MySqlDataAdapter("SELECT id, name FROM mytable", "Data Source=localhost;database=test");
-        MySqlConnection conn = da.SelectCommand.Connection;
-        da.MissingSchemaAction = MissingSchemaAction.AddWithKey;
+          MySqlDataAdapter da = new MySqlDataAdapter("SELECT id, name FROM mytable", "Data Source=localhost;database=test");
+          MySqlConnection conn = da.SelectCommand.Connection;
+          da.MissingSchemaAction = MissingSchemaAction.AddWithKey;
 
-        da.InsertCommand = new MySqlCommand("INSERT INTO mytable (id, name) " +
-        "VALUES (@id, @name)", conn);
-        da.UpdateCommand = new MySqlCommand("UPDATE mytable SET id=@id, name=@name " +
-        "WHERE id=@oldId", conn);
-        da.DeleteCommand = new MySqlCommand("DELETE FROM mytable WHERE id=@id", conn);
+          da.InsertCommand = new MySqlCommand("INSERT INTO mytable (id, name) " +
+          "VALUES (@id, @name)", conn);
+          da.UpdateCommand = new MySqlCommand("UPDATE mytable SET id=@id, name=@name " +
+          "WHERE id=@oldId", conn);
+          da.DeleteCommand = new MySqlCommand("DELETE FROM mytable WHERE id=@id", conn);
 
-        da.InsertCommand.Parameters.Add("@id", MySqlDbType.VarChar, 5, "id");
-        da.InsertCommand.Parameters.Add("@name", MySqlDbType.VarChar, 40, "name");
+          da.InsertCommand.Parameters.Add("@id", MySqlDbType.VarChar, 5, "id");
+          da.InsertCommand.Parameters.Add("@name", MySqlDbType.VarChar, 40, "name");
 
-        da.UpdateCommand.Parameters.Add("@id", MySqlDbType.VarChar, 5, "id");
-        da.UpdateCommand.Parameters.Add("@name", MySqlDbType.VarChar, 40, "name");
-        da.UpdateCommand.Parameters.Add("@oldId", MySqlDbType.VarChar, 5, "id").SourceVersion = DataRowVersion.Original;
+          da.UpdateCommand.Parameters.Add("@id", MySqlDbType.VarChar, 5, "id");
+          da.UpdateCommand.Parameters.Add("@name", MySqlDbType.VarChar, 40, "name");
+          da.UpdateCommand.Parameters.Add("@oldId", MySqlDbType.VarChar, 5, "id").SourceVersion = DataRowVersion.Original;
 
-        da.DeleteCommand.Parameters.Add("@id", MySqlDbType.VarChar, 5, "id").SourceVersion = DataRowVersion.Original;
+          da.DeleteCommand.Parameters.Add("@id", MySqlDbType.VarChar, 5, "id").SourceVersion = DataRowVersion.Original;
         }
       </code>
     </example>
@@ -4442,54 +4346,53 @@
       created a <see cref="T:MySql.Data.MySqlClient.MySqlConnection" /> object.
       <code lang="vbnet">
         Public Shared Function CreateCustomerAdapter(conn As MySqlConnection) As MySqlDataAdapter
+          Dim da As MySqlDataAdapter = New MySqlDataAdapter()
+          Dim cmd As MySqlCommand
+          Dim parm As MySqlParameter
 
-        Dim da As MySqlDataAdapter = New MySqlDataAdapter()
-        Dim cmd As MySqlCommand
-        Dim parm As MySqlParameter
+          ' Create the SelectCommand.
+          cmd = New MySqlCommand("SELECT * FROM mytable WHERE id=@id AND name=@name", conn)
 
-        ' Create the SelectCommand.
-        cmd = New MySqlCommand("SELECT * FROM mytable WHERE id=@id AND name=@name", conn)
+          cmd.Parameters.Add("@id", MySqlDbType.VarChar, 15)
+          cmd.Parameters.Add("@name", MySqlDbType.VarChar, 15)
 
-        cmd.Parameters.Add("@id", MySqlDbType.VarChar, 15)
-        cmd.Parameters.Add("@name", MySqlDbType.VarChar, 15)
+          da.SelectCommand = cmd
 
-        da.SelectCommand = cmd
+          ' Create the DeleteCommand.
+          cmd = New MySqlCommand("DELETE FROM mytable WHERE id=@id", conn)
 
-        ' Create the DeleteCommand.
-        cmd = New MySqlCommand("DELETE FROM mytable WHERE id=@id", conn)
+          parm = cmd.Parameters.Add("@id", MySqlDbType.VarChar, 5, "id")
+          parm.SourceVersion = DataRowVersion.Original
 
-        parm = cmd.Parameters.Add("@id", MySqlDbType.VarChar, 5, "id")
-        parm.SourceVersion = DataRowVersion.Original
+          da.DeleteCommand = cmd
 
-        da.DeleteCommand = cmd
-
-        Return da
+          Return da
         End Function
       </code>
       <code lang="C#">
         public static MySqlDataAdapter CreateCustomerAdapter(MySqlConnection conn)
         {
-        MySqlDataAdapter da = new MySqlDataAdapter();
-        MySqlCommand cmd;
-        MySqlParameter parm;
+          MySqlDataAdapter da = new MySqlDataAdapter();
+          MySqlCommand cmd;
+          MySqlParameter parm;
 
-        // Create the SelectCommand.
-        cmd = new MySqlCommand("SELECT * FROM mytable WHERE id=@id AND name=@name", conn);
+          // Create the SelectCommand.
+          cmd = new MySqlCommand("SELECT * FROM mytable WHERE id=@id AND name=@name", conn);
 
-        cmd.Parameters.Add("@id", MySqlDbType.VarChar, 15);
-        cmd.Parameters.Add("@name", MySqlDbType.VarChar, 15);
+          cmd.Parameters.Add("@id", MySqlDbType.VarChar, 15);
+          cmd.Parameters.Add("@name", MySqlDbType.VarChar, 15);
 
-        da.SelectCommand = cmd;
+          da.SelectCommand = cmd;
 
-        // Create the DeleteCommand.
-        cmd = new MySqlCommand("DELETE FROM mytable WHERE id=@id", conn);
+          // Create the DeleteCommand.
+          cmd = new MySqlCommand("DELETE FROM mytable WHERE id=@id", conn);
 
-        parm = cmd.Parameters.Add("@id", MySqlDbType.VarChar, 5, "id");
-        parm.SourceVersion = DataRowVersion.Original;
+          parm = cmd.Parameters.Add("@id", MySqlDbType.VarChar, 5, "id");
+          parm.SourceVersion = DataRowVersion.Original;
 
-        da.DeleteCommand = cmd;
+          da.DeleteCommand = cmd;
 
-        return da;
+          return da;
         }
       </code>
     </example>
@@ -4524,52 +4427,51 @@
       created a <see cref="T:MySql.Data.MySqlClient.MySqlConnection" /> object.
       <code lang="vbnet">
         Public Shared Function CreateCustomerAdapter(conn As MySqlConnection) As MySqlDataAdapter
+          Dim da As MySqlDataAdapter = New MySqlDataAdapter()
+          Dim cmd As MySqlCommand
+          Dim parm As MySqlParameter
 
-        Dim da As MySqlDataAdapter = New MySqlDataAdapter()
-        Dim cmd As MySqlCommand
-        Dim parm As MySqlParameter
+          ' Create the SelectCommand.
+          cmd = New MySqlCommand("SELECT * FROM mytable WHERE id=@id AND name=@name", conn)
 
-        ' Create the SelectCommand.
-        cmd = New MySqlCommand("SELECT * FROM mytable WHERE id=@id AND name=@name", conn)
+          cmd.Parameters.Add("@id", MySqlDbType.VarChar, 15)
+          cmd.Parameters.Add("@name", MySqlDbType.VarChar, 15)
 
-        cmd.Parameters.Add("@id", MySqlDbType.VarChar, 15)
-        cmd.Parameters.Add("@name", MySqlDbType.VarChar, 15)
+          da.SelectCommand = cmd
 
-        da.SelectCommand = cmd
+          ' Create the InsertCommand.
+          cmd = New MySqlCommand("INSERT INTO mytable (id,name) VALUES (@id, @name)", conn)
 
-        ' Create the InsertCommand.
-        cmd = New MySqlCommand("INSERT INTO mytable (id,name) VALUES (@id, @name)", conn)
+          cmd.Parameters.Add( "@id", MySqlDbType.VarChar, 15, "id" )
+          cmd.Parameters.Add( "@name", MySqlDbType.VarChar, 15, "name" )
+          da.InsertCommand = cmd
 
-        cmd.Parameters.Add( "@id", MySqlDbType.VarChar, 15, "id" )
-        cmd.Parameters.Add( "@name", MySqlDbType.VarChar, 15, "name" )
-        da.InsertCommand = cmd
-
-        Return da
+          Return da
         End Function
       </code>
       <code lang="C#">
         public static MySqlDataAdapter CreateCustomerAdapter(MySqlConnection conn)
         {
-        MySqlDataAdapter da = new MySqlDataAdapter();
-        MySqlCommand cmd;
-        MySqlParameter parm;
+          MySqlDataAdapter da = new MySqlDataAdapter();
+          MySqlCommand cmd;
+          MySqlParameter parm;
 
-        // Create the SelectCommand.
-        cmd = new MySqlCommand("SELECT * FROM mytable WHERE id=@id AND name=@name", conn);
+          // Create the SelectCommand.
+          cmd = new MySqlCommand("SELECT * FROM mytable WHERE id=@id AND name=@name", conn);
 
-        cmd.Parameters.Add("@id", MySqlDbType.VarChar, 15);
-        cmd.Parameters.Add("@name", MySqlDbType.VarChar, 15);
+          cmd.Parameters.Add("@id", MySqlDbType.VarChar, 15);
+          cmd.Parameters.Add("@name", MySqlDbType.VarChar, 15);
 
-        da.SelectCommand = cmd;
+          da.SelectCommand = cmd;
 
-        // Create the InsertCommand.
-        cmd = new MySqlCommand("INSERT INTO mytable (id,name) VALUES (@id,@name)", conn);
-        cmd.Parameters.Add("@id", MySqlDbType.VarChar, 15, "id" );
-        cmd.Parameters.Add("@name", MySqlDbType.VarChar, 15, "name" );
+          // Create the InsertCommand.
+          cmd = new MySqlCommand("INSERT INTO mytable (id,name) VALUES (@id,@name)", conn);
+          cmd.Parameters.Add("@id", MySqlDbType.VarChar, 15, "id" );
+          cmd.Parameters.Add("@name", MySqlDbType.VarChar, 15, "name" );
 
-        da.InsertCommand = cmd;
+          da.InsertCommand = cmd;
 
-        return da;
+          return da;
         }
       </code>
     </example>
@@ -4596,52 +4498,51 @@
       created a <see cref="T:MySql.Data.MySqlClient.MySqlConnection" /> object.
       <code lang="vbnet">
         Public Shared Function CreateCustomerAdapter(conn As MySqlConnection) As MySqlDataAdapter
+          Dim da As MySqlDataAdapter = New MySqlDataAdapter()
+          Dim cmd As MySqlCommand
+          Dim parm As MySqlParameter
 
-        Dim da As MySqlDataAdapter = New MySqlDataAdapter()
-        Dim cmd As MySqlCommand
-        Dim parm As MySqlParameter
+          ' Create the SelectCommand.
+          cmd = New MySqlCommand("SELECT * FROM mytable WHERE id=@id AND name=@name", conn)
 
-        ' Create the SelectCommand.
-        cmd = New MySqlCommand("SELECT * FROM mytable WHERE id=@id AND name=@name", conn)
+          cmd.Parameters.Add("@id", MySqlDbType.VarChar, 15)
+          cmd.Parameters.Add("@name", MySqlDbType.VarChar, 15)
 
-        cmd.Parameters.Add("@id", MySqlDbType.VarChar, 15)
-        cmd.Parameters.Add("@name", MySqlDbType.VarChar, 15)
+          da.SelectCommand = cmd
 
-        da.SelectCommand = cmd
+          ' Create the InsertCommand.
+          cmd = New MySqlCommand("INSERT INTO mytable (id,name) VALUES (@id, @name)", conn)
 
-        ' Create the InsertCommand.
-        cmd = New MySqlCommand("INSERT INTO mytable (id,name) VALUES (@id, @name)", conn)
+          cmd.Parameters.Add( "@id", MySqlDbType.VarChar, 15, "id" )
+          cmd.Parameters.Add( "@name", MySqlDbType.VarChar, 15, "name" )
+          da.InsertCommand = cmd
 
-        cmd.Parameters.Add( "@id", MySqlDbType.VarChar, 15, "id" )
-        cmd.Parameters.Add( "@name", MySqlDbType.VarChar, 15, "name" )
-        da.InsertCommand = cmd
-
-        Return da
+          Return da
         End Function
       </code>
       <code lang="C#">
         public static MySqlDataAdapter CreateCustomerAdapter(MySqlConnection conn)
         {
-        MySqlDataAdapter da = new MySqlDataAdapter();
-        MySqlCommand cmd;
-        MySqlParameter parm;
+          MySqlDataAdapter da = new MySqlDataAdapter();
+          MySqlCommand cmd;
+          MySqlParameter parm;
 
-        // Create the SelectCommand.
-        cmd = new MySqlCommand("SELECT * FROM mytable WHERE id=@id AND name=@name", conn);
+          // Create the SelectCommand.
+          cmd = new MySqlCommand("SELECT * FROM mytable WHERE id=@id AND name=@name", conn);
 
-        cmd.Parameters.Add("@id", MySqlDbType.VarChar, 15);
-        cmd.Parameters.Add("@name", MySqlDbType.VarChar, 15);
+          cmd.Parameters.Add("@id", MySqlDbType.VarChar, 15);
+          cmd.Parameters.Add("@name", MySqlDbType.VarChar, 15);
 
-        da.SelectCommand = cmd;
+          da.SelectCommand = cmd;
 
-        // Create the InsertCommand.
-        cmd = new MySqlCommand("INSERT INTO mytable (id,name) VALUES (@id,@name)", conn);
-        cmd.Parameters.Add("@id", MySqlDbType.VarChar, 15, "id" );
-        cmd.Parameters.Add("@name", MySqlDbType.VarChar, 15, "name" );
+          // Create the InsertCommand.
+          cmd = new MySqlCommand("INSERT INTO mytable (id,name) VALUES (@id,@name)", conn);
+          cmd.Parameters.Add("@id", MySqlDbType.VarChar, 15, "id" );
+          cmd.Parameters.Add("@name", MySqlDbType.VarChar, 15, "name" );
 
-        da.InsertCommand = cmd;
+          da.InsertCommand = cmd;
 
-        return da;
+          return da;
         }
       </code>
     </example>
@@ -4676,59 +4577,58 @@
       created a <see cref="T:MySql.Data.MySqlClient.MySqlConnection" /> object.
       <code lang="vbnet">
         Public Shared Function CreateCustomerAdapter(conn As MySqlConnection) As MySqlDataAdapter
+          Dim da As MySqlDataAdapter = New MySqlDataAdapter()
+          Dim cmd As MySqlCommand
+          Dim parm As MySqlParameter
 
-        Dim da As MySqlDataAdapter = New MySqlDataAdapter()
-        Dim cmd As MySqlCommand
-        Dim parm As MySqlParameter
+          ' Create the SelectCommand.
+          cmd = New MySqlCommand("SELECT * FROM mytable WHERE id=@id AND name=@name", conn)
 
-        ' Create the SelectCommand.
-        cmd = New MySqlCommand("SELECT * FROM mytable WHERE id=@id AND name=@name", conn)
+          cmd.Parameters.Add("@id", MySqlDbType.VarChar, 15)
+          cmd.Parameters.Add("@name", MySqlDbType.VarChar, 15)
 
-        cmd.Parameters.Add("@id", MySqlDbType.VarChar, 15)
-        cmd.Parameters.Add("@name", MySqlDbType.VarChar, 15)
+          da.SelectCommand = cmd
 
-        da.SelectCommand = cmd
+          ' Create the UpdateCommand.
+          cmd = New MySqlCommand("UPDATE mytable SET id=@id, name=@name WHERE id=@oldId", conn)
 
-        ' Create the UpdateCommand.
-        cmd = New MySqlCommand("UPDATE mytable SET id=@id, name=@name WHERE id=@oldId", conn)
+          cmd.Parameters.Add( "@id", MySqlDbType.VarChar, 15, "id" )
+          cmd.Parameters.Add( "@name", MySqlDbType.VarChar, 15, "name" )
 
-        cmd.Parameters.Add( "@id", MySqlDbType.VarChar, 15, "id" )
-        cmd.Parameters.Add( "@name", MySqlDbType.VarChar, 15, "name" )
+          parm = cmd.Parameters.Add("@oldId", MySqlDbType.VarChar, 15, "id")
+          parm.SourceVersion = DataRowVersion.Original
 
-        parm = cmd.Parameters.Add("@oldId", MySqlDbType.VarChar, 15, "id")
-        parm.SourceVersion = DataRowVersion.Original
+          da.UpdateCommand = cmd
 
-        da.UpdateCommand = cmd
-
-        Return da
+          Return da
         End Function
       </code>
       <code lang="C#">
         public static MySqlDataAdapter CreateCustomerAdapter(MySqlConnection conn)
         {
-        MySqlDataAdapter da = new MySqlDataAdapter();
-        MySqlCommand cmd;
-        MySqlParameter parm;
+          MySqlDataAdapter da = new MySqlDataAdapter();
+          MySqlCommand cmd;
+          MySqlParameter parm;
 
-        // Create the SelectCommand.
-        cmd = new MySqlCommand("SELECT * FROM mytable WHERE id=@id AND name=@name", conn);
+          // Create the SelectCommand.
+          cmd = new MySqlCommand("SELECT * FROM mytable WHERE id=@id AND name=@name", conn);
 
-        cmd.Parameters.Add("@id", MySqlDbType.VarChar, 15);
-        cmd.Parameters.Add("@name", MySqlDbType.VarChar, 15);
+          cmd.Parameters.Add("@id", MySqlDbType.VarChar, 15);
+          cmd.Parameters.Add("@name", MySqlDbType.VarChar, 15);
 
-        da.SelectCommand = cmd;
+          da.SelectCommand = cmd;
 
-        // Create the UpdateCommand.
-        cmd = new MySqlCommand("UPDATE mytable SET id=@id, name=@name WHERE id=@oldId", conn);
-        cmd.Parameters.Add("@id", MySqlDbType.VarChar, 15, "id" );
-        cmd.Parameters.Add("@name", MySqlDbType.VarChar, 15, "name" );
+          // Create the UpdateCommand.
+          cmd = new MySqlCommand("UPDATE mytable SET id=@id, name=@name WHERE id=@oldId", conn);
+          cmd.Parameters.Add("@id", MySqlDbType.VarChar, 15, "id" );
+          cmd.Parameters.Add("@name", MySqlDbType.VarChar, 15, "name" );
 
-        parm = cmd.Parameters.Add( "@oldId", MySqlDbType.VarChar, 15, "id" );
-        parm.SourceVersion = DataRowVersion.Original;
+          parm = cmd.Parameters.Add( "@oldId", MySqlDbType.VarChar, 15, "id" );
+          parm.SourceVersion = DataRowVersion.Original;
 
-        da.UpdateCommand = cmd;
+          da.UpdateCommand = cmd;
 
-        return da;
+          return da;
         }
       </code>
     </example>
@@ -5714,26 +5614,25 @@
       with the appropriate schema, commands, and connection.
       <code lang="vbnet">
         Public Sub AddParameters()
-        ' ...
-        ' create myDataSet and myDataAdapter
-        ' ...
-        myDataAdapter.SelectCommand.Parameters.Add("@CategoryName", MySqlDbType.VarChar, 80).Value = "toasters"
-        myDataAdapter.SelectCommand.Parameters.Add("@SerialNum", MySqlDbType.Long).Value = 239
+          ' ...
+          ' create myDataSet and myDataAdapter
+          ' ...
+          myDataAdapter.SelectCommand.Parameters.Add("@CategoryName", MySqlDbType.VarChar, 80).Value = "toasters"
+          myDataAdapter.SelectCommand.Parameters.Add("@SerialNum", MySqlDbType.Long).Value = 239
 
-        myDataAdapter.Fill(myDataSet)
+          myDataAdapter.Fill(myDataSet)
         End Sub 'AddSqlParameters
       </code>
       <code lang="C#">
         public void AddSqlParameters()
         {
-        // ...
-        // create myDataSet and myDataAdapter
-        // ...
+          // ...
+          // create myDataSet and myDataAdapter
+          // ...
 
-        myDataAdapter.SelectCommand.Parameters.Add("@CategoryName", MySqlDbType.VarChar, 80).Value = "toasters";
-        myDataAdapter.SelectCommand.Parameters.Add("@SerialNum", MySqlDbType.Long).Value = 239;
-        myDataAdapter.Fill(myDataSet);
-
+          myDataAdapter.SelectCommand.Parameters.Add("@CategoryName", MySqlDbType.VarChar, 80).Value = "toasters";
+          myDataAdapter.SelectCommand.Parameters.Add("@SerialNum", MySqlDbType.Long).Value = 239;
+          myDataAdapter.Fill(myDataSet);
         }
       </code>
     </example>
@@ -6723,6 +6622,15 @@
             <remarks>
             The default authentication plugin is mandatory for supporting user-less and password-less Kerberos authentications. 
             If no value is set, it uses the server-side default authentication plugin.
+            </remarks>
+        </member>
+        <member name="P:MySql.Data.MySqlClient.MySqlConnectionStringBuilder.OciConfigFile">
+            <summary>
+            Gets or sets the OCI config file location.
+            </summary>
+            <remarks>
+            The default values vary depending on the OS. On Windows systems the value is '%HOMEDRIVE%%HOMEPATH%\.oci\config' 
+            and for Linux/MacOS systems it is '~/.oci/config'.
             </remarks>
         </member>
         <member name="P:MySql.Data.MySqlClient.MySqlConnectionStringBuilder.AllowZeroDateTime">
@@ -10463,6 +10371,26 @@
             </summary>
             
         </member>
+        <member name="T:MySql.Data.MySqlClient.OkPacket">
+            <summary>
+            Struct that represents the response OK Packet
+            https://dev.mysql.com/doc/internals/en/packet-OK_Packet.html
+            </summary>
+        </member>
+        <member name="M:MySql.Data.MySqlClient.OkPacket.#ctor(MySql.Data.MySqlClient.MySqlPacket)">
+            <summary>
+            Creates an instance of the OKPacket object with all of its metadata
+            </summary>
+            <param name="packet">The packet to parse</param>
+        </member>
+        <member name="M:MySql.Data.MySqlClient.OkPacket.AddTracker(MySql.Data.MySqlClient.SessionTrackType,System.String,System.String)">
+            <summary>
+            Add a session tracker to the list
+            </summary>
+            <param name="type">Type of the session tracker</param>
+            <param name="name">Name of the element changed</param>
+            <param name="value">Value of the changed system variable (only for SessionTrackType.SystemVariables; otherwise, null)</param>
+        </member>
         <member name="T:MySql.Data.MySqlClient.PreparableStatement">
             <summary>
             Summary description for PreparedStatement.
@@ -10913,92 +10841,92 @@
       <see cref="M:MySql.Data.MySqlClient.MySqlTransaction.Commit" />, and <see cref="M:MySql.Data.MySqlClient.MySqlTransaction.Rollback" /> methods.
       <code lang="vbnet">
         Public Sub RunTransaction(myConnString As String)
-        Dim myConnection As New MySqlConnection(myConnString)
-        myConnection.Open()
+          Dim myConnection As New MySqlConnection(myConnString)
+          myConnection.Open()
 
-        Dim myCommand As MySqlCommand = myConnection.CreateCommand()
-        Dim myTrans As MySqlTransaction
+          Dim myCommand As MySqlCommand = myConnection.CreateCommand()
+          Dim myTrans As MySqlTransaction
 
-        ' Start a local transaction
-        myTrans = myConnection.BeginTransaction()
-        ' Must assign both transaction object and connection
-        ' to Command object for a pending local transaction
-        myCommand.Connection = myConnection
-        myCommand.Transaction = myTrans
+          ' Start a local transaction
+          myTrans = myConnection.BeginTransaction()
+          ' Must assign both transaction object and connection
+          ' to Command object for a pending local transaction
+          myCommand.Connection = myConnection
+          myCommand.Transaction = myTrans
 
-        Try
-        myCommand.CommandText = "Insert into Region (RegionID, RegionDescription) VALUES (100, 'Description')"
-        myCommand.ExecuteNonQuery()
-        myCommand.CommandText = "Insert into Region (RegionID, RegionDescription) VALUES (101, 'Description')"
-        myCommand.ExecuteNonQuery()
-        myTrans.Commit()
-        Console.WriteLine("Both records are written to database.")
-        Catch e As Exception
-        Try
-        myTrans.Rollback()
-        Catch ex As MySqlException
-        If Not myTrans.Connection Is Nothing Then
-        Console.WriteLine("An exception of type " &amp; ex.GetType().ToString() &amp; _
-        " was encountered while attempting to roll back the transaction.")
-        End If
-        End Try
+          Try
+            myCommand.CommandText = "Insert into Region (RegionID, RegionDescription) VALUES (100, 'Description')"
+            myCommand.ExecuteNonQuery()
+            myCommand.CommandText = "Insert into Region (RegionID, RegionDescription) VALUES (101, 'Description')"
+            myCommand.ExecuteNonQuery()
+            myTrans.Commit()
+            Console.WriteLine("Both records are written to database.")
+          Catch e As Exception
+            Try
+              myTrans.Rollback()
+            Catch ex As MySqlException
+              If Not myTrans.Connection Is Nothing Then
+                Console.WriteLine("An exception of type " &amp; ex.GetType().ToString() &amp; _
+                " was encountered while attempting to roll back the transaction.")
+              End If
+            End Try
 
-        Console.WriteLine("An exception of type " &amp; e.GetType().ToString() &amp; _
-        "was encountered while inserting the data.")
-        Console.WriteLine("Neither record was written to database.")
-        Finally
-        myConnection.Close()
-        End Try
+            Console.WriteLine("An exception of type " &amp; e.GetType().ToString() &amp; _
+            "was encountered while inserting the data.")
+            Console.WriteLine("Neither record was written to database.")
+          Finally
+            myConnection.Close()
+          End Try
         End Sub 'RunTransaction
       </code>
       <code lang="C#">
         public void RunTransaction(string myConnString)
         {
-        MySqlConnection myConnection = new MySqlConnection(myConnString);
-        myConnection.Open();
+          MySqlConnection myConnection = new MySqlConnection(myConnString);
+          myConnection.Open();
 
-        MySqlCommand myCommand = myConnection.CreateCommand();
-        MySqlTransaction myTrans;
+          MySqlCommand myCommand = myConnection.CreateCommand();
+          MySqlTransaction myTrans;
 
-        // Start a local transaction
-        myTrans = myConnection.BeginTransaction();
-        // Must assign both transaction object and connection
-        // to Command object for a pending local transaction
-        myCommand.Connection = myConnection;
-        myCommand.Transaction = myTrans;
+          // Start a local transaction
+          myTrans = myConnection.BeginTransaction();
+          // Must assign both transaction object and connection
+          // to Command object for a pending local transaction
+          myCommand.Connection = myConnection;
+          myCommand.Transaction = myTrans;
 
-        try
-        {
-        myCommand.CommandText = "Insert into Region (RegionID, RegionDescription) VALUES (100, 'Description')";
-        myCommand.ExecuteNonQuery();
-        myCommand.CommandText = "Insert into Region (RegionID, RegionDescription) VALUES (101, 'Description')";
-        myCommand.ExecuteNonQuery();
-        myTrans.Commit();
-        Console.WriteLine("Both records are written to database.");
-        }
-        catch(Exception e)
-        {
-        try
-        {
-        myTrans.Rollback();
-        }
-        catch (MySqlException ex)
-        {
-        if (myTrans.Connection != null)
-        {
-        Console.WriteLine("An exception of type " + ex.GetType() +
-        " was encountered while attempting to roll back the transaction.");
-        }
-        }
+          try
+          {
+            myCommand.CommandText = "Insert into Region (RegionID, RegionDescription) VALUES (100, 'Description')";
+            myCommand.ExecuteNonQuery();
+            myCommand.CommandText = "Insert into Region (RegionID, RegionDescription) VALUES (101, 'Description')";
+            myCommand.ExecuteNonQuery();
+            myTrans.Commit();
+            Console.WriteLine("Both records are written to database.");
+          }
+          catch(Exception e)
+          {
+            try
+            {
+              myTrans.Rollback();
+            }
+            catch (MySqlException ex)
+            {
+              if (myTrans.Connection != null)
+              {
+                Console.WriteLine("An exception of type " + ex.GetType() +
+                " was encountered while attempting to roll back the transaction.");
+              }
+            }
 
-        Console.WriteLine("An exception of type " + e.GetType() +
-        " was encountered while inserting the data.");
-        Console.WriteLine("Neither record was written to database.");
-        }
-        finally
-        {
-        myConnection.Close();
-        }
+            Console.WriteLine("An exception of type " + e.GetType() +
+            " was encountered while inserting the data.");
+            Console.WriteLine("Neither record was written to database.");
+          }
+          finally
+          {
+            myConnection.Close();
+          }
         }
       </code>
     </example>
@@ -11040,93 +10968,93 @@
       methods.
       <code lang="vbnet">
         Public Sub RunSqlTransaction(myConnString As String)
-        Dim myConnection As New MySqlConnection(myConnString)
-        myConnection.Open()
+          Dim myConnection As New MySqlConnection(myConnString)
+          myConnection.Open()
 
-        Dim myCommand As MySqlCommand = myConnection.CreateCommand()
-        Dim myTrans As MySqlTransaction
+          Dim myCommand As MySqlCommand = myConnection.CreateCommand()
+          Dim myTrans As MySqlTransaction
 
-        ' Start a local transaction
-        myTrans = myConnection.BeginTransaction()
+          ' Start a local transaction
+          myTrans = myConnection.BeginTransaction()
 
-        ' Must assign both transaction object and connection
-        ' to Command object for a pending local transaction
-        myCommand.Connection = myConnection
-        myCommand.Transaction = myTrans
+          ' Must assign both transaction object and connection
+          ' to Command object for a pending local transaction
+          myCommand.Connection = myConnection
+          myCommand.Transaction = myTrans
 
-        Try
-        myCommand.CommandText = "Insert into mytable (id, desc) VALUES (100, 'Description')"
-        myCommand.ExecuteNonQuery()
-        myCommand.CommandText = "Insert into mytable (id, desc) VALUES (101, 'Description')"
-        myCommand.ExecuteNonQuery()
-        myTrans.Commit()
-        Console.WriteLine("Success.")
-        Catch e As Exception
-        Try
-        myTrans.Rollback()
-        Catch ex As MySqlException
-        If Not myTrans.Connection Is Nothing Then
-        Console.WriteLine("An exception of type " &amp; ex.GetType().ToString() &amp; _
-        " was encountered while attempting to roll back the transaction.")
-        End If
-        End Try
+          Try
+            myCommand.CommandText = "Insert into mytable (id, desc) VALUES (100, 'Description')"
+            myCommand.ExecuteNonQuery()
+            myCommand.CommandText = "Insert into mytable (id, desc) VALUES (101, 'Description')"
+            myCommand.ExecuteNonQuery()
+            myTrans.Commit()
+            Console.WriteLine("Success.")
+          Catch e As Exception
+            Try
+              myTrans.Rollback()
+            Catch ex As MySqlException
+              If Not myTrans.Connection Is Nothing Then
+                Console.WriteLine("An exception of type " &amp; ex.GetType().ToString() &amp; _
+                " was encountered while attempting to roll back the transaction.")
+              End If
+            End Try
 
-        Console.WriteLine("An exception of type " &amp; e.GetType().ToString() &amp; _
-        "was encountered while inserting the data.")
-        Console.WriteLine("Neither record was written to database.")
-        Finally
-        myConnection.Close()
-        End Try
+            Console.WriteLine("An exception of type " &amp; e.GetType().ToString() &amp; _
+            "was encountered while inserting the data.")
+            Console.WriteLine("Neither record was written to database.")
+          Finally
+            myConnection.Close()
+          End Try
         End Sub
       </code>
       <code lang="C#">
         public void RunSqlTransaction(string myConnString)
         {
-        MySqlConnection myConnection = new MySqlConnection(myConnString);
-        myConnection.Open();
+          MySqlConnection myConnection = new MySqlConnection(myConnString);
+          myConnection.Open();
 
-        MySqlCommand myCommand = myConnection.CreateCommand();
-        MySqlTransaction myTrans;
+          MySqlCommand myCommand = myConnection.CreateCommand();
+          MySqlTransaction myTrans;
 
-        // Start a local transaction
-        myTrans = myConnection.BeginTransaction();
-        // Must assign both transaction object and connection
-        // to Command object for a pending local transaction
-        myCommand.Connection = myConnection;
-        myCommand.Transaction = myTrans;
+          // Start a local transaction
+          myTrans = myConnection.BeginTransaction();
+          // Must assign both transaction object and connection
+          // to Command object for a pending local transaction
+          myCommand.Connection = myConnection;
+          myCommand.Transaction = myTrans;
 
-        try
-        {
-        myCommand.CommandText = "Insert into mytable (id, desc) VALUES (100, 'Description')";
-        myCommand.ExecuteNonQuery();
-        myCommand.CommandText = "Insert into mytable (id, desc) VALUES (101, 'Description')";
-        myCommand.ExecuteNonQuery();
-        myTrans.Commit();
-        Console.WriteLine("Both records are written to database.");
-        }
-        catch(Exception e)
-        {
-        try
-        {
-        myTrans.Rollback();
-        }
-        catch (MySqlException ex)
-        {
-        if (myTrans.Connection != null)
-        {
-        Console.WriteLine("An exception of type " + ex.GetType() +
-        " was encountered while attempting to roll back the transaction.");
-        }
-        }
+          try
+          {
+            myCommand.CommandText = "Insert into mytable (id, desc) VALUES (100, 'Description')";
+            myCommand.ExecuteNonQuery();
+            myCommand.CommandText = "Insert into mytable (id, desc) VALUES (101, 'Description')";
+            myCommand.ExecuteNonQuery();
+            myTrans.Commit();
+            Console.WriteLine("Both records are written to database.");
+          }
+          catch(Exception e)
+          {
+            try
+            {
+              myTrans.Rollback();
+            }
+            catch (MySqlException ex)
+            {
+              if (myTrans.Connection != null)
+              {
+                Console.WriteLine("An exception of type " + ex.GetType() +
+                " was encountered while attempting to roll back the transaction.");
+              }
+            }
 
-        Console.WriteLine("An exception of type " + e.GetType() +
-        " was encountered while inserting the data.");
-        Console.WriteLine("Neither record was written to database.");
-        }
-        finally
-        {
-        myConnection.Close();
-        }
+            Console.WriteLine("An exception of type " + e.GetType() +
+            " was encountered while inserting the data.");
+            Console.WriteLine("Neither record was written to database.");
+          }
+          finally
+          {
+          myConnection.Close();
+          }
         }
       </code>
     </example>
@@ -11146,93 +11074,93 @@
       methods.
       <code lang="vbnet">
         Public Sub RunSqlTransaction(myConnString As String)
-        Dim myConnection As New MySqlConnection(myConnString)
-        myConnection.Open()
+          Dim myConnection As New MySqlConnection(myConnString)
+          myConnection.Open()
 
-        Dim myCommand As MySqlCommand = myConnection.CreateCommand()
-        Dim myTrans As MySqlTransaction
+          Dim myCommand As MySqlCommand = myConnection.CreateCommand()
+          Dim myTrans As MySqlTransaction
 
-        ' Start a local transaction
-        myTrans = myConnection.BeginTransaction()
+          ' Start a local transaction
+          myTrans = myConnection.BeginTransaction()
 
-        ' Must assign both transaction object and connection
-        ' to Command object for a pending local transaction
-        myCommand.Connection = myConnection
-        myCommand.Transaction = myTrans
+          ' Must assign both transaction object and connection
+          ' to Command object for a pending local transaction
+          myCommand.Connection = myConnection
+          myCommand.Transaction = myTrans
 
-        Try
-        myCommand.CommandText = "Insert into mytable (id, desc) VALUES (100, 'Description')"
-        myCommand.ExecuteNonQuery()
-        myCommand.CommandText = "Insert into mytable (id, desc) VALUES (101, 'Description')"
-        myCommand.ExecuteNonQuery()
-        myTrans.Commit()
-        Console.WriteLine("Success.")
-        Catch e As Exception
-        Try
-        myTrans.Rollback()
-        Catch ex As MySqlException
-        If Not myTrans.Connection Is Nothing Then
-        Console.WriteLine("An exception of type " &amp; ex.GetType().ToString() &amp; _
-        " was encountered while attempting to roll back the transaction.")
-        End If
-        End Try
+          Try
+            myCommand.CommandText = "Insert into mytable (id, desc) VALUES (100, 'Description')"
+            myCommand.ExecuteNonQuery()
+            myCommand.CommandText = "Insert into mytable (id, desc) VALUES (101, 'Description')"
+            myCommand.ExecuteNonQuery()
+            myTrans.Commit()
+            Console.WriteLine("Success.")
+          Catch e As Exception
+            Try
+              myTrans.Rollback()
+            Catch ex As MySqlException
+              If Not myTrans.Connection Is Nothing Then
+                Console.WriteLine("An exception of type " &amp; ex.GetType().ToString() &amp; _
+                " was encountered while attempting to roll back the transaction.")
+              End If
+            End Try
 
-        Console.WriteLine("An exception of type " &amp; e.GetType().ToString() &amp; _
-        "was encountered while inserting the data.")
-        Console.WriteLine("Neither record was written to database.")
-        Finally
-        myConnection.Close()
-        End Try
+            Console.WriteLine("An exception of type " &amp; e.GetType().ToString() &amp; _
+            "was encountered while inserting the data.")
+            Console.WriteLine("Neither record was written to database.")
+          Finally
+            myConnection.Close()
+          End Try
         End Sub
       </code>
       <code lang="C#">
         public void RunSqlTransaction(string myConnString)
         {
-        MySqlConnection myConnection = new MySqlConnection(myConnString);
-        myConnection.Open();
+          MySqlConnection myConnection = new MySqlConnection(myConnString);
+          myConnection.Open();
 
-        MySqlCommand myCommand = myConnection.CreateCommand();
-        MySqlTransaction myTrans;
+          MySqlCommand myCommand = myConnection.CreateCommand();
+          MySqlTransaction myTrans;
 
-        // Start a local transaction
-        myTrans = myConnection.BeginTransaction();
-        // Must assign both transaction object and connection
-        // to Command object for a pending local transaction
-        myCommand.Connection = myConnection;
-        myCommand.Transaction = myTrans;
+          // Start a local transaction
+          myTrans = myConnection.BeginTransaction();
+          // Must assign both transaction object and connection
+          // to Command object for a pending local transaction
+          myCommand.Connection = myConnection;
+          myCommand.Transaction = myTrans;
 
-        try
-        {
-        myCommand.CommandText = "Insert into mytable (id, desc) VALUES (100, 'Description')";
-        myCommand.ExecuteNonQuery();
-        myCommand.CommandText = "Insert into mytable (id, desc) VALUES (101, 'Description')";
-        myCommand.ExecuteNonQuery();
-        myTrans.Commit();
-        Console.WriteLine("Both records are written to database.");
-        }
-        catch(Exception e)
-        {
-        try
-        {
-        myTrans.Rollback();
-        }
-        catch (MySqlException ex)
-        {
-        if (myTrans.Connection != null)
-        {
-        Console.WriteLine("An exception of type " + ex.GetType() +
-        " was encountered while attempting to roll back the transaction.");
-        }
-        }
+          try
+          {
+            myCommand.CommandText = "Insert into mytable (id, desc) VALUES (100, 'Description')";
+            myCommand.ExecuteNonQuery();
+            myCommand.CommandText = "Insert into mytable (id, desc) VALUES (101, 'Description')";
+            myCommand.ExecuteNonQuery();
+            myTrans.Commit();
+            Console.WriteLine("Both records are written to database.");
+          }
+          catch(Exception e)
+          {
+            try
+            {
+              myTrans.Rollback();
+            }
+            catch (MySqlException ex)
+            {
+              if (myTrans.Connection != null)
+              {
+                Console.WriteLine("An exception of type " + ex.GetType() +
+                " was encountered while attempting to roll back the transaction.");
+              }
+            }
 
-        Console.WriteLine("An exception of type " + e.GetType() +
-        " was encountered while inserting the data.");
-        Console.WriteLine("Neither record was written to database.");
-        }
-        finally
-        {
-        myConnection.Close();
-        }
+            Console.WriteLine("An exception of type " + e.GetType() +
+            " was encountered while inserting the data.");
+            Console.WriteLine("Neither record was written to database.");
+          }
+          finally
+          {
+            myConnection.Close();
+          }
         }
       </code>
     </example>
@@ -11829,6 +11757,133 @@
         <member name="M:MySql.Data.Authentication.GSSAPI.Utility.Pinned`1.op_Implicit(MySql.Data.Authentication.GSSAPI.Utility.Pinned{`0})~`0">
             <summary>
             Returns original object value
+            </summary>
+        </member>
+        <member name="T:MySql.Data.Authentication.SSPI.Const">
+            <summary>
+            SSPI constants
+            </summary>
+        </member>
+        <member name="T:MySql.Data.Authentication.SSPI.NativeMethods">
+            <summary>
+            SSPI Bindings
+            </summary>
+        </member>
+        <member name="F:MySql.Data.Authentication.SSPI.SspiCredentials.credentialsHandle">
+            <summary>
+            A safe handle to the credential's handle.
+            </summary>
+        </member>
+        <member name="M:MySql.Data.Authentication.SSPI.SspiCredentials.#ctor(System.String)">
+            <summary>
+            Acquires a handle to preexisting credentials of a security principal.
+            </summary>
+        </member>
+        <member name="M:MySql.Data.Authentication.SSPI.SspiSecurityContext.#ctor(MySql.Data.Authentication.SSPI.SspiCredentials)">
+            <summary>
+            Creates an instance of SspiSecurityContext with credentials provided.
+            </summary>
+            <param name="credentials">Credentials to be used with the Security Context</param>
+        </member>
+        <member name="M:MySql.Data.Authentication.SSPI.SspiSecurityContext.InitializeSecurityContext(System.Byte[]@,System.Byte[],System.String)">
+            <summary>
+            Initiates the client side, outbound security context from a credential handle.
+            </summary>
+            <param name="clientBlob">Byte array to be sent to the server.</param>
+            <param name="serverBlob">Byte array received by the server.</param>
+            <param name="continueProcessing"><see langword="true"/> if should continue processing; otherwise, <see langword="false"/>.</param>
+        </member>
+        <member name="T:MySql.Data.Authentication.SSPI.SecBufferType">
+            <summary>
+            Defines the type of the security buffer.
+            </summary>
+        </member>
+        <member name="T:MySql.Data.Authentication.SSPI.SecHandle">
+            <summary>
+            Defines a security handle.
+            </summary>
+        </member>
+        <member name="T:MySql.Data.Authentication.SSPI.SecBuffer">
+            <summary>
+            Describes a buffer allocated by a transport to pass to a security package.
+            </summary>
+        </member>
+        <member name="F:MySql.Data.Authentication.SSPI.SecBuffer.cbBuffer">
+            <summary>
+            Specifies the size, in bytes, of the buffer.
+            </summary>
+        </member>
+        <member name="F:MySql.Data.Authentication.SSPI.SecBuffer.BufferType">
+            <summary>
+            Bit flags that indicate the type of the buffer.
+            </summary>
+        </member>
+        <member name="F:MySql.Data.Authentication.SSPI.SecBuffer.pvBuffer">
+            <summary>
+            Pointer to a buffer.
+            </summary>
+        </member>
+        <member name="T:MySql.Data.Authentication.SSPI.SECURITY_INTEGER">
+            <summary>
+            Hold a numeric value used in defining other data types.
+            </summary>
+        </member>
+        <member name="F:MySql.Data.Authentication.SSPI.SECURITY_INTEGER.LowPart">
+            <summary>
+            Least significant digits.
+            </summary>
+        </member>
+        <member name="F:MySql.Data.Authentication.SSPI.SECURITY_INTEGER.HighPart">
+            <summary>
+            Most significant digits.
+            </summary>
+        </member>
+        <member name="T:MySql.Data.Authentication.SSPI.SECURITY_HANDLE">
+            <summary>
+            Holds a pointer used to define a security handle.
+            </summary>
+        </member>
+        <member name="F:MySql.Data.Authentication.SSPI.SECURITY_HANDLE.LowPart">
+            <summary>
+            Least significant digits.
+            </summary>
+        </member>
+        <member name="F:MySql.Data.Authentication.SSPI.SECURITY_HANDLE.HighPart">
+            <summary>
+            Most significant digits.
+            </summary>
+        </member>
+        <member name="T:MySql.Data.Authentication.SSPI.SecPkgContext_Sizes">
+            <summary>
+            Indicates the sizes of important structures used in the message support functions.
+            </summary>
+        </member>
+        <member name="F:MySql.Data.Authentication.SSPI.SecPkgContext_Sizes.cbMaxToken">
+            <summary>
+            Specifies the maximum size of the security token used in the authentication changes.
+            </summary>
+        </member>
+        <member name="F:MySql.Data.Authentication.SSPI.SecPkgContext_Sizes.cbMaxSignature">
+            <summary>
+            Specifies the maximum size of the signature created by the <b>MakeSignature</b> function.
+            This member must be zero if integrity services are not requested or available.
+            </summary>
+        </member>
+        <member name="F:MySql.Data.Authentication.SSPI.SecPkgContext_Sizes.cbBlockSize">
+            <summary>
+            Specifies the preferred integral size of the messages.
+            </summary>
+        </member>
+        <member name="F:MySql.Data.Authentication.SSPI.SecPkgContext_Sizes.cbSecurityTrailer">
+            <summary>
+            Size of the security trailer to be appended to messages.
+            This member should be zero if the relevant services are not requested or available.
+            </summary>
+        </member>
+        <member name="T:MySql.Data.Authentication.SSPI.SEC_WINNT_AUTH_IDENTITY">
+            <summary>
+            Implements the 'SEC_WINNT_AUTH_IDENTITY' structure. See:
+            https://msdn.microsoft.com/en-us/library/windows/desktop/aa380131(v=vs.85).aspx
             </summary>
         </member>
         <member name="T:MySql.Data.Common.DnsResolver">
@@ -12787,6 +12842,31 @@
               Looks up a localized string similar to The object is not open or has been disposed..
             </summary>
         </member>
+        <member name="P:MySql.Data.Resources.OciConfigFileNotFound">
+            <summary>
+              Looks up a localized string similar to OCI configuration file could not be read..
+            </summary>
+        </member>
+        <member name="P:MySql.Data.Resources.OciEntryNotFound">
+            <summary>
+              Looks up a localized string similar to OCI configuration file does not contain a &apos;fingerprint&apos; or &apos;key_file&apos; entry..
+            </summary>
+        </member>
+        <member name="P:MySql.Data.Resources.OciInvalidKeyFile">
+            <summary>
+              Looks up a localized string similar to OCI configuration entry &apos;key_file&apos; does not reference a valid key file..
+            </summary>
+        </member>
+        <member name="P:MySql.Data.Resources.OciKeyFileDoesNotExists">
+            <summary>
+              Looks up a localized string similar to Private key could not be found at location given by OCI configuration entry &apos;key_file&apos;..
+            </summary>
+        </member>
+        <member name="P:MySql.Data.Resources.OciSDKNotFound">
+            <summary>
+              Looks up a localized string similar to The OCI SDK cannot be found or is not installed..
+            </summary>
+        </member>
         <member name="P:MySql.Data.Resources.OffsetCannotBeNegative">
             <summary>
               Looks up a localized string similar to The offset cannot be negative.
@@ -13230,6 +13310,11 @@
         <member name="P:MySql.Data.Resources.UnknownConnectionProtocol">
             <summary>
               Looks up a localized string similar to Unknown connection protocol.
+            </summary>
+        </member>
+        <member name="P:MySql.Data.Resources.UnmatchedWinUserAndMySqlUser">
+            <summary>
+              Looks up a localized string similar to MySQL user &apos;{0}&apos; does not equal the logged-in Windows user &apos;{1}&apos;..
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.UnsafePathForLoadLocalInfile">
