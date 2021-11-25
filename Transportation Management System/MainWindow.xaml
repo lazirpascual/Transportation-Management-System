@@ -8,7 +8,7 @@
         Title="MainWindow" Height="450" Width="380"
         AllowsTransparency="True" Background="Transparent"
         WindowStyle="None" ResizeMode="NoResize"
-        MouseDown="MainWindow_OnMouseDown">
+        MouseDown="MainWindow_OnMouseDown" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid RenderTransformOrigin="0.539,0.309">
         <Grid.RowDefinitions>
@@ -38,7 +38,7 @@
                     <PasswordBox FontFamily="Verdana" FontWeight="Light" FontSize="15" HorizontalAlignment="Center" Background="WhiteSmoke" BorderThickness="0" Width="185" Height="25"/>
                 </StackPanel>
                 <StackPanel Margin="0,30,45,0">
-                    <Button Content="Sign in" Foreground="CornflowerBlue" FontFamily="Elephant" HorizontalAlignment="Right" Width="60" Background="WhiteSmoke"/>
+                    <Button Content="Sign in" Foreground="DarkBlue" FontSize="14" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Right" Width="60" Background="WhiteSmoke"/>
                 </StackPanel>
             </StackPanel>
         </Grid>
