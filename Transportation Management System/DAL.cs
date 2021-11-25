@@ -94,5 +94,14 @@ namespace Transportation_Management_System
         public void CreateCarrier(Carrier carrier) { }
 
 
+
+        ///
+        /// \brief Update an existing carrier's attributes
+        ///
+        /// \param carrierId  - <b>int</b> - The id of the carrier to be updated
+        /// \param newCarrier  - <b>Carrier</b> - The new carrier information to be used in the update
+        /// 
+        public void UpdateCarrier(int carrierId, Carrier newCarrier) { }
+
     }
 }
