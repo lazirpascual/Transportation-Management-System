@@ -28,14 +28,24 @@ namespace Transportation_Management_System
             DatabaseName = "qbwrvu2d70g3dyis";
         }
 
-        public string GetConnectionStr()
+
+        ///
+        /// \brief Returns the string connection for the database
+        /// 
+        /// \return String representation of the databse connection info
+        /// 
+        public override string ToString()
         {
             return $"server={Server};user={User};database={DatabaseName};port={Port};password={Password}";
-
         }
 
 
-
+        
+        ///
+        /// \brief Inserts a new user in the User table
+        /// \details <b>Details</b>
+        ///
+        /// \param usr  - <b>User</b> - An User object with all their information
         public void CreateUser(User usr)
         {
 

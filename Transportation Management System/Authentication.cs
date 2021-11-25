@@ -100,7 +100,7 @@ namespace Transportation_Management_System
 
             DAL db = new DAL();
 
-            using (MySqlConnection conn = new MySqlConnection(db.GetConnectionStr()))
+            using (MySqlConnection conn = new MySqlConnection(db.ToString()))
             {
                 Console.WriteLine("Connecting to MySQL...");
                 conn.Open();
