@@ -40,15 +40,58 @@ namespace Transportation_Management_System
         }
 
 
-        
+
         ///
         /// \brief Inserts a new user in the User table
         ///
         /// \param usr  - <b>User</b> - An User object with all their information
-        public void CreateUser(User usr)
-        {
+        /// 
+        public void CreateUser(User usr) { }
 
-        }
+
+
+        ///
+        /// \brief Inserts a new order in the Orders table
+        ///
+        /// \param order  - <b>Order</b> - An Order object to be created with all its information
+        /// 
+        public void CreateOrder(Order order) { }
+
+
+
+        ///
+        /// \brief Inserts a new client in the Client table
+        ///
+        /// \param client  - <b>Client</b> - A Client object to be created with all their information
+        /// 
+        public void CreateClient(Client client) { }
+
+
+
+        ///
+        /// \brief Inserts a new trip in the Trip table
+        ///
+        /// \param trip  - <b>Trip</b> - An Trip object with all its information
+        /// 
+        public void CreateTrip(Trip trip) { }
+
+
+
+        ///
+        /// \brief Inserts a new invoice in the Invoice table
+        ///
+        /// \param invoice  - <b>Invoice</b> - An Invoice object with all its information
+        /// 
+        public void CreateInvoice(Invoice invoice) { }
+
+
+
+        ///
+        /// \brief Inserts a new carrier in the Carrier table
+        ///
+        /// \param carrier  - <b>Carrier</b> - An Carrier object with all their information
+        /// 
+        public void CreateCarrier(Carrier carrier) { }
 
 
     }

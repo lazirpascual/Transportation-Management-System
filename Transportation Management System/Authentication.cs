@@ -110,6 +110,14 @@ namespace Transportation_Management_System
 
 
 
+        ///
+        /// \brief Check if the user belongs to the role specified
+        ///
+        /// \param type  - <b>string</b> - User role to be validated
+        /// \param username  - <b>string</b> - Username to be checked
+        /// 
+        /// \return True if the user belongs to the specified type/role, false otherwise
+        ///
         public bool CheckUserType(string type, string username)
         {
             bool IsTypeValid = false;
@@ -150,7 +158,13 @@ namespace Transportation_Management_System
         }
 
 
-
+        ///
+        /// \brief Generate a salted hash of the password
+        ///
+        /// \param password  - <b>string</b> - Password to be hashed
+        /// 
+        /// \return Hashed password
+        ///
         public string HashPass(string password)
         {
             BC.GenerateSalt();
