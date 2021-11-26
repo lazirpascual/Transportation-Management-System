@@ -86,7 +86,7 @@ namespace Transportation_Management_System
                         while (rdr.Read())
                         {
                             Contract cons = new Contract();
-                            cons.Client = rdr["CLIENT_NAME"].ToString();
+                            cons.ClientName = rdr["CLIENT_NAME"].ToString();
                             cons.JobType = int.Parse(rdr["JOB_TYPE"].ToString());
                             cons.Quantity = int.Parse(rdr["QUANTITY"].ToString());
                             cons.Origin = rdr["ORIGIN"].ToString();
