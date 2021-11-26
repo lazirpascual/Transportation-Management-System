@@ -18,8 +18,10 @@ namespace Transportation_Management_System
     ///
     class Client
     {
-        public int ClientID { get; set; }   /// The ID of the client
+        /// The ID of the client
+        public int ClientID { get; set; }
 
-        public int ClientName { get; set; } /// The client full name
+        /// The client full name
+        public int ClientName { get; set; } 
     }
 }

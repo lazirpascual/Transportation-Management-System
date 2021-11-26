@@ -19,12 +19,23 @@ namespace Transportation_Management_System
     ///
     class Invoice
     {
-        int orderID; /// The order reference for the Invoice
-        double TotalAmount; /// The total amount of the Invoice
-        int PalletQuantity; /// The quantity of pallets in the order that generates the Invoice
-        double TotalKM; /// The total mileage of the trip that relates to the order's Invoice
-        double TotalHours; /// The total hours of the trip that relates to the order's Invoice
-        double Rate; /// The rate used to calculate the total amount of the Invoice
+        /// The order reference for the Invoice
+        int orderID;
+
+        /// The total amount of the Invoice
+        double TotalAmount;
+
+        /// The quantity of pallets in the order that generates the Invoice
+        int PalletQuantity;
+
+        /// The total mileage of the trip that relates to the order's Invoice
+        double TotalKM;
+
+        /// The total hours of the trip that relates to the order's Invoice
+        double TotalHours;
+
+        /// The rate used to calculate the total amount of the Invoice
+        double Rate; 
 
     }
 }

@@ -21,13 +21,24 @@ namespace Transportation_Management_System
     /// \author <i>Team Blank</i>
     ///
     class Contract
-    {                
-        public int  ClientID { get; set; } /// Gets and Sets the contract's Client
-        public int JobType { get; set; } /// Gets and Sets the contract's JobType
-        public int Quantity { get; set; } /// Gets and Sets the contract's Quantity
-        public string Origin { get; set; } /// Gets and Sets the contract's Origin
-        public string Destination { get; set; } /// Gets and Sets the contract's Destination
-        public int VanType { get; set; } /// Gets and Sets the contract's VanType
+    {
+        /// Gets and Sets the contract's Client
+        public int  ClientID { get; set; }
+
+        /// Gets and Sets the contract's JobType
+        public int JobType { get; set; }
+
+        /// Gets and Sets the contract's Quantity
+        public int Quantity { get; set; }
+
+        /// Gets and Sets the contract's Origin
+        public string Origin { get; set; }
+
+        /// Gets and Sets the contract's Destination
+        public string Destination { get; set; } 
+
+        /// Gets and Sets the contract's VanType
+        public int VanType { get; set; }
 
     }
 }

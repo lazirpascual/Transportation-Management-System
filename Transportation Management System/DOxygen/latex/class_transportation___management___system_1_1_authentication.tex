@@ -1,0 +1,103 @@
+\hypertarget{class_transportation___management___system_1_1_authentication}{}\doxysection{Transportation\+\_\+\+Management\+\_\+\+System.\+Authentication Class Reference}
+\label{class_transportation___management___system_1_1_authentication}\index{Transportation\_Management\_System.Authentication@{Transportation\_Management\_System.Authentication}}
+Inheritance diagram for Transportation\+\_\+\+Management\+\_\+\+System.\+Authentication\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_transportation___management___system_1_1_authentication}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{class_transportation___management___system_1_1_authentication_a1723289cfbf46d90e394fdd1fa3a8ebd}{Check\+Username}} (string user\+Name)
+\begin{DoxyCompactList}\small\item\em Check if the username exists in the \mbox{\hyperlink{class_transportation___management___system_1_1_user}{User}} tables. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_transportation___management___system_1_1_authentication_a8d6eb38ffc7a44874584cfa770b05b7b}{Check\+User\+Password}} (string user\+Name, string password)
+\begin{DoxyCompactList}\small\item\em Check if the user password is valid. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_transportation___management___system_1_1_authentication_ad39d9229b2bd9dd2148527bd6fdaade7}{Check\+User\+Type}} (string type, string username)
+\begin{DoxyCompactList}\small\item\em Check if the user belongs to the role specified. \end{DoxyCompactList}\item 
+string \mbox{\hyperlink{class_transportation___management___system_1_1_authentication_ae60d56deef599f81a3a100e6481af3df}{Hash\+Pass}} (string password)
+\begin{DoxyCompactList}\small\item\em Generate a salted hash of the password. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_transportation___management___system_1_1_authentication_a1723289cfbf46d90e394fdd1fa3a8ebd}\label{class_transportation___management___system_1_1_authentication_a1723289cfbf46d90e394fdd1fa3a8ebd}} 
+\index{Transportation\_Management\_System.Authentication@{Transportation\_Management\_System.Authentication}!CheckUsername@{CheckUsername}}
+\index{CheckUsername@{CheckUsername}!Transportation\_Management\_System.Authentication@{Transportation\_Management\_System.Authentication}}
+\doxysubsubsection{\texorpdfstring{CheckUsername()}{CheckUsername()}}
+{\footnotesize\ttfamily bool Transportation\+\_\+\+Management\+\_\+\+System.\+Authentication.\+Check\+Username (\begin{DoxyParamCaption}\item[{string}]{user\+Name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Check if the username exists in the \mbox{\hyperlink{class_transportation___management___system_1_1_user}{User}} tables. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em user\+Name} & -\/ {\bfseries{string}} -\/ Username of ther user\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if it exists, false otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_transportation___management___system_1_1_authentication_a8d6eb38ffc7a44874584cfa770b05b7b}\label{class_transportation___management___system_1_1_authentication_a8d6eb38ffc7a44874584cfa770b05b7b}} 
+\index{Transportation\_Management\_System.Authentication@{Transportation\_Management\_System.Authentication}!CheckUserPassword@{CheckUserPassword}}
+\index{CheckUserPassword@{CheckUserPassword}!Transportation\_Management\_System.Authentication@{Transportation\_Management\_System.Authentication}}
+\doxysubsubsection{\texorpdfstring{CheckUserPassword()}{CheckUserPassword()}}
+{\footnotesize\ttfamily bool Transportation\+\_\+\+Management\+\_\+\+System.\+Authentication.\+Check\+User\+Password (\begin{DoxyParamCaption}\item[{string}]{user\+Name,  }\item[{string}]{password }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Check if the user password is valid. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em user\+Name} & -\/ {\bfseries{string}} -\/ Username to check the password \\
+\hline
+{\em password} & -\/ {\bfseries{string}} -\/ Password to be validated\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the password is correct, false otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_transportation___management___system_1_1_authentication_ad39d9229b2bd9dd2148527bd6fdaade7}\label{class_transportation___management___system_1_1_authentication_ad39d9229b2bd9dd2148527bd6fdaade7}} 
+\index{Transportation\_Management\_System.Authentication@{Transportation\_Management\_System.Authentication}!CheckUserType@{CheckUserType}}
+\index{CheckUserType@{CheckUserType}!Transportation\_Management\_System.Authentication@{Transportation\_Management\_System.Authentication}}
+\doxysubsubsection{\texorpdfstring{CheckUserType()}{CheckUserType()}}
+{\footnotesize\ttfamily bool Transportation\+\_\+\+Management\+\_\+\+System.\+Authentication.\+Check\+User\+Type (\begin{DoxyParamCaption}\item[{string}]{type,  }\item[{string}]{username }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Check if the user belongs to the role specified. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em type} & -\/ {\bfseries{string}} -\/ \mbox{\hyperlink{class_transportation___management___system_1_1_user}{User}} role to be validated \\
+\hline
+{\em username} & -\/ {\bfseries{string}} -\/ Username to be checked\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the user belongs to the specified type/role, false otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_transportation___management___system_1_1_authentication_ae60d56deef599f81a3a100e6481af3df}\label{class_transportation___management___system_1_1_authentication_ae60d56deef599f81a3a100e6481af3df}} 
+\index{Transportation\_Management\_System.Authentication@{Transportation\_Management\_System.Authentication}!HashPass@{HashPass}}
+\index{HashPass@{HashPass}!Transportation\_Management\_System.Authentication@{Transportation\_Management\_System.Authentication}}
+\doxysubsubsection{\texorpdfstring{HashPass()}{HashPass()}}
+{\footnotesize\ttfamily string Transportation\+\_\+\+Management\+\_\+\+System.\+Authentication.\+Hash\+Pass (\begin{DoxyParamCaption}\item[{string}]{password }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Generate a salted hash of the password. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em password} & -\/ {\bfseries{string}} -\/ Password to be hashed\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Hashed password 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/guilh/\+Desktop/\+Team\+Blank\+\_\+\+Group16/\+Transportation Management System/Authentication.\+cs\end{DoxyCompactItemize}
