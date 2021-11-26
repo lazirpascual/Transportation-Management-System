@@ -101,6 +101,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Carrier.cs" />
+    <Compile Include="CarrierManager.cs" />
     <Compile Include="Trip.cs" />
     <Compile Include="User.cs" />
     <Page Include="AdminPage.xaml">
