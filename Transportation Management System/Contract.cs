@@ -22,8 +22,8 @@ namespace Transportation_Management_System
     ///
     class Contract
     {
-        /// Gets and Sets the contract's Client
-        public int  ClientID { get; set; }
+        /// Gets and Sets the contract's Client Name
+        public string ClientName { get; set; }
 
         /// Gets and Sets the contract's JobType
         public int JobType { get; set; }
