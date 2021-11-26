@@ -101,12 +101,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Buyer.cs" />
     <Compile Include="User.cs" />
     <Page Include="AdminPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Buyer.xaml">
+    <Page Include="BuyerPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -124,22 +125,22 @@
     <Compile Include="Authentication.cs" />
     <Compile Include="Contract.cs" />
     <Compile Include="ContractMarketPlace.cs" />
-    <Compile Include="Buyer.xaml.cs">
-      <DependentUpon>Buyer.xaml</DependentUpon>
+    <Compile Include="BuyerPage.xaml.cs">
+      <DependentUpon>BuyerPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="DAL.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Planner.xaml">
+    <Page Include="PlannerPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Planner.xaml.cs">
-      <DependentUpon>Planner.xaml</DependentUpon>
+    <Compile Include="PlannerPage.xaml.cs">
+      <DependentUpon>PlannerPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

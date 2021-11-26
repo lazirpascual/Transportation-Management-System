@@ -17,9 +17,9 @@ namespace Transportation_Management_System
     /// <summary>
     /// Interaction logic for Buyer.xaml
     /// </summary>
-    public partial class Buyer : Window
+    public partial class BuyerPage : Window
     {
-        public Buyer()
+        public BuyerPage()
         {
             InitializeComponent();
         }
