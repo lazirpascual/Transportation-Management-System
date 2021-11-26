@@ -101,6 +101,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Invoice.cs" />
+    <Compile Include="Logger.cs" />
+    <Compile Include="Order.cs" />
+    <Compile Include="OrderManager.cs" />
     <Compile Include="User.cs" />
     <Page Include="AdminPage.xaml">
       <SubType>Designer</SubType>
@@ -171,6 +175,9 @@
     <Resource Include="logo_white.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DOxygenMainProjectPage.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
