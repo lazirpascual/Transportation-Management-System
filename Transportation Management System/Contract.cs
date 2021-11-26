@@ -9,14 +9,25 @@ using MySql.Data.MySqlClient;
 
 namespace Transportation_Management_System
 {
+    /// 
+    /// \class Contract
+    /// 
+    /// \brief The purpose of this class is to model the contract class
+    ///
+    /// This class will demonstrate the attributes of a Contract Class. A contract is generated
+    /// based on the client demand and after receiving all the detail information of the trip and
+    /// quantity to be delivered. The class will contain properties for each of the data members. 
+    ///
+    /// \author <i>Team Blank</i>
+    ///
     class Contract
-    {
-        public string Client { get; set; }
-        public int JobType { get; set; }
-        public int Quantity { get; set; }
-        public string Origin { get; set; }
-        public string Destination { get; set; }
-        public int VanType { get; set; }
+    {                
+        public int  ClientID { get; set; } /// Gets and Sets the contract's Client
+        public int JobType { get; set; } /// Gets and Sets the contract's JobType
+        public int Quantity { get; set; } /// Gets and Sets the contract's Quantity
+        public string Origin { get; set; } /// Gets and Sets the contract's Origin
+        public string Destination { get; set; } /// Gets and Sets the contract's Destination
+        public int VanType { get; set; } /// Gets and Sets the contract's VanType
 
     }
 }
