@@ -1,11 +1,11 @@
-﻿<Window x:Class="Transportation_Management_System.Planner"
+﻿<Window x:Class="Transportation_Management_System.BuyerPage"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Transportation_Management_System"
         mc:Ignorable="d"
-        Title="Planner" Height="450" Width="800">
+        Title="Buyer" Height="450" Width="800">
     <Viewbox>
         <Grid>
             <Border RenderTransformOrigin="0.5,0.5" Height="419" Width="792" Grid.RowSpan="2">
@@ -22,11 +22,11 @@
             <Button x:Name ="Backup_Copy2" Content="Backup" FontSize="16" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="397,10,0,0"/>
             <Button x:Name ="Backup_Copy" Content="Backup" FontSize="16" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="271,10,0,0"/>
             <Button x:Name ="Backup" Content="Backup" FontSize="16" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="145,10,0,0"/>
-            <Button x:Name ="Report" Content="Reports" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="0,209,0,0"/>
-            <Button x:Name ="Activities" Content="Activities" Background="WhiteSmoke" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="0,261,0,0"/>
-            <Button x:Name ="Trip" Content="Trip Management" Background="WhiteSmoke" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="0,312,0,0"/>
-            <Button x:Name ="Orders" Content="Orders" Background="WhiteSmoke" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="0,363,0,0"/>
-            <Frame  x:Name ="PlannerFrame" Margin="145,61,21,10" NavigationUIVisibility="Hidden" Background="GhostWhite" Content=""/>
+            <Button x:Name ="Invoice" Content="Invoices" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="0,209,0,0"/>
+            <Button x:Name ="Carriers" Content="Carriers" Background="WhiteSmoke" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="0,261,0,0"/>
+            <Button x:Name ="Orders" Content="Orders" Background="WhiteSmoke" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="0,312,0,0"/>
+            <Button x:Name ="Customer" Content="Customers" Background="WhiteSmoke" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="0,363,0,0"/>
+            <Frame  x:Name="BuyerFrame" Margin="145,61,21,10" NavigationUIVisibility="Hidden" Background="GhostWhite" Content=""/>
         </Grid>
     </Viewbox>
 </Window>

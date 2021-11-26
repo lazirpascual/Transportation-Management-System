@@ -13,13 +13,21 @@ namespace Transportation_Management_System
 {
     class Authentication
     {
+
+        ///
+        /// \brief Check if the username exists in the User tables
+        ///
+        /// \param userName  - <b>string</b> - Username of ther user
+        /// 
+        /// \return True if it exists, false otherwise
+        ///
         public bool CheckUsername(string userName)
         {
             bool existent = false;
 
             DAL db = new DAL();
 
-            using (MySqlConnection conn = new MySqlConnection(db.GetConnectionStr()))
+            using (MySqlConnection conn = new MySqlConnection(db.ToString()))
             {
                 Console.WriteLine("Connecting to MySQL...");
                 conn.Open();
@@ -53,20 +61,28 @@ namespace Transportation_Management_System
 
 
 
-        public bool CheckPassword(string password)
+        ///
+        /// \brief Check if the user password is valid
+        ///
+        /// \param userName  - <b>string</b> - Username to check the password
+        /// \param password  - <b>string</b> - Password to be validated
+        /// 
+        /// \return True if the password is correct, false otherwise
+        ///
+        public bool CheckUserPassword(string userName, string password)
         {
             // Compare Hased password
             bool isValid = false;
 
             DAL db = new DAL();
 
-            using (MySqlConnection conn = new MySqlConnection(db.GetConnectionStr()))
+            using (MySqlConnection conn = new MySqlConnection(db.ToString()))
             {
                 Console.WriteLine("Connecting to MySQL...");
                 conn.Open();
                 try
                 {
-                    string sql = $"SELECT * FROM Users WHERE Password='{password}'";
+                    string sql = $"SELECT * FROM Users WHERE Username='{userName}";
                     MySqlCommand cmd = new MySqlCommand(sql, conn);
                     MySqlDataReader rdr = cmd.ExecuteReader();
                     
@@ -94,13 +110,21 @@ namespace Transportation_Management_System
 
 
 
+        ///
+        /// \brief Check if the user belongs to the role specified
+        ///
+        /// \param type  - <b>string</b> - User role to be validated
+        /// \param username  - <b>string</b> - Username to be checked
+        /// 
+        /// \return True if the user belongs to the specified type/role, false otherwise
+        ///
         public bool CheckUserType(string type, string username)
         {
             bool IsTypeValid = false;
 
             DAL db = new DAL();
 
-            using (MySqlConnection conn = new MySqlConnection(db.GetConnectionStr()))
+            using (MySqlConnection conn = new MySqlConnection(db.ToString()))
             {
                 Console.WriteLine("Connecting to MySQL...");
                 conn.Open();
@@ -134,7 +158,13 @@ namespace Transportation_Management_System
         }
 
 
-
+        ///
+        /// \brief Generate a salted hash of the password
+        ///
+        /// \param password  - <b>string</b> - Password to be hashed
+        /// 
+        /// \return Hashed password
+        ///
         public string HashPass(string password)
         {
             BC.GenerateSalt();
