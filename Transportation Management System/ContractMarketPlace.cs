@@ -24,7 +24,8 @@ namespace Transportation_Management_System
             UID = "DevOSHT";
             Password = "Snodgr4ss!";
         }
-        public string CMPConnectionString()
+
+        public override string ToString()
         {
             return $"SERVER={CMPServer};DATABASE={DBName};UID={UID};PASSWORD={Password}";
         }
