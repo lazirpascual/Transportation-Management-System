@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['jobtype_197',['JobType',['../class_transportation___management___system_1_1_contract.html#a015f72b20727d5ab1a22fc867eb08efb',1,'Transportation_Management_System::Contract']]]
+  ['isactive_208',['IsActive',['../class_transportation___management___system_1_1_user.html#abb5a6dd8b7badada5b804ece2e968d9c',1,'Transportation_Management_System::User']]]
 ];
