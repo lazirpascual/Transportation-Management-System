@@ -9,15 +9,23 @@ using MySql.Data.MySqlClient;
 
 namespace Transportation_Management_System
 {
+    /// 
+    /// \class DAL
+    /// 
+    /// \brief The purpose of this class is to act as the Data Access Layer for the system
+    ///
+    /// This class will manage all the communication between the controller to the database.
+    /// Therefore, each query or change to the database need to be managed by the DAL class.
+    /// 
+    /// \author <i>Team Blank</i>
+    ///
     class DAL : Authentication
     {
-        private MySqlConnection Connection { get; set; }
-        private MySqlTransaction Transaction { get; set; }
-        private string Server { get; set; }
-        private string User { get; set; }
-        private string Port { get; set; }
-        private string Password { get; set; }
-        private string DatabaseName { get; set; }
+        private string Server { get; set; }         /// Host of the database
+        private string User { get; set; }           /// Username to connect to the database
+        private string Port { get; set; }           /// Port to connect to the database
+        private string Password { get; set; }       /// Port to connect to the database
+        private string DatabaseName { get; set; }   /// Name of the database
 
         public DAL()
         {
@@ -102,6 +110,97 @@ namespace Transportation_Management_System
         /// \param newCarrier  - <b>Carrier</b> - The new carrier information to be used in the update
         /// 
         public void UpdateCarrier(int carrierId, Carrier newCarrier) { }
+
+
+
+        ///
+        /// \brief Get a carrier by its id
+        ///
+        /// \param carrierId  - <b>int</b> - The id of the carrier to be searched
+        /// 
+        /// \return The found carrier or null otherwise
+        /// 
+        public Carrier GetCarrier(int carrierId) { }
+
+
+
+        ///
+        /// \brief Deactivate an active carrier by its id
+        ///
+        /// \param carrier  - <b>Carrier</b> - The id of the carrier to be deactived
+        /// 
+        public void DeactivateCarrier(int carrierId) { }
+
+
+
+        ///
+        /// \brief Filter carriers by city
+        ///
+        /// \param city  - <b>string</b> - The city to be filter the carriers
+        /// 
+        /// \return A list of carriers that belong to the specified city
+        /// 
+        public List<Carrier> FilterCarrierByCity(string city) { }
+
+
+
+
+        ///
+        /// \brief Returns a list of all users in our system
+        /// 
+        /// \return A list of all registered uses
+        /// 
+        public List<User> GetUsers() { }
+
+
+        ///
+        /// \brief Returns a list of all clients in our system
+        /// 
+        /// \return A list of all clients
+        /// 
+        public List<Client> GetClient() { }
+
+
+
+        ///
+        /// \brief Filter clients by Name
+        ///
+        /// \param name  - <b>string</b> - The name of the client to be searched
+        /// 
+        /// \return The found client of null if none are found
+        /// 
+        public Client FilterClientByName(string name) { }
+
+
+        ///
+        /// \brief Returns a list of all active orders
+        /// 
+        /// \return List of all active orders
+        /// 
+        public List<Order> GetActiveOrders() { }
+
+
+        ///
+        /// \brief Returns a list with all trips attached to a specific orders
+        /// 
+        /// \param orderId  - <b>int</b> - If of the order to filter the trip
+        /// 
+        /// \return A list with all trips attached to a specific orders
+        /// 
+        public List<Trip> FilterTripsByOrderId(int orderId) { }
+
+
+
+        ///
+        /// \brief Backup up the entire database to a .sql file
+        /// 
+        /// \return True if successful, false otherwise
+        /// 
+        public bool BackupDatabase() 
+        { 
+            https://stackoverflow.com/questions/12311492/backing-up-database-in-mysql-using-c-sharp/12311685
+        }
+
 
     }
 }
