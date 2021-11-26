@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['totalamount_188',['TotalAmount',['../class_transportation___management___system_1_1_invoice.html#a108d226d71bcf3205865d6fd85ccef89',1,'Transportation_Management_System::Invoice']]],
-  ['totalhours_189',['TotalHours',['../class_transportation___management___system_1_1_invoice.html#a7a69b51499d46c30dff6a8699ca3660f',1,'Transportation_Management_System::Invoice']]],
-  ['totalkm_190',['TotalKM',['../class_transportation___management___system_1_1_invoice.html#a62bacb9b51f19f800fb52b43b343a821',1,'Transportation_Management_System::Invoice']]],
-  ['totaltime_191',['totalTime',['../class_transportation___management___system_1_1_trip.html#a90e18224425d98b7b89f09f00bc7eb25',1,'Transportation_Management_System::Trip']]]
+  ['rate_195',['Rate',['../class_transportation___management___system_1_1_invoice.html#a28705201dc17b0a20c42c92209a67801',1,'Transportation_Management_System::Invoice']]],
+  ['reefercharge_196',['reeferCharge',['../class_transportation___management___system_1_1_carrier.html#a71c9e678f4b6d088817c76b34ebd9f93',1,'Transportation_Management_System::Carrier']]]
 ];

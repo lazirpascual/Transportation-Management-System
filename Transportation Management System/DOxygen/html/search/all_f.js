@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['selectordercarrier_79',['SelectOrderCarrier',['../class_transportation___management___system_1_1_planner.html#a24316fb6a776c0736ec812d1f41e3fbb',1,'Transportation_Management_System::Planner']]],
-  ['setclient_80',['SetClient',['../class_transportation___management___system_1_1_order.html#adc2d7749117d605966097e5460b8e4f8',1,'Transportation_Management_System::Order']]]
+  ['rate_83',['Rate',['../class_transportation___management___system_1_1_invoice.html#a28705201dc17b0a20c42c92209a67801',1,'Transportation_Management_System::Invoice']]],
+  ['reefercharge_84',['reeferCharge',['../class_transportation___management___system_1_1_carrier.html#a71c9e678f4b6d088817c76b34ebd9f93',1,'Transportation_Management_System::Carrier']]]
 ];
