@@ -10,32 +10,50 @@ using MySql.Data.MySqlClient;
 
 namespace Transportation_Management_System
 {
+
     class ContractMarketPlace
     {
-        public string CMPServer { get; set; }
-        public string DBName { get; set; }
-        public string UID { get; set; }
-        public string Password { get; set; }
+        public string CMPServer { get; set; }   /// The ContractMarketPlace database IP
+        public string DBName { get; set; }      /// The name of the ContractMarketPlace databse
+        public string UID { get; set; }         /// The username to connect to the ContractMarketPlace database
+        public string Password { get; set; }    /// The password to connect to the database
+        public int Port { get; set; }           /// The port to connect to the ContractMarketPlace database
 
+
+
+        ///
+        /// \brief Contruct the ContractMarketPlace object by setting the database connection information
+        /// 
         public ContractMarketPlace()
         {
             CMPServer = "159.89.117.198";
+            Port = 3306;
             DBName = "cmp";
             UID = "DevOSHT";
             Password = "Snodgr4ss!";
         }
 
+
+
+        ///
+        /// \brief Returns the string connection for the database
+        /// 
+        /// \return String representation of the databse connection info
+        /// 
         public override string ToString()
         {
-            return $"SERVER={CMPServer};DATABASE={DBName};UID={UID};PASSWORD={Password}";
+            return $"SERVER={CMPServer};DATABASE={DBName};PORT={Port};UID={UID};PASSWORD={Password}";
         }
+
+
+
 
         public List<Contract> GetContracts()
         {
             List<Contract> contracts = new List<Contract>();
             try
             {
-                string conString = CMPConnectionString();
+                string conString = this.ToString();
                 using (MySqlConnection con = new MySqlConnection(conString))
                 {
                     MySqlCommand cmd = new MySqlCommand("SELECT * FROM Contract", con);

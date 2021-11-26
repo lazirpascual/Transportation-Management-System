@@ -27,6 +27,9 @@ namespace Transportation_Management_System
         private string Password { get; set; }       /// Port to connect to the database
         private string DatabaseName { get; set; }   /// Name of the database
 
+        ///
+        /// \brief Contruct the DataAccessLayer object by setting the database connection information
+        /// 
         public DAL()
         {
             Server = "phtfaw4p6a970uc0.cbetxkdyhwsb.us-east-1.rds.amazonaws.com";
