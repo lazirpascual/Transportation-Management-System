@@ -111,6 +111,7 @@
     <Compile Include="Carrier.cs" />
     <Compile Include="CarrierManager.cs" />
     <Compile Include="Trip.cs" />
+    <Compile Include="Admin.cs" />
     <Compile Include="User.cs" />
     <Page Include="AdminPage.xaml">
       <SubType>Designer</SubType>
