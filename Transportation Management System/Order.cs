@@ -19,14 +19,29 @@ namespace Transportation_Management_System
     ///
     class Order
     {
-        int OrderID; /// The identifier number of the order 
-        Client OrderClient; /// The client related the order
-        DateTime OrderCreationDate; /// The date when the order was created
-        string Origin; /// The origin of the order's trip
-        string Destination; /// The destination of the order's trip
-        int JobType; /// The type of job to be completed
-        int Quantity; /// The quantity of pallets contained in the order
-        bool IsCompleted; /// The indicator of current and completed orders
+        /// The identifier number of the order 
+        int OrderID;
+
+        /// The client related the order
+        Client OrderClient;
+
+        /// The date when the order was created
+        DateTime OrderCreationDate;
+
+        /// The origin of the order's trip
+        string Origin;
+
+        /// The destination of the order's trip
+        string Destination;
+
+        /// The type of job to be completed
+        int JobType;
+
+        /// The quantity of pallets contained in the order
+        int Quantity;
+
+        /// The indicator of current and completed orders
+        bool IsCompleted; 
 
 
         ///

@@ -21,13 +21,26 @@ namespace Transportation_Management_System
     ///
     class Trip
     {
-        public int orderID;             /// The order ID for the Trip
-        public int originCity;          /// The starting city for the transport
-        public int destinationCity;     /// The destination city for the transport
-        public double totalTime;        /// The total number of hours needed for the trip
-        public double hoursDriven;      /// The total number of hours spent driving
-        public double hoursUnloading;   /// The total number of hours spent unloading the truck
-        public double hoursLoading;     /// The total number of hours spent loading the truck
+        /// The order ID for the Trip
+        public int orderID;
+
+        /// The starting city for the transport
+        public int originCity;
+
+        /// The destination city for the transport
+        public int destinationCity;
+
+        /// The total number of hours needed for the trip
+        public double totalTime;
+
+        /// The total number of hours spent driving
+        public double hoursDriven;
+
+        /// The total number of hours spent unloading the truck
+        public double hoursUnloading;
+
+        /// The total number of hours spent loading the truck
+        public double hoursLoading;     
 
         ///
         /// \brief This method will calculate the route for the trip, based on origin, destination and jobtype

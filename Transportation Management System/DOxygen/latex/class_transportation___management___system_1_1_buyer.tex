@@ -1,0 +1,117 @@
+\hypertarget{class_transportation___management___system_1_1_buyer}{}\doxysection{Transportation\+\_\+\+Management\+\_\+\+System.\+Buyer Class Reference}
+\label{class_transportation___management___system_1_1_buyer}\index{Transportation\_Management\_System.Buyer@{Transportation\_Management\_System.Buyer}}
+
+
+The purpose of this class is to represent the \mbox{\hyperlink{class_transportation___management___system_1_1_buyer}{Buyer}} \mbox{\hyperlink{class_transportation___management___system_1_1_user}{User}}.  
+
+
+Inheritance diagram for Transportation\+\_\+\+Management\+\_\+\+System.\+Buyer\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_transportation___management___system_1_1_buyer}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+List$<$ \mbox{\hyperlink{class_transportation___management___system_1_1_contract}{Contract}} $>$ \mbox{\hyperlink{class_transportation___management___system_1_1_buyer_ad5759ddfd24f94a1c890aebc45677ebc}{Fetch\+Contracts}} ()
+\begin{DoxyCompactList}\small\item\em Fetch all contracts from the contract marketplace. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_transportation___management___system_1_1_buyer_a46137f4e40a11a38ac9afc71cc7b3ce9}{Create\+Order}} (\mbox{\hyperlink{class_transportation___management___system_1_1_contract}{Contract}} contract)
+\begin{DoxyCompactList}\small\item\em Create order based on the contract fetched from the marketplace. \end{DoxyCompactList}\item 
+List$<$ Customer $>$ \mbox{\hyperlink{class_transportation___management___system_1_1_buyer_a6d10f2ae80961d0d80feae1bd399bf6b}{Get\+Active\+Customers}} ()
+\begin{DoxyCompactList}\small\item\em Return a list of all active customers in our system. \end{DoxyCompactList}\item 
+List$<$ \mbox{\hyperlink{class_transportation___management___system_1_1_order}{Order}} $>$ \mbox{\hyperlink{class_transportation___management___system_1_1_buyer_ad202378b1083a88c893c9b7ab78b7ec3}{Get\+Active\+Orders}} ()
+\begin{DoxyCompactList}\small\item\em Return a list of all active orders in our system. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_transportation___management___system_1_1_invoice}{Invoice}} \mbox{\hyperlink{class_transportation___management___system_1_1_buyer_a10cd511bbf19b6c856de2125395f4eae}{Generate\+Invoice}} (\mbox{\hyperlink{class_transportation___management___system_1_1_order}{Order}} order)
+\begin{DoxyCompactList}\small\item\em Generate an invoice based on an order object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+The purpose of this class is to represent the \mbox{\hyperlink{class_transportation___management___system_1_1_buyer}{Buyer}} \mbox{\hyperlink{class_transportation___management___system_1_1_user}{User}}. 
+
+This class represents the role of a buyer \mbox{\hyperlink{class_transportation___management___system_1_1_user}{User}}, which represents a \mbox{\hyperlink{class_transportation___management___system_1_1_user}{User}} who requesting Customer contracts from the \mbox{\hyperlink{class_transportation___management___system_1_1_contract}{Contract}} Marketplace and generating an initial \mbox{\hyperlink{class_transportation___management___system_1_1_order}{Order}} or contract
+
+\begin{DoxyAuthor}{Author}
+{\itshape Team Blank} 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_transportation___management___system_1_1_buyer_a46137f4e40a11a38ac9afc71cc7b3ce9}\label{class_transportation___management___system_1_1_buyer_a46137f4e40a11a38ac9afc71cc7b3ce9}} 
+\index{Transportation\_Management\_System.Buyer@{Transportation\_Management\_System.Buyer}!CreateOrder@{CreateOrder}}
+\index{CreateOrder@{CreateOrder}!Transportation\_Management\_System.Buyer@{Transportation\_Management\_System.Buyer}}
+\doxysubsubsection{\texorpdfstring{CreateOrder()}{CreateOrder()}}
+{\footnotesize\ttfamily void Transportation\+\_\+\+Management\+\_\+\+System.\+Buyer.\+Create\+Order (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_transportation___management___system_1_1_contract}{Contract}}}]{contract }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Create order based on the contract fetched from the marketplace. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em contract} & -\/ {\bfseries{\mbox{\hyperlink{class_transportation___management___system_1_1_contract}{Contract}}}} -\/ The selected contract for the order to be created \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_transportation___management___system_1_1_buyer_ad5759ddfd24f94a1c890aebc45677ebc}\label{class_transportation___management___system_1_1_buyer_ad5759ddfd24f94a1c890aebc45677ebc}} 
+\index{Transportation\_Management\_System.Buyer@{Transportation\_Management\_System.Buyer}!FetchContracts@{FetchContracts}}
+\index{FetchContracts@{FetchContracts}!Transportation\_Management\_System.Buyer@{Transportation\_Management\_System.Buyer}}
+\doxysubsubsection{\texorpdfstring{FetchContracts()}{FetchContracts()}}
+{\footnotesize\ttfamily List$<$\mbox{\hyperlink{class_transportation___management___system_1_1_contract}{Contract}}$>$ Transportation\+\_\+\+Management\+\_\+\+System.\+Buyer.\+Fetch\+Contracts (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Fetch all contracts from the contract marketplace. 
+
+\begin{DoxyReturn}{Returns}
+A list of all contracts from the marketplace 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_transportation___management___system_1_1_buyer_a10cd511bbf19b6c856de2125395f4eae}\label{class_transportation___management___system_1_1_buyer_a10cd511bbf19b6c856de2125395f4eae}} 
+\index{Transportation\_Management\_System.Buyer@{Transportation\_Management\_System.Buyer}!GenerateInvoice@{GenerateInvoice}}
+\index{GenerateInvoice@{GenerateInvoice}!Transportation\_Management\_System.Buyer@{Transportation\_Management\_System.Buyer}}
+\doxysubsubsection{\texorpdfstring{GenerateInvoice()}{GenerateInvoice()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_transportation___management___system_1_1_invoice}{Invoice}} Transportation\+\_\+\+Management\+\_\+\+System.\+Buyer.\+Generate\+Invoice (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_transportation___management___system_1_1_order}{Order}}}]{order }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Generate an invoice based on an order object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em order} & -\/ {\bfseries{\mbox{\hyperlink{class_transportation___management___system_1_1_order}{Order}}}} -\/ The order to generate the invoice\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+An invoice object 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_transportation___management___system_1_1_buyer_a6d10f2ae80961d0d80feae1bd399bf6b}\label{class_transportation___management___system_1_1_buyer_a6d10f2ae80961d0d80feae1bd399bf6b}} 
+\index{Transportation\_Management\_System.Buyer@{Transportation\_Management\_System.Buyer}!GetActiveCustomers@{GetActiveCustomers}}
+\index{GetActiveCustomers@{GetActiveCustomers}!Transportation\_Management\_System.Buyer@{Transportation\_Management\_System.Buyer}}
+\doxysubsubsection{\texorpdfstring{GetActiveCustomers()}{GetActiveCustomers()}}
+{\footnotesize\ttfamily List$<$Customer$>$ Transportation\+\_\+\+Management\+\_\+\+System.\+Buyer.\+Get\+Active\+Customers (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Return a list of all active customers in our system. 
+
+\begin{DoxyReturn}{Returns}
+A list of all active customers 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_transportation___management___system_1_1_buyer_ad202378b1083a88c893c9b7ab78b7ec3}\label{class_transportation___management___system_1_1_buyer_ad202378b1083a88c893c9b7ab78b7ec3}} 
+\index{Transportation\_Management\_System.Buyer@{Transportation\_Management\_System.Buyer}!GetActiveOrders@{GetActiveOrders}}
+\index{GetActiveOrders@{GetActiveOrders}!Transportation\_Management\_System.Buyer@{Transportation\_Management\_System.Buyer}}
+\doxysubsubsection{\texorpdfstring{GetActiveOrders()}{GetActiveOrders()}}
+{\footnotesize\ttfamily List$<$\mbox{\hyperlink{class_transportation___management___system_1_1_order}{Order}}$>$ Transportation\+\_\+\+Management\+\_\+\+System.\+Buyer.\+Get\+Active\+Orders (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Return a list of all active orders in our system. 
+
+\begin{DoxyReturn}{Returns}
+A list of all active orders 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/guilh/\+Desktop/\+Team\+Blank\+\_\+\+Group16/\+Transportation Management System/Buyer.\+cs\end{DoxyCompactItemize}

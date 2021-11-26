@@ -1,0 +1,124 @@
+\hypertarget{class_transportation___management___system_1_1_trip}{}\doxysection{Transportation\+\_\+\+Management\+\_\+\+System.\+Trip Class Reference}
+\label{class_transportation___management___system_1_1_trip}\index{Transportation\_Management\_System.Trip@{Transportation\_Management\_System.Trip}}
+
+
+The purpose of this class is to model the trip required for the order.  
+
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_transportation___management___system_1_1_trip_a3ffcf734ef0fa6f4d5b981ae71bacfa2}{Calculate\+Trip}} ()
+\begin{DoxyCompactList}\small\item\em The total number of hours spent loading the truck. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_transportation___management___system_1_1_trip_ad057a768bb2dac290215d34ccd0ac501}{Calculate\+Distance}} ()
+\begin{DoxyCompactList}\small\item\em This method will calculate the total distance that the transport will travel. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_transportation___management___system_1_1_trip_ae3d7223406a91ffcef3486fc9373b0fb}{Calculate\+Time}} ()
+\begin{DoxyCompactList}\small\item\em This method will calculate the total time that the transport will take. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_transportation___management___system_1_1_trip_ad324547fd60fb049d21d3c0faded7507}\label{class_transportation___management___system_1_1_trip_ad324547fd60fb049d21d3c0faded7507}} 
+int {\bfseries order\+ID}
+\item 
+\mbox{\Hypertarget{class_transportation___management___system_1_1_trip_af29636c0e740d70f4e7ffa60644cfea6}\label{class_transportation___management___system_1_1_trip_af29636c0e740d70f4e7ffa60644cfea6}} 
+int \mbox{\hyperlink{class_transportation___management___system_1_1_trip_af29636c0e740d70f4e7ffa60644cfea6}{origin\+City}}
+\begin{DoxyCompactList}\small\item\em The order ID for the \mbox{\hyperlink{class_transportation___management___system_1_1_trip}{Trip}}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_transportation___management___system_1_1_trip_abcf85538f1d68814037a063e07e67053}\label{class_transportation___management___system_1_1_trip_abcf85538f1d68814037a063e07e67053}} 
+int \mbox{\hyperlink{class_transportation___management___system_1_1_trip_abcf85538f1d68814037a063e07e67053}{destination\+City}}
+\begin{DoxyCompactList}\small\item\em The starting city for the transport. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_transportation___management___system_1_1_trip_a90e18224425d98b7b89f09f00bc7eb25}\label{class_transportation___management___system_1_1_trip_a90e18224425d98b7b89f09f00bc7eb25}} 
+double \mbox{\hyperlink{class_transportation___management___system_1_1_trip_a90e18224425d98b7b89f09f00bc7eb25}{total\+Time}}
+\begin{DoxyCompactList}\small\item\em The destination city for the transport. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_transportation___management___system_1_1_trip_a53c9ea4412bda8b5bfc32c6671e16090}\label{class_transportation___management___system_1_1_trip_a53c9ea4412bda8b5bfc32c6671e16090}} 
+double \mbox{\hyperlink{class_transportation___management___system_1_1_trip_a53c9ea4412bda8b5bfc32c6671e16090}{hours\+Driven}}
+\begin{DoxyCompactList}\small\item\em The total number of hours needed for the trip. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_transportation___management___system_1_1_trip_ad9b880136c6dddb755d32c283900eedb}\label{class_transportation___management___system_1_1_trip_ad9b880136c6dddb755d32c283900eedb}} 
+double \mbox{\hyperlink{class_transportation___management___system_1_1_trip_ad9b880136c6dddb755d32c283900eedb}{hours\+Unloading}}
+\begin{DoxyCompactList}\small\item\em The total number of hours spent driving. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_transportation___management___system_1_1_trip_a67030975ef45f7c79714063003c2591c}\label{class_transportation___management___system_1_1_trip_a67030975ef45f7c79714063003c2591c}} 
+double \mbox{\hyperlink{class_transportation___management___system_1_1_trip_a67030975ef45f7c79714063003c2591c}{hours\+Loading}}
+\begin{DoxyCompactList}\small\item\em The total number of hours spent unloading the truck. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The purpose of this class is to model the trip required for the order. 
+
+This class will demonstrate the attributes and behaviours of the \mbox{\hyperlink{class_transportation___management___system_1_1_trip}{Trip}}. It will calculate the total distance and the total time required for the trip.
+
+\begin{DoxyAuthor}{Author}
+{\itshape Team Blank} 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_transportation___management___system_1_1_trip_ad057a768bb2dac290215d34ccd0ac501}\label{class_transportation___management___system_1_1_trip_ad057a768bb2dac290215d34ccd0ac501}} 
+\index{Transportation\_Management\_System.Trip@{Transportation\_Management\_System.Trip}!CalculateDistance@{CalculateDistance}}
+\index{CalculateDistance@{CalculateDistance}!Transportation\_Management\_System.Trip@{Transportation\_Management\_System.Trip}}
+\doxysubsubsection{\texorpdfstring{CalculateDistance()}{CalculateDistance()}}
+{\footnotesize\ttfamily double Transportation\+\_\+\+Management\+\_\+\+System.\+Trip.\+Calculate\+Distance (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method will calculate the total distance that the transport will travel. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em origin\+City} & -\/ {\bfseries{int}} -\/ Where the delivery will start from. \\
+\hline
+{\em destination\+City} & -\/ {\bfseries{int}} -\/ Where the delivery needs to reach.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+total\+Distance -\/ {\bfseries{int}} -\/ Total distance in kms 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_transportation___management___system_1_1_trip_ae3d7223406a91ffcef3486fc9373b0fb}\label{class_transportation___management___system_1_1_trip_ae3d7223406a91ffcef3486fc9373b0fb}} 
+\index{Transportation\_Management\_System.Trip@{Transportation\_Management\_System.Trip}!CalculateTime@{CalculateTime}}
+\index{CalculateTime@{CalculateTime}!Transportation\_Management\_System.Trip@{Transportation\_Management\_System.Trip}}
+\doxysubsubsection{\texorpdfstring{CalculateTime()}{CalculateTime()}}
+{\footnotesize\ttfamily double Transportation\+\_\+\+Management\+\_\+\+System.\+Trip.\+Calculate\+Time (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method will calculate the total time that the transport will take. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em hours\+Loading} & -\/ {\bfseries{double}} -\/ Number of hours needed to load the truck \\
+\hline
+{\em hours\+Unloading} & -\/ {\bfseries{double}} -\/ Total number of hours needed to unload the truck \\
+\hline
+{\em hours\+Driven} & -\/ {\bfseries{double}} -\/ Total number of hours spent driving\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+total\+Time -\/ {\bfseries{double}} -\/ Total time needed for the transportation 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_transportation___management___system_1_1_trip_a3ffcf734ef0fa6f4d5b981ae71bacfa2}\label{class_transportation___management___system_1_1_trip_a3ffcf734ef0fa6f4d5b981ae71bacfa2}} 
+\index{Transportation\_Management\_System.Trip@{Transportation\_Management\_System.Trip}!CalculateTrip@{CalculateTrip}}
+\index{CalculateTrip@{CalculateTrip}!Transportation\_Management\_System.Trip@{Transportation\_Management\_System.Trip}}
+\doxysubsubsection{\texorpdfstring{CalculateTrip()}{CalculateTrip()}}
+{\footnotesize\ttfamily void Transportation\+\_\+\+Management\+\_\+\+System.\+Trip.\+Calculate\+Trip (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+The total number of hours spent loading the truck. 
+
+This method will calculate the route for the trip, based on origin, destination and jobtype
+
+
+\begin{DoxyParams}{Parameters}
+{\em origin\+City} & -\/ {\bfseries{int}} -\/ Where the delivery will start from. \\
+\hline
+{\em destination\+City} & -\/ {\bfseries{int}} -\/ Where the delivery needs to reach. \\
+\hline
+{\em job\+Type} & -\/ {\bfseries{int}} -\/ Full truck load or less than truck load\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/guilh/\+Desktop/\+Team\+Blank\+\_\+\+Group16/\+Transportation Management System/Trip.\+cs\end{DoxyCompactItemize}

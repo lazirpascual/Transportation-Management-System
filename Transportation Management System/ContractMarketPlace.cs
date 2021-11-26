@@ -21,16 +21,25 @@ namespace Transportation_Management_System
     ///
     class ContractMarketPlace
     {
-        public string CMPServer { get; set; }   /// The ContractMarketPlace database IP
-        public string DBName { get; set; }      /// The name of the ContractMarketPlace databse
-        public string UID { get; set; }         /// The username to connect to the ContractMarketPlace database
-        public string Password { get; set; }    /// The password to connect to the database
-        public int Port { get; set; }           /// The port to connect to the ContractMarketPlace database
+        /// The ContractMarketPlace database IP
+        public string CMPServer { get; set; }
+
+        /// The name of the ContractMarketPlace databse
+        public string DBName { get; set; }
+
+        /// The username to connect to the ContractMarketPlace database
+        public string UID { get; set; }
+
+        /// The password to connect to the database
+        public string Password { get; set; }
+
+        /// The port to connect to the ContractMarketPlace database
+        public int Port { get; set; }           
 
 
 
         ///
-        /// \brief Contruct the ContractMarketPlace object by setting the database connection information
+        /// \brief Construct the ContractMarketPlace object by setting the database connection information
         /// 
         public ContractMarketPlace()
         {
