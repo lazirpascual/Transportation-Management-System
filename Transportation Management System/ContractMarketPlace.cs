@@ -10,7 +10,15 @@ using MySql.Data.MySqlClient;
 
 namespace Transportation_Management_System
 {
-
+    /// 
+    /// \class ContractMarketPlace
+    /// 
+    /// \brief The purpose of this class is to manage all the communication with the Contract Market Place
+    ///
+    /// This class can be used to fetch all the active contracts in the ContractMarketPlace database
+    ///
+    /// \author <i>Team Blank</i>
+    ///
     class ContractMarketPlace
     {
         public string CMPServer { get; set; }   /// The ContractMarketPlace database IP
@@ -47,7 +55,11 @@ namespace Transportation_Management_System
 
 
 
-
+        ///
+        /// \brief Returns a list of all contracts fetched from the ContractMarketPlace
+        /// 
+        /// \return A list of all active contracts from the ContractMarketPlace
+        /// 
         public List<Contract> GetContracts()
         {
             List<Contract> contracts = new List<Contract>();
