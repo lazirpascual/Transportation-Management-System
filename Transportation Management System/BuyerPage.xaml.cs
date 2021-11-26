@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 namespace Transportation_Management_System
 {
     /// <summary>
-    /// Interaction logic for Buyer.xaml
+    /// Interaction logic for BuyerPage.xaml
     /// </summary>
     public partial class BuyerPage : Window
     {

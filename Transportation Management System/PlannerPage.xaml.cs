@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 namespace Transportation_Management_System
 {
     /// <summary>
-    /// Interaction logic for Planner.xaml
+    /// Interaction logic for PlannerPage.xaml
     /// </summary>
     public partial class PlannerPage : Window
     {
