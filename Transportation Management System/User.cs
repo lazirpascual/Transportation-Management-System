@@ -18,10 +18,10 @@ namespace Transportation_Management_System
     ///
     class User
     {
-        public string FirstName { get; set; }
-        public int Username { get; set; }
-        public int Password { get; set; }
-        public bool IsActive { get; set; }
-        public string UserType { get; set; }
+        public string FirstName { get; set; }   /// used to describe the first name of the user
+        public int Username { get; set; }   /// used to represent the username of the user
+        public int Password { get; set; }   /// used to represent the password of the user
+        public bool IsActive { get; set; }  /// used to describe whether the user is active or not
+        public string UserType { get; set; }    /// used to represent type or role of a user
     }
 }
