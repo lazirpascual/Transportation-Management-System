@@ -130,9 +130,9 @@ namespace Transportation_Management_System
         /// 
         /// \return True if the user belongs to the specified type/role, false otherwise
         ///
-        public bool CheckUserType(string type, string username)
+        public string GetUserType(string username)
         {
-            bool IsTypeValid = false;
+            string userType = "";
 
             DAL db = new DAL();
 
@@ -142,7 +142,7 @@ namespace Transportation_Management_System
                 conn.Open();
                 try
                 {
-                    string sql = $"SELECT * FROM Users WHERE UserType='{type}' AND Username='{username}'";
+                    string sql = $"SELECT UserType FROM Users WHERE Username='{username}'";
                     MySqlCommand cmd = new MySqlCommand(sql, conn);
                     MySqlDataReader rdr = cmd.ExecuteReader();
 
@@ -151,12 +151,8 @@ namespace Transportation_Management_System
                     {
                         while (rdr.Read())
                         {
-                            string DbUsername = rdr[2].ToString();
-                            string DbUserType = rdr[5].ToString();
-                            if (type == DbUserType && username == DbUsername)
-                            {
-                                IsTypeValid = true;
-                            }
+                            string DbUserType = rdr[0].ToString();
+                            userType = DbUserType;
                         }
                     }
                 }
@@ -167,7 +163,7 @@ namespace Transportation_Management_System
                 conn.Close();
             }
 
-            return IsTypeValid;
+            return userType;
         }
 
 

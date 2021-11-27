@@ -48,5 +48,27 @@ namespace UnitTestProject1
             bool passwordResult = auth.CheckUserPassword(validUsername, validPassword);
             Assert.AreEqual(false, passwordResult);
         }
+
+        [TestMethod]
+        public void CheckUserType_FunctionalTest()
+        {
+            string validUsertype = "Buyer";
+            string validUsername = "buyer";
+            var auth = new Authentication();
+
+            bool usertypeResult = auth.CheckUserType(validUsertype, validUsername);
+            Assert.AreEqual(true, usertypeResult);
+        }
+
+        [TestMethod]
+        public void CheckUserType_ExceptionTest()
+        {
+            string validUsertype = "Admin";
+            string validUsername = "buyer";
+            var auth = new Authentication();
+
+            bool usertypeResult = auth.CheckUserType(validUsertype, validUsername);
+            Assert.AreEqual(false, usertypeResult);
+        }
     }
 }

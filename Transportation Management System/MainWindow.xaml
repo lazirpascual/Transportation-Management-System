@@ -1,4 +1,5 @@
 ﻿<Window x:Class="Transportation_Management_System.MainWindow"
+        Name="LoginScreen"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -37,12 +38,7 @@
                     <TextBlock FontFamily="Elephant" Foreground="DarkBlue" FontSize="16" Text="Password" Background="Transparent" Width="100"/>
                     <PasswordBox x:Name="PasswordText" FontFamily="Verdana" FontWeight="Light" FontSize="15" HorizontalAlignment="Center" Background="WhiteSmoke" BorderThickness="0" Width="185" Height="25"/>
                 </StackPanel>
-                <StackPanel Margin="50,20,0,0" HorizontalAlignment="Left" Orientation="Horizontal">
-                    <RadioButton x:Name="BuyerRadioButton" Content="Buyer" Height="31" RenderTransformOrigin="0.495,1.144" Margin="0,0,64,0" />
-                    <RadioButton x:Name="PlannerRadioButton" Content="Planner" Height="31" RenderTransformOrigin="0.495,1.144" Margin="0,0,58,0"  />
-                    <RadioButton x:Name="AdminRadioButton" Content="Admin" Height="31" RenderTransformOrigin="0.495,1.144" />
-                </StackPanel>
-                <StackPanel Margin="0,15,45,0">
+                <StackPanel Margin="0,25,45,0">
                     <Button x:Name="SigninButton" Content="Sign in" Foreground="DarkBlue" FontSize="14" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Right" Width="60" Background="WhiteSmoke" Click="Signin_Button_Click"/>
                 </StackPanel>
             </StackPanel>

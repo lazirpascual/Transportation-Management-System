@@ -20,7 +20,7 @@ namespace Transportation_Management_System
     ///
     /// \author <i>Team Blank</i>
     ///
-    class Contract
+    public class Contract
     {
         /// Gets and Sets the contract's Client Name
         public string ClientName { get; set; }

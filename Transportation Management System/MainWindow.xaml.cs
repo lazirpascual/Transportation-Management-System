@@ -23,7 +23,6 @@ namespace Transportation_Management_System
         public MainWindow()
         {
             InitializeComponent();
-                       
         }
 
         private void MainWindow_OnMouseDown(object sender, MouseButtonEventArgs e)
@@ -49,18 +48,19 @@ namespace Transportation_Management_System
                 if (loginResult.Contains("Buyer"))
                 {
                     var buyer = new BuyerPage();
-                    buyer.ShowDialog();
+                    buyer.Show();
                 }
                 else if (loginResult.Contains("Planner"))
                 {
                     var planner = new PlannerPage();
-                    planner.ShowDialog();
+                    planner.Show();
                 }
                 else if (loginResult.Contains("Admin"))
                 {
                     var admin = new AdminPage();
-                    admin.ShowDialog();
+                    admin.Show();
                 }
+                App.Current.MainWindow.Hide();
             }        
         }
 
@@ -80,37 +80,9 @@ namespace Transportation_Management_System
                 MessageBox.Show("This password is not valid.");
                 return null;
             }
-
-            RadioButton[] radioButtons = new RadioButton[] { BuyerRadioButton, PlannerRadioButton, AdminRadioButton };
-            /* check if all radio buttons are unchecked */
-            if (!radioButtons.Any(rb => rb.IsChecked == true))
-            {
-                // no radio buttons checked
-                MessageBox.Show("Please select a User Type to login.");
-                return null;
-            }
-            else
-            {
-                // at least one radio button is checked
-                foreach (var radioButton in radioButtons)
-                {                  
-                    if (radioButton.IsChecked == true)
-                    {
-                        // current button is checked
-                        if (auth.CheckUserType(radioButton.Content.ToString(), UsernameText.Text) == true)
-                        {
-                            // current button matches the user type 
-                            return radioButton.Content.ToString();
-                        }
-                        {
-                            // invalid user type
-                            MessageBox.Show($"Invalid User Type. Current user is not a {radioButton.Content.ToString()}.");
-                            return null;
-                        }
-                    }                    
-                }           
-            }
-            return null;
+            string UserType = auth.GetUserType(UsernameText.Text);
+        
+            return UserType;
         }
     }
 }
