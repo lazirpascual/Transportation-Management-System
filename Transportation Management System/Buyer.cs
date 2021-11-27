@@ -24,7 +24,7 @@ namespace Transportation_Management_System
         /// 
         /// \return A list of all contracts from the marketplace
         /// 
-        public List<Contract> FetchContracts() { }
+        //public List<Contract> FetchContracts() { }
 
 
         ///
@@ -40,7 +40,7 @@ namespace Transportation_Management_System
         /// 
         /// \return A list of all active customers
         /// 
-        public List<Customer> GetActiveCustomers() { }
+        //public List<Customer> GetActiveCustomers() { }
 
 
         ///
@@ -48,7 +48,7 @@ namespace Transportation_Management_System
         /// 
         /// \return A list of all active orders
         /// 
-        public List<Order> GetActiveOrders() { }
+        //public List<Order> GetActiveOrders() { }
 
 
         ///
@@ -58,6 +58,6 @@ namespace Transportation_Management_System
         /// 
         /// \return An invoice object
         /// 
-        public Invoice GenerateInvoice(Order order) { }
+        //public Invoice GenerateInvoice(Order order) { }
     }
 }

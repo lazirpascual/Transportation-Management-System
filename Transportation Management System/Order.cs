@@ -51,10 +51,10 @@ namespace Transportation_Management_System
         /// 
         /// \return Client 
         ///
-        public Client SetClient(string clientName)
-        {
+        //public Client SetClient(string clientName)
+        //{
 
-        }
+        //}
 
         ///
         /// \brief Determine the trip of the order based on the origin and destination
@@ -64,9 +64,9 @@ namespace Transportation_Management_System
         /// 
         /// \return void
         ///
-        public bool CreateTrip(string destination, string origin)
-        {
+        //public bool CreateTrip(string destination, string origin)
+        //{
 
-        }
+        //}
     }
 }

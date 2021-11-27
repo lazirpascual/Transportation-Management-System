@@ -64,10 +64,10 @@ namespace Transportation_Management_System
         /// 
         /// \return totalDistance - <b>int</b> - Total distance in kms
         /// 
-        public double CalculateDistance()
-        {
+        //public double CalculateDistance()
+        //{
  
-        }
+        //}
 
         ///
         /// \brief This method will calculate the total time that the transport will take
@@ -79,10 +79,10 @@ namespace Transportation_Management_System
         /// 
         /// \return totalTime - <b>double</b> - Total time needed for the transportation
         ///
-        public double CalculateTime()
-        {
+        //public double CalculateTime()
+        //{
 
-        }
+        //}
 
     }
 

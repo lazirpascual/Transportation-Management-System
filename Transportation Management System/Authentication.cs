@@ -52,7 +52,7 @@ namespace Transportation_Management_System
                     {
                         while (rdr.Read())
                         {
-                            string DbUsername = rdr[1].ToString();
+                            string DbUsername = rdr[2].ToString();
                             if (userName == DbUsername)
                             {
                                 existent = true;
@@ -64,6 +64,7 @@ namespace Transportation_Management_System
                 {
                     Console.WriteLine(ex.ToString());
                 }
+                conn.Close();
             }
 
             return existent;
@@ -92,7 +93,7 @@ namespace Transportation_Management_System
                 conn.Open();
                 try
                 {
-                    string sql = $"SELECT * FROM Users WHERE Username='{userName}";
+                    string sql = $"SELECT * FROM Users WHERE Username='{userName}'";
                     MySqlCommand cmd = new MySqlCommand(sql, conn);
                     MySqlDataReader rdr = cmd.ExecuteReader();
                     
@@ -101,18 +102,19 @@ namespace Transportation_Management_System
                     {
                         while (rdr.Read())
                         {
-                            string DbPassword = rdr[2].ToString();
+                            string DbPassword = rdr[3].ToString();
                             if (BC.Verify(password, DbPassword))
                             {
                                 isValid = true;
                             }
                         }
-                    }
+                    }                   
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.ToString());
                 }
+                conn.Close();
             }
 
             return isValid;
@@ -140,7 +142,7 @@ namespace Transportation_Management_System
                 conn.Open();
                 try
                 {
-                    string sql = $"SELECT * FROM Users WHERE Type='{type}' AND Username='{username}'";
+                    string sql = $"SELECT * FROM Users WHERE UserType='{type}' AND Username='{username}'";
                     MySqlCommand cmd = new MySqlCommand(sql, conn);
                     MySqlDataReader rdr = cmd.ExecuteReader();
 
@@ -149,8 +151,8 @@ namespace Transportation_Management_System
                     {
                         while (rdr.Read())
                         {
-                            string DbUsername = rdr[1].ToString();
-                            string DbUserType = rdr[3].ToString();
+                            string DbUsername = rdr[2].ToString();
+                            string DbUserType = rdr[5].ToString();
                             if (type == DbUserType && username == DbUsername)
                             {
                                 IsTypeValid = true;
@@ -162,6 +164,7 @@ namespace Transportation_Management_System
                 {
                     Console.WriteLine(ex.ToString());
                 }
+                conn.Close();
             }
 
             return IsTypeValid;
@@ -177,9 +180,9 @@ namespace Transportation_Management_System
         ///
         public string HashPass(string password)
         {
-            BC.GenerateSalt();
+            string mySalt = BC.GenerateSalt();
             
-            return BC.HashPassword(password);
+            return BC.HashPassword(password, mySalt);
         }
     }
 }

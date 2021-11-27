@@ -24,7 +24,7 @@ namespace Transportation_Management_System
         /// 
         /// \return Returns list of all fetched orders
         /// 
-        public List<Order> FetchOrders() { }
+        //public List<Order> FetchOrders() { }
 
 
 
@@ -56,7 +56,7 @@ namespace Transportation_Management_System
         ///
         /// \return Returns summmary report of invoice data
         /// 
-        public string GenerateInvoice(string period) { }
+        //public string GenerateInvoice(string period) { }
     }
 
 }

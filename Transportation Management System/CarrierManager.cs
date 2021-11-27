@@ -26,10 +26,10 @@ namespace Transportation_Management_System
         /// 
         /// \return ftlAvail - <b>int</b> - The number of full truckloads available for this carrier
         /// 
-        public int FetchFTLAvailability(int carrierID)
-        {
+        //public int FetchFTLAvailability(int carrierID)
+        //{
 
-        }
+        //}
 
 
         ///
@@ -39,10 +39,10 @@ namespace Transportation_Management_System
         /// 
         /// \return ltlAvail - <b>int</b> - The number of less than truckloads available for this carrier
         /// 
-        public int FetchLTLAvailability(int carrierID)
-        {
+        //public int FetchLTLAvailability(int carrierID)
+        //{
 
-        }
+        //}
 
         ///
         /// \brief This method will fetch the rate for FTL from the database
@@ -51,10 +51,10 @@ namespace Transportation_Management_System
         /// 
         /// \return fltRate - <b>double</b> - The rate for FTL for this carrier
         /// 
-        public double GetFTLRate()
-        {
+        //public double GetFTLRate()
+        //{
 
-        }
+        //}
 
 
         ///
@@ -64,10 +64,10 @@ namespace Transportation_Management_System
         /// 
         /// \return lltRate - <b>double</b> - The rate for LTL for this carrier
         /// 
-        public double GetLTLRate()
-        {
+        //public double GetLTLRate()
+        //{
 
-        }
+        //}
 
 
         ///
@@ -77,9 +77,9 @@ namespace Transportation_Management_System
         /// 
         /// \return reeferRate - <b>double</b> - The rate for reefer rate for this carrier
         /// 
-        public double GetReeferCharge()
-        {
+        //public double GetReeferCharge()
+        //{
 
-        }
+        //}
     }
 }

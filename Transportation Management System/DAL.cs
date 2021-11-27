@@ -33,7 +33,7 @@ namespace Transportation_Management_System
         public DAL()
         {
             Server = "phtfaw4p6a970uc0.cbetxkdyhwsb.us-east-1.rds.amazonaws.com";
-            User = "x4sqrh7d39h1orji;database=qbwrvu2d70g3dyis";
+            User = "x4sqrh7d39h1orji";
             Port = "3306";
             Password = "p6z1zn2nmrv396ke";
             DatabaseName = "qbwrvu2d70g3dyis";
@@ -123,7 +123,7 @@ namespace Transportation_Management_System
         /// 
         /// \return The found carrier or null otherwise
         /// 
-        public Carrier GetCarrier(int carrierId) { }
+        //public Carrier GetCarrier(int carrierId) { }
 
 
 
@@ -143,7 +143,7 @@ namespace Transportation_Management_System
         /// 
         /// \return A list of carriers that belong to the specified city
         /// 
-        public List<Carrier> FilterCarrierByCity(string city) { }
+        //public List<Carrier> FilterCarrierByCity(string city) { }
 
 
 
@@ -153,7 +153,7 @@ namespace Transportation_Management_System
         /// 
         /// \return A list of all registered uses
         /// 
-        public List<User> GetUsers() { }
+        //public List<User> GetUsers() { }
 
 
         ///
@@ -161,7 +161,7 @@ namespace Transportation_Management_System
         /// 
         /// \return A list of all clients
         /// 
-        public List<Client> GetClient() { }
+        //public List<Client> GetClient() { }
 
 
 
@@ -172,7 +172,7 @@ namespace Transportation_Management_System
         /// 
         /// \return The found client of null if none are found
         /// 
-        public Client FilterClientByName(string name) { }
+        //public Client FilterClientByName(string name) { }
 
 
         ///
@@ -180,7 +180,7 @@ namespace Transportation_Management_System
         /// 
         /// \return List of all active orders
         /// 
-        public List<Order> GetActiveOrders() { }
+        //public List<Order> GetActiveOrders() { }
 
 
         ///
@@ -190,7 +190,7 @@ namespace Transportation_Management_System
         /// 
         /// \return A list with all trips attached to a specific orders
         /// 
-        public List<Trip> FilterTripsByOrderId(int orderId) { }
+        //public List<Trip> FilterTripsByOrderId(int orderId) { }
 
 
 
@@ -199,10 +199,10 @@ namespace Transportation_Management_System
         /// 
         /// \return True if successful, false otherwise
         /// 
-        public bool BackupDatabase() 
-        { 
-            https://stackoverflow.com/questions/12311492/backing-up-database-in-mysql-using-c-sharp/12311685
-        }
+        //public bool BackupDatabase() 
+        //{ 
+        //    // https://stackoverflow.com/questions/12311492/backing-up-database-in-mysql-using-c-sharp/12311685
+        //}
 
 
     }

@@ -26,10 +26,10 @@ namespace Transportation_Management_System
         /// 
         /// \return Order - the order ID object
         ///
-        public int CreateOrder(Contract newContract )
-        {
+        //public int CreateOrder(Contract newContract )
+        //{
         
-        }
+        //}
 
         ///
         /// \brief GenerateInvoice - creates a new invoice after an order completion  

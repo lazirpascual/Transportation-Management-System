@@ -30,10 +30,10 @@ namespace Transportation_Management_System
         /// 
         /// \return void
         ///
-        public void WriteLog(logLevel level, logOrigin origin, string fileName, Timestamp currentTime)
-        {
+        //public void WriteLog(logLevel level, logOrigin origin, string fileName, Timestamp currentTime)
+        //{
 
-        }
+        //}
 
         ///
         /// \brief Change the directory from the log file
@@ -42,10 +42,10 @@ namespace Transportation_Management_System
         /// 
         /// \return bool
         ///
-        public bool ChangeLogDirectory(string directory)
-        {
+        //public bool ChangeLogDirectory(string directory)
+        //{
 
-        } 
+        //} 
 
 
     }

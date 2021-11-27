@@ -24,9 +24,10 @@ namespace Transportation_Management_System
         /// 
         /// \return Returns list of current log files
         /// 
-        public List<Log> ViewLogFiles()
+        public string ViewLogFiles()
         {
 
+            return "";
         }
 
         ///
