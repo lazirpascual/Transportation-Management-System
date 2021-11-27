@@ -9,6 +9,30 @@ D:\Desktop\TeamBlank_Group16\UnitTestProject1\bin\Debug\Microsoft.VisualStudio.T
 D:\Desktop\TeamBlank_Group16\UnitTestProject1\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
 D:\Desktop\TeamBlank_Group16\UnitTestProject1\obj\Debug\UnitTestProject1.csproj.AssemblyReference.cache
 D:\Desktop\TeamBlank_Group16\UnitTestProject1\obj\Debug\UnitTestProject1.csproj.CoreCompileInputs.cache
-D:\Desktop\TeamBlank_Group16\UnitTestProject1\obj\Debug\UnitTestProject1.csproj.CopyComplete
 D:\Desktop\TeamBlank_Group16\UnitTestProject1\obj\Debug\UnitTestProject1.dll
 D:\Desktop\TeamBlank_Group16\UnitTestProject1\obj\Debug\UnitTestProject1.pdb
+D:\Desktop\TeamBlank_Group16\UnitTestProject1\bin\Debug\Transportation Management System.exe
+D:\Desktop\TeamBlank_Group16\UnitTestProject1\bin\Debug\MySql.Data.dll
+D:\Desktop\TeamBlank_Group16\UnitTestProject1\bin\Debug\BCrypt.Net-Next.dll
+D:\Desktop\TeamBlank_Group16\UnitTestProject1\bin\Debug\Google.Protobuf.dll
+D:\Desktop\TeamBlank_Group16\UnitTestProject1\bin\Debug\ZstdNet.dll
+D:\Desktop\TeamBlank_Group16\UnitTestProject1\bin\Debug\K4os.Compression.LZ4.Streams.dll
+D:\Desktop\TeamBlank_Group16\UnitTestProject1\bin\Debug\BouncyCastle.Crypto.dll
+D:\Desktop\TeamBlank_Group16\UnitTestProject1\bin\Debug\Ubiety.Dns.Core.dll
+D:\Desktop\TeamBlank_Group16\UnitTestProject1\bin\Debug\System.Memory.dll
+D:\Desktop\TeamBlank_Group16\UnitTestProject1\bin\Debug\System.Buffers.dll
+D:\Desktop\TeamBlank_Group16\UnitTestProject1\bin\Debug\K4os.Compression.LZ4.dll
+D:\Desktop\TeamBlank_Group16\UnitTestProject1\bin\Debug\K4os.Hash.xxHash.dll
+D:\Desktop\TeamBlank_Group16\UnitTestProject1\bin\Debug\System.Numerics.Vectors.dll
+D:\Desktop\TeamBlank_Group16\UnitTestProject1\bin\Debug\Transportation Management System.pdb
+D:\Desktop\TeamBlank_Group16\UnitTestProject1\bin\Debug\Transportation Management System.exe.config
+D:\Desktop\TeamBlank_Group16\UnitTestProject1\bin\Debug\MySql.Data.xml
+D:\Desktop\TeamBlank_Group16\UnitTestProject1\bin\Debug\BCrypt.Net-Next.xml
+D:\Desktop\TeamBlank_Group16\UnitTestProject1\bin\Debug\Google.Protobuf.pdb
+D:\Desktop\TeamBlank_Group16\UnitTestProject1\bin\Debug\Google.Protobuf.xml
+D:\Desktop\TeamBlank_Group16\UnitTestProject1\bin\Debug\K4os.Compression.LZ4.Streams.xml
+D:\Desktop\TeamBlank_Group16\UnitTestProject1\bin\Debug\System.Memory.xml
+D:\Desktop\TeamBlank_Group16\UnitTestProject1\bin\Debug\System.Buffers.xml
+D:\Desktop\TeamBlank_Group16\UnitTestProject1\bin\Debug\K4os.Compression.LZ4.xml
+D:\Desktop\TeamBlank_Group16\UnitTestProject1\bin\Debug\K4os.Hash.xxHash.xml
+D:\Desktop\TeamBlank_Group16\UnitTestProject1\bin\Debug\System.Numerics.Vectors.xml

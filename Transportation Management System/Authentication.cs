@@ -21,7 +21,7 @@ namespace Transportation_Management_System
     /// 
     /// \author <i>Team Blank</i>
     ///
-    class Authentication
+    public class Authentication
     {
 
         ///
@@ -169,6 +169,7 @@ namespace Transportation_Management_System
 
             return IsTypeValid;
         }
+
 
 
         ///
