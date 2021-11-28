@@ -36,9 +36,9 @@ namespace Transportation_Management_System
         /// 
         /// \param orderID - <b>Order</b> - the order identifier that will generate the invoice
         /// 
-        /// \return void
+        /// \return Generated invoice object
         ///
-        public void GenerateInvoice(Order orderID)
+        public Invoice GenerateInvoice(Order orderID)
         {
 
         }
