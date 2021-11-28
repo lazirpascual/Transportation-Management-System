@@ -16,7 +16,7 @@ namespace Transportation_Management_System
     ///
     /// \author <i>Team Blank</i>
     ///
-    class Client
+    public class Client
     {
         /// The ID of the client
         public int ClientID { get; set; }

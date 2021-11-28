@@ -23,7 +23,6 @@ namespace Transportation_Management_System
         public MainWindow()
         {
             InitializeComponent();
-                       
         }
 
         private void MainWindow_OnMouseDown(object sender, MouseButtonEventArgs e)
@@ -37,6 +36,53 @@ namespace Transportation_Management_System
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void Signin_Button_Click(object sender, RoutedEventArgs e)
+        {
+            string loginResult = CheckLogin();
+            if (loginResult != null)
+            {
+                // loginResult is not null, user type is valid
+                // go to the page of selected user type
+                if (loginResult.Contains("Buyer"))
+                {
+                    var buyer = new BuyerPage();
+                    buyer.Show();
+                }
+                else if (loginResult.Contains("Planner"))
+                {
+                    var planner = new PlannerPage();
+                    planner.Show();
+                }
+                else if (loginResult.Contains("Admin"))
+                {
+                    var admin = new AdminPage();
+                    admin.Show();
+                }
+                App.Current.MainWindow.Hide();
+            }        
+        }
+
+        private string CheckLogin()
+        {
+            DAL auth = new DAL();
+
+            if (auth.CheckUsername(UsernameText.Text) == false)
+            {
+                // username is invalid
+                MessageBox.Show("This username does not exist.");
+                return null;
+            }
+            if (auth.CheckUserPassword(UsernameText.Text, PasswordText.Password) == false)
+            {
+                // password is invalid
+                MessageBox.Show("This password is not valid.");
+                return null;
+            }
+            string UserType = auth.GetUserType(UsernameText.Text);
+        
+            return UserType;
         }
     }
 }

@@ -19,7 +19,7 @@ namespace Transportation_Management_System
     ///
     /// \author <i>Team Blank</i>
     ///
-    class ContractMarketPlace
+    public class ContractMarketPlace
     {
         /// The ContractMarketPlace database IP
         public string CMPServer { get; set; }

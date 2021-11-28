@@ -18,7 +18,7 @@ namespace Transportation_Management_System
     ///
     /// \author <i>Team Blank</i>
     ///
-    class Carrier
+    public class Carrier
     {
         /// The name of the carrier company
         public string name;
