@@ -4,34 +4,36 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 
+
 namespace UnitTestProject1
 {
     /// <summary>
-    /// Summary description for BuyerTest
+    /// Summary description for UnitTest1
     /// </summary>
     [TestClass]
-    public class BuyerTest
+    public class PlannerTest
     {
         [TestMethod]
-        public void CreateOrder_FunctionalTest()
+        public void SelectOrderCarrier_FunctionalTest()
         {
 
         }
 
         [TestMethod]
-        public void CreateOrder_ExceptionTest()
+        public void SelectOrderCarrier_ExceptionTest()
         {
 
         }
 
         [TestMethod]
-        public void GetActiveCustomers_FunctionalTest()
+        public void CompleteOrder_FunctionalTest()
         {
+
 
         }
 
         [TestMethod]
-        public void GetActiveCustomers_ExceptionTest()
+        public void CompleteOrder_ExceptionTest()
         {
 
         }

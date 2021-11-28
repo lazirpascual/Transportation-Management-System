@@ -62,11 +62,11 @@ namespace UnitTestProject1
         [TestMethod]
         public void CheckUserType_ExceptionTest()
         {
-            string validUsername = "buyer";
+            string invalidUsername = "invalidBuyer";
             var auth = new DAL();
 
-            string usertypeResult = auth.GetUserType(validUsername);
-            Assert.AreNotEqual("Admin", usertypeResult);
+            string usertypeResult = auth.GetUserType(invalidUsername);
+            Assert.AreEqual(null, usertypeResult);
         }
     }
 }

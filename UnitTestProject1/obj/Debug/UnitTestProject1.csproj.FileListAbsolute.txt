@@ -36,4 +36,3 @@ D:\Desktop\TeamBlank_Group16\UnitTestProject1\obj\Debug\UnitTestProject1.csproj.
 D:\Desktop\TeamBlank_Group16\UnitTestProject1\obj\Debug\UnitTestProject1.csproj.CoreCompileInputs.cache
 D:\Desktop\TeamBlank_Group16\UnitTestProject1\obj\Debug\UnitTestProject1.dll
 D:\Desktop\TeamBlank_Group16\UnitTestProject1\obj\Debug\UnitTestProject1.pdb
-D:\Desktop\TeamBlank_Group16\UnitTestProject1\obj\Debug\UnitTestProject1.csproj.CopyComplete

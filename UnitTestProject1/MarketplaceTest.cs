@@ -27,7 +27,7 @@ namespace UnitTestProject1
             var cmpContracts = cmpTest.GetContracts();
             Contract cmpFirstContract = cmpContracts[0];
 
-            Assert.AreNotEqual(firstContract, cmpFirstContract);
+            Assert.AreEqual(firstContract, cmpFirstContract);
         }
 
         [TestMethod]

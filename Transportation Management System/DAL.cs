@@ -160,7 +160,7 @@ namespace Transportation_Management_System
         ///
         public string GetUserType(string username)
         {
-            string userType = "";
+            string userType = null;
 
             DAL db = new DAL();
 
