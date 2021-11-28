@@ -34,6 +34,6 @@ D:\Desktop\TeamBlank_Group16\UnitTestProject1\bin\Debug\K4os.Compression.LZ4.xml
 D:\Desktop\TeamBlank_Group16\UnitTestProject1\bin\Debug\K4os.Hash.xxHash.xml
 D:\Desktop\TeamBlank_Group16\UnitTestProject1\obj\Debug\UnitTestProject1.csproj.AssemblyReference.cache
 D:\Desktop\TeamBlank_Group16\UnitTestProject1\obj\Debug\UnitTestProject1.csproj.CoreCompileInputs.cache
-D:\Desktop\TeamBlank_Group16\UnitTestProject1\obj\Debug\UnitTestProject1.csproj.CopyComplete
 D:\Desktop\TeamBlank_Group16\UnitTestProject1\obj\Debug\UnitTestProject1.dll
 D:\Desktop\TeamBlank_Group16\UnitTestProject1\obj\Debug\UnitTestProject1.pdb
+D:\Desktop\TeamBlank_Group16\UnitTestProject1\obj\Debug\UnitTestProject1.csproj.CopyComplete

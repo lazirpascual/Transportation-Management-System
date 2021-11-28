@@ -37,6 +37,5 @@ namespace Transportation_Management_System
             return BC.HashPassword(password, mySalt);
         }
 
-
     }
 }

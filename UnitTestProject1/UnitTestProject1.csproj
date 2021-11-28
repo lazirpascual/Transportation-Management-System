@@ -52,6 +52,7 @@
     <Compile Include="AuthorizationTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MarketplaceTest.cs" />
+    <Compile Include="LoggerTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

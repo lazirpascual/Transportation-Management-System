@@ -27,7 +27,25 @@ namespace UnitTestProject1
             var cmpContracts = cmpTest.GetContracts();
             Contract cmpFirstContract = cmpContracts[0];
 
-            Assert.AreEqual(firstContract, cmpFirstContract);
+            Assert.AreNotEqual(firstContract, cmpFirstContract);
+        }
+
+        [TestMethod]
+        public void GetContracts_ExceptionTest()
+        {
+            Contract firstContract = new Contract();
+            firstContract.ClientName = "Malmart";
+            firstContract.Destination = "Windsor";
+            firstContract.JobType = 0;
+            firstContract.Origin = "Belleville";
+            firstContract.Quantity = 0;
+            firstContract.VanType = 0;
+
+            var cmpTest = new ContractMarketPlace();
+            var cmpContracts = cmpTest.GetContracts();
+            Contract cmpFirstContract = cmpContracts[0];
+
+            Assert.AreNotEqual(firstContract, cmpFirstContract);
         }
     }
 }
