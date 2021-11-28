@@ -40,7 +40,8 @@ namespace Transportation_Management_System
         ///
         public Invoice GenerateInvoice(Order orderID)
         {
-
+            Invoice invoice = new Invoice();
+            return invoice;
         }
     }
 }
