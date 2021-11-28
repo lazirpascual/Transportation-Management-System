@@ -17,7 +17,7 @@ namespace Transportation_Management_System
     /// 
     /// \author <i>Team Blank</i>
     ///
-    class Order
+    public class Order
     {
         /// The identifier number of the order 
         int OrderID;

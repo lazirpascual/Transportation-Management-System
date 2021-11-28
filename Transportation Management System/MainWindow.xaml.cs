@@ -66,7 +66,7 @@ namespace Transportation_Management_System
 
         private string CheckLogin()
         {
-            Authentication auth = new Authentication();
+            DAL auth = new DAL();
 
             if (auth.CheckUsername(UsernameText.Text) == false)
             {

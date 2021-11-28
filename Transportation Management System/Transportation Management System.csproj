@@ -101,6 +101,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Helper.cs" />
     <Compile Include="Invoice.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Order.cs" />

@@ -16,7 +16,7 @@ namespace Transportation_Management_System
     ///
     /// \author <i>Team Blank</i>
     ///
-    class User
+    public class User
     {
         /// used to describe the first name of the user
         public string FirstName { get; set; }

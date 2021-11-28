@@ -11,7 +11,7 @@ namespace UnitTestProject1
         public void CheckUsername_FunctionalTest()
         {
             string validUsername = "admin";
-            var auth = new Authentication();
+            var auth = new DAL();
 
             bool usernameResult = auth.CheckUsername(validUsername);
             Assert.AreEqual(true, usernameResult);
@@ -21,7 +21,7 @@ namespace UnitTestProject1
         public void CheckUsername_ExceptionTest()
         {
             string invalidUsername = "invalidAdmin";
-            var auth = new Authentication();
+            var auth = new DAL();
 
             var usernameResult = auth.CheckUsername(invalidUsername);
             Assert.AreEqual(false, usernameResult);
@@ -32,7 +32,7 @@ namespace UnitTestProject1
         {
             string validUsername = "admin";
             string validPassword = "admin";
-            var auth = new Authentication();
+            var auth = new DAL();
 
             bool passwordResult = auth.CheckUserPassword(validUsername, validPassword);
             Assert.AreEqual(true, passwordResult);
@@ -43,7 +43,7 @@ namespace UnitTestProject1
         {
             string validUsername = "admin";
             string validPassword = "invalidAdmin";
-            var auth = new Authentication();
+            var auth = new DAL();
 
             bool passwordResult = auth.CheckUserPassword(validUsername, validPassword);
             Assert.AreEqual(false, passwordResult);
@@ -52,23 +52,21 @@ namespace UnitTestProject1
         [TestMethod]
         public void CheckUserType_FunctionalTest()
         {
-            string validUsertype = "Buyer";
             string validUsername = "buyer";
-            var auth = new Authentication();
+            var auth = new DAL();
 
-            bool usertypeResult = auth.CheckUserType(validUsertype, validUsername);
-            Assert.AreEqual(true, usertypeResult);
+            string usertypeResult = auth.GetUserType(validUsername);
+            Assert.AreEqual("Buyer", usertypeResult);
         }
 
         [TestMethod]
         public void CheckUserType_ExceptionTest()
         {
-            string validUsertype = "Admin";
             string validUsername = "buyer";
-            var auth = new Authentication();
+            var auth = new DAL();
 
-            bool usertypeResult = auth.CheckUserType(validUsertype, validUsername);
-            Assert.AreEqual(false, usertypeResult);
+            string usertypeResult = auth.GetUserType(validUsername);
+            Assert.AreNotEqual("Admin", usertypeResult);
         }
     }
 }

@@ -17,7 +17,7 @@ namespace Transportation_Management_System
     /// 
     /// \author <i>Team Blank</i>
     ///
-    class Invoice
+    public class Invoice
     {
         /// The order reference for the Invoice
         int orderID;

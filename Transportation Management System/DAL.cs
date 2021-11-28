@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using BC = BCrypt.Net.BCrypt;
 using MySql.Data;
 using MySql.Data.MySqlClient;
 
@@ -19,7 +20,7 @@ namespace Transportation_Management_System
     /// 
     /// \author <i>Team Blank</i>
     ///
-    class DAL : Authentication
+    public class DAL
     {
         private string Server { get; set; }         /// Host of the database
         private string User { get; set; }           /// Username to connect to the database
@@ -50,6 +51,148 @@ namespace Transportation_Management_System
             return $"server={Server};user={User};database={DatabaseName};port={Port};password={Password}";
         }
 
+
+        ///
+        /// \brief Check if the username exists in the User tables
+        ///
+        /// \param userName  - <b>string</b> - Username of ther user
+        /// 
+        /// \return True if it exists, false otherwise
+        ///
+        public bool CheckUsername(string userName)
+        {
+            bool existent = false;
+
+            DAL db = new DAL();
+
+            using (MySqlConnection conn = new MySqlConnection(db.ToString()))
+            {
+                Console.WriteLine("Connecting to MySQL...");
+                conn.Open();
+                try
+                {
+                    string sql = $"SELECT * FROM Users WHERE Username='{userName}'";
+                    MySqlCommand cmd = new MySqlCommand(sql, conn);
+                    MySqlDataReader rdr = cmd.ExecuteReader();
+
+                    // If data is found
+                    if (rdr.HasRows)
+                    {
+                        while (rdr.Read())
+                        {
+                            string DbUsername = rdr[2].ToString();
+                            if (userName == DbUsername)
+                            {
+                                existent = true;
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                }
+                conn.Close();
+            }
+
+            return existent;
+        }
+
+
+
+        ///
+        /// \brief Check if the user password is valid
+        ///
+        /// \param userName  - <b>string</b> - Username to check the password
+        /// \param password  - <b>string</b> - Password to be validated
+        /// 
+        /// \return True if the password is correct, false otherwise
+        ///
+        public bool CheckUserPassword(string userName, string password)
+        {
+            // Compare Hased password
+            bool isValid = false;
+
+            DAL db = new DAL();
+
+            using (MySqlConnection conn = new MySqlConnection(db.ToString()))
+            {
+                Console.WriteLine("Connecting to MySQL...");
+                conn.Open();
+                try
+                {
+                    string sql = $"SELECT * FROM Users WHERE Username='{userName}'";
+                    MySqlCommand cmd = new MySqlCommand(sql, conn);
+                    MySqlDataReader rdr = cmd.ExecuteReader();
+
+                    // If data is found
+                    if (rdr.HasRows)
+                    {
+                        while (rdr.Read())
+                        {
+                            string DbPassword = rdr[3].ToString();
+                            if (BC.Verify(password, DbPassword))
+                            {
+                                isValid = true;
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                }
+                conn.Close();
+            }
+
+            return isValid;
+        }
+
+
+
+        ///
+        /// \brief Check if the user belongs to the role specified
+        ///
+        /// \param type  - <b>string</b> - User role to be validated
+        /// \param username  - <b>string</b> - Username to be checked
+        /// 
+        /// \return True if the user belongs to the specified type/role, false otherwise
+        ///
+        public string GetUserType(string username)
+        {
+            string userType = "";
+
+            DAL db = new DAL();
+
+            using (MySqlConnection conn = new MySqlConnection(db.ToString()))
+            {
+                Console.WriteLine("Connecting to MySQL...");
+                conn.Open();
+                try
+                {
+                    string sql = $"SELECT UserType FROM Users WHERE Username='{username}'";
+                    MySqlCommand cmd = new MySqlCommand(sql, conn);
+                    MySqlDataReader rdr = cmd.ExecuteReader();
+
+                    // If data is found
+                    if (rdr.HasRows)
+                    {
+                        while (rdr.Read())
+                        {
+                            string DbUserType = rdr[0].ToString();
+                            userType = DbUserType;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                }
+                conn.Close();
+            }
+
+            return userType;
+        }
 
 
         ///
