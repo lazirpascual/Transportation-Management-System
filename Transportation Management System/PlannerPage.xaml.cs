@@ -23,5 +23,10 @@ namespace Transportation_Management_System
         {
             InitializeComponent();
         }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            App.Current.MainWindow.Visibility = Visibility.Visible;
+        }
     }
 }
