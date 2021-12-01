@@ -110,9 +110,9 @@ namespace UnitTestProject1
             // Get contract from market place
             ContractMarketPlace CMP = new ContractMarketPlace();
             List<Contract> contracts = CMP.GetContracts();
+            Contract contract = contracts[0];
 
             // Generate order 
-            Contract contract = contracts[0];
             City origin = (City)Enum.Parse(typeof(City), contract.Origin, true);
             City destination = (City)Enum.Parse(typeof(City), contract.Destination, true);
             Order order = new Order(contract.ClientName, DateTime.Now, origin, destination, contract.JobType, contract.Quantity, contract.VanType);
@@ -140,9 +140,9 @@ namespace UnitTestProject1
             // Get contract from market place
             ContractMarketPlace CMP = new ContractMarketPlace();
             List<Contract> contracts = CMP.GetContracts();
+            Contract contract = contracts[0];
 
             // Generate order 
-            Contract contract = contracts[0];
             City origin = (City)Enum.Parse(typeof(City), contract.Origin, true);
             City destination = (City)Enum.Parse(typeof(City), contract.Destination, true);
             Order order = new Order("NonExistentBuddy", DateTime.Now, origin, destination, contract.JobType, contract.Quantity, contract.VanType);

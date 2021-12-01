@@ -35,6 +35,7 @@ namespace Transportation_Management_System
         /// \return Order object
         public Order GenerateOrder(Contract contract) 
         {
+            // Create an order object
             City origin = (City) Enum.Parse(typeof(City), contract.Origin, true);
             City destination = (City) Enum.Parse(typeof(City), contract.Destination, true);
 
@@ -48,7 +49,7 @@ namespace Transportation_Management_System
                 db.CreateClient(client);
             }
 
-            // Create order
+            // Insert order in db
             try
             {
                 // Insert order in database
@@ -59,7 +60,6 @@ namespace Transportation_Management_System
                 throw;
             }
             
-
             return order;
         }
 
