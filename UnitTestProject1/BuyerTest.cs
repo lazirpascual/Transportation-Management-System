@@ -21,6 +21,7 @@ namespace UnitTestProject1
             List<Contract> contracts = CMP.GetContracts();
             Contract contract = contracts[1];
 
+            // Generate order
             Buyer buyer = new Buyer();
             buyer.GenerateOrder(contract);
         }

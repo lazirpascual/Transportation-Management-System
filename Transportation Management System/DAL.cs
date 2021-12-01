@@ -272,7 +272,7 @@ namespace Transportation_Management_System
                     {
                         // Populate all arguments in the insert
                         cmd.Parameters.AddWithValue("@ClientID", client.ClientID);
-                        cmd.Parameters.AddWithValue("@OrderDate", order.OrderCreationDate.ToString("YYYY-MM-DD hh:mm:ss "));
+                        cmd.Parameters.AddWithValue("@OrderDate", order.OrderCreationDate.ToString("yyyy-MM-dd H:mm:ss"));
                         cmd.Parameters.AddWithValue("@Origin", order.Origin.ToString());
                         cmd.Parameters.AddWithValue("@Destination", order.Destination.ToString());
                         cmd.Parameters.AddWithValue("@JobType", order.JobType);
