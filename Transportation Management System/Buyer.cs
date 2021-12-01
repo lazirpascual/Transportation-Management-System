@@ -32,7 +32,7 @@ namespace Transportation_Management_System
         ///
         /// \param contract  - <b>Contract</b> - The selected contract for the order to be created
         /// 
-        public void CreateOrder(Contract contract) { }
+        public void GenerateOrder(Contract contract) { }
 
 
         ///

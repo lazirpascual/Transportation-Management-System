@@ -83,5 +83,31 @@ namespace UnitTestProject1
             Assert.ThrowsException<ArgumentException>(() => db.CreateClient(client));
 
         }
+
+        // Test if correct client is returned based on the name filter criteria 
+        [TestMethod]
+        public void FilterClientByNameNormal()
+        {
+            DAL db = new DAL();
+
+            Client client = new Client("ExistentGuy");
+            try
+            {
+                db.CreateClient(client);
+            }
+            // Ignore exceptions if the client already exists
+            catch {}
+            
+
+            Assert.IsNotNull(db.FilterClientByName("ExistentGuy"));
+        }
+
+        // Test if null is returned when an inexistent client is found
+        [TestMethod]
+        public void FilterClientByNameException()
+        {
+            DAL db = new DAL();
+            Assert.IsNull(db.FilterClientByName("InexistentGuy"));
+        }
     }
 }

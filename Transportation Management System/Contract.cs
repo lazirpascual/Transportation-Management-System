@@ -41,7 +41,6 @@ namespace Transportation_Management_System
         public int VanType { get; set; }
 
 
-
         // Create a Contract Constructor
     }
 }
