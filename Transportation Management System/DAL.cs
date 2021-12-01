@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 using BC = BCrypt.Net.BCrypt;
 using MySql.Data;
 using MySql.Data.MySqlClient;
@@ -200,19 +199,42 @@ namespace Transportation_Management_System
         ///
         /// \param usr  - <b>User</b> - An User object with all their information
         /// 
-        public void CreateUser(User usr) 
+        public void CreateUser(User usr)
         {
             //// To Test ////
-            string sql = "INSERT INTO User (FirstName, Username, Password, BirthDate, IsActive) VALUES (@FirstName, @LastName, @StudentNumber, @BirthDate, @IsActive)";
-            DAL db = new DAL();
-            using (MySqlConnection conn = new MySqlConnection(db.ToString()))
-            {
-                using (MySqlCommand cmd = new MySqlCommand())
-                {
+            string sql = "INSERT INTO User (FirstName, LastName, Username, Password, Email, IsActive, UserType) " +
+                "VALUES (@FirstName, @LastName, @Username, @Password, @Email, @IsActive, @UserType)";
 
+            DAL db = new DAL();
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(db.ToString()))
+                {
+                    using (MySqlCommand cmd = new MySqlCommand(sql, conn))
+                    {
+                        // Populate all arguments in the insert
+                        cmd.Parameters.AddWithValue("@FirstName", usr.FirstName);
+                        cmd.Parameters.AddWithValue("@LastName", usr.LastName);
+                        cmd.Parameters.AddWithValue("@Username", usr.Username);
+                        cmd.Parameters.AddWithValue("@Password", usr.Password);
+                        cmd.Parameters.AddWithValue("@Email", usr.Email);
+                        cmd.Parameters.AddWithValue("@IsActive", usr.IsActive);
+                        cmd.Parameters.AddWithValue("@UserType", usr.UserType);
+
+                        // Execute the insertion and check the number of rows affected
+                        if (cmd.ExecuteNonQuery() == 0)
+                        {
+                            throw new Exception($"User {usr.Username} already exists.");
+                        }
+                    }
                 }
             }
+            catch (Exception e)
+            {
+                Logger.Log(e.Message, LogLevel.Error);
+            }
 
+        }
 
         ///
         /// \brief Inserts a new order in the Orders table

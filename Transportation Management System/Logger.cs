@@ -30,12 +30,21 @@ namespace Transportation_Management_System
     ///
     /// \author <i>Team Blank</i>
     ///
-    class Logger
+    public static class Logger
     {
-        string logDirectory; /// What is the directory where the log will be located?
+        // Current directory is the default one
+        private static string logDirectory = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName); /// What is the directory where the log will be located?
 
         private static bool isSetup = false;
-        public static void Setup()
+
+        /*  -- Method Header Comment
+	    Name	:	Setup
+	    Purpose :	Set up the LogClass if it hasn't been setup already
+	    Inputs	:	string message, LogLevel level
+	    Outputs	:	Nothing
+	    Returns	:	Nothing
+        */
+        private static void Setup()
         {
             string fileName;
             try
@@ -45,11 +54,10 @@ namespace Transportation_Management_System
             catch
             {
                 // If the user doesn't set the LogFileName, set the log name to server.log by default
-                fileName = "server.log";
+                fileName = "tms.log";
             }
-            string currentPath = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName);
 
-            CustomTraceListener ctc = new CustomTraceListener($"{currentPath}\\{fileName}");
+            CustomTraceListener ctc = new CustomTraceListener($"{logDirectory}\\{fileName}");
             Trace.Listeners.Add(ctc);
             isSetup = true;
         }
