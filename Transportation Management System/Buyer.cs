@@ -24,7 +24,12 @@ namespace Transportation_Management_System
         /// 
         /// \return A list of all contracts from the marketplace
         /// 
-        //public List<Contract> FetchContracts() { }
+        public List<Contract> FetchContracts() 
+        {
+            ContractMarketPlace cmp = new ContractMarketPlace();
+            List<Contract> cons = cmp.GetContracts();
+            return cons;
+        }
 
 
         ///
