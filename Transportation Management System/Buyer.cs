@@ -17,7 +17,7 @@ namespace Transportation_Management_System
     ///
     /// \author <i>Team Blank</i>
     ///
-    class Buyer : User
+    public class Buyer : User
     {
         ///
         /// \brief Fetch all contracts from the contract marketplace
@@ -32,7 +32,36 @@ namespace Transportation_Management_System
         ///
         /// \param contract  - <b>Contract</b> - The selected contract for the order to be created
         /// 
-        public void GenerateOrder(Contract contract) { }
+        /// \return Order object
+        public Order GenerateOrder(Contract contract) 
+        {
+            City origin = (City) Enum.Parse(typeof(City), contract.Origin, true);
+            City destination = (City) Enum.Parse(typeof(City), contract.Destination, true);
+
+            Order order = new Order(contract.ClientName, DateTime.Now, origin, destination, contract.JobType, contract.Quantity, contract.VanType);
+
+            // Check if Client exists, If it doesn't exists, create it
+            DAL db = new DAL();
+            if(db.FilterClientByName(order.ClientName) == null)
+            {
+                Client client = new Client(order.ClientName);
+                db.CreateClient(client);
+            }
+
+            try
+            {
+                // Insert order in database
+                db.CreateOrder(order);
+            }
+            catch(Exception)
+            {
+                throw;
+            }
+            
+
+            return order;
+
+        }
 
 
         ///

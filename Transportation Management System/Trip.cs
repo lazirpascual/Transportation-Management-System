@@ -6,6 +6,17 @@ using System.Threading.Tasks;
 
 namespace Transportation_Management_System
 {
+    public enum City
+    {
+        Windsor,
+        London,
+        Hamilton,
+        Toronto,
+        Oshawa,
+        Belleville,
+        Kingston,
+        Ottawa
+    }
 
     /// 
     /// \class Trip

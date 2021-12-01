@@ -250,11 +250,20 @@ namespace Transportation_Management_System
         /// 
         public void CreateOrder(Order order) 
         {
-            string sql = "INSERT INTO Orders (ClientName) VALUES (@ClientName)";
+            string sql = "INSERT INTO Orders (ClientID, OrderDate, Origin, Destination, JobType, Quantity) " +
+                "VALUES (@ClientID, @OrderDate, @Origin, @Destination, @JobType, @Quantity)";
 
             DAL db = new DAL();
+
             try
             {
+                // Get the client from the database and raise an error if it doesn't exist
+                Client client;
+                if ((client = db.FilterClientByName(order.ClientName)) == null)
+                {
+                    throw new KeyNotFoundException($"Client {order.ClientName} does not exist in the database.");
+                }
+
                 using (MySqlConnection conn = new MySqlConnection(db.ToString()))
                 {
                     conn.Open();
@@ -262,7 +271,12 @@ namespace Transportation_Management_System
                     using (MySqlCommand cmd = new MySqlCommand(sql, conn))
                     {
                         // Populate all arguments in the insert
-                        //cmd.Parameters.AddWithValue("@ClientName", client.ClientName);
+                        cmd.Parameters.AddWithValue("@ClientID", client.ClientID);
+                        cmd.Parameters.AddWithValue("@OrderDate", order.OrderCreationDate.ToString("YYYY-MM-DD hh:mm:ss "));
+                        cmd.Parameters.AddWithValue("@Origin", order.Origin.ToString());
+                        cmd.Parameters.AddWithValue("@Destination", order.Destination.ToString());
+                        cmd.Parameters.AddWithValue("@JobType", order.JobType);
+                        cmd.Parameters.AddWithValue("@Quantity", order.Quantity);
 
                         // Execute the insertion and check the number of rows affected
                         // An exception will be thrown if the column is repeated
@@ -273,7 +287,12 @@ namespace Transportation_Management_System
             catch (MySqlException e)
             {
                 Logger.Log(e.Message, LogLevel.Error);
-                //throw new ArgumentException($"Client {client.ClientName} already exists.");
+                throw new ArgumentException($"Something went wrong while creating the order. {e.Message}");
+            }
+            catch (KeyNotFoundException e)
+            {
+                Logger.Log(e.Message, LogLevel.Error);
+                throw;
             }
             catch (Exception e)
             {
