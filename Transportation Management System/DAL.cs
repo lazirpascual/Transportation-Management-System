@@ -219,15 +219,19 @@ namespace Transportation_Management_System
                         cmd.Parameters.AddWithValue("@Password", usr.Password);
                         cmd.Parameters.AddWithValue("@Email", usr.Email);
                         cmd.Parameters.AddWithValue("@IsActive", usr.IsActive);
-                        cmd.Parameters.AddWithValue("@UserType", usr.UserType);
+                        cmd.Parameters.AddWithValue("@UserType", (int) usr.UserType);
 
                         // Execute the insertion and check the number of rows affected
                         if (cmd.ExecuteNonQuery() == 0)
                         {
-                            throw new Exception($"User {usr.Username} already exists.");
+                            throw new ArgumentException($"User {usr.Username} already exists.");
                         }
                     }
                 }
+            }
+            catch (ArgumentException e)
+            {
+                Logger.Log(e.Message, LogLevel.Error);
             }
             catch (Exception e)
             {

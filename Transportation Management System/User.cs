@@ -6,6 +6,12 @@ using System.Threading.Tasks;
 
 namespace Transportation_Management_System
 {
+    public enum UserRole
+    {
+        Buyer,
+        Planner,
+        Admin
+    }
     /// 
     /// \class User
     /// 
@@ -37,10 +43,10 @@ namespace Transportation_Management_System
         public bool IsActive { get; set; }
 
         /// used to represent type or role of a user
-        public string UserType { get; set; }   
+        public UserRole UserType { get; set; }   
 
 
-        public User(string firstName, string lastName, string username, string password, string email, string userType)
+        public User(string firstName, string lastName, string username, string password, string email, UserRole userType)
         {
             FirstName = firstName;
             LastName = lastName;
