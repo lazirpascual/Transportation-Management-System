@@ -217,7 +217,7 @@ namespace Transportation_Management_System
                         cmd.Parameters.AddWithValue("@FirstName", usr.FirstName);
                         cmd.Parameters.AddWithValue("@LastName", usr.LastName);
                         cmd.Parameters.AddWithValue("@Username", usr.Username);
-                        cmd.Parameters.AddWithValue("@Password", usr.Password);
+                        cmd.Parameters.AddWithValue("@Password", Helper.HashPass(usr.Password));
                         cmd.Parameters.AddWithValue("@Email", usr.Email);
                         cmd.Parameters.AddWithValue("@IsActive", usr.IsActive);
                         cmd.Parameters.AddWithValue("@UserType", (int) usr.UserType);
@@ -248,7 +248,39 @@ namespace Transportation_Management_System
         ///
         /// \param order  - <b>Order</b> - An Order object to be created with all its information
         /// 
-        public void CreateOrder(Order order) { }
+        public void CreateOrder(Order order) 
+        {
+            string sql = "INSERT INTO Orders (ClientName) VALUES (@ClientName)";
+
+            DAL db = new DAL();
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(db.ToString()))
+                {
+                    conn.Open();
+
+                    using (MySqlCommand cmd = new MySqlCommand(sql, conn))
+                    {
+                        // Populate all arguments in the insert
+                        //cmd.Parameters.AddWithValue("@ClientName", client.ClientName);
+
+                        // Execute the insertion and check the number of rows affected
+                        // An exception will be thrown if the column is repeated
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (MySqlException e)
+            {
+                Logger.Log(e.Message, LogLevel.Error);
+                //throw new ArgumentException($"Client {client.ClientName} already exists.");
+            }
+            catch (Exception e)
+            {
+                Logger.Log(e.Message, LogLevel.Error);
+                throw;
+            }
+        }
 
 
 
@@ -279,7 +311,7 @@ namespace Transportation_Management_System
                     }
                 }
             }
-            catch (MySql.Data.MySqlClient.MySqlException e)
+            catch (MySqlException e)
             {
                 Logger.Log(e.Message, LogLevel.Error);
                 throw new ArgumentException($"Client {client.ClientName} already exists.");
@@ -375,7 +407,7 @@ namespace Transportation_Management_System
         /// 
         /// \return A list of all clients
         /// 
-        //public List<Client> GetClient() { }
+        //public List<Client> GetClients() { }
 
 
 
@@ -386,7 +418,50 @@ namespace Transportation_Management_System
         /// 
         /// \return The found client of null if none are found
         /// 
-        //public Client FilterClientByName(string name) { }
+        public Client FilterClientByName(string name) 
+        {
+            string sql = "SELECT ClientID, ClientName FROM Clients WHERE ClientName=@ClientName";
+            Client client = null;
+
+            DAL db = new DAL();
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(db.ToString()))
+                {
+                    conn.Open();
+
+                    using (MySqlCommand cmd = new MySqlCommand(sql, conn))
+                    {
+                        // Populate all arguments in the insert
+                        cmd.Parameters.AddWithValue("@ClientName", name);
+
+                        MySqlDataReader rdr = cmd.ExecuteReader();
+
+                        if (rdr.HasRows)
+                        {
+                            while (rdr.Read())
+                            {
+                                client = new Client();
+                                client.ClientID = int.Parse(rdr["ClientID"].ToString());
+                                client.ClientName = rdr["ClientName"].ToString();
+                            }
+                        }
+                    }
+                }
+            }
+            catch (MySqlException e)
+            {
+                Logger.Log(e.Message, LogLevel.Error);
+                throw;
+            }
+            catch (Exception e)
+            {
+                Logger.Log(e.Message, LogLevel.Error);
+                throw;
+            }
+
+            return client;
+        }
 
 
         ///

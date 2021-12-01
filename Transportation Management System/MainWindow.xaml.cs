@@ -28,16 +28,7 @@ namespace Transportation_Management_System
             Client client = new Client("Xixibubu");
 
             DAL db = new DAL();
-            try
-            {
-                db.CreateClient(client);
-                passed = true;
-            }
-            catch (Exception)
-            {
-                // Fail if an exception is thrown
-                passed = false;
-            }
+            db.FilterClientByName("Existentgyt");
         }
 
         private void MainWindow_OnMouseDown(object sender, MouseButtonEventArgs e)

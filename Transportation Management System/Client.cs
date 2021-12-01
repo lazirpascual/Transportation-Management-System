@@ -30,5 +30,7 @@ namespace Transportation_Management_System
         {
             ClientName = name;
         }
+
+        public Client() { }
     }
 }
