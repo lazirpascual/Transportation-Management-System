@@ -48,6 +48,7 @@ namespace Transportation_Management_System
                 db.CreateClient(client);
             }
 
+            // Create order
             try
             {
                 // Insert order in database
@@ -60,7 +61,6 @@ namespace Transportation_Management_System
             
 
             return order;
-
         }
 
 

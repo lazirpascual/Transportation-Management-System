@@ -133,12 +133,25 @@ namespace UnitTestProject1
             db.CreateOrder(order);
         }
 
-        // Test if an exception if incomplete information is inserted and order is not created
+        // Test if an exception if the client does not exist
         [TestMethod]
         public void CreateOrderException()
         {
+            // Get contract from market place
+            ContractMarketPlace CMP = new ContractMarketPlace();
+            List<Contract> contracts = CMP.GetContracts();
+
+            // Generate order 
+            Contract contract = contracts[0];
+            City origin = (City)Enum.Parse(typeof(City), contract.Origin, true);
+            City destination = (City)Enum.Parse(typeof(City), contract.Destination, true);
+            Order order = new Order("NonExistentBuddy", DateTime.Now, origin, destination, contract.JobType, contract.Quantity, contract.VanType);
+
+
             DAL db = new DAL();
-            
+
+            // If any exception is throw, the test will fail
+            Assert.ThrowsException<KeyNotFoundException>(() => db.CreateOrder(order));
         }
     }
 }
