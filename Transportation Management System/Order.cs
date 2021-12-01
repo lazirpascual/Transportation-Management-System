@@ -20,40 +20,45 @@ namespace Transportation_Management_System
     public class Order
     {
         /// The identifier number of the order 
-        int OrderID;
+        public int OrderID;
 
         /// The client related the order
-        Client Client;
+        public string ClientName;
 
         /// The date when the order was created
-        DateTime OrderCreationDate;
+        public DateTime OrderCreationDate;
 
         /// The origin of the order's trip
-        string Origin;
+        public City Origin;
 
         /// The destination of the order's trip
-        string Destination;
+        public City Destination;
 
         /// The type of job to be completed
-        int JobType;
+        public int JobType;
+
+        public int VanType;
 
         /// The quantity of pallets contained in the order
-        int Quantity;
+        public int Quantity;
 
         /// The indicator of current and completed orders
-        int IsCompleted; 
+        public int IsCompleted; 
 
 
-        public Order(Client client, DateTime creationTime, string origin, string destination, int jobType, int quantity, int isCompleted)
+        public Order(string clientName, DateTime creationTime, City origin, City destination, int jobType, int quantity, int vanType)
         {
-            Client = client;
+            ClientName = clientName;
             OrderCreationDate = creationTime;
             Origin = origin;
             Destination = destination;
             JobType = jobType;
             Quantity = quantity;
-            IsCompleted = isCompleted;
+            VanType = vanType;
+            IsCompleted = 0;
         }
+
+        public Order() {}
 
 
         ///

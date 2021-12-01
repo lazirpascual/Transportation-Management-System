@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using Transportation_Management_System;
+using System.Collections.Generic;
 
 namespace UnitTestProject1
 {
@@ -51,22 +52,12 @@ namespace UnitTestProject1
         [TestMethod]
         public void CreateClientNormalTest()
         {
-            bool passed;
             Client client = new Client("Xixibubu");
 
             DAL db = new DAL();
-            try
-            {
-                db.CreateClient(client);
-                passed = true;
-            }
-            catch (Exception)
-            {
-                // Fail if an exception is thrown
-                passed = false;
-            }
 
-            Assert.IsTrue(passed);
+            // Fail if an exception is thrown
+            db.CreateClient(client);
         }
 
         // Test if an alert message is displayed when inserting an existent client
@@ -102,12 +93,65 @@ namespace UnitTestProject1
             Assert.IsNotNull(db.FilterClientByName("ExistentGuy"));
         }
 
+
         // Test if null is returned when an inexistent client is found
         [TestMethod]
         public void FilterClientByNameException()
         {
             DAL db = new DAL();
             Assert.IsNull(db.FilterClientByName("InexistentGuy"));
+        }
+
+
+        // Test if an order is inserted in the database
+        [TestMethod]
+        public void CreateOrderNormal()
+        {
+            // Get contract from market place
+            ContractMarketPlace CMP = new ContractMarketPlace();
+            List<Contract> contracts = CMP.GetContracts();
+            Contract contract = contracts[0];
+
+            // Generate order 
+            City origin = (City)Enum.Parse(typeof(City), contract.Origin, true);
+            City destination = (City)Enum.Parse(typeof(City), contract.Destination, true);
+            Order order = new Order(contract.ClientName, DateTime.Now, origin, destination, contract.JobType, contract.Quantity, contract.VanType);
+
+
+            DAL db = new DAL();
+
+            // Make sure the client exists
+            Client client = new Client(order.ClientName);
+            try
+            {
+                db.CreateClient(client);
+            }
+            // Ignore exceptions if the client already exists
+            catch { }
+
+            // If any exception is throw, the test will fail
+            db.CreateOrder(order);
+        }
+
+        // Test if an exception if the client does not exist
+        [TestMethod]
+        public void CreateOrderException()
+        {
+            // Get contract from market place
+            ContractMarketPlace CMP = new ContractMarketPlace();
+            List<Contract> contracts = CMP.GetContracts();
+            Contract contract = contracts[0];
+
+            // Generate order 
+            City origin = (City)Enum.Parse(typeof(City), contract.Origin, true);
+            City destination = (City)Enum.Parse(typeof(City), contract.Destination, true);
+            Order order = new Order("NonExistentBuddy", DateTime.Now, origin, destination, contract.JobType, contract.Quantity, contract.VanType);
+
+
+            DAL db = new DAL();
+
+            // If any exception is throw, the test will fail
+            Assert.ThrowsException<KeyNotFoundException>(() => db.CreateOrder(order));
         }
     }
 }

@@ -14,9 +14,16 @@ namespace UnitTestProject1
     public class BuyerTest
     {
         [TestMethod]
-        public void CreateOrder_FunctionalTest()
+        public void GenerateOrder_FunctionalTest()
         {
+            // Get contract from market place
+            ContractMarketPlace CMP = new ContractMarketPlace();
+            List<Contract> contracts = CMP.GetContracts();
+            Contract contract = contracts[1];
 
+            // Generate order
+            Buyer buyer = new Buyer();
+            buyer.GenerateOrder(contract);
         }
 
         [TestMethod]
