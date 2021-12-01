@@ -55,6 +55,7 @@
     <Compile Include="MarketplaceTest.cs" />
     <Compile Include="LoggerTest.cs" />
     <Compile Include="PlannerTest.cs" />
+    <Compile Include="DALTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

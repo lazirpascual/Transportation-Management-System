@@ -25,10 +25,10 @@ namespace Transportation_Management_System
         public string LastName { get; set; }
 
         /// used to represent the username of the user
-        public int Username { get; set; }
+        public string Username { get; set; }
 
         /// used to represent the password of the user
-        public int Password { get; set; }
+        public string Password { get; set; }
         
         /// used to represent the email of the user
         public string Email { get; set; }
@@ -38,5 +38,19 @@ namespace Transportation_Management_System
 
         /// used to represent type or role of a user
         public string UserType { get; set; }   
+
+
+        public User(string firstName, string lastName, string username, string password, string email, string userType)
+        {
+            FirstName = firstName;
+            LastName = lastName;
+            Username = username;
+            Password = password;
+            Email = email;
+            IsActive = true;
+            UserType = userType;
+        }
+
+        public User() { }
     }
 }
