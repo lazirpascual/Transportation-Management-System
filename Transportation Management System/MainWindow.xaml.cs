@@ -24,9 +24,20 @@ namespace Transportation_Management_System
         {
             InitializeComponent();
 
+            bool passed;
+            Client client = new Client("Xixibubu");
+
             DAL db = new DAL();
-            User usr = new User("BubuFirstName", "bubuLastName", "bubuUsername", "pass", "email@gmail.com", UserRole.Buyer);
-            db.CreateUser(usr);
+            try
+            {
+                db.CreateClient(client);
+                passed = true;
+            }
+            catch (Exception)
+            {
+                // Fail if an exception is thrown
+                passed = false;
+            }
         }
 
         private void MainWindow_OnMouseDown(object sender, MouseButtonEventArgs e)
