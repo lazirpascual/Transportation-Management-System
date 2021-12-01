@@ -202,7 +202,7 @@ namespace Transportation_Management_System
         public void CreateUser(User usr)
         {
             //// To Test ////
-            string sql = "INSERT INTO User (FirstName, LastName, Username, Password, Email, IsActive, UserType) " +
+            string sql = "INSERT INTO Users (FirstName, LastName, Username, PasswordHash, Email, IsActive, UserType) " +
                 "VALUES (@FirstName, @LastName, @Username, @Password, @Email, @IsActive, @UserType)";
 
             DAL db = new DAL();
@@ -210,8 +210,11 @@ namespace Transportation_Management_System
             {
                 using (MySqlConnection conn = new MySqlConnection(db.ToString()))
                 {
+                    conn.Open();
+
                     using (MySqlCommand cmd = new MySqlCommand(sql, conn))
                     {
+
                         // Populate all arguments in the insert
                         cmd.Parameters.AddWithValue("@FirstName", usr.FirstName);
                         cmd.Parameters.AddWithValue("@LastName", usr.LastName);
@@ -222,23 +225,25 @@ namespace Transportation_Management_System
                         cmd.Parameters.AddWithValue("@UserType", (int) usr.UserType);
 
                         // Execute the insertion and check the number of rows affected
-                        if (cmd.ExecuteNonQuery() == 0)
-                        {
-                            throw new ArgumentException($"User {usr.Username} already exists.");
-                        }
+                        // An exception will be thrown if the column is repeated
+                        cmd.ExecuteNonQuery();
                     }
                 }
             }
-            catch (ArgumentException e)
+            catch (MySql.Data.MySqlClient.MySqlException e)
             {
                 Logger.Log(e.Message, LogLevel.Error);
+                throw new ArgumentException($"User {usr.Username} already exists.");
             }
             catch (Exception e)
             {
                 Logger.Log(e.Message, LogLevel.Error);
+                throw;
             }
 
         }
+
+
 
         ///
         /// \brief Inserts a new order in the Orders table

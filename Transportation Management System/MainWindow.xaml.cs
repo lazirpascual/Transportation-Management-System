@@ -23,6 +23,10 @@ namespace Transportation_Management_System
         public MainWindow()
         {
             InitializeComponent();
+
+            DAL db = new DAL();
+            User usr = new User("BubuFirstName", "bubuLastName", "bubuUsername", "pass", "email@gmail.com", UserRole.Buyer);
+            db.CreateUser(usr);
         }
 
         private void MainWindow_OnMouseDown(object sender, MouseButtonEventArgs e)

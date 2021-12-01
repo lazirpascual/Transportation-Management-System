@@ -12,8 +12,7 @@ namespace UnitTestProject1
         public void CreateUserNormalTest()
         {
             bool passed;
-            string paswrdHashed = Helper.HashPass("bubu");
-            User usr = new User("BubuFirstName", "bubuLastName", "bubuUsername", paswrdHashed, "email@gmail.com", UserRole.Buyer);
+            User usr = new User("BubuFirstName", "bubuLastName", "bubuUsername", "pass", "email@gmail.com", UserRole.Buyer);
 
             DAL db = new DAL();
             try
