@@ -22,9 +22,13 @@ namespace Transportation_Management_System
         public int ClientID { get; set; }
 
         /// The client full name
-        public int ClientName { get; set; } 
+        public string ClientName { get; set; } 
 
 
         /// Create client Constructor
+        public Client(string name)
+        {
+            ClientName = name;
+        }
     }
 }

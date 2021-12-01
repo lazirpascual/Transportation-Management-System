@@ -30,7 +30,7 @@ namespace Transportation_Management_System
         /// 
         /// \return Hashed password
         ///
-        private static string HashPass(string password)
+        public static string HashPass(string password)
         {
             string mySalt = BC.GenerateSalt();
 

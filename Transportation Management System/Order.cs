@@ -23,7 +23,7 @@ namespace Transportation_Management_System
         int OrderID;
 
         /// The client related the order
-        Client OrderClient;
+        Client Client;
 
         /// The date when the order was created
         DateTime OrderCreationDate;
@@ -41,7 +41,19 @@ namespace Transportation_Management_System
         int Quantity;
 
         /// The indicator of current and completed orders
-        bool IsCompleted; 
+        int IsCompleted; 
+
+
+        public Order(Client client, DateTime creationTime, string origin, string destination, int jobType, int quantity, int isCompleted)
+        {
+            Client = client;
+            OrderCreationDate = creationTime;
+            Origin = origin;
+            Destination = destination;
+            JobType = jobType;
+            Quantity = quantity;
+            IsCompleted = isCompleted;
+        }
 
 
         ///

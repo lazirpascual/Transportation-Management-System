@@ -23,6 +23,21 @@ namespace Transportation_Management_System
         public MainWindow()
         {
             InitializeComponent();
+
+            bool passed;
+            Client client = new Client("Xixibubu");
+
+            DAL db = new DAL();
+            try
+            {
+                db.CreateClient(client);
+                passed = true;
+            }
+            catch (Exception)
+            {
+                // Fail if an exception is thrown
+                passed = false;
+            }
         }
 
         private void MainWindow_OnMouseDown(object sender, MouseButtonEventArgs e)
