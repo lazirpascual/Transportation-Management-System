@@ -214,7 +214,6 @@ namespace Transportation_Management_System
 
                     using (MySqlCommand cmd = new MySqlCommand(sql, conn))
                     {
-
                         // Populate all arguments in the insert
                         cmd.Parameters.AddWithValue("@FirstName", usr.FirstName);
                         cmd.Parameters.AddWithValue("@LastName", usr.LastName);
