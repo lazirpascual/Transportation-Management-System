@@ -21,12 +21,21 @@ namespace Transportation_Management_System
     {
         public BuyerPage()
         {
-            InitializeComponent();
+            InitializeComponent();           
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             App.Current.MainWindow.Visibility = Visibility.Visible;
+        }
+
+        private void MarketPlace_Click(object sender, RoutedEventArgs e)
+        {
+            ContractMarketPlace CMP = new ContractMarketPlace();
+            List<Contract> contractList = new List<Contract>();
+            contractList = CMP.GetContracts();
+            lvContracts.ItemsSource = contractList;
+            lvContracts.Visibility = Visibility.Visible;
         }
     }
 }
