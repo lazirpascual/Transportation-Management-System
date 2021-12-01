@@ -23,12 +23,6 @@ namespace Transportation_Management_System
         public MainWindow()
         {
             InitializeComponent();
-
-            bool passed;
-            Client client = new Client("Xixibubu");
-
-            DAL db = new DAL();
-            db.FilterClientByName("Existentgyt");
         }
 
         private void MainWindow_OnMouseDown(object sender, MouseButtonEventArgs e)

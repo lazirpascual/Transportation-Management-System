@@ -24,6 +24,7 @@ namespace Transportation_Management_System
             InitializeComponent();
         }
 
+
         private void Configuration_Click(object sender, RoutedEventArgs e)
         {
             Top1.Visibility = Visibility.Visible;
@@ -41,5 +42,11 @@ namespace Transportation_Management_System
             Top2.Content = "Update";
             Top3.Content = "Something";
         }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            App.Current.MainWindow.Visibility = Visibility.Visible;
+        }
+
     }
 }

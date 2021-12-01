@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:Transportation_Management_System"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen" 
+        Closing="Window_Closing"
         Title="Planner" Height="450" Width="800">
     <Viewbox>
         <Grid>

@@ -178,8 +178,8 @@ namespace Transportation_Management_System
                     {
                         while (rdr.Read())
                         {
-                            string DbUserType = rdr["UserType"].ToString();
-                            userType = DbUserType;
+                            UserRole DbUserType = (UserRole)Int32.Parse(rdr["UserType"].ToString());
+                            userType = DbUserType.ToString();
                         }
                     }
                 }
