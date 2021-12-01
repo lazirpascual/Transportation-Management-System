@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.31727.386
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transportation Management System", "Transportation Management System.csproj", "{1D34DDE1-0DAD-4D92-B9A9-37A26EFBC8DA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProject1", "..\UnitTestProject1\UnitTestProject1.csproj", "{0F71D69A-994B-4830-B192-DB05EE737592}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTesting", "..\UnitTestProject1\UnitTesting.csproj", "{0F71D69A-994B-4830-B192-DB05EE737592}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
