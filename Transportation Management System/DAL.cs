@@ -79,7 +79,7 @@ namespace Transportation_Management_System
                     {
                         while (rdr.Read())
                         {
-                            string DbUsername = rdr[2].ToString();
+                            string DbUsername = rdr["Username"].ToString();
                             if (userName == DbUsername)
                             {
                                 existent = true;
@@ -129,7 +129,7 @@ namespace Transportation_Management_System
                     {
                         while (rdr.Read())
                         {
-                            string DbPassword = rdr[3].ToString();
+                            string DbPassword = rdr["PasswordHash"].ToString();
                             if (BC.Verify(password, DbPassword))
                             {
                                 isValid = true;
@@ -178,7 +178,7 @@ namespace Transportation_Management_System
                     {
                         while (rdr.Read())
                         {
-                            string DbUserType = rdr[0].ToString();
+                            string DbUserType = rdr["UserType"].ToString();
                             userType = DbUserType;
                         }
                     }
