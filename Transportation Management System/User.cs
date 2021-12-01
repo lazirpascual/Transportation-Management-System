@@ -21,11 +21,17 @@ namespace Transportation_Management_System
         /// used to describe the first name of the user
         public string FirstName { get; set; }
 
+        /// used to describe the last name of the user
+        public string LastName { get; set; }
+
         /// used to represent the username of the user
         public int Username { get; set; }
 
         /// used to represent the password of the user
         public int Password { get; set; }
+        
+        /// used to represent the email of the user
+        public string Email { get; set; }
 
         /// used to describe whether the user is active or not
         public bool IsActive { get; set; }

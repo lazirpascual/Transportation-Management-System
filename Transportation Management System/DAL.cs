@@ -200,8 +200,18 @@ namespace Transportation_Management_System
         ///
         /// \param usr  - <b>User</b> - An User object with all their information
         /// 
-        public void CreateUser(User usr) { }
+        public void CreateUser(User usr) 
+        {
+            //// To Test ////
+            string sql = "INSERT INTO User (FirstName, Username, Password, BirthDate, IsActive) VALUES (@FirstName, @LastName, @StudentNumber, @BirthDate, @IsActive)";
+            DAL db = new DAL();
+            using (MySqlConnection conn = new MySqlConnection(db.ToString()))
+            {
+                using (MySqlCommand cmd = new MySqlCommand())
+                {
 
+                }
+            }
 
 
         ///
