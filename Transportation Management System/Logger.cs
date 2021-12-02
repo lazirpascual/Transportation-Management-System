@@ -45,28 +45,36 @@ namespace Transportation_Management_System
         */
         private static void Setup()
         {
-            string fileName;
-            string logDirectory;
+            string fileName = string.Empty;
+            string logDirectory = string.Empty;
             try
             {
+                // Load config
                 fileName = ConfigurationManager.AppSettings.Get("LogFileName");
                 logDirectory = ConfigurationManager.AppSettings.Get("LogDirectory");
                 // If directory is empty
                 if (logDirectory == "")
                 {
-                    logDirectory = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName);
                     throw new Exception("logDirectory not found");
                 }
+                // if file name is empty
                 else if (fileName == "")
                 {
-                    fileName = "tms.log";
                     throw new Exception("fileName not found");
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                if
-                ChangeLogDirectory(logDirectory);
+                if (e.Message.Contains("logDirectory") || logDirectory == "")
+                {
+                    logDirectory = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName);
+                    ChangeLogDirectory(logDirectory);
+                }
+                else if (e.Message.Contains("fileName") || fileName == "")
+                {
+                    fileName = "tms.log";
+                    //ChangeLogFileName(fileName);
+                }
             }
 
             CustomTraceListener ctc = new CustomTraceListener($"{logDirectory}\\{fileName}");
@@ -100,7 +108,9 @@ namespace Transportation_Management_System
         public static void ChangeLogDirectory(string newDirectory)
         {
             string oldDirectory = ConfigurationManager.AppSettings.Get("LogDirectory");
-            
+
+            // If the directory doesn't change, don't don anything
+            if (oldDirectory == newDirectory) return;
 
             // Update the config file
             Configuration configuration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
@@ -112,24 +122,24 @@ namespace Transportation_Management_System
             try
             {
                 UpdateLogFileInNewDirectory(oldDirectory, newDirectory);
+
+                // If the log was already set up previously
+                if (isSetup && Trace.Listeners.Count == 3)
+                {
+                    Logger.Log($"Log directory changed from \"{oldDirectory}\" to \"{newDirectory}\"", LogLevel.Information);
+                    Trace.Listeners.Remove(Trace.Listeners[2]);
+                    isSetup = false;
+                }
             }
             catch(Exception e)
             {
-                Logger.Log($"We couldn't change the log directory. {e}", LogLevel.Error);
+                Logger.Log($"We couldn't change the log directory. {e.Message}", LogLevel.Error);
 
                 // Revert changes to the old directory
                 configuration.AppSettings.Settings["LogDirectory"].Value = oldDirectory;
                 configuration.Save(ConfigurationSaveMode.Full, true);
                 ConfigurationManager.RefreshSection("appSettings");
             }
-            
-            // If the log was already set up previously
-            if (isSetup && Trace.Listeners.Count == 3)
-            {
-                Logger.Log($"Log directory changed from \"{oldDirectory}\" to \"{newDirectory}\"", LogLevel.Information);
-                Trace.Listeners.Remove(Trace.Listeners[2]);
-            }
-            isSetup = false;
         }
 
 
@@ -154,6 +164,7 @@ namespace Transportation_Management_System
                 if (!Directory.Exists(newDirectory))
                 {
                     Directory.CreateDirectory(newDirectory);
+
                 }
 
                 // Move file to the new log folder
@@ -213,7 +224,7 @@ namespace Transportation_Management_System
                 // Get the Class for that method
                 var classInfo = methodInfo.DeclaringType;
 
-                base.Write((classInfo.Name + "[" + methodInfo.Name + "] ").PadRight(27) + DateTime.Now.ToString("MM-dd-yyyy hh:mm:ss tt") + "    ---    ");
+                base.Write((classInfo.Name + "[" + methodInfo.Name + "] ").PadRight(37) + DateTime.Now.ToString("MM-dd-yyyy hh:mm:ss tt") + "    ---    ");
                 base.WriteLine(message);
 
                 Trace.Flush();

@@ -25,10 +25,11 @@ namespace Transportation_Management_System
             InitializeComponent();
 
             Logger.Log("Testbb", LogLevel.Debug);
-            Logger.GetCurrentLogDirectory();
+            string dict = Logger.GetCurrentLogDirectory();
             Logger.ChangeLogDirectory("C:\\test\\");
-            Logger.GetCurrentLogDirectory();
+            dict = Logger.GetCurrentLogDirectory();
             Logger.Log("Testaa", LogLevel.Debug);
+            Logger.ChangeLogDirectory("C:\\test2\\");
         }
 
         private void MainWindow_OnMouseDown(object sender, MouseButtonEventArgs e)
