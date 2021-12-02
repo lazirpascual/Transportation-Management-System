@@ -19,7 +19,7 @@
                 </Border.Background>
                 <Image Source="logo_white.png" Margin="10,10,667,281"/>
             </Border>
-            <Button x:Name ="Button5" FontSize="16" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="650,363,0,0" Visibility="Hidden"/>
+            <Button x:Name ="AcceptContracts_Button" FontSize="16" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="650,363,0,0" Visibility="Hidden" Click="AcceptContracts_Button_Click" />
             <Button x:Name ="Button4" FontSize="16" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="650,363,0,0" Visibility="Hidden"/>
             <Button x:Name ="Button3" FontSize="16" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="524,363,0,0" Visibility="Hidden"/>
             <Button x:Name ="Button2" FontSize="16" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="272,363,0,0" Visibility="Hidden"/>
@@ -42,7 +42,7 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-            <ListView x:Name="OrdersList" Margin="145,10,21,61" Visibility="Visible">
+            <ListView x:Name="OrdersList" Margin="145,10,21,61" Visibility="Hidden">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Client Name" Width="100" DisplayMemberBinding="{Binding ClientName}" />

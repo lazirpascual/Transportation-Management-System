@@ -19,6 +19,11 @@ namespace Transportation_Management_System
     /// </summary>
     public partial class BuyerPage : Window
     {
+
+        List<Contract> contractList;
+        Buyer buyer;
+
+
         public BuyerPage()
         {
             InitializeComponent();
@@ -61,13 +66,12 @@ namespace Transportation_Management_System
             Disable_Buttons();
             Orders.Background = Brushes.LightSkyBlue;
 
-            //Buyer newBuyer = new Buyer(); 
+            buyer = new Buyer(); 
             List<Order> orderList = new List<Order>();
-                        
+            orderList = buyer.GetOrders(false);             
             OrdersList.ItemsSource = orderList;
             OrdersList.Visibility = Visibility.Visible;
             ActiveBox.Visibility = Visibility.Visible;
-
 
         }
 
@@ -82,12 +86,12 @@ namespace Transportation_Management_System
         private void MarketPlace_Page()
         {
             ContractMarketPlace CMP = new ContractMarketPlace();
-            List<Contract> contractList = new List<Contract>();
+            contractList = new List<Contract>();
             contractList = CMP.GetContracts();
             ContractsList.ItemsSource = contractList;
             ContractsList.Visibility = Visibility.Visible;
-            Button5.Visibility = Visibility.Visible;
-            Button5.Content = "Accept Contract(s)";
+            AcceptContracts_Button.Visibility = Visibility.Visible;
+            AcceptContracts_Button.Content = "Accept Contract(s)";
             MarketPlace.Background = Brushes.LightSkyBlue;
         }
 
@@ -128,9 +132,20 @@ namespace Transportation_Management_System
             Button2.Visibility = Visibility.Hidden;
             Button3.Visibility = Visibility.Hidden;
             Button4.Visibility = Visibility.Hidden;
-            Button5.Visibility = Visibility.Hidden;
+            AcceptContracts_Button.Visibility = Visibility.Hidden;
             ActiveBox.Visibility = Visibility.Hidden;
         }
+
+        private void AcceptContracts_Button_Click(object sender, RoutedEventArgs e)
+        {
+            
+            
+            // check selected line
+            // generate order for the selected line (s)
                 
+
+
+        }
+        
     }
 }
