@@ -492,8 +492,8 @@ namespace Transportation_Management_System
                 string conString = this.ToString();
                 using (MySqlConnection con = new MySqlConnection(conString))
                 {
-                    MySqlCommand cmd = new MySqlCommand("SELECT Clients.ClientName, OrderDate, Origin, Destination, JobType, VanType, Quantity FROM Orders WHERE IsCompleted=0" +
-                         "INNER JOIN Clients ON Orders.ClientID = Clients.ClientID", con);
+                    MySqlCommand cmd = new MySqlCommand("SELECT Clients.ClientName, OrderDate, Origin, Destination, JobType, VanType, Quantity FROM Orders" +
+                         " INNER JOIN Clients ON Orders.ClientID = Clients.ClientID WHERE IsCompleted=0", con);
                     con.Open();
                     MySqlDataReader rdr = cmd.ExecuteReader();
 

@@ -21,7 +21,7 @@ namespace Transportation_Management_System
     {
         public BuyerPage()
         {
-            InitializeComponent();           
+            InitializeComponent();
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
