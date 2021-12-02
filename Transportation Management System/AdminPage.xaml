@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:Transportation_Management_System"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen" 
+        Closing="Window_Closing"
         Title="Administrator" Height="450" Width="800">
     <Viewbox>
         <Grid>
@@ -18,15 +19,15 @@
                 </Border.Background>
                 <Image Source="logo_white.png" Margin="10,10,667,281"/>
             </Border>
-            <Button x:Name ="Backup_Copy3" Content="Backup" FontSize="16" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="649,10,0,0"/>
-            <Button x:Name ="Backup_Copy1" Content="Backup" FontSize="16" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" RenderTransformOrigin="1.496,1.196" Margin="523,10,0,0"/>
-            <Button x:Name ="Backup_Copy2" Content="Backup" FontSize="16" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="397,10,0,0"/>
-            <Button x:Name ="Backup_Copy" Content="Backup" FontSize="16" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="271,10,0,0"/>
-            <Button x:Name ="Backup" Content="Backup" FontSize="16" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="145,10,0,0"/>
+            <Button x:Name ="Top5" FontSize="16" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="649,10,0,0" Visibility="Hidden"/>
+            <Button x:Name ="Top4" FontSize="16" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" RenderTransformOrigin="1.496,1.196" Margin="523,10,0,0" Visibility="Hidden"/>
+            <Button x:Name ="Top3" FontSize="16" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="397,10,0,0" Visibility="Hidden"/>
+            <Button x:Name ="Top2" FontSize="16" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="271,10,0,0" Visibility="Hidden"/>
+            <Button x:Name ="Top1" FontSize="16" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="145,10,0,0" Visibility="Hidden"/>
             <Button x:Name ="LogFiles_Copy" Content="Log Files" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="0,209,0,0"/>
             <Button x:Name ="LogFiles" Content="Log Files" Background="WhiteSmoke" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="0,261,0,0"/>
-            <Button x:Name ="Database" Content="Database" Background="WhiteSmoke" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="0,312,0,0"/>
-            <Button x:Name ="Configuration" Content="General Config" Background="WhiteSmoke" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="0,363,0,0"/>
+            <Button x:Name ="Database" Content="Database" Background="WhiteSmoke" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="0,312,0,0" Click="Database_Click"/>
+            <Button x:Name ="Configuration" Content="General Config" Background="WhiteSmoke" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="0,363,0,0" Click="Configuration_Click"/>
             <Frame  x:Name="Admin" Margin="145,61,21,10" NavigationUIVisibility="Hidden" Background="GhostWhite" Content=""/>
         </Grid>
     </Viewbox>

@@ -79,7 +79,7 @@ namespace Transportation_Management_System
                     {
                         while (rdr.Read())
                         {
-                            string DbUsername = rdr[2].ToString();
+                            string DbUsername = rdr["Username"].ToString();
                             if (userName == DbUsername)
                             {
                                 existent = true;
@@ -129,7 +129,7 @@ namespace Transportation_Management_System
                     {
                         while (rdr.Read())
                         {
-                            string DbPassword = rdr[3].ToString();
+                            string DbPassword = rdr["PasswordHash"].ToString();
                             if (BC.Verify(password, DbPassword))
                             {
                                 isValid = true;
@@ -178,8 +178,8 @@ namespace Transportation_Management_System
                     {
                         while (rdr.Read())
                         {
-                            string DbUserType = rdr[0].ToString();
-                            userType = DbUserType;
+                            UserRole DbUserType = (UserRole)Int32.Parse(rdr["UserType"].ToString());
+                            userType = DbUserType.ToString();
                         }
                     }
                 }
@@ -469,11 +469,6 @@ namespace Transportation_Management_System
                     }
                 }
             }
-            catch (MySqlException e)
-            {
-                Logger.Log(e.Message, LogLevel.Error);
-                throw;
-            }
             catch (Exception e)
             {
                 Logger.Log(e.Message, LogLevel.Error);
@@ -484,35 +479,82 @@ namespace Transportation_Management_System
         }
 
 
+
         ///
         /// \brief Returns a list of all active orders
         /// 
         /// \return List of all active orders
         /// 
-        //public List<Order> GetActiveOrders() { }
+        public List<Order> GetActiveOrders()
+        {
+            List<Order> orders = new List<Order>();
+            try
+            {
+                string conString = this.ToString();
+                using (MySqlConnection con = new MySqlConnection(conString))
+                {
+                    MySqlCommand cmd = new MySqlCommand("SELECT Clients.ClientName, OrderDate, Origin, Destination, JobType, VanType, Quantity FROM Orders WHERE IsCompleted=0" +
+                         "INNER JOIN Clients ON Orders.ClientID = Clients.ClientID", con);
+                    con.Open();
+                    MySqlDataReader rdr = cmd.ExecuteReader();
 
+                    if (rdr.HasRows)
+                    {
+                        while (rdr.Read())
+                        {
+                            Order newOrder = new Order();
+                            newOrder.OrderCreationDate = DateTime.Parse(rdr["OrderDate"].ToString());
+                            newOrder.Origin = (City)Enum.Parse(typeof(City), rdr["Origin"].ToString(), true);
+                            newOrder.Destination = (City)Enum.Parse(typeof(City), rdr["Destination"].ToString(), true);
+                            newOrder.JobType = (JobType)int.Parse(rdr["JobType"].ToString());
+                            newOrder.VanType = (VanType)int.Parse(rdr["VanType"].ToString());
+                            newOrder.Quantity = int.Parse(rdr["Quantity"].ToString());
+                            orders.Add(newOrder);
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
 
-        ///
-        /// \brief Returns a list with all trips attached to a specific orders
-        /// 
-        /// \param orderId  - <b>int</b> - If of the order to filter the trip
-        /// 
-        /// \return A list with all trips attached to a specific orders
-        /// 
-        //public List<Trip> FilterTripsByOrderId(int orderId) { }
-
-
-
-        ///
-        /// \brief Backup up the entire database to a .sql file
-        /// 
-        /// \return True if successful, false otherwise
-        /// 
-        //public bool BackupDatabase() 
-        //{ 
-        //    // https://stackoverflow.com/questions/12311492/backing-up-database-in-mysql-using-c-sharp/12311685
-        //}
-
-
+            return orders;
+        }
     }
+
+
+
+    ///
+    /// \brief Return a list of all active customers in our system
+    /// 
+    /// \return A list of all active customers
+    /// 
+    //public List<Customer> GetActiveCustomers() { }
+
+
+
+    ///
+    /// \brief Returns a list with all trips attached to a specific orders
+    /// 
+    /// \param orderId  - <b>int</b> - If of the order to filter the trip
+    /// 
+    /// \return A list with all trips attached to a specific orders
+    /// 
+    //public List<Trip> FilterTripsByOrderId(int orderId) { }
+
+
+
+    ///
+    /// \brief Backup up the entire database to a .sql file
+    /// 
+    /// \return True if successful, false otherwise
+    /// 
+    //public bool BackupDatabase()
+    //{
+    //    // https://stackoverflow.com/questions/12311492/backing-up-database-in-mysql-using-c-sharp/12311685
+    //}
+
+
 }
+

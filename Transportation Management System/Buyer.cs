@@ -24,7 +24,12 @@ namespace Transportation_Management_System
         /// 
         /// \return A list of all contracts from the marketplace
         /// 
-        //public List<Contract> FetchContracts() { }
+        public List<Contract> FetchContracts() 
+        {
+            ContractMarketPlace cmp = new ContractMarketPlace();
+            List<Contract> cons = cmp.GetContracts();
+            return cons;
+        }
 
 
         ///
@@ -36,10 +41,9 @@ namespace Transportation_Management_System
         public Order GenerateOrder(Contract contract) 
         {
             // Create an order object
-            City origin = (City) Enum.Parse(typeof(City), contract.Origin, true);
-            City destination = (City) Enum.Parse(typeof(City), contract.Destination, true);
 
-            Order order = new Order(contract.ClientName, DateTime.Now, origin, destination, contract.JobType, contract.Quantity, contract.VanType);
+
+            Order order = new Order(contract.ClientName, DateTime.Now, contract.Origin, contract.Destination, contract.JobType, contract.Quantity, contract.VanType);
 
             // Check if Client exists, If it doesn't exists, create it
             DAL db = new DAL();

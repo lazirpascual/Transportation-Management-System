@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:Transportation_Management_System"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen" 
+        Closing="Window_Closing"
         Title="Buyer" Height="450" Width="800">
     <Viewbox>
         <Grid>
@@ -27,7 +28,20 @@
             <Button x:Name ="Carriers" Content="Carriers" Background="WhiteSmoke" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="0,261,0,0"/>
             <Button x:Name ="Orders" Content="Orders" Background="WhiteSmoke" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="0,312,0,0"/>
             <Button x:Name ="Customer" Content="Customers" Background="WhiteSmoke" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="0,363,0,0"/>
+            <Button x:Name ="MarketPlace" Content="MarketPlace" Background="WhiteSmoke" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="0,158,0,0" Click="MarketPlace_Click"/>
             <Frame  x:Name="BuyerFrame" Margin="145,61,21,10" NavigationUIVisibility="Hidden" Background="GhostWhite" Content=""/>
+            <ListView x:Name="ContractsList" Margin="145,61,10,10" Visibility="Hidden">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Client Name" Width="120" DisplayMemberBinding="{Binding ClientName}" />
+                        <GridViewColumn Header="Destination" Width="100" DisplayMemberBinding="{Binding Destination}" />
+                        <GridViewColumn Header="Job Type" Width="70" DisplayMemberBinding="{Binding JobType}" />
+                        <GridViewColumn Header="Origin" Width="70" DisplayMemberBinding="{Binding Origin}" />
+                        <GridViewColumn Header="Quantity" Width="70" DisplayMemberBinding="{Binding Quantity}" />
+                        <GridViewColumn Header="Van Type" Width="70" DisplayMemberBinding="{Binding VanType}" />
+                    </GridView>
+                </ListView.View>
+            </ListView>
         </Grid>
     </Viewbox>
 </Window>
