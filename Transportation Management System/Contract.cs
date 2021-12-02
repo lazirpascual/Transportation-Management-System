@@ -9,6 +9,16 @@ using MySql.Data.MySqlClient;
 
 namespace Transportation_Management_System
 {
+    public enum JobType
+    {
+        FTL,
+        LTL
+    }
+    public enum VanType
+    {
+        DryVan,
+        Reefer
+    }
     /// 
     /// \class Contract
     /// 
@@ -26,19 +36,19 @@ namespace Transportation_Management_System
         public string ClientName { get; set; }
 
         /// Gets and Sets the contract's JobType
-        public int JobType { get; set; }
+        public JobType JobType { get; set; }
 
         /// Gets and Sets the contract's Quantity
         public int Quantity { get; set; }
 
         /// Gets and Sets the contract's Origin
-        public string Origin { get; set; }
+        public City Origin { get; set; }
 
         /// Gets and Sets the contract's Destination
-        public string Destination { get; set; } 
+        public City Destination { get; set; } 
 
         /// Gets and Sets the contract's VanType
-        public int VanType { get; set; }
+        public VanType VanType { get; set; }
 
 
         // Create a Contract Constructor

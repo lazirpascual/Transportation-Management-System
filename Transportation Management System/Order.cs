@@ -35,9 +35,9 @@ namespace Transportation_Management_System
         public City Destination;
 
         /// The type of job to be completed
-        public int JobType;
+        public JobType JobType;
 
-        public int VanType;
+        public VanType VanType;
 
         /// The quantity of pallets contained in the order
         public int Quantity;
@@ -46,7 +46,7 @@ namespace Transportation_Management_System
         public int IsCompleted; 
 
 
-        public Order(string clientName, DateTime creationTime, City origin, City destination, int jobType, int quantity, int vanType)
+        public Order(string clientName, DateTime creationTime, City origin, City destination, JobType jobType, int quantity, VanType vanType)
         {
             ClientName = clientName;
             OrderCreationDate = creationTime;
