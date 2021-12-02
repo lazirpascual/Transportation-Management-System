@@ -20,31 +20,31 @@ namespace Transportation_Management_System
     public class Order
     {
         /// The identifier number of the order 
-        public int OrderID;
+        public int OrderID { get; set; }
 
         /// The client related the order
-        public string ClientName;
+        public string ClientName { get; set; }
 
         /// The date when the order was created
-        public DateTime OrderCreationDate;
+        public DateTime OrderCreationDate { get; set; }
 
         /// The origin of the order's trip
-        public City Origin;
+        public City Origin { get; set; }
 
         /// The destination of the order's trip
-        public City Destination;
+        public City Destination { get; set; }
 
         /// The type of job to be completed
-        public JobType JobType;
+        public JobType JobType { get; set; }
 
         /// The van type of the job to be completed
-        public VanType VanType;
+        public VanType VanType { get; set; }
 
         /// The quantity of pallets contained in the order
-        public int Quantity;
+        public int Quantity { get; set; }
 
         /// The indicator of current and completed orders
-        public int IsCompleted; 
+        public int IsCompleted { get; set; }
 
 
         public Order(string clientName, DateTime creationTime, City origin, City destination, JobType jobType, int quantity, VanType vanType)
