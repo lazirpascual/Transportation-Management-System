@@ -24,23 +24,28 @@ namespace Transportation_Management_System
             InitializeComponent();
         }
 
+        private void LogFiles_Click(object sender, RoutedEventArgs e)
+        {
+            Disable_Menu();
+            Disable_Lists();
+            Disable_Buttons();
+            LogFiles.Background = Brushes.LightSkyBlue;
+        }
 
         private void Configuration_Click(object sender, RoutedEventArgs e)
         {
-            Top1.Visibility = Visibility.Visible;
-            Top2.Visibility = Visibility.Visible;
-            Top1.Content = "Create User";
-            Top2.Content = "Something else";
+            Disable_Menu();
+            Disable_Lists();
+            Disable_Buttons();
+            Configuration.Background = Brushes.LightSkyBlue;
         }
 
         private void Database_Click(object sender, RoutedEventArgs e)
         {
-            Top1.Visibility = Visibility.Visible;
-            Top2.Visibility = Visibility.Visible;
-            Top3.Visibility = Visibility.Visible;
-            Top1.Content = "Load";
-            Top2.Content = "Update";
-            Top3.Content = "Something";
+            Disable_Menu();
+            Disable_Lists();
+            Disable_Buttons();
+            Database.Background = Brushes.LightSkyBlue;
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -48,5 +53,31 @@ namespace Transportation_Management_System
             App.Current.MainWindow.Visibility = Visibility.Visible;
         }
 
+        private void Disable_Menu()
+        {
+            LogFiles.Background = Brushes.WhiteSmoke;
+            Database.Background = Brushes.WhiteSmoke;
+            Configuration.Background = Brushes.WhiteSmoke;
+                       
+        }
+
+        private void Disable_Lists()
+        {
+            //ContractsList.Visibility = Visibility.Hidden;
+            //InvoicesList.Visibility = Visibility.Hidden;
+            //CarriersList.Visibility = Visibility.Hidden;
+            //OrdersList.Visibility = Visibility.Hidden;
+            //ClientsList.Visibility = Visibility.Hidden;
+        }
+
+        private void Disable_Buttons()
+        {
+            Button1.Visibility = Visibility.Hidden;
+            Button2.Visibility = Visibility.Hidden;
+            Button3.Visibility = Visibility.Hidden;
+            Button4.Visibility = Visibility.Hidden;
+            Button5.Visibility = Visibility.Hidden;
+        }
+        
     }
 }
