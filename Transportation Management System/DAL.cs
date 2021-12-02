@@ -502,6 +502,7 @@ namespace Transportation_Management_System
                         while (rdr.Read())
                         {
                             Order newOrder = new Order();
+                            newOrder.ClientName = rdr["ClientName"].ToString();
                             newOrder.OrderCreationDate = DateTime.Parse(rdr["OrderDate"].ToString());
                             newOrder.Origin = (City)Enum.Parse(typeof(City), rdr["Origin"].ToString(), true);
                             newOrder.Destination = (City)Enum.Parse(typeof(City), rdr["Destination"].ToString(), true);
@@ -520,18 +521,43 @@ namespace Transportation_Management_System
 
             return orders;
         }
+
+        ///
+        /// \brief Return a list of all active customers in our system
+        /// 
+        /// \return A list of all active customers
+        /// 
+        public List<Client> GetActiveClients()
+        {
+            List<Client> clients = new List<Client>();
+            try
+            {
+                string conString = this.ToString();
+                using (MySqlConnection con = new MySqlConnection(conString))
+                {
+                    MySqlCommand cmd = new MySqlCommand("SELECT ClientName From Clients WHERE IsActive=1", con);
+                    con.Open();
+                    MySqlDataReader rdr = cmd.ExecuteReader();
+
+                    if (rdr.HasRows)
+                    {
+                        while (rdr.Read())
+                        {
+                            Client newClient = new Client();
+                            newClient.ClientName = rdr["ClientName"].ToString();
+                            clients.Add(newClient);
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
+            return clients;
+        }
     }
-
-
-
-    ///
-    /// \brief Return a list of all active customers in our system
-    /// 
-    /// \return A list of all active customers
-    /// 
-    //public List<Customer> GetActiveCustomers() { }
-
-
 
     ///
     /// \brief Returns a list with all trips attached to a specific orders

@@ -22,8 +22,10 @@ namespace Transportation_Management_System
         public int ClientID { get; set; }
 
         /// The client full name
-        public string ClientName { get; set; } 
+        public string ClientName { get; set; }
 
+        /// used to describe whether the client is active or not
+        public bool IsActive { get; set; }
 
         /// Create client Constructor
         public Client(string name)
