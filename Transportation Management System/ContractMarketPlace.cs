@@ -87,11 +87,11 @@ namespace Transportation_Management_System
                         {
                             Contract cons = new Contract();
                             cons.ClientName = rdr["CLIENT_NAME"].ToString();
-                            cons.JobType = (JobType)int.Parse(rdr["JOB_TYPE"].ToString());
+                            cons.JobType = (JobType) int.Parse(rdr["JOB_TYPE"].ToString());
                             cons.Quantity = int.Parse(rdr["QUANTITY"].ToString());
-                            cons.Origin = (City)Enum.Parse(typeof(City), rdr["ORIGIN"].ToString(), true);
-                            cons.Destination = (City)Enum.Parse(typeof(City), rdr["DESTINATION"].ToString(), true);
-                            cons.VanType = (VanType)int.Parse(rdr["VAN_TYPE"].ToString());
+                            cons.Origin = (City) Enum.Parse(typeof(City), rdr["ORIGIN"].ToString(), true);
+                            cons.Destination = (City) Enum.Parse(typeof(City), rdr["DESTINATION"].ToString(), true);
+                            cons.VanType = (VanType) int.Parse(rdr["VAN_TYPE"].ToString());
                             contracts.Add(cons);
                         }
                     }

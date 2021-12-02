@@ -504,10 +504,10 @@ namespace Transportation_Management_System
                         {
                             Order newOrder = new Order();
                             newOrder.OrderCreationDate = DateTime.Parse(rdr["OrderDate"].ToString());
-                            newOrder.Origin = (City)Enum.Parse(typeof(City), rdr["Origin"].ToString(), true);
-                            newOrder.Destination = (City)Enum.Parse(typeof(City), rdr["Destination"].ToString(), true);
-                            newOrder.JobType = (JobType)int.Parse(rdr["JobType"].ToString());
-                            newOrder.VanType = (VanType)int.Parse(rdr["VanType"].ToString());
+                            newOrder.Origin = (City) Enum.Parse(typeof(City), rdr["Origin"].ToString(), true);
+                            newOrder.Destination = (City) Enum.Parse(typeof(City), rdr["Destination"].ToString(), true);
+                            newOrder.JobType = (JobType) int.Parse(rdr["JobType"].ToString());
+                            newOrder.VanType = (VanType) int.Parse(rdr["VanType"].ToString());
                             newOrder.Quantity = int.Parse(rdr["Quantity"].ToString());
                             orders.Add(newOrder);
                         }
