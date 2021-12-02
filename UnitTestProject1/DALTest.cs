@@ -113,8 +113,8 @@ namespace UnitTestProject1
             Contract contract = contracts[0];
 
             // Generate order 
-            City origin = (City)Enum.Parse(typeof(City), contract.Origin, true);
-            City destination = (City)Enum.Parse(typeof(City), contract.Destination, true);
+            City origin = (City)Enum.Parse(typeof(City), contract.Origin.ToString(), true);
+            City destination = (City)Enum.Parse(typeof(City), contract.Destination.ToString(), true);
             Order order = new Order(contract.ClientName, DateTime.Now, origin, destination, contract.JobType, contract.Quantity, contract.VanType);
 
 
@@ -143,8 +143,8 @@ namespace UnitTestProject1
             Contract contract = contracts[0];
 
             // Generate order 
-            City origin = (City)Enum.Parse(typeof(City), contract.Origin, true);
-            City destination = (City)Enum.Parse(typeof(City), contract.Destination, true);
+            City origin = (City)Enum.Parse(typeof(City), contract.Origin.ToString(), true);
+            City destination = (City)Enum.Parse(typeof(City), contract.Destination.ToString(), true);
             Order order = new Order("NonExistentBuddy", DateTime.Now, origin, destination, contract.JobType, contract.Quantity, contract.VanType);
 
 
