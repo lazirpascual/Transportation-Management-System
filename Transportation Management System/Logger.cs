@@ -151,7 +151,7 @@ namespace Transportation_Management_System
 	    Outputs	:	Nothing
 	    Returns	:	Nothing
         */
-        private static void UpdateLogFileInNewDirectory(string oldDirectory, string newDirectory)
+        public static void UpdateLogFileInNewDirectory(string oldDirectory, string newDirectory)
         {
             string logFileName = ConfigurationManager.AppSettings.Get("LogFileName");
             

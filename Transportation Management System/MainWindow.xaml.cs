@@ -24,12 +24,8 @@ namespace Transportation_Management_System
         {
             InitializeComponent();
 
-            Logger.Log("Testbb", LogLevel.Debug);
-            string dict = Logger.GetCurrentLogDirectory();
-            Logger.ChangeLogDirectory("C:\\test\\");
-            dict = Logger.GetCurrentLogDirectory();
-            Logger.Log("Testaa", LogLevel.Debug);
             Logger.ChangeLogDirectory("C:\\test2\\");
+            /*Logger.UpdateLogFileInNewDirectory("C:\\test\\", );*/
         }
 
         private void MainWindow_OnMouseDown(object sender, MouseButtonEventArgs e)
