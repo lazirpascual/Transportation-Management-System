@@ -418,7 +418,43 @@ namespace Transportation_Management_System
         /// 
         /// \return A list of all registered uses
         /// 
-        //public List<User> GetUsers() { }
+        public List<User> GetUsers() 
+        {
+            List<User> usersList = new List<User>();
+            string qSQL = "SELECT * FROM Users";
+            try
+            {
+                string connectionString = this.ToString();
+                using (MySqlConnection conn = new MySqlConnection(connectionString))
+                {
+                    conn.Open();
+                    using (MySqlCommand cmd = new MySqlCommand(qSQL, conn))
+                    {
+                        MySqlDataReader rdr = cmd.ExecuteReader();
+                        if (rdr.HasRows)
+                        {
+                            while (rdr.Read())
+                            {
+                                User user = new User();
+                                user.FirstName = rdr["FirstName"].ToString();
+                                user.LastName = rdr["LastName"].ToString();
+                                user.Username = rdr["Username"].ToString();
+                                user.Password = rdr["PasswordHash"].ToString();
+                                user.Email = rdr["Email"].ToString();
+                                user.IsActive = Boolean.Parse(rdr["IsActive"].ToString());
+                                user.UserType = (UserRole)int.Parse(rdr["UserType"].ToString());
+                                usersList.Add(user);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return usersList;
+        }
 
 
         ///
@@ -426,7 +462,38 @@ namespace Transportation_Management_System
         /// 
         /// \return A list of all clients
         /// 
-        //public List<Client> GetClients() { }
+        public List<Client> GetClients()
+        {
+            List<Client> clientsList = new List<Client>();
+            string qSQL = "SELECT * FROM Clients";
+            try
+            {
+                string connectionString = this.ToString();
+                using (MySqlConnection conn = new MySqlConnection(connectionString))
+                {
+                    conn.Open();
+                    using (MySqlCommand cmd = new MySqlCommand(qSQL, conn))
+                    {
+                        MySqlDataReader rdr = cmd.ExecuteReader();
+                        if (rdr.HasRows)
+                        {
+                            while (rdr.Read())
+                            {
+                                Client client = new Client();
+                                client.ClientID = int.Parse(rdr["ClientID"].ToString());
+                                client.ClientName = rdr["ClientName"].ToString();
+                                clientsList.Add(client);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return clientsList;
+        }
 
 
 
