@@ -250,8 +250,8 @@ namespace Transportation_Management_System
         /// 
         public void CreateOrder(Order order) 
         {
-            string sql = "INSERT INTO Orders (ClientID, OrderDate, Origin, Destination, JobType, Quantity) " +
-                "VALUES (@ClientID, @OrderDate, @Origin, @Destination, @JobType, @Quantity)";
+            string sql = "INSERT INTO Orders (ClientID, OrderDate, Origin, Destination, JobType, Quantity, VanType) " +
+                "VALUES (@ClientID, @OrderDate, @Origin, @Destination, @JobType, @Quantity, @VanType)";
 
             DAL db = new DAL();
 
@@ -277,6 +277,7 @@ namespace Transportation_Management_System
                         cmd.Parameters.AddWithValue("@Destination", order.Destination.ToString());
                         cmd.Parameters.AddWithValue("@JobType", order.JobType);
                         cmd.Parameters.AddWithValue("@Quantity", order.Quantity);
+                        cmd.Parameters.AddWithValue("@VanType", order.VanType);
 
                         // Execute the insertion and check the number of rows affected
                         // An exception will be thrown if the column is repeated
@@ -571,10 +572,10 @@ namespace Transportation_Management_System
                             Order newOrder = new Order();
                             newOrder.ClientName = rdr["ClientName"].ToString();
                             newOrder.OrderCreationDate = DateTime.Parse(rdr["OrderDate"].ToString());
-                            newOrder.Origin = (City)Enum.Parse(typeof(City), rdr["Origin"].ToString(), true);
-                            newOrder.Destination = (City)Enum.Parse(typeof(City), rdr["Destination"].ToString(), true);
-                            newOrder.JobType = (JobType)int.Parse(rdr["JobType"].ToString());
-                            newOrder.VanType = (VanType)int.Parse(rdr["VanType"].ToString());
+                            newOrder.Origin = (City) Enum.Parse(typeof(City), rdr["Origin"].ToString(), true);
+                            newOrder.Destination = (City) Enum.Parse(typeof(City), rdr["Destination"].ToString(), true);
+                            newOrder.JobType = (JobType) int.Parse(rdr["JobType"].ToString());
+                            newOrder.VanType = (VanType) int.Parse(rdr["VanType"].ToString());
                             newOrder.Quantity = int.Parse(rdr["Quantity"].ToString());
                             orders.Add(newOrder);
                         }

@@ -23,6 +23,13 @@ namespace Transportation_Management_System
         public MainWindow()
         {
             InitializeComponent();
+
+            Logger.Log("Testbb", LogLevel.Debug);
+            string dict = Logger.GetCurrentLogDirectory();
+            Logger.ChangeLogDirectory("C:\\test\\");
+            dict = Logger.GetCurrentLogDirectory();
+            Logger.Log("Testaa", LogLevel.Debug);
+            Logger.ChangeLogDirectory("C:\\test2\\");
         }
 
         private void MainWindow_OnMouseDown(object sender, MouseButtonEventArgs e)
