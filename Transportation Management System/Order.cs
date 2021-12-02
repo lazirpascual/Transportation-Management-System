@@ -37,6 +37,7 @@ namespace Transportation_Management_System
         /// The type of job to be completed
         public JobType JobType;
 
+        /// The van type of the job to be completed
         public VanType VanType;
 
         /// The quantity of pallets contained in the order
