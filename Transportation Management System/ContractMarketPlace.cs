@@ -97,9 +97,9 @@ namespace Transportation_Management_System
                     }
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                Console.WriteLine(e.Message);
+                throw;
             }
 
             return contracts;
