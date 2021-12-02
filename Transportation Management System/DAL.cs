@@ -538,7 +538,7 @@ namespace Transportation_Management_System
             catch (Exception e)
             {
                 Logger.Log(e.Message, LogLevel.Error);
-                throw;
+                throw new ArgumentException($"Unable to filter the clients by name. {e.Message}");
             }
 
             return client;
@@ -583,7 +583,8 @@ namespace Transportation_Management_System
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                Logger.Log(e.Message, LogLevel.Error);
+                throw new ArgumentException($"Unable to fetch all active orders {e.Message}");
             }
 
             return orders;
@@ -619,7 +620,8 @@ namespace Transportation_Management_System
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                Logger.Log(e.Message, LogLevel.Error);
+                throw new ArgumentException($"Unable to fetch all active clients. {e.Message}");
             }
 
             return clients;
