@@ -34,8 +34,8 @@ namespace Transportation_Management_System
             ContractMarketPlace CMP = new ContractMarketPlace();
             List<Contract> contractList = new List<Contract>();
             contractList = CMP.GetContracts();
-            lvContracts.ItemsSource = contractList;
-            lvContracts.Visibility = Visibility.Visible;
+            ContractsList.ItemsSource = contractList;
+            ContractsList.Visibility = Visibility.Visible;
         }
     }
 }
