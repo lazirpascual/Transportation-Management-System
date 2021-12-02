@@ -95,16 +95,23 @@ namespace Transportation_Management_System
             MarketPlace.Background = Brushes.LightSkyBlue;
         }
 
-        private void ActiveBox_Checked(object sender, RoutedEventArgs e)
+        private void ActiveBox_Click(object sender, RoutedEventArgs e)
         {
+            var orderList = new List<Order>();
+            Buyer buyer = new Buyer();
+            // Only active orders
             if(ActiveBox.IsChecked == true)
             {
-                //show only active
+                orderList = buyer.GetOrders(true);
+                
             }
+            // Show all orders
             else
             {
-                //show all
+                orderList = buyer.GetOrders();
             }
+
+            OrdersList.ItemsSource = orderList;
         }
 
 
@@ -138,14 +145,21 @@ namespace Transportation_Management_System
 
         private void AcceptContracts_Button_Click(object sender, RoutedEventArgs e)
         {
-            
-            
-            // check selected line
-            // generate order for the selected line (s)
-                
+            // Get the current contract list shown in the table
+            var currentList = ContractsList.ItemsSource.Cast<Contract>().ToList();
 
+            Buyer buyer = new Buyer();
 
-        }
-        
+            // Get all the contracts selected and generate order for them and remove from the list
+            foreach (var contract in ContractsList.SelectedItems)
+            {
+                buyer.GenerateOrder((Contract) contract);
+                currentList.Remove((Contract) contract);
+            }
+
+            // Update the contracts list
+            ContractsList.ItemsSource = currentList;
+
+        }     
     }
 }

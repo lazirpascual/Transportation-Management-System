@@ -577,6 +577,7 @@ namespace Transportation_Management_System
                             newOrder.JobType = (JobType) int.Parse(rdr["JobType"].ToString());
                             newOrder.VanType = (VanType) int.Parse(rdr["VanType"].ToString());
                             newOrder.Quantity = int.Parse(rdr["Quantity"].ToString());
+                            newOrder.IsCompleted = 0;
                             orders.Add(newOrder);
                         }
                     }
@@ -599,7 +600,7 @@ namespace Transportation_Management_System
                 string conString = this.ToString();
                 using (MySqlConnection con = new MySqlConnection(conString))
                 {
-                    MySqlCommand cmd = new MySqlCommand("SELECT Clients.ClientName, OrderDate, Origin, Destination, JobType, VanType, Quantity FROM Orders" +
+                    MySqlCommand cmd = new MySqlCommand("SELECT Clients.ClientName, OrderDate, Origin, Destination, JobType, VanType, Quantity, IsCompleted FROM Orders" +
                          " INNER JOIN Clients ON Orders.ClientID = Clients.ClientID", con);
                     con.Open();
                     MySqlDataReader rdr = cmd.ExecuteReader();
@@ -616,6 +617,7 @@ namespace Transportation_Management_System
                             newOrder.JobType = (JobType)int.Parse(rdr["JobType"].ToString());
                             newOrder.VanType = (VanType)int.Parse(rdr["VanType"].ToString());
                             newOrder.Quantity = int.Parse(rdr["Quantity"].ToString());
+                            newOrder.IsCompleted = int.Parse(rdr["IsCompleted"].ToString());
                             orders.Add(newOrder);
                         }
                     }
