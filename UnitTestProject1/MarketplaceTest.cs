@@ -17,11 +17,11 @@ namespace UnitTestProject1
         {           
             Contract firstContract = new Contract();
             firstContract.ClientName = "Space J";
-            firstContract.Destination = "Toronto";
+            firstContract.Destination = City.Toronto;
             firstContract.JobType = 0;
-            firstContract.Origin = "Kingston";
+            firstContract.Origin = City.Kingston;
             firstContract.Quantity = 0;
-            firstContract.VanType = 1;
+            firstContract.VanType = VanType.Reefer;
 
             var cmpTest = new ContractMarketPlace();
             var cmpContracts = cmpTest.GetContracts();
@@ -35,9 +35,9 @@ namespace UnitTestProject1
         {
             Contract firstContract = new Contract();
             firstContract.ClientName = "Malmart";
-            firstContract.Destination = "Windsor";
+            firstContract.Destination = City.Windsor;
             firstContract.JobType = 0;
-            firstContract.Origin = "Belleville";
+            firstContract.Origin = City.Belleville;
             firstContract.Quantity = 0;
             firstContract.VanType = 0;
 

@@ -560,8 +560,8 @@ namespace Transportation_Management_System
                 string conString = this.ToString();
                 using (MySqlConnection con = new MySqlConnection(conString))
                 {
-                    MySqlCommand cmd = new MySqlCommand("SELECT Clients.ClientName, OrderDate, Origin, Destination, JobType, VanType, Quantity FROM Orders" +
-                         " INNER JOIN Clients ON Orders.ClientID = Clients.ClientID WHERE IsCompleted=0", con);
+                    MySqlCommand cmd = new MySqlCommand("SELECT Clients.ClientName, OrderDate, Origin, Destination, JobType, VanType, Quantity FROM Orders " +
+                         "INNER JOIN Clients ON Orders.ClientID = Clients.ClientID WHERE IsCompleted=0", con);
                     con.Open();
                     MySqlDataReader rdr = cmd.ExecuteReader();
 
@@ -591,6 +591,12 @@ namespace Transportation_Management_System
             return orders;
         }
 
+
+        ///
+        /// \brief Returns a list of all orders
+        /// 
+        /// \return List of all orders
+        /// 
         public List<Order> GetAllOrders()
         {
             List<Order> orders = new List<Order>();
@@ -599,8 +605,8 @@ namespace Transportation_Management_System
                 string conString = this.ToString();
                 using (MySqlConnection con = new MySqlConnection(conString))
                 {
-                    MySqlCommand cmd = new MySqlCommand("SELECT Clients.ClientName, OrderDate, Origin, Destination, JobType, VanType, Quantity FROM Orders" +
-                         " INNER JOIN Clients ON Orders.ClientID = Clients.ClientID", con);
+                    MySqlCommand cmd = new MySqlCommand("SELECT Clients.ClientName, OrderDate, Origin, Destination, JobType, VanType, Quantity FROM Orders " +
+                         "INNER JOIN Clients ON Orders.ClientID = Clients.ClientID", con);
                     con.Open();
                     MySqlDataReader rdr = cmd.ExecuteReader();
 
