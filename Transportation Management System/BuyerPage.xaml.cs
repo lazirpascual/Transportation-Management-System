@@ -19,9 +19,15 @@ namespace Transportation_Management_System
     /// </summary>
     public partial class BuyerPage : Window
     {
+
+        List<Contract> contractList;
+        Buyer buyer;
+
+
         public BuyerPage()
         {
             InitializeComponent();
+            MarketPlace_Page();
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -31,11 +37,129 @@ namespace Transportation_Management_System
 
         private void MarketPlace_Click(object sender, RoutedEventArgs e)
         {
+            Disable_Lists();
+            Disable_Menu();
+            Disable_Buttons();
+            MarketPlace_Page();
+        }
+        
+        private void Invoice_Click(object sender, RoutedEventArgs e)
+        {
+            Disable_Lists();
+            Disable_Menu();
+            Disable_Buttons();
+            Invoice.Background = Brushes.LightSkyBlue;
+        }
+
+        private void Carriers_Click(object sender, RoutedEventArgs e)
+        {
+            Disable_Lists();
+            Disable_Menu();
+            Disable_Buttons();
+            Carriers.Background = Brushes.LightSkyBlue;
+        }
+
+        private void Orders_Click(object sender, RoutedEventArgs e)
+        {
+            Disable_Lists();
+            Disable_Menu();
+            Disable_Buttons();
+            Orders.Background = Brushes.LightSkyBlue;
+
+            buyer = new Buyer(); 
+            List<Order> orderList = new List<Order>();
+            orderList = buyer.GetOrders(false);             
+            OrdersList.ItemsSource = orderList;
+            OrdersList.Visibility = Visibility.Visible;
+            ActiveBox.Visibility = Visibility.Visible;
+
+        }
+
+        private void Clients_Click(object sender, RoutedEventArgs e)
+        {
+            Disable_Lists();
+            Disable_Menu();
+            Disable_Buttons();
+            Clients.Background = Brushes.LightSkyBlue;
+        }
+
+        private void MarketPlace_Page()
+        {
             ContractMarketPlace CMP = new ContractMarketPlace();
-            List<Contract> contractList = new List<Contract>();
+            contractList = new List<Contract>();
             contractList = CMP.GetContracts();
             ContractsList.ItemsSource = contractList;
             ContractsList.Visibility = Visibility.Visible;
+            AcceptContracts_Button.Visibility = Visibility.Visible;
+            AcceptContracts_Button.Content = "Accept Contract(s)";
+            MarketPlace.Background = Brushes.LightSkyBlue;
         }
+
+        private void ActiveBox_Click(object sender, RoutedEventArgs e)
+        {
+            var orderList = new List<Order>();
+            Buyer buyer = new Buyer();
+            // Only active orders
+            if(ActiveBox.IsChecked == true)
+            {
+                orderList = buyer.GetOrders(true);
+                
+            }
+            // Show all orders
+            else
+            {
+                orderList = buyer.GetOrders();
+            }
+
+            OrdersList.ItemsSource = orderList;
+        }
+
+
+        private void Disable_Menu()
+        {
+            MarketPlace.Background = Brushes.WhiteSmoke;
+            Clients.Background = Brushes.WhiteSmoke;
+            Orders.Background = Brushes.WhiteSmoke;
+            Carriers.Background = Brushes.WhiteSmoke;
+            Invoice.Background = Brushes.WhiteSmoke;
+        }
+
+        private void Disable_Lists()
+        {
+            ContractsList.Visibility = Visibility.Hidden;
+            InvoicesList.Visibility = Visibility.Hidden;
+            CarriersList.Visibility = Visibility.Hidden;
+            OrdersList.Visibility = Visibility.Hidden;
+            ClientsList.Visibility = Visibility.Hidden;
+        }
+
+        private void Disable_Buttons()
+        {
+            Button1.Visibility = Visibility.Hidden;
+            Button2.Visibility = Visibility.Hidden;
+            Button3.Visibility = Visibility.Hidden;
+            Button4.Visibility = Visibility.Hidden;
+            AcceptContracts_Button.Visibility = Visibility.Hidden;
+            ActiveBox.Visibility = Visibility.Hidden;
+        }
+
+        private void AcceptContracts_Button_Click(object sender, RoutedEventArgs e)
+        {
+            // Get the current contract list shown in the table
+            var currentList = ContractsList.ItemsSource.Cast<Contract>().ToList();
+
+            Buyer buyer = new Buyer();
+
+            // Get all the contracts selected and generate order for them and remove from the list
+            foreach (var contract in ContractsList.SelectedItems)
+            {
+                buyer.GenerateOrder((Contract) contract);
+                currentList.Remove((Contract) contract);
+            }
+
+            // Update the contracts list
+            ContractsList.ItemsSource = currentList;
+
+        }     
     }
 }

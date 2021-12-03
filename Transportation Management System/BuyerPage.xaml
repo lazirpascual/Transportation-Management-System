@@ -19,20 +19,20 @@
                 </Border.Background>
                 <Image Source="logo_white.png" Margin="10,10,667,281"/>
             </Border>
-            <Button x:Name ="Backup_Copy3" Content="Backup" FontSize="16" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="649,10,0,0"/>
-            <Button x:Name ="Backup_Copy1" Content="Backup" FontSize="16" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" RenderTransformOrigin="1.496,1.196" Margin="523,10,0,0"/>
-            <Button x:Name ="Backup_Copy2" Content="Backup" FontSize="16" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="397,10,0,0"/>
-            <Button x:Name ="Backup_Copy" Content="Backup" FontSize="16" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="271,10,0,0"/>
-            <Button x:Name ="Backup" Content="Backup" FontSize="16" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="145,10,0,0"/>
-            <Button x:Name ="Invoice" Content="Invoices" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="0,209,0,0"/>
-            <Button x:Name ="Carriers" Content="Carriers" Background="WhiteSmoke" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="0,261,0,0"/>
-            <Button x:Name ="Orders" Content="Orders" Background="WhiteSmoke" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="0,312,0,0"/>
-            <Button x:Name ="Customer" Content="Customers" Background="WhiteSmoke" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="0,363,0,0"/>
+            <Button x:Name ="AcceptContracts_Button" FontSize="16" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="650,363,0,0" Visibility="Hidden" Click="AcceptContracts_Button_Click" />
+            <Button x:Name ="Button4" FontSize="16" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="650,363,0,0" Visibility="Hidden"/>
+            <Button x:Name ="Button3" FontSize="16" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="524,363,0,0" Visibility="Hidden"/>
+            <Button x:Name ="Button2" FontSize="16" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="272,363,0,0" Visibility="Hidden"/>
+            <Button x:Name ="Button1" FontSize="16" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="146,363,0,0" Visibility="Hidden"/>
+            <Button x:Name ="Invoice" Content="Invoices" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="0,209,0,0" Click="Invoice_Click"/>
+            <Button x:Name ="Carriers" Content="Carriers" Background="WhiteSmoke" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="0,261,0,0" Click="Carriers_Click"/>
+            <Button x:Name ="Orders" Content="Orders" Background="WhiteSmoke" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="0,312,0,0" Click="Orders_Click"/>
+            <Button x:Name ="Clients" Content="Clients" Background="WhiteSmoke" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="0,363,0,0" Click="Clients_Click"/>
             <Button x:Name ="MarketPlace" Content="MarketPlace" Background="WhiteSmoke" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="0,158,0,0" Click="MarketPlace_Click"/>
-            <Frame  x:Name="BuyerFrame" Margin="145,61,21,10" NavigationUIVisibility="Hidden" Background="GhostWhite" Content=""/>
-            <ListView x:Name="ContractsList" Margin="145,61,10,10" Visibility="Hidden">
+            <CheckBox x:Name="ActiveBox" Content="Active Orders" Background="WhiteSmoke" Margin="146,370,403,27" Visibility="Hidden" IsChecked="False" Click="ActiveBox_Click"/>
+            <ListView x:Name="ContractsList" Margin="145,10,21,61" Visibility="Hidden">
                 <ListView.View>
-                    <GridView>
+                    <GridView x:Name="ContractsListGrid">
                         <GridViewColumn Header="Client Name" Width="120" DisplayMemberBinding="{Binding ClientName}" />
                         <GridViewColumn Header="Destination" Width="100" DisplayMemberBinding="{Binding Destination}" />
                         <GridViewColumn Header="Job Type" Width="70" DisplayMemberBinding="{Binding JobType}" />
@@ -42,6 +42,23 @@
                     </GridView>
                 </ListView.View>
             </ListView>
+            <ListView x:Name="OrdersList" Margin="145,10,21,61" Visibility="Hidden">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Client Name" Width="100" DisplayMemberBinding="{Binding ClientName}" />
+                        <GridViewColumn Header="Creation Date" Width="90" DisplayMemberBinding="{Binding OrderCreationDate}" />
+                        <GridViewColumn Header="Origin" Width="80" DisplayMemberBinding="{Binding Origin}" />
+                        <GridViewColumn Header="Destination" Width="90" DisplayMemberBinding="{Binding Destination}" />
+                        <GridViewColumn Header="Job Type" Width="60" DisplayMemberBinding="{Binding JobType}" />
+                        <GridViewColumn Header="Van Type" Width="70" DisplayMemberBinding="{Binding VanType}" />
+                        <GridViewColumn Header="Quantity" Width="60" DisplayMemberBinding="{Binding Quantity}" />
+                        <GridViewColumn Header="Status" Width="70" DisplayMemberBinding="{Binding IsCompleted}" />
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <ListView x:Name="InvoicesList" Margin="145,10,21,61" Visibility="Hidden"/>
+            <ListView x:Name="CarriersList" Margin="145,10,21,61" Visibility="Hidden"/>
+            <ListView x:Name="ClientsList" Margin="145,10,21,61" Visibility="Hidden"/>
         </Grid>
     </Viewbox>
 </Window>

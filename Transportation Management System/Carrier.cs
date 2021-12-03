@@ -20,23 +20,28 @@ namespace Transportation_Management_System
     ///
     public class Carrier
     {
+        /// The ID of the carrier company
+        public int CarrierID { set; get; }
         /// The name of the carrier company
-        public string name;
+        public string Name { set; get; }
+
+        /// The city of the carrier company
+        public City depotCity { set; get; }
 
         /// The number of full truckloads available
-        public int fTLAval;
+        public int FTLAval { set; get; }
 
         /// The number of less than truckloads available
-        public int lTLAval;
+        public int LTLAval { set; get; }
 
         /// The amount per km for full truckload
-        public double fTLRate;
+        public double FTLRate { set; get; }
 
         /// The amount per pallet per km for less than truckloads
-        public double lTLRate;
+        public double LTLRate { set; get; }
 
         /// The amount for reefer van type
-        public double reeferCharge; 
+        public double ReeferCharge { set; get; }
 
     }
 }

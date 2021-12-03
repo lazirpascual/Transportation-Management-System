@@ -409,7 +409,46 @@ namespace Transportation_Management_System
         /// 
         /// \return A list of carriers that belong to the specified city
         /// 
-        //public List<Carrier> FilterCarrierByCity(string city) { }
+        public List<Carrier> FilterCarrierByCity(string city)
+        {
+            List<Carrier> carriers = new List<Carrier>();
+            string qSQL = "SELECT * FROM Carriers INNER JOIN CarrierCity ON CarrierCity.CarrierID = Carriers.CarrierID WHERE depotCity=@depotCity";
+            try
+            {
+                string conString = this.ToString();
+                using (MySqlConnection conn = new MySqlConnection(conString))
+                {
+                    conn.Open();
+                    using (MySqlCommand cmd = new MySqlCommand(qSQL, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@depotCity", city);
+                        MySqlDataReader rdr = cmd.ExecuteReader();
+                        if (rdr.HasRows)
+                        {
+                            while (rdr.Read())
+                            {
+                                Carrier carr = new Carrier();
+                                carr.CarrierID = int.Parse(rdr["CarrierID"].ToString());
+                                carr.Name = rdr["CarrierName"].ToString();
+                                carr.depotCity = (City)Enum.Parse(typeof(City), rdr["depotCity"].ToString(), true);
+                                carr.FTLAval = int.Parse(rdr["FTLAval"].ToString());
+                                carr.LTLAval = int.Parse(rdr["LTLAval"].ToString());
+                                carr.FTLRate = double.Parse(rdr["FTLRate"].ToString());
+                                carr.LTLRate = double.Parse(rdr["LTLRate"].ToString());
+                                carr.ReeferCharge = double.Parse(rdr["reefCharge"].ToString());
+                                carriers.Add(carr);
+
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return carriers;
+        }
 
 
 
@@ -577,6 +616,7 @@ namespace Transportation_Management_System
                             newOrder.JobType = (JobType) int.Parse(rdr["JobType"].ToString());
                             newOrder.VanType = (VanType) int.Parse(rdr["VanType"].ToString());
                             newOrder.Quantity = int.Parse(rdr["Quantity"].ToString());
+                            newOrder.IsCompleted = 0;
                             orders.Add(newOrder);
                         }
                     }
@@ -605,8 +645,9 @@ namespace Transportation_Management_System
                 string conString = this.ToString();
                 using (MySqlConnection con = new MySqlConnection(conString))
                 {
-                    MySqlCommand cmd = new MySqlCommand("SELECT Clients.ClientName, OrderDate, Origin, Destination, JobType, VanType, Quantity FROM Orders " +
-                         "INNER JOIN Clients ON Orders.ClientID = Clients.ClientID", con);
+                    MySqlCommand cmd = new MySqlCommand("SELECT Clients.ClientName, OrderDate, Origin, Destination, JobType, VanType, Quantity, IsCompleted FROM Orders" +
+                         " INNER JOIN Clients ON Orders.ClientID = Clients.ClientID", con);
+
                     con.Open();
                     MySqlDataReader rdr = cmd.ExecuteReader();
 
@@ -622,6 +663,7 @@ namespace Transportation_Management_System
                             newOrder.JobType = (JobType)int.Parse(rdr["JobType"].ToString());
                             newOrder.VanType = (VanType)int.Parse(rdr["VanType"].ToString());
                             newOrder.Quantity = int.Parse(rdr["Quantity"].ToString());
+                            newOrder.IsCompleted = int.Parse(rdr["IsCompleted"].ToString());
                             orders.Add(newOrder);
                         }
                     }
