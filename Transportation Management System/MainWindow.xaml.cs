@@ -23,7 +23,6 @@ namespace Transportation_Management_System
         public MainWindow()
         {
             InitializeComponent();
-
         }
 
         private void MainWindow_OnMouseDown(object sender, MouseButtonEventArgs e)
