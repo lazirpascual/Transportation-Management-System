@@ -120,16 +120,23 @@ namespace Transportation_Management_System
             
             // Move the log file from the old directory to the new one
             try
-            {
-                UpdateLogFileInNewDirectory(oldDirectory, newDirectory);
-
+            {   
                 // If the log was already set up previously
-                if (isSetup && Trace.Listeners.Count == 3)
+                if (isSetup)
                 {
                     Logger.Log($"Log directory changed from \"{oldDirectory}\" to \"{newDirectory}\"", LogLevel.Information);
-                    Trace.Listeners.Remove(Trace.Listeners[2]);
+
+                    // Remove file from listener
+                    if (Trace.Listeners.Count == 3)
+                    {
+                        Trace.Listeners.Remove(Trace.Listeners[2]);
+                    }
+                    
                     isSetup = false;
                 }
+
+                UpdateLogFileInNewDirectory(oldDirectory, newDirectory);
+
             }
             catch(Exception e)
             {
@@ -140,6 +147,9 @@ namespace Transportation_Management_System
                 configuration.Save(ConfigurationSaveMode.Full, true);
                 ConfigurationManager.RefreshSection("appSettings");
             }
+
+            // If logger not set up, do it
+            if (!isSetup) Setup();
         }
 
 
@@ -167,13 +177,11 @@ namespace Transportation_Management_System
 
                 }
 
-                // Move file to the new log folder
-                // Ignore if there are no files to be moved
+                // Copy the old file to new directory and overwrite if needed
                 if (File.Exists(oldPath))
                 {
-                    File.Move(oldPath, newPath);
+                    File.Copy(oldPath, newPath, true);
                 }
-                
             }
             catch (Exception)
             {
@@ -201,10 +209,10 @@ namespace Transportation_Management_System
 
 
         // https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.traceoptions?redirectedfrom=MSDN&view=net-6.0
-            /*  -- Nested Class Header Comment
-            Name	:	CustomTraceListener
-            Purpose :  To write the logs
-            */
+        /*  -- Nested Class Header Comment
+        Name	:	CustomTraceListener
+        Purpose :  To write the logs
+        */
         public class CustomTraceListener : TextWriterTraceListener
         {
             public CustomTraceListener(string file) : base(file) { }
@@ -218,6 +226,15 @@ namespace Transportation_Management_System
             */
             public override void WriteLine(string message)
             {
+                string logDirectory = ConfigurationManager.AppSettings.Get("LogDirectory");
+                // If the new directory doesn't exist, create
+                if (!Directory.Exists(logDirectory))
+                {
+                    // Try to create the directory, if it doesn't work, ignore
+                    try { Directory.CreateDirectory(logDirectory); }
+                    catch { }
+
+                }
                 // Get the Calling method
                 var methodInfo = (new StackTrace()).GetFrame(5).GetMethod();
 
@@ -230,34 +247,6 @@ namespace Transportation_Management_System
                 Trace.Flush();
             }
         }
-
-        ///
-        /// \brief Write some content to a log file
-        /// 
-        /// \param level  - <b>LogLevel</b> -
-        /// \param origin - <b>LogOrigin</b> - 
-        /// \param fileName- <b>string</b> - 
-        /// \param currentTime- <b>TimeStamp</b> - 
-        /// 
-        /// \return void
-        ///
-        //public void WriteLog(logLevel level, logOrigin origin, string fileName, Timestamp currentTime)
-        //{
-
-        //}
-
-        ///
-        /// \brief Change the directory from the log file
-        /// 
-        /// \param directory  - <b>string</b> - the complete path of the new directory location 
-        /// 
-        /// \return bool
-        ///
-        //public bool ChangeLogDirectory(string directory)
-        //{
-
-        //} 
-
 
     }
 }

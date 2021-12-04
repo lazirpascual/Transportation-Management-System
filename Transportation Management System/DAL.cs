@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using BC = BCrypt.Net.BCrypt;
 using MySql.Data;
 using MySql.Data.MySqlClient;
+using System.Diagnostics;
+using System.Configuration;
 
 namespace Transportation_Management_System
 {
@@ -32,13 +34,67 @@ namespace Transportation_Management_System
         /// 
         public DAL()
         {
-            Server = "phtfaw4p6a970uc0.cbetxkdyhwsb.us-east-1.rds.amazonaws.com";
-            User = "x4sqrh7d39h1orji";
-            Port = "3306";
-            Password = "p6z1zn2nmrv396ke";
-            DatabaseName = "qbwrvu2d70g3dyis";
+            PopulateConnectionString();
         }
 
+
+        ///
+        /// \brief Pupulate the fields for the database connection
+        /// 
+        private void PopulateConnectionString()
+        {
+            try
+            {
+                Server = ConfigurationManager.AppSettings.Get("Server");
+                User = ConfigurationManager.AppSettings.Get("User");
+                Port = ConfigurationManager.AppSettings.Get("Port");
+                Password = ConfigurationManager.AppSettings.Get("Password");
+                DatabaseName = ConfigurationManager.AppSettings.Get("DatabaseName");
+
+                if(Server == "" || User == "" || Port == "" || Password == "" || DatabaseName == "")
+                {
+                    throw new Exception("We couldn't retrieve the information about the database. Please check your config file.");
+                }
+            }
+            catch (Exception e)
+            {
+                Logger.Log(e.Message, LogLevel.Critical);
+                throw;
+            }
+            
+        }
+
+        ///
+        /// \brief Update the information about the database connection string in the config file
+        ///
+        /// \param fieldToChange  - <b>string</b> - field to change
+        /// \param newData  - <b>string</b> - new information
+        /// 
+        public void UpdateDatabaseConnectionString(string fieldToChange, string newData)
+        {
+            List<string> availableFields = new List<string>()
+            { "Server" , "User" ,"Port", "Password", "DatabaseName"};
+
+            if(!availableFields.Contains(fieldToChange))
+            {
+                throw new KeyNotFoundException($"Error. We couldn't find any field called {fieldToChange} in the database connection string.");
+            }
+
+            string oldData = ConfigurationManager.AppSettings.Get(fieldToChange);
+
+            // If the directory doesn't change, don't don anything
+            if (oldData == newData) return;
+
+            // Update the config file
+            Configuration configuration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            configuration.AppSettings.Settings[fieldToChange].Value = newData;
+            configuration.Save(ConfigurationSaveMode.Full, true);
+            ConfigurationManager.RefreshSection("appSettings");
+
+            Logger.Log($"{fieldToChange} database connection string changed from {oldData} to {newData}", LogLevel.Information);
+
+            PopulateConnectionString();
+        }
 
         ///
         /// \brief Returns the string connection for the database
@@ -599,8 +655,8 @@ namespace Transportation_Management_System
                 string conString = this.ToString();
                 using (MySqlConnection con = new MySqlConnection(conString))
                 {
-                    MySqlCommand cmd = new MySqlCommand("SELECT Clients.ClientName, OrderDate, Origin, Destination, JobType, VanType, Quantity FROM Orders" +
-                         " INNER JOIN Clients ON Orders.ClientID = Clients.ClientID WHERE IsCompleted=0", con);
+                    MySqlCommand cmd = new MySqlCommand("SELECT Clients.ClientName, OrderDate, Origin, Destination, JobType, VanType, Quantity FROM Orders " +
+                         "INNER JOIN Clients ON Orders.ClientID = Clients.ClientID WHERE IsCompleted=0", con);
                     con.Open();
                     MySqlDataReader rdr = cmd.ExecuteReader();
 
@@ -631,6 +687,12 @@ namespace Transportation_Management_System
             return orders;
         }
 
+
+        ///
+        /// \brief Returns a list of all orders
+        /// 
+        /// \return List of all orders
+        /// 
         public List<Order> GetAllOrders()
         {
             List<Order> orders = new List<Order>();
@@ -641,6 +703,7 @@ namespace Transportation_Management_System
                 {
                     MySqlCommand cmd = new MySqlCommand("SELECT Clients.ClientName, OrderDate, Origin, Destination, JobType, VanType, Quantity, IsCompleted FROM Orders" +
                          " INNER JOIN Clients ON Orders.ClientID = Clients.ClientID", con);
+
                     con.Open();
                     MySqlDataReader rdr = cmd.ExecuteReader();
 

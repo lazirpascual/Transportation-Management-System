@@ -24,8 +24,9 @@ namespace Transportation_Management_System
         {
             InitializeComponent();
 
-            Logger.ChangeLogDirectory("C:\\test2\\");
-            /*Logger.UpdateLogFileInNewDirectory("C:\\test\\", );*/
+            DAL db = new DAL();
+
+            db.UpdateDatabaseConnectionString("User", "x4sqrh7d39h1orji");
         }
 
         private void MainWindow_OnMouseDown(object sender, MouseButtonEventArgs e)
