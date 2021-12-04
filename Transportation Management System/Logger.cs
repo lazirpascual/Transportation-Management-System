@@ -209,10 +209,10 @@ namespace Transportation_Management_System
 
 
         // https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.traceoptions?redirectedfrom=MSDN&view=net-6.0
-            /*  -- Nested Class Header Comment
-            Name	:	CustomTraceListener
-            Purpose :  To write the logs
-            */
+        /*  -- Nested Class Header Comment
+        Name	:	CustomTraceListener
+        Purpose :  To write the logs
+        */
         public class CustomTraceListener : TextWriterTraceListener
         {
             public CustomTraceListener(string file) : base(file) { }

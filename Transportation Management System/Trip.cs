@@ -33,25 +33,25 @@ namespace Transportation_Management_System
     public class Trip
     {
         /// The order ID for the Trip
-        public int orderID;
+        public int OrderID { get; set; }
 
         /// The starting city for the transport
-        public int originCity;
+        public City OriginCity { get; set; }
 
         /// The destination city for the transport
-        public int destinationCity;
+        public City DestinationCity { get; set; }
 
         /// The total number of hours needed for the trip
-        public double totalTime;
+        public double TotalTime { get; set; }
 
         /// The total number of hours spent driving
-        public double hoursDriven;
+        public double HoursDriven { get; set; }
 
         /// The total number of hours spent unloading the truck
-        public double hoursUnloading;
+        public double HoursUnloading { get; set; }
 
         /// The total number of hours spent loading the truck
-        public double hoursLoading;     
+        public double HoursLoading { get; set; }
 
         ///
         /// \brief This method will calculate the route for the trip, based on origin, destination and jobtype

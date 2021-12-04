@@ -23,6 +23,10 @@ namespace Transportation_Management_System
         public MainWindow()
         {
             InitializeComponent();
+
+            DAL db = new DAL();
+
+            db.UpdateDatabaseConnectionString("User", "x4sqrh7d39h1orji");
         }
 
         private void MainWindow_OnMouseDown(object sender, MouseButtonEventArgs e)
