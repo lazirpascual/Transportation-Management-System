@@ -22,17 +22,9 @@ namespace Transportation_Management_System
     {
         /// The ID of the carrier company
         public int CarrierID { set; get; }
+
         /// The name of the carrier company
         public string Name { set; get; }
-
-        /// The city of the carrier company
-        public City depotCity { set; get; }
-
-        /// The number of full truckloads available
-        public int FTLAval { set; get; }
-
-        /// The number of less than truckloads available
-        public int LTLAval { set; get; }
 
         /// The amount per km for full truckload
         public double FTLRate { set; get; }

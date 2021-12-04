@@ -64,6 +64,7 @@ namespace Transportation_Management_System
             
         }
 
+
         ///
         /// \brief Update the information about the database connection string in the config file
         ///
@@ -96,6 +97,7 @@ namespace Transportation_Management_System
             PopulateConnectionString();
         }
 
+
         ///
         /// \brief Returns the string connection for the database
         /// 
@@ -118,9 +120,7 @@ namespace Transportation_Management_System
         {
             bool existent = false;
 
-            DAL db = new DAL();
-
-            using (MySqlConnection conn = new MySqlConnection(db.ToString()))
+            using (MySqlConnection conn = new MySqlConnection(this.ToString()))
             {
                 Console.WriteLine("Connecting to MySQL...");
                 conn.Open();
@@ -168,9 +168,7 @@ namespace Transportation_Management_System
             // Compare Hased password
             bool isValid = false;
 
-            DAL db = new DAL();
-
-            using (MySqlConnection conn = new MySqlConnection(db.ToString()))
+            using (MySqlConnection conn = new MySqlConnection(this.ToString()))
             {
                 Console.WriteLine("Connecting to MySQL...");
                 conn.Open();
@@ -217,9 +215,8 @@ namespace Transportation_Management_System
         {
             string userType = null;
 
-            DAL db = new DAL();
 
-            using (MySqlConnection conn = new MySqlConnection(db.ToString()))
+            using (MySqlConnection conn = new MySqlConnection(this.ToString()))
             {
                 Console.WriteLine("Connecting to MySQL...");
                 conn.Open();
@@ -260,10 +257,10 @@ namespace Transportation_Management_System
             string sql = "INSERT INTO Users (FirstName, LastName, Username, PasswordHash, Email, IsActive, UserType) " +
                 "VALUES (@FirstName, @LastName, @Username, @Password, @Email, @IsActive, @UserType)";
 
-            DAL db = new DAL();
+           
             try
             {
-                using (MySqlConnection conn = new MySqlConnection(db.ToString()))
+                using (MySqlConnection conn = new MySqlConnection(this.ToString()))
                 {
                     conn.Open();
 
@@ -309,18 +306,17 @@ namespace Transportation_Management_System
             string sql = "INSERT INTO Orders (ClientID, OrderDate, Origin, Destination, JobType, Quantity, VanType) " +
                 "VALUES (@ClientID, @OrderDate, @Origin, @Destination, @JobType, @Quantity, @VanType)";
 
-            DAL db = new DAL();
 
             try
             {
                 // Get the client from the database and raise an error if it doesn't exist
                 Client client;
-                if ((client = db.FilterClientByName(order.ClientName)) == null)
+                if ((client = this.FilterClientByName(order.ClientName)) == null)
                 {
                     throw new KeyNotFoundException($"Client {order.ClientName} does not exist in the database.");
                 }
 
-                using (MySqlConnection conn = new MySqlConnection(db.ToString()))
+                using (MySqlConnection conn = new MySqlConnection(this.ToString()))
                 {
                     conn.Open();
 
@@ -369,10 +365,9 @@ namespace Transportation_Management_System
         {
             string sql = "INSERT INTO Clients (ClientName) VALUES (@ClientName)";
 
-            DAL db = new DAL();
             try
             {
-                using (MySqlConnection conn = new MySqlConnection(db.ToString()))
+                using (MySqlConnection conn = new MySqlConnection(this.ToString()))
                 {
                     conn.Open();
 
@@ -424,17 +419,159 @@ namespace Transportation_Management_System
         ///
         /// \param carrier  - <b>Carrier</b> - An Carrier object with all their information
         /// 
-        public void CreateCarrier(Carrier carrier) { }
+        public void CreateCarrier(Carrier carrier) 
+        {
+            string sql = "INSERT INTO Carrier (CarrierName, FTLRate, LTLRate, reefCharge) VALUES (@CarrierName, @FTLRate, @LTLRate, @reefCharge)";
+
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(this.ToString()))
+                {
+                    conn.Open();
+
+                    using (MySqlCommand cmd = new MySqlCommand(sql, conn))
+                    {
+                        // Populate all arguments in the insert
+                        cmd.Parameters.AddWithValue("@CarrierName", carrier.Name);
+                        cmd.Parameters.AddWithValue("@FTLRate", carrier.FTLRate);
+                        cmd.Parameters.AddWithValue("@LTLRate", carrier.LTLRate);
+                        cmd.Parameters.AddWithValue("@reefCharge", carrier.ReeferCharge);
+
+                        // Execute the insertion and check the number of rows affected
+                        // An exception will be thrown if the column is repeated
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (MySqlException e)
+            {
+                Logger.Log(e.Message, LogLevel.Error);
+                throw new ArgumentException($"Carrier {carrier.Name} already exists.");
+            }
+            catch (Exception e)
+            {
+                Logger.Log(e.Message, LogLevel.Error);
+                throw;
+            }
+        }
+
+
+        ///
+        /// \brief Inserts a new carrier in the Carrier table
+        ///
+        /// \param carrier  - <b>Carrier</b> - An Carrier object with all their information
+        /// 
+        public void CreateCarrierCity(CarrierCity carrierCity)
+        {
+            string sql = "INSERT INTO CarrierCity (CarrierID, DepotCity, FLTAval, LTLAval) VALUES (@CarrierID, @DepotCity, @FLTAval, @LTLAval)";
+
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(this.ToString()))
+                {
+                    conn.Open();
+
+                    using (MySqlCommand cmd = new MySqlCommand(sql, conn))
+                    {
+                        // Populate all arguments in the insert
+                        cmd.Parameters.AddWithValue("@CarrierID", carrierCity.Carrier.CarrierID);
+                        cmd.Parameters.AddWithValue("@DepotCity", carrierCity.DepotCity.ToString());
+                        cmd.Parameters.AddWithValue("@FLTAval", carrierCity.FTLAval);
+                        cmd.Parameters.AddWithValue("@LTLAval", carrierCity.LTLAval);
+
+                        // Execute the insertion and check the number of rows affected
+                        // An exception will be thrown if the column is repeated
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (MySqlException e)
+            {
+                Logger.Log(e.Message, LogLevel.Error);
+                throw new ArgumentException($"Carrier Depot city {carrierCity.DepotCity.ToString()} already exists.");
+            }
+            catch (Exception e)
+            {
+                Logger.Log(e.Message, LogLevel.Error);
+                throw;
+            }
+        }
 
 
 
         ///
         /// \brief Update an existing carrier's attributes
         ///
-        /// \param carrierId  - <b>int</b> - The id of the carrier to be updated
         /// \param newCarrier  - <b>Carrier</b> - The new carrier information to be used in the update
         /// 
-        public void UpdateCarrier(int carrierId, Carrier newCarrier) { }
+        public void UpdateCarrier(Carrier newCarrier) 
+        {
+            string sql = "UPDATE Carrier SET CarrierName=@CarrierName, FTLRate=@FTLRate, LTLRate=@LTLRate, ReefCharge=ReefCharge WHERE CarrierID=@CarrierID";
+
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(this.ToString()))
+                {
+                    conn.Open();
+
+                    using (MySqlCommand cmd = new MySqlCommand(sql, conn))
+                    {
+                        // Populate all arguments in the insert
+                        cmd.Parameters.AddWithValue("@CarrierName", newCarrier.Name);
+                        cmd.Parameters.AddWithValue("@FTLRate", newCarrier.FTLRate);
+                        cmd.Parameters.AddWithValue("@LTLRate", newCarrier.LTLRate);
+                        cmd.Parameters.AddWithValue("@ReefCharge", newCarrier.ReeferCharge);
+                        cmd.Parameters.AddWithValue("@CarrierID", newCarrier.CarrierID);
+
+                        // Execute the insertion and check the number of rows affected
+                        // An exception will be thrown if the column is repeated
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Logger.Log(e.Message, LogLevel.Error);
+                throw;
+            }
+        }
+
+
+        ///
+        /// \brief Update an existing carrier's attributes
+        ///
+        /// \param newCarrier  - <b>Carrier</b> - The new carrier information to be used in the update
+        /// 
+        public void UpdateCarrierCity(CarrierCity newCarrierCity)
+        {
+            string sql = "UPDATE CarrierCity SET DepotCity=@DepotCity, FLTAval=@FLTAval, LTLAval=@LTLAval WHERE CarrierID=@CarrierID";
+
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(this.ToString()))
+                {
+                    conn.Open();
+
+                    using (MySqlCommand cmd = new MySqlCommand(sql, conn))
+                    {
+                        // Populate all arguments in the insert
+                        cmd.Parameters.AddWithValue("@CarrierID", newCarrierCity.Carrier.CarrierID);
+                        cmd.Parameters.AddWithValue("@DepotCity", newCarrierCity.DepotCity.ToString());
+                        cmd.Parameters.AddWithValue("@FLTAval", newCarrierCity.FTLAval);
+                        cmd.Parameters.AddWithValue("@LTLAval", newCarrierCity.LTLAval);
+
+                        // Execute the insertion and check the number of rows affected
+                        // An exception will be thrown if the column is repeated
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Logger.Log(e.Message, LogLevel.Error);
+                throw;
+            }
+        }
 
 
 
@@ -452,9 +589,35 @@ namespace Transportation_Management_System
         ///
         /// \brief Deactivate an active carrier by its id
         ///
-        /// \param carrier  - <b>Carrier</b> - The id of the carrier to be deactived
+        /// \param carrier  - <b>Carrier</b> - The new carrier information to be used in the deactivation
         /// 
-        public void DeactivateCarrier(int carrierId) { }
+        public void DeactivateCarrier(Carrier carrier) 
+        {
+            string sql = "UPDATE Carrier SET IsActive=0 WHERE CarrierID=@CarrierID";
+
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(this.ToString()))
+                {
+                    conn.Open();
+
+                    using (MySqlCommand cmd = new MySqlCommand(sql, conn))
+                    {
+                        // Populate all arguments in the insert
+                        cmd.Parameters.AddWithValue("@CarrierID", carrier.CarrierID);
+
+                        // Execute the insertion and check the number of rows affected
+                        // An exception will be thrown if the column is repeated
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Logger.Log(e.Message, LogLevel.Error);
+                throw;
+            }
+        }
 
 
 
@@ -465,10 +628,11 @@ namespace Transportation_Management_System
         /// 
         /// \return A list of carriers that belong to the specified city
         /// 
-        public List<Carrier> FilterCarrierByCity(string city)
+        public List<Carrier> FilterCarriersByCity(City city)
         {
             List<Carrier> carriers = new List<Carrier>();
-            string qSQL = "SELECT * FROM Carriers INNER JOIN CarrierCity ON CarrierCity.CarrierID = Carriers.CarrierID WHERE depotCity=@depotCity";
+            string qSQL = "SELECT * FROM Carriers INNER JOIN CarrierCity ON CarrierCity.CarrierID = Carriers.CarrierID WHERE DepotCity=@DepotCity AND IsActive=1";
+
             try
             {
                 string conString = this.ToString();
@@ -477,7 +641,7 @@ namespace Transportation_Management_System
                     conn.Open();
                     using (MySqlCommand cmd = new MySqlCommand(qSQL, conn))
                     {
-                        cmd.Parameters.AddWithValue("@depotCity", city);
+                        cmd.Parameters.AddWithValue("@DepotCity", city.ToString());
                         MySqlDataReader rdr = cmd.ExecuteReader();
                         if (rdr.HasRows)
                         {
@@ -486,9 +650,6 @@ namespace Transportation_Management_System
                                 Carrier carr = new Carrier();
                                 carr.CarrierID = int.Parse(rdr["CarrierID"].ToString());
                                 carr.Name = rdr["CarrierName"].ToString();
-                                carr.depotCity = (City)Enum.Parse(typeof(City), rdr["depotCity"].ToString(), true);
-                                carr.FTLAval = int.Parse(rdr["FTLAval"].ToString());
-                                carr.LTLAval = int.Parse(rdr["LTLAval"].ToString());
                                 carr.FTLRate = double.Parse(rdr["FTLRate"].ToString());
                                 carr.LTLRate = double.Parse(rdr["LTLRate"].ToString());
                                 carr.ReeferCharge = double.Parse(rdr["reefCharge"].ToString());
@@ -505,6 +666,68 @@ namespace Transportation_Management_System
             }
             return carriers;
         }
+
+
+        ///
+        /// \brief Filter carriers by city
+        ///
+        /// \param city  - <b>string</b> - The city to be filter the carriers
+        /// 
+        /// \return A list of carriers that belong to the specified city
+        /// 
+        public List<CarrierCity> FilterCitiesByCarrier(string carrierName)
+        {
+            List<CarrierCity> carrierCities = new List<CarrierCity>();
+            string qSQL = "SELECT * FROM Carriers INNER JOIN CarrierCity ON CarrierCity.CarrierID = Carriers.CarrierID WHERE CarrierName=@CarrierName";
+
+            try
+            {
+                string conString = this.ToString();
+                using (MySqlConnection conn = new MySqlConnection(conString))
+                {
+                    conn.Open();
+                    using (MySqlCommand cmd = new MySqlCommand(qSQL, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@CarrierName", carrierName);
+
+                        MySqlDataReader rdr = cmd.ExecuteReader();
+                        if (rdr.HasRows)
+                        {
+                            while (rdr.Read())
+                            {
+                                // Getting the carrier of that city
+                                Carrier carr = new Carrier();
+                                carr.CarrierID = int.Parse(rdr["CarrierID"].ToString());
+                                carr.Name = rdr["CarrierName"].ToString();
+                                carr.FTLRate = double.Parse(rdr["FTLRate"].ToString());
+                                carr.LTLRate = double.Parse(rdr["LTLRate"].ToString());
+                                carr.ReeferCharge = double.Parse(rdr["reefCharge"].ToString());
+
+
+                                CarrierCity carrCity = new CarrierCity();
+                                carrCity.Carrier = carr;
+                                carrCity.DepotCity = (City)Enum.Parse(typeof(City), rdr["DepotCity"].ToString(), true);
+                                carrCity.FTLAval = int.Parse(rdr["FTLAval"].ToString());
+                                carrCity.LTLAval = int.Parse(rdr["LTLAval"].ToString());
+
+
+                                carrierCities.Add(carrCity);
+
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return carrierCities;
+        }
+
+
+
+        
 
 
 
@@ -605,10 +828,9 @@ namespace Transportation_Management_System
             string sql = "SELECT ClientID, ClientName FROM Clients WHERE ClientName=@ClientName";
             Client client = null;
 
-            DAL db = new DAL();
             try
             {
-                using (MySqlConnection conn = new MySqlConnection(db.ToString()))
+                using (MySqlConnection conn = new MySqlConnection(this.ToString()))
                 {
                     conn.Open();
 
