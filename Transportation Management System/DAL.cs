@@ -120,9 +120,7 @@ namespace Transportation_Management_System
         {
             bool existent = false;
 
-            DAL db = new DAL();
-
-            using (MySqlConnection conn = new MySqlConnection(db.ToString()))
+            using (MySqlConnection conn = new MySqlConnection(this.ToString()))
             {
                 Console.WriteLine("Connecting to MySQL...");
                 conn.Open();
@@ -170,9 +168,7 @@ namespace Transportation_Management_System
             // Compare Hased password
             bool isValid = false;
 
-            DAL db = new DAL();
-
-            using (MySqlConnection conn = new MySqlConnection(db.ToString()))
+            using (MySqlConnection conn = new MySqlConnection(this.ToString()))
             {
                 Console.WriteLine("Connecting to MySQL...");
                 conn.Open();
@@ -219,9 +215,8 @@ namespace Transportation_Management_System
         {
             string userType = null;
 
-            DAL db = new DAL();
 
-            using (MySqlConnection conn = new MySqlConnection(db.ToString()))
+            using (MySqlConnection conn = new MySqlConnection(this.ToString()))
             {
                 Console.WriteLine("Connecting to MySQL...");
                 conn.Open();
@@ -262,10 +257,10 @@ namespace Transportation_Management_System
             string sql = "INSERT INTO Users (FirstName, LastName, Username, PasswordHash, Email, IsActive, UserType) " +
                 "VALUES (@FirstName, @LastName, @Username, @Password, @Email, @IsActive, @UserType)";
 
-            DAL db = new DAL();
+           
             try
             {
-                using (MySqlConnection conn = new MySqlConnection(db.ToString()))
+                using (MySqlConnection conn = new MySqlConnection(this.ToString()))
                 {
                     conn.Open();
 
@@ -311,18 +306,17 @@ namespace Transportation_Management_System
             string sql = "INSERT INTO Orders (ClientID, OrderDate, Origin, Destination, JobType, Quantity, VanType) " +
                 "VALUES (@ClientID, @OrderDate, @Origin, @Destination, @JobType, @Quantity, @VanType)";
 
-            DAL db = new DAL();
 
             try
             {
                 // Get the client from the database and raise an error if it doesn't exist
                 Client client;
-                if ((client = db.FilterClientByName(order.ClientName)) == null)
+                if ((client = this.FilterClientByName(order.ClientName)) == null)
                 {
                     throw new KeyNotFoundException($"Client {order.ClientName} does not exist in the database.");
                 }
 
-                using (MySqlConnection conn = new MySqlConnection(db.ToString()))
+                using (MySqlConnection conn = new MySqlConnection(this.ToString()))
                 {
                     conn.Open();
 
@@ -371,10 +365,9 @@ namespace Transportation_Management_System
         {
             string sql = "INSERT INTO Clients (ClientName) VALUES (@ClientName)";
 
-            DAL db = new DAL();
             try
             {
-                using (MySqlConnection conn = new MySqlConnection(db.ToString()))
+                using (MySqlConnection conn = new MySqlConnection(this.ToString()))
                 {
                     conn.Open();
 
@@ -430,10 +423,9 @@ namespace Transportation_Management_System
         {
             string sql = "INSERT INTO Carrier (CarrierName, FTLRate, LTLRate, reefCharge) VALUES (@CarrierName, @FTLRate, @LTLRate, @reefCharge)";
 
-            DAL db = new DAL();
             try
             {
-                using (MySqlConnection conn = new MySqlConnection(db.ToString()))
+                using (MySqlConnection conn = new MySqlConnection(this.ToString()))
                 {
                     conn.Open();
 
@@ -473,10 +465,9 @@ namespace Transportation_Management_System
         {
             string sql = "INSERT INTO CarrierCity (CarrierID, DepotCity, FLTAval, LTLAval) VALUES (@CarrierID, @DepotCity, @FLTAval, @LTLAval)";
 
-            DAL db = new DAL();
             try
             {
-                using (MySqlConnection conn = new MySqlConnection(db.ToString()))
+                using (MySqlConnection conn = new MySqlConnection(this.ToString()))
                 {
                     conn.Open();
 
@@ -517,10 +508,9 @@ namespace Transportation_Management_System
         {
             string sql = "UPDATE Carrier SET CarrierName=@CarrierName, FTLRate=@FTLRate, LTLRate=@LTLRate, ReefCharge=ReefCharge WHERE CarrierID=@CarrierID";
 
-            DAL db = new DAL();
             try
             {
-                using (MySqlConnection conn = new MySqlConnection(db.ToString()))
+                using (MySqlConnection conn = new MySqlConnection(this.ToString()))
                 {
                     conn.Open();
 
@@ -556,10 +546,9 @@ namespace Transportation_Management_System
         {
             string sql = "UPDATE CarrierCity SET DepotCity=@DepotCity, FLTAval=@FLTAval, LTLAval=@LTLAval WHERE CarrierID=@CarrierID";
 
-            DAL db = new DAL();
             try
             {
-                using (MySqlConnection conn = new MySqlConnection(db.ToString()))
+                using (MySqlConnection conn = new MySqlConnection(this.ToString()))
                 {
                     conn.Open();
 
@@ -606,10 +595,9 @@ namespace Transportation_Management_System
         {
             string sql = "UPDATE Carrier SET IsActive=0 WHERE CarrierID=@CarrierID";
 
-            DAL db = new DAL();
             try
             {
-                using (MySqlConnection conn = new MySqlConnection(db.ToString()))
+                using (MySqlConnection conn = new MySqlConnection(this.ToString()))
                 {
                     conn.Open();
 
@@ -840,10 +828,9 @@ namespace Transportation_Management_System
             string sql = "SELECT ClientID, ClientName FROM Clients WHERE ClientName=@ClientName";
             Client client = null;
 
-            DAL db = new DAL();
             try
             {
-                using (MySqlConnection conn = new MySqlConnection(db.ToString()))
+                using (MySqlConnection conn = new MySqlConnection(this.ToString()))
                 {
                     conn.Open();
 
