@@ -644,6 +644,7 @@ namespace Transportation_Management_System
         {
             List<Carrier> carriers = new List<Carrier>();
             string qSQL = "SELECT * FROM Carriers INNER JOIN CarrierCity ON CarrierCity.CarrierID = Carriers.CarrierID WHERE DepotCity=@DepotCity AND IsActive=1";
+
             try
             {
                 string conString = this.ToString();
