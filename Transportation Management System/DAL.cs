@@ -539,11 +539,6 @@ namespace Transportation_Management_System
                     }
                 }
             }
-            catch (MySqlException e)
-            {
-                Logger.Log(e.Message, LogLevel.Error);
-                throw new ArgumentException($"Carrier {newCarrier.Name} does not exist.");
-            }
             catch (Exception e)
             {
                 Logger.Log(e.Message, LogLevel.Error);
@@ -582,11 +577,6 @@ namespace Transportation_Management_System
                     }
                 }
             }
-            catch (MySqlException e)
-            {
-                Logger.Log(e.Message, LogLevel.Error);
-                throw new ArgumentException($"Carrier City {newCarrierCity.DepotCity} does not exist.");
-            }
             catch (Exception e)
             {
                 Logger.Log(e.Message, LogLevel.Error);
@@ -610,9 +600,9 @@ namespace Transportation_Management_System
         ///
         /// \brief Deactivate an active carrier by its id
         ///
-        /// \param carrier  - <b>Carrier</b> - The id of the carrier to be deactived
+        /// \param carrier  - <b>Carrier</b> - The new carrier information to be used in the deactivation
         /// 
-        public void DeactivateCarrier(int carrierId) 
+        public void DeactivateCarrier(Carrier carrier) 
         {
             string sql = "UPDATE Carrier SET IsActive=0 WHERE CarrierID=@CarrierID";
 
@@ -626,18 +616,13 @@ namespace Transportation_Management_System
                     using (MySqlCommand cmd = new MySqlCommand(sql, conn))
                     {
                         // Populate all arguments in the insert
-                        cmd.Parameters.AddWithValue("@CarrierID", carrierId);
+                        cmd.Parameters.AddWithValue("@CarrierID", carrier.CarrierID);
 
                         // Execute the insertion and check the number of rows affected
                         // An exception will be thrown if the column is repeated
                         cmd.ExecuteNonQuery();
                     }
                 }
-            }
-            catch (MySqlException e)
-            {
-                Logger.Log(e.Message, LogLevel.Error);
-                throw new ArgumentException($"Carrier {newCarrier.Name} does not exist.");
             }
             catch (Exception e)
             {
@@ -655,10 +640,10 @@ namespace Transportation_Management_System
         /// 
         /// \return A list of carriers that belong to the specified city
         /// 
-        public List<Carrier> FilterCarrierByCity(string city)
+        public List<Carrier> FilterCarriersByCity(City city)
         {
             List<Carrier> carriers = new List<Carrier>();
-            string qSQL = "SELECT * FROM Carriers INNER JOIN CarrierCity ON CarrierCity.CarrierID = Carriers.CarrierID WHERE depotCity=@depotCity AND IsActive=1";
+            string qSQL = "SELECT * FROM Carriers INNER JOIN CarrierCity ON CarrierCity.CarrierID = Carriers.CarrierID WHERE DepotCity=@DepotCity AND IsActive=1";
             try
             {
                 string conString = this.ToString();
@@ -667,7 +652,7 @@ namespace Transportation_Management_System
                     conn.Open();
                     using (MySqlCommand cmd = new MySqlCommand(qSQL, conn))
                     {
-                        cmd.Parameters.AddWithValue("@depotCity", city);
+                        cmd.Parameters.AddWithValue("@DepotCity", city.ToString());
                         MySqlDataReader rdr = cmd.ExecuteReader();
                         if (rdr.HasRows)
                         {
@@ -676,9 +661,6 @@ namespace Transportation_Management_System
                                 Carrier carr = new Carrier();
                                 carr.CarrierID = int.Parse(rdr["CarrierID"].ToString());
                                 carr.Name = rdr["CarrierName"].ToString();
-                                carr.DepotCity = (City)Enum.Parse(typeof(City), rdr["depotCity"].ToString(), true);
-                                carr.FTLAval = int.Parse(rdr["FTLAval"].ToString());
-                                carr.LTLAval = int.Parse(rdr["LTLAval"].ToString());
                                 carr.FTLRate = double.Parse(rdr["FTLRate"].ToString());
                                 carr.LTLRate = double.Parse(rdr["LTLRate"].ToString());
                                 carr.ReeferCharge = double.Parse(rdr["reefCharge"].ToString());
@@ -695,6 +677,66 @@ namespace Transportation_Management_System
             }
             return carriers;
         }
+
+
+        ///
+        /// \brief Filter carriers by city
+        ///
+        /// \param city  - <b>string</b> - The city to be filter the carriers
+        /// 
+        /// \return A list of carriers that belong to the specified city
+        /// 
+        public List<CarrierCity> FilterCitiesByCarrier(string carrierName)
+        {
+            List<CarrierCity> carrierCities = new List<CarrierCity>();
+            string qSQL = "SELECT * FROM Carriers INNER JOIN CarrierCity ON CarrierCity.CarrierID = Carriers.CarrierID WHERE CarrierName=@CarrierName";
+            try
+            {
+                string conString = this.ToString();
+                using (MySqlConnection conn = new MySqlConnection(conString))
+                {
+                    conn.Open();
+                    using (MySqlCommand cmd = new MySqlCommand(qSQL, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@CarrierName", carrierName);
+                        MySqlDataReader rdr = cmd.ExecuteReader();
+                        if (rdr.HasRows)
+                        {
+                            while (rdr.Read())
+                            {
+                                // Getting the carrier of that city
+                                Carrier carr = new Carrier();
+                                carr.CarrierID = int.Parse(rdr["CarrierID"].ToString());
+                                carr.Name = rdr["CarrierName"].ToString();
+                                carr.FTLRate = double.Parse(rdr["FTLRate"].ToString());
+                                carr.LTLRate = double.Parse(rdr["LTLRate"].ToString());
+                                carr.ReeferCharge = double.Parse(rdr["reefCharge"].ToString());
+
+
+                                CarrierCity carrCity = new CarrierCity();
+                                carrCity.Carrier = carr;
+                                carrCity.DepotCity = (City)Enum.Parse(typeof(City), rdr["DepotCity"].ToString(), true);
+                                carrCity.FTLAval = int.Parse(rdr["FTLAval"].ToString());
+                                carrCity.LTLAval = int.Parse(rdr["LTLAval"].ToString());
+
+
+                                carrierCities.Add(carrCity);
+
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return carrierCities;
+        }
+
+
+
+        
 
 
 
