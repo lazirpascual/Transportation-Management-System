@@ -30,7 +30,7 @@ namespace Transportation_Management_System
     ///
     /// \author <i>Team Blank</i>
     ///
-    public static class Logger
+    public class Logger
     {
         // Current directory is the default one
 
@@ -105,12 +105,12 @@ namespace Transportation_Management_System
 	    Outputs	:	Nothing
 	    Returns	:	Nothing
         */
-        public static void ChangeLogDirectory(string newDirectory)
+        public static int ChangeLogDirectory(string newDirectory)
         {
             string oldDirectory = ConfigurationManager.AppSettings.Get("LogDirectory");
 
             // If the directory doesn't change, don't don anything
-            if (oldDirectory == newDirectory) return;
+            if (oldDirectory == newDirectory) return 0;
 
             // Update the config file
             Configuration configuration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
@@ -130,6 +130,7 @@ namespace Transportation_Management_System
                     Trace.Listeners.Remove(Trace.Listeners[2]);
                     isSetup = false;
                 }
+                return 0;
             }
             catch(Exception e)
             {
@@ -139,6 +140,7 @@ namespace Transportation_Management_System
                 configuration.AppSettings.Settings["LogDirectory"].Value = oldDirectory;
                 configuration.Save(ConfigurationSaveMode.Full, true);
                 ConfigurationManager.RefreshSection("appSettings");
+                return 1;
             }
         }
 
