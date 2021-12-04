@@ -58,15 +58,10 @@ namespace Transportation_Management_System
 
         private void Database_Click(object sender, RoutedEventArgs e)
         {
-            resetStatus();
-            DatabaseVisible();
-           
-            Database.Background = Brushes.LightSkyBlue;
-            
-            //List<Carrier> carriersList = new List<Carrier>; 
-            //carriersList = carrier.GetCarriers();
-            //CarrierDatabaseList.ItemsSource = carriersList;
 
+            CarrierData.Visibility = Visibility.Visible;
+            RouteData.Visibility = Visibility.Visible;
+            RateData.Visibility = Visibility.Visible;
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -124,9 +119,9 @@ namespace Transportation_Management_System
         private void resetStatus()
         {
             // reset buttons
-            Button1.Visibility = Visibility.Hidden;
-            Button2.Visibility = Visibility.Hidden;
-            Button3.Visibility = Visibility.Hidden;
+            CarrierData.Visibility = Visibility.Hidden;
+            RouteData.Visibility = Visibility.Hidden;
+            RateData.Visibility = Visibility.Hidden;
             Button4.Visibility = Visibility.Hidden;
             Button5.Visibility = Visibility.Hidden;
             AddCarrier.Visibility = Visibility.Hidden;
@@ -183,9 +178,10 @@ namespace Transportation_Management_System
             PathUpdate.Visibility = Visibility.Hidden;
         }
 
-        private void DatabaseVisible()
+        private void CarrierDatabaseVisible()
         {
             AdminLog.Visibility = Visibility.Visible;
+            CityDatabase.Visibility = Visibility.Visible;
             CarrierDatabaseList.Visibility = Visibility.Visible;
             AddCarrier.Visibility = Visibility.Visible;
             UpdateCarrier.Visibility = Visibility.Visible;
@@ -255,6 +251,28 @@ namespace Transportation_Management_System
         private void AddCarrier_Click(object sender, RoutedEventArgs e)
         {
             //add new entry to database
+        }
+
+        private void CarrierData_Click(object sender, RoutedEventArgs e)
+        {
+            resetStatus();
+            CarrierDatabaseVisible();
+
+            Database.Background = Brushes.LightSkyBlue;
+
+            //List<Carrier> carriersList = new List<Carrier>; 
+            //carriersList = carrier.GetCarriers();
+            //CarrierDatabaseList.ItemsSource = carriersList;
+        }
+
+        private void RouteData_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void RateData_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

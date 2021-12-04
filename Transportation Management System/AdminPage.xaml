@@ -21,32 +21,36 @@
             </Border>
             <Button x:Name ="Button5" FontSize="16" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="650,363,0,0" Visibility="Hidden"/>
             <Button x:Name ="Button4" FontSize="16" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="524,363,0,0" Visibility="Hidden"/>
-            <Button x:Name ="Button3" FontSize="16" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="398,363,0,0" Visibility="Hidden"/>
-            <Button x:Name ="AddButton" Content="Add" FontSize="16" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="650,363,0,0" Visibility="Hidden"/>
+            <Button x:Name ="CarrierData" FontSize="16" Content="Carriers" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="277,363,0,0" Visibility="Visible" Click="CarrierData_Click"/>
+            <Button x:Name ="AddButton" Content="Add" FontSize="16" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="272,363,0,0"  Visibility="Hidden"/>
             <Button x:Name ="UpdateButton" Content="Update" FontSize="16" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="524,363,0,0" Visibility="Hidden"/>
             <Button x:Name ="DeleteButton" Content="Delete" FontSize="16" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="398,363,0,0" Visibility="Hidden"/>
-            <Button x:Name ="Button2" FontSize="16" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="272,363,0,0" Visibility="Hidden"/>
-            <Button x:Name ="Button1" FontSize="16" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="146,363,0,0" Visibility="Hidden"/>
+            <Button x:Name ="RouteData" FontSize="16" Content="Routes" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="146,363,0,0" Visibility="Visible" Click="RouteData_Click"/>
             <Button x:Name ="Backup" Content="Backup" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="0,209,0,0"/>
             <Button x:Name ="LogFiles" Content="Log File" Background="WhiteSmoke" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="0,261,0,0" Click="LogFiles_Click"/>
             <Button x:Name ="Database" Content="Database" Background="WhiteSmoke" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="0,312,0,0" Click="Database_Click"/>
             <Button x:Name ="Configuration" Content="General Config" Background="WhiteSmoke" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="0,363,0,0" Click="Configuration_Click"/>
             <TextBox  x:Name="AdminLog" AcceptsReturn="true" Margin="146,10,20,10" Visibility="Hidden" TextWrapping="WrapWithOverflow" Background="GhostWhite"/>
-            <ListView x:Name="CarrierDatabaseList" Margin="145,10,20,171" Visibility="Hidden">
+            <ListView x:Name="CarrierDatabaseList" Margin="146,6,268,172" Visibility="Visible">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Carrier ID" Width="80" DisplayMemberBinding="{Binding CarrierID}" />
-                        <GridViewColumn Header="Name" Width="110" DisplayMemberBinding="{Binding Name}" />
-                        <GridViewColumn Header="Departure" Width="110" DisplayMemberBinding="{Binding depotCity}" />
-                        <GridViewColumn Header="FTLAval" Width="60" DisplayMemberBinding="{Binding FTLAval}" />
-                        <GridViewColumn Header="LTLAval" Width="60" DisplayMemberBinding="{Binding LTLAval}" />
+                        <GridViewColumn Header="Name" Width="160" DisplayMemberBinding="{Binding Name}" />
                         <GridViewColumn Header="FTLRate" Width="60" DisplayMemberBinding="{Binding FTLRate}" />
                         <GridViewColumn Header="LTLRate" Width="59" DisplayMemberBinding="{Binding LTLRate}" />
                         <GridViewColumn Header="ReeferCharge" Width="79" DisplayMemberBinding="{Binding ReeferCharge}" />
                     </GridView>
                 </ListView.View>
             </ListView>
-            <TextBox x:Name="CarrierID" IsReadOnly="True" HorizontalAlignment="Left" Height="23" Margin="228,260,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Visibility="Visible"/>
+            <ListView x:Name="CityDatabase" Margin="530,6,43,170">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Departure City" Width="92" DisplayMemberBinding="{Binding Name}" />
+                        <GridViewColumn Header="FTLAval" Width="60" DisplayMemberBinding="{Binding FTLAval}" />
+                        <GridViewColumn Header="LTLAval" Width="60" DisplayMemberBinding="{Binding LTLAval}" />
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <TextBox x:Name="CarrierID" IsReadOnly="True" Background="LightGray" HorizontalAlignment="Left" Height="23" Margin="228,260,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Visibility="Visible"/>
             <TextBox x:Name="CarrierName" HorizontalAlignment="Left" Height="23" Margin="228,289,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Visibility="Visible"/>
             <TextBox x:Name="Departure" HorizontalAlignment="Left" Height="23" Margin="228,319,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Visibility="Visible"/>
             <TextBox x:Name="FTLAval" HorizontalAlignment="Left" Height="23" Margin="420,322,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Visibility="Visible"/>
