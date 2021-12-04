@@ -19,14 +19,13 @@ namespace Transportation_Management_System
     /// </summary>
     public partial class BuyerPage : Window
     {
-
-        List<Contract> contractList;
-        Buyer buyer;
-
+        private List<Contract> contractList;
+        private Buyer buyer;
 
         public BuyerPage()
         {
             InitializeComponent();
+            buyer = new Buyer();
             MarketPlace_Page();
         }
 
@@ -37,36 +36,27 @@ namespace Transportation_Management_System
 
         private void MarketPlace_Click(object sender, RoutedEventArgs e)
         {
-            Disable_Lists();
-            Disable_Menu();
-            Disable_Buttons();
+            resetStatus();
             MarketPlace_Page();
         }
         
         private void Invoice_Click(object sender, RoutedEventArgs e)
         {
-            Disable_Lists();
-            Disable_Menu();
-            Disable_Buttons();
+            resetStatus();
             Invoice.Background = Brushes.LightSkyBlue;
         }
 
         private void Carriers_Click(object sender, RoutedEventArgs e)
         {
-            Disable_Lists();
-            Disable_Menu();
-            Disable_Buttons();
+            resetStatus();
             Carriers.Background = Brushes.LightSkyBlue;
         }
 
         private void Orders_Click(object sender, RoutedEventArgs e)
         {
-            Disable_Lists();
-            Disable_Menu();
-            Disable_Buttons();
+            resetStatus();
             Orders.Background = Brushes.LightSkyBlue;
-
-            buyer = new Buyer(); 
+                         
             List<Order> orderList = new List<Order>();
             orderList = buyer.GetOrders(false);             
             OrdersList.ItemsSource = orderList;
@@ -77,21 +67,19 @@ namespace Transportation_Management_System
 
         private void Clients_Click(object sender, RoutedEventArgs e)
         {
-            Disable_Lists();
-            Disable_Menu();
-            Disable_Buttons();
+            resetStatus();
             Clients.Background = Brushes.LightSkyBlue;
         }
 
         private void MarketPlace_Page()
         {
+            resetStatus();
             ContractMarketPlace CMP = new ContractMarketPlace();
             contractList = new List<Contract>();
             contractList = CMP.GetContracts();
             ContractsList.ItemsSource = contractList;
             ContractsList.Visibility = Visibility.Visible;
-            AcceptContracts_Button.Visibility = Visibility.Visible;
-            AcceptContracts_Button.Content = "Accept Contract(s)";
+            AcceptClient.Visibility = Visibility.Visible;
             MarketPlace.Background = Brushes.LightSkyBlue;
         }
 
@@ -113,10 +101,21 @@ namespace Transportation_Management_System
 
             OrdersList.ItemsSource = orderList;
         }
-
-
-        private void Disable_Menu()
+              
+        private void resetStatus()
         {
+            // reset buttons status
+            AcceptClient.Visibility = Visibility.Hidden;
+            ActiveBox.Visibility = Visibility.Hidden;
+
+            // reset previous lists
+            ContractsList.Visibility = Visibility.Hidden;
+            InvoicesList.Visibility = Visibility.Hidden;
+            CarriersList.Visibility = Visibility.Hidden;
+            OrdersList.Visibility = Visibility.Hidden;
+            ClientsList.Visibility = Visibility.Hidden;
+
+            // reset menu buttons to non-clicked status
             MarketPlace.Background = Brushes.WhiteSmoke;
             Clients.Background = Brushes.WhiteSmoke;
             Orders.Background = Brushes.WhiteSmoke;
@@ -124,26 +123,7 @@ namespace Transportation_Management_System
             Invoice.Background = Brushes.WhiteSmoke;
         }
 
-        private void Disable_Lists()
-        {
-            ContractsList.Visibility = Visibility.Hidden;
-            InvoicesList.Visibility = Visibility.Hidden;
-            CarriersList.Visibility = Visibility.Hidden;
-            OrdersList.Visibility = Visibility.Hidden;
-            ClientsList.Visibility = Visibility.Hidden;
-        }
-
-        private void Disable_Buttons()
-        {
-            Button1.Visibility = Visibility.Hidden;
-            Button2.Visibility = Visibility.Hidden;
-            Button3.Visibility = Visibility.Hidden;
-            Button4.Visibility = Visibility.Hidden;
-            AcceptContracts_Button.Visibility = Visibility.Hidden;
-            ActiveBox.Visibility = Visibility.Hidden;
-        }
-
-        private void AcceptContracts_Button_Click(object sender, RoutedEventArgs e)
+        private void AcceptClient_Click(object sender, RoutedEventArgs e)
         {
             // Get the current contract list shown in the table
             var currentList = ContractsList.ItemsSource.Cast<Contract>().ToList();
@@ -153,13 +133,12 @@ namespace Transportation_Management_System
             // Get all the contracts selected and generate order for them and remove from the list
             foreach (var contract in ContractsList.SelectedItems)
             {
-                buyer.GenerateOrder((Contract) contract);
-                currentList.Remove((Contract) contract);
+                buyer.GenerateOrder((Contract)contract);
+                currentList.Remove((Contract)contract);
             }
 
             // Update the contracts list
             ContractsList.ItemsSource = currentList;
-
-        }     
+        }
     }
 }

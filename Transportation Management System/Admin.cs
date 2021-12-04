@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
+using Microsoft.Win32;
+using System.Data;
+using System.Diagnostics;
+using System.Configuration;
 
 namespace Transportation_Management_System
 {
@@ -18,16 +23,29 @@ namespace Transportation_Management_System
     ///
     class Admin : User
     {
+        private string LogDirectory { get; set; }
+        private string LogFile { get; set; }
+
         ///
         /// \brief This method is called to view the current log files
         /// 
         /// 
         /// \return Returns list of current log files
-        /// 
+        ///
+        
+        public Admin()
+        {
+            LogFile = "tms.log";
+            LogDirectory = Directory.GetCurrentDirectory();
+        }
         public string ViewLogFiles()
         {
-
-            return "";
+            string logDict = Logger.GetCurrentLogDirectory();
+            string logFileName = ConfigurationManager.AppSettings.Get("LogFileName");
+            string newPath = logDict + logFileName;
+                           
+            return newPath;
+                        
         }
 
         ///
@@ -38,10 +56,20 @@ namespace Transportation_Management_System
         /// 
         /// \return Returns void
         /// 
-        public void ChangeLogDirectory(string newDirectory)
+        public bool ChangeLogDirectory(string newDirectory)
         {
+            int result = Logger.ChangeLogDirectory(newDirectory);
 
+            if (result == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
+       
 
         ///
         /// \brief This method is called in order to update the rate/fee for the TMS application

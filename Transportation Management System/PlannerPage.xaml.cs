@@ -31,64 +31,54 @@ namespace Transportation_Management_System
 
         private void Reports_Click(object sender, RoutedEventArgs e)
         {
-            Disable_Buttons();
-            Disable_Lists();
-            Disable_Menu();
+            resetStatus();
 
             Reports.Background = Brushes.LightSkyBlue;
         }
 
         private void Activities_Click(object sender, RoutedEventArgs e)
         {
-            Disable_Buttons();
-            Disable_Lists();
-            Disable_Menu();
+            resetStatus();
 
             Activities.Background = Brushes.LightSkyBlue;
         }
 
         private void Trip_Click(object sender, RoutedEventArgs e)
         {
-            Disable_Buttons();
-            Disable_Lists();
-            Disable_Menu();
+            resetStatus();
 
             Trip.Background = Brushes.LightSkyBlue;
         }
 
         private void Orders_Click(object sender, RoutedEventArgs e)
         {
-            Disable_Buttons();
-            Disable_Lists();
-            Disable_Menu();
+            resetStatus();
 
             Orders.Background = Brushes.LightSkyBlue;
         }
 
-        private void Disable_Menu()
+               
+        private void resetStatus()
         {
+            // reset buttons to non-clicked status
             Reports.Background = Brushes.WhiteSmoke;
             Activities.Background = Brushes.WhiteSmoke;
             Orders.Background = Brushes.WhiteSmoke;
             Trip.Background = Brushes.WhiteSmoke;
-        }
 
-        private void Disable_Lists()
-        {
-            //ContractsList.Visibility = Visibility.Hidden;
-            //InvoicesList.Visibility = Visibility.Hidden;
-            //CarriersList.Visibility = Visibility.Hidden;
-            //OrdersList.Visibility = Visibility.Hidden;
-            //ClientsList.Visibility = Visibility.Hidden;
-        }
-
-        private void Disable_Buttons()
-        {
+            // reset clicking buttons options
             Button1.Visibility = Visibility.Hidden;
             Button2.Visibility = Visibility.Hidden;
             Button3.Visibility = Visibility.Hidden;
             Button4.Visibility = Visibility.Hidden;
             Button5.Visibility = Visibility.Hidden;
+
+            // reset previous lists
+            //ContractsList.Visibility = Visibility.Hidden;
+            //InvoicesList.Visibility = Visibility.Hidden;
+            //CarriersList.Visibility = Visibility.Hidden;
+            //OrdersList.Visibility = Visibility.Hidden;
+            //ClientsList.Visibility = Visibility.Hidden;
         }
     }
 }
