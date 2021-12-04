@@ -691,6 +691,7 @@ namespace Transportation_Management_System
         {
             List<CarrierCity> carrierCities = new List<CarrierCity>();
             string qSQL = "SELECT * FROM Carriers INNER JOIN CarrierCity ON CarrierCity.CarrierID = Carriers.CarrierID WHERE CarrierName=@CarrierName";
+
             try
             {
                 string conString = this.ToString();
@@ -700,6 +701,7 @@ namespace Transportation_Management_System
                     using (MySqlCommand cmd = new MySqlCommand(qSQL, conn))
                     {
                         cmd.Parameters.AddWithValue("@CarrierName", carrierName);
+
                         MySqlDataReader rdr = cmd.ExecuteReader();
                         if (rdr.HasRows)
                         {
