@@ -21,7 +21,7 @@ namespace Transportation_Management_System
     public class Carrier
     {
         /// The ID of the carrier company
-        public int CarrierID { set; get; }
+        public long CarrierID { set; get; }
 
         /// The name of the carrier company
         public string Name { set; get; }

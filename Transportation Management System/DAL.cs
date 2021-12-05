@@ -284,7 +284,7 @@ namespace Transportation_Management_System
             catch (MySql.Data.MySqlClient.MySqlException e)
             {
                 Logger.Log(e.Message, LogLevel.Error);
-                throw new ArgumentException($"User {usr.Username} already exists.");
+                throw new ArgumentException($"User \"{usr.Username}\" already exists.");
             }
             catch (Exception e)
             {
@@ -419,9 +419,11 @@ namespace Transportation_Management_System
         ///
         /// \param carrier  - <b>Carrier</b> - An Carrier object with all their information
         /// 
-        public void CreateCarrier(Carrier carrier) 
+        public long CreateCarrier(Carrier carrier) 
         {
-            string sql = "INSERT INTO Carrier (CarrierName, FTLRate, LTLRate, reefCharge) VALUES (@CarrierName, @FTLRate, @LTLRate, @reefCharge)";
+            string sql = "INSERT INTO Carriers (CarrierName, FTLRate, LTLRate, reefCharge) VALUES (@CarrierName, @FTLRate, @LTLRate, @reefCharge)";
+
+            long id;
 
             try
             {
@@ -440,19 +442,23 @@ namespace Transportation_Management_System
                         // Execute the insertion and check the number of rows affected
                         // An exception will be thrown if the column is repeated
                         cmd.ExecuteNonQuery();
+
+                        id = cmd.LastInsertedId;
                     }
                 }
             }
             catch (MySqlException e)
             {
                 Logger.Log(e.Message, LogLevel.Error);
-                throw new ArgumentException($"Carrier {carrier.Name} already exists.");
+                throw new ArgumentException($"Carrier \"{carrier.Name}\" already exists.");
             }
             catch (Exception e)
             {
                 Logger.Log(e.Message, LogLevel.Error);
                 throw;
             }
+
+            return id;       // Get the ID of the inserted item
         }
 
 
@@ -463,7 +469,7 @@ namespace Transportation_Management_System
         /// 
         public void CreateCarrierCity(CarrierCity carrierCity)
         {
-            string sql = "INSERT INTO CarrierCity (CarrierID, DepotCity, FLTAval, LTLAval) VALUES (@CarrierID, @DepotCity, @FLTAval, @LTLAval)";
+            string sql = "INSERT INTO CarrierCity (CarrierID, DepotCity, FTLAval, LTLAval) VALUES (@CarrierID, @DepotCity, @FTLAval, @LTLAval)";
 
             try
             {
@@ -476,7 +482,7 @@ namespace Transportation_Management_System
                         // Populate all arguments in the insert
                         cmd.Parameters.AddWithValue("@CarrierID", carrierCity.Carrier.CarrierID);
                         cmd.Parameters.AddWithValue("@DepotCity", carrierCity.DepotCity.ToString());
-                        cmd.Parameters.AddWithValue("@FLTAval", carrierCity.FTLAval);
+                        cmd.Parameters.AddWithValue("@FTLAval", carrierCity.FTLAval);
                         cmd.Parameters.AddWithValue("@LTLAval", carrierCity.LTLAval);
 
                         // Execute the insertion and check the number of rows affected
@@ -488,7 +494,7 @@ namespace Transportation_Management_System
             catch (MySqlException e)
             {
                 Logger.Log(e.Message, LogLevel.Error);
-                throw new ArgumentException($"Carrier Depot city {carrierCity.DepotCity.ToString()} already exists.");
+                throw new ArgumentException($"Carrier Depot city \"{carrierCity.DepotCity.ToString()}\" already exists.");
             }
             catch (Exception e)
             {
@@ -505,7 +511,7 @@ namespace Transportation_Management_System
         /// 
         public void UpdateCarrier(Carrier newCarrier) 
         {
-            string sql = "UPDATE Carrier SET CarrierName=@CarrierName, FTLRate=@FTLRate, LTLRate=@LTLRate, ReefCharge=ReefCharge WHERE CarrierID=@CarrierID";
+            string sql = "UPDATE Carriers SET CarrierName=@CarrierName, FTLRate=@FTLRate, LTLRate=@LTLRate, ReefCharge=ReefCharge WHERE CarrierID=@CarrierID";
 
             try
             {
@@ -592,7 +598,41 @@ namespace Transportation_Management_System
         /// 
         public void DeactivateCarrier(Carrier carrier) 
         {
-            string sql = "UPDATE Carrier SET IsActive=0 WHERE CarrierID=@CarrierID";
+            string sql = "UPDATE Carriers SET IsActive=0 WHERE CarrierID=@CarrierID";
+
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(this.ToString()))
+                {
+                    conn.Open();
+
+                    using (MySqlCommand cmd = new MySqlCommand(sql, conn))
+                    {
+                        // Populate all arguments in the insert
+                        cmd.Parameters.AddWithValue("@CarrierID", carrier.CarrierID);
+
+                        // Execute the insertion and check the number of rows affected
+                        // An exception will be thrown if the column is repeated
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Logger.Log(e.Message, LogLevel.Error);
+                throw;
+            }
+        }
+
+
+        ///
+        /// \brief Deactivate an active carrier by its id
+        ///
+        /// \param carrier  - <b>Carrier</b> - The new carrier information to be used in the deactivation
+        /// 
+        public void DeleteCarrier(Carrier carrier)
+        {
+            string sql = "DELETE FROM Carriers WHERE CarrierID=@CarrierID";
 
             try
             {
@@ -712,7 +752,7 @@ namespace Transportation_Management_System
         public List<CarrierCity> FilterCitiesByCarrier(string carrierName)
         {
             List<CarrierCity> carrierCities = new List<CarrierCity>();
-            string qSQL = "SELECT * FROM CarrierCity INNER JOIN Carriers ON CarrierCity.CarrierID = Carriers.CarrierID WHERE CarrierName=@CarrierName";
+            string qSQL = "SELECT * FROM CarrierCity INNER JOIN Carriers ON CarrierCity.CarrierID = Carriers.CarrierID WHERE CarrierName=@CarrierName AND IsActive=1";
 
             try
             {
