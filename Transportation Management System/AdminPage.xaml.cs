@@ -61,7 +61,7 @@ namespace Transportation_Management_System
 
             CarrierData.Visibility = Visibility.Visible;
             RouteData.Visibility = Visibility.Visible;
-            RateData.Visibility = Visibility.Visible;
+            //RateData.Visibility = Visibility.Visible;
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -121,7 +121,7 @@ namespace Transportation_Management_System
             // reset buttons
             CarrierData.Visibility = Visibility.Hidden;
             RouteData.Visibility = Visibility.Hidden;
-            RateData.Visibility = Visibility.Hidden;
+            //RateData.Visibility = Visibility.Hidden;
             Button4.Visibility = Visibility.Hidden;
             Button5.Visibility = Visibility.Hidden;
             AddCarrier.Visibility = Visibility.Hidden;

@@ -22,9 +22,28 @@ namespace Transportation_Management_System
         ///
         /// \brief This method calls a query to to the orders database to fetch all orders from the buyer. 
         /// 
+        /// \param carrierToSelect  - <b>Carrier</b> - The selected carrier for the order to be completed
+        /// 
         /// \return Returns list of all fetched orders
         /// 
-        //public List<Order> FetchOrders() { }
+        public List<Order> FetchOrders(bool OnlyActives = false) 
+        {
+            List<Order> orderList;
+
+            DAL db = new DAL();
+
+
+            if (OnlyActives)
+            {
+                orderList = db.GetActiveOrders();
+            }
+            else
+            {
+                orderList = db.GetAllOrders();
+            }
+
+            return orderList;
+        }
 
 
 
@@ -32,7 +51,7 @@ namespace Transportation_Management_System
         /// \brief Used to select carriers from targeted cities to complete an Order. This 
         /// adds a "trip" to the order for each carrier selected
         /// 
-        /// \param carrierToSelect  - <b>Carrier</b> - The selected carrier for the order to be completed
+        
         ///
         /// \return Returns void
         /// 

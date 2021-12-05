@@ -19,6 +19,8 @@ namespace Transportation_Management_System
     /// </summary>
     public partial class PlannerPage : Window
     {
+        private Planner planner = new Planner();
+
         public PlannerPage()
         {
             InitializeComponent();
@@ -55,9 +57,37 @@ namespace Transportation_Management_System
             resetStatus();
 
             Orders.Background = Brushes.LightSkyBlue;
+            OrdersList.Visibility = Visibility.Visible;
+            ActiveBox.Visibility = Visibility.Visible;
+
+            List<Order> orderList = new List<Order>();
+            orderList = planner.FetchOrders(false);
+            OrdersList.ItemsSource = orderList;
+            OrdersList.Visibility = Visibility.Visible;
+            ActiveBox.Visibility = Visibility.Visible;
+            CompletedBox.Visibility = Visibility.Visible;
         }
 
-               
+        private void ActiveBox_Click(object sender, RoutedEventArgs e)
+        {
+            var orderList = new List<Order>();
+
+            // Only active orders
+            if (ActiveBox.IsChecked == true)
+            {
+                orderList = planner.FetchOrders(true);
+
+            }
+            // Show all orders
+            else
+            {
+                orderList = planner.FetchOrders();
+            }
+
+            OrdersList.ItemsSource = orderList;
+        }
+
+
         private void resetStatus()
         {
             // reset buttons to non-clicked status
