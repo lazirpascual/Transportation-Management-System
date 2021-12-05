@@ -497,7 +497,7 @@ namespace Transportation_Management_System
 
 
             // create a carrier object with the values
-            Carrier newCarrier = new Carrier(carrierName, _FTLRate, _LTLRate, reefer);
+           newCarrier = new Carrier(carrierName, _FTLRate, _LTLRate, reefer);
 
             //CarrierCity newCarrierCity = new CarrierCity(newCarrier, newCity, newFTL, newLTL);
 

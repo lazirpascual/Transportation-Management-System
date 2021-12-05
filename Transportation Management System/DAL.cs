@@ -8,6 +8,7 @@ using MySql.Data;
 using MySql.Data.MySqlClient;
 using System.Diagnostics;
 using System.Configuration;
+using System.IO;
 
 namespace Transportation_Management_System
 {
@@ -408,13 +409,36 @@ namespace Transportation_Management_System
         ///
         /// \brief Inserts a new invoice in the Invoice table
         ///
-        /// \param invoice  - <b>Invoice</b> - An Invoice object with all its information
+        /// \param orderObj  - <b>Order</b> - An Order object with all its information
+        /// \param tripObj  - <b>Trip</b> - A Trip object with all its information
         /// 
-        public void CreateInvoice(Invoice invoice) 
+        public void CreateInvoice(Order orderObj, Trip tripObj) 
         {
-        
-        
-        
+
+            long orderID = orderObj.OrderID;
+            double totalCost = 0.0;
+            int days = tripObj.TotalTime;
+            string clientName = orderObj.ClientName;
+            string origin = (orderObj.Origin).ToString();
+            string destination = (orderObj.Destination).ToString();
+            Random randNum = new Random();
+            int invoiceNum = randNum.Next(0, 100);
+
+            string invoiceText = String.Format("Sales Invoice\nInvoice Number: {0}\n\nOrder Number: {1}\nClient: {2}\nOrigin City: {3}\nDestination City: {4}\nDays taken: {5}\n\n\nTotal: {6}\n", invoiceNum, clientName, origin, destination, days, totalCost);
+            string invoiceDirectory = Directory.GetCurrentDirectory();
+            string invoiceName = invoiceDirectory +"\\Invoice"+ invoiceNum + ".txt";
+            try
+            {
+                using(StreamWriter writer = new StreamWriter(invoiceName))
+                {
+                    writer.Write(invoiceText);
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
         }
 
 
