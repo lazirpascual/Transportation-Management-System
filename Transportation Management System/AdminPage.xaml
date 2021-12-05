@@ -81,9 +81,9 @@
             <Label Name="IPLabel" Content="IP Address" HorizontalAlignment="Left" Margin="157,64,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.528,-0.41" Visibility="Hidden"/>
             <Label Name="PortLabel" Content="Port Number" HorizontalAlignment="Left" Margin="157,110,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.528,-0.41" Visibility="Hidden"/>
             <Label Name="LogLabel" Content="LogFile Configuration" FontWeight="Bold" HorizontalAlignment="Left" Margin="157,165,0,0" VerticalAlignment="Top" Width="225" Visibility="Hidden"/>
-            <TextBox Name="LogPath" HorizontalAlignment="Left" Height="23" Margin="246,209,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="473" Visibility="Hidden"/>
+            <TextBox Name="LogPath" HorizontalAlignment="Left" Height="23" Margin="246,209,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="473" Visibility="Hidden"/>
             <Label Name ="LogPathLabel" Content="Log Path" HorizontalAlignment="Left" Margin="157,206,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.528,-0.41" Visibility="Hidden"/>
-            <Button Name="SelectPath" Content="Select Path" HorizontalAlignment="Left" Margin="246,246,0,0" VerticalAlignment="Top" Width="75" Click="SelectPath_Click" Visibility="Hidden"/>
+            <Button Name="SelectPath" Content="Select Path" HorizontalAlignment="Left" Margin="246,246,0,0" VerticalAlignment="Top" Width="75" Click="SelectPath_Click" Visibility="Hidden" />
             <Button Name="IPUpdate" Content="Update" HorizontalAlignment="Left" Margin="398,67,0,0" VerticalAlignment="Top" Width="75" Visibility="Hidden"/>
             <Button Name="PortUpdate" Content="Update" HorizontalAlignment="Left" Margin="398,110,0,0" VerticalAlignment="Top" Width="75" Visibility="Hidden"/>
             <Button Name="PathUpdate" Content="Update" HorizontalAlignment="Left" Margin="326,246,0,0" VerticalAlignment="Top" Width="75" Click="PathUpdate_Click" Visibility="Hidden"/>

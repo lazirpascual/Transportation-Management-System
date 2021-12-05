@@ -518,7 +518,7 @@ namespace Transportation_Management_System
         /// 
         public void UpdateCarrier(Carrier newCarrier) 
         {
-            string sql = "UPDATE Carriers SET CarrierName=@CarrierName, FTLRate=@FTLRate, LTLRate=@LTLRate, ReefCharge=ReefCharge WHERE CarrierID=@CarrierID";
+            string sql = "UPDATE Carriers SET CarrierName=@CarrierName, FTLRate=@FTLRate, LTLRate=@LTLRate, ReefCharge=@ReefCharge WHERE CarrierID=@CarrierID";
 
             try
             {
@@ -556,10 +556,18 @@ namespace Transportation_Management_System
         /// 
         public void UpdateCarrierCity(CarrierCity newCarrierCity)
         {
-            string sql = "UPDATE CarrierCity SET DepotCity=@DepotCity, FLTAval=@FLTAval, LTLAval=@LTLAval WHERE CarrierID=@CarrierID";
+            string sql = "UPDATE CarrierCity SET DepotCity=@DepotCity, FTLAval=@FTLAval, LTLAval=@LTLAval WHERE CarrierID=@CarrierID";
 
             try
             {
+                //var CarrierCities = this.FilterCitiesByCarrier(newCarrierCity.Carrier.Name);
+                // Check if current carrier already contains the new depot city, if so, don't duplicate
+                //if (CarrierCities.FindIndex(carrierCity => carrierCity.DepotCity == newCarrierCity.DepotCity) >= 0)
+                //{
+                    //throw;
+                //}
+
+
                 using (MySqlConnection conn = new MySqlConnection(this.ToString()))
                 {
                     conn.Open();
@@ -569,7 +577,7 @@ namespace Transportation_Management_System
                         // Populate all arguments in the insert
                         cmd.Parameters.AddWithValue("@CarrierID", newCarrierCity.Carrier.CarrierID);
                         cmd.Parameters.AddWithValue("@DepotCity", newCarrierCity.DepotCity.ToString());
-                        cmd.Parameters.AddWithValue("@FLTAval", newCarrierCity.FTLAval);
+                        cmd.Parameters.AddWithValue("@FTLAval", newCarrierCity.FTLAval);
                         cmd.Parameters.AddWithValue("@LTLAval", newCarrierCity.LTLAval);
 
                         // Execute the insertion and check the number of rows affected
@@ -1250,6 +1258,8 @@ namespace Transportation_Management_System
         ///
         /// \brief Backup up the entire database to a .sql file
         /// 
+        /// \param backUpFilePath  - <b>string</b> - The folder for the database backup
+        /// 
         /// https://stackoverflow.com/questions/12311492/backing-up-database-in-mysql-using-c-sharp/12311685
         /// 
         public void BackupDatabase(string backUpFilePath)
@@ -1278,9 +1288,10 @@ namespace Transportation_Management_System
                     }
                 }
             }
-            catch()
+            catch(Exception e)
             {
-
+                /////////////////////////// TODO
+                throw;
             }
             
         }
