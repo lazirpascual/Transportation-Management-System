@@ -117,11 +117,13 @@ namespace Transportation_Management_System
             Invoice invoice = new Invoice();
             Trip tripObj = new Trip();
             long orderID = orderObj.OrderID;
-           
+            double hours = tripObj.TotalTime;
+            TimeSpan timeInDays = TimeSpan.FromHours(hours);
+            double days = timeInDays.TotalDays;
             
             int quantity = orderObj.Quantity;
             double totalCost = 0.0;
-            int days = tripObj.TotalTime;
+           
             string clientName = orderObj.ClientName;
             string origin = (orderObj.Origin).ToString();
             string destination = (orderObj.Destination).ToString();

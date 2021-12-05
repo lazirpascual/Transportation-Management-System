@@ -41,7 +41,7 @@ namespace Transportation_Management_System
         public double TotalKM { set; get; }
 
         /// The total hours of the trip that relates to the order's Invoice
-        public int Days
+        public double Days
         {
             set; get;
         } 
