@@ -94,14 +94,14 @@
                 <Label Content="East" Margin="401,304,294,0" VerticalAlignment="Top"/>
                 <Button Name="UpdateRoute" Content="Update" HorizontalAlignment="Left" Margin="673,379,0,0" VerticalAlignment="Top" Width="75" Click="UpdateRoute_Click"/>
                 <Button Name="ClearRoute" Content="Clear Fields" HorizontalAlignment="Left" Margin="673,343,0,0" VerticalAlignment="Top" Width="75" Click="ClearRoute_Click"/>
-                <ListView x:Name="RouteDatabase" Margin="144,4,36,172">
+                <ListView x:Name="RouteDatabase" Margin="144,4,36,172"  SelectionMode="Single" PreviewMouseLeftButtonUp="RouteDatabase_PreviewMouseLeftButtonUp">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Destination" Width="160" DisplayMemberBinding="{Binding Destination}" />
-                            <GridViewColumn Header="Distance" Width="60" DisplayMemberBinding="{Binding WestCity}" />
-                            <GridViewColumn Header="Time" Width="60" DisplayMemberBinding="{Binding EastCity}" />
-                            <GridViewColumn Header="West" Width="160" DisplayMemberBinding="{Binding WestCity}" />
-                            <GridViewColumn Header="East" Width="160" DisplayMemberBinding="{Binding EastCity}" />
+                            <GridViewColumn Header="Distance" Width="60" DisplayMemberBinding="{Binding Distance}" />
+                            <GridViewColumn Header="Time" Width="60" DisplayMemberBinding="{Binding Time}" />
+                            <GridViewColumn Header="West" Width="160" DisplayMemberBinding="{Binding West}" />
+                            <GridViewColumn Header="East" Width="160" DisplayMemberBinding="{Binding East}" />
                         </GridView>
                     </ListView.View>
                 </ListView>

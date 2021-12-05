@@ -43,31 +43,33 @@ namespace Transportation_Management_System
         private void Invoice_Click(object sender, RoutedEventArgs e)
         {
             resetStatus();
+            InvoicesGrid.Visibility = Visibility.Visible;
             Invoice.Background = Brushes.LightSkyBlue;
         }
 
         private void Carriers_Click(object sender, RoutedEventArgs e)
         {
             resetStatus();
+            CarriersGrid.Visibility = Visibility.Visible;
             Carriers.Background = Brushes.LightSkyBlue;
         }
 
         private void Orders_Click(object sender, RoutedEventArgs e)
         {
             resetStatus();
+            
+            OrdersGrid.Visibility = Visibility.Visible;
             Orders.Background = Brushes.LightSkyBlue;
-              
             List<Order> orderList = new List<Order>();
             orderList = buyer.GetOrders(2);             
             OrdersList.ItemsSource = orderList;
-            OrdersList.Visibility = Visibility.Visible;
-            ActiveBox.Visibility = Visibility.Visible;
-            CompletedBox.Visibility = Visibility.Visible;
+            
         }
 
         private void Clients_Click(object sender, RoutedEventArgs e)
         {
             resetStatus();
+            ClientsGrid.Visibility = Visibility.Visible;
             Clients.Background = Brushes.LightSkyBlue;
         }
 
@@ -75,11 +77,10 @@ namespace Transportation_Management_System
         {
             resetStatus();
             ContractMarketPlace CMP = new ContractMarketPlace();
+            MarketPlaceGrid.Visibility = Visibility.Visible;
             contractList = new List<Contract>();
             contractList = CMP.GetContracts();
             ContractsList.ItemsSource = contractList;
-            ContractsList.Visibility = Visibility.Visible;
-            AcceptClient.Visibility = Visibility.Visible;
             MarketPlace.Background = Brushes.LightSkyBlue;
         }
 
@@ -158,19 +159,14 @@ namespace Transportation_Management_System
 
         private void resetStatus()
         {
-            // reset buttons status
-            AcceptClient.Visibility = Visibility.Hidden;
-            ActiveBox.Visibility = Visibility.Hidden;
-            CompletedBox.Visibility = Visibility.Hidden;
+            // Hide all modules
+            ClientsGrid.Visibility = Visibility.Hidden;
+            OrdersGrid.Visibility = Visibility.Hidden;
+            MarketPlaceGrid.Visibility = Visibility.Hidden;
+            CarriersGrid.Visibility = Visibility.Hidden;
+            InvoicesGrid.Visibility = Visibility.Hidden;
 
-            // reset previous lists
-            ContractsList.Visibility = Visibility.Hidden;
-            InvoicesList.Visibility = Visibility.Hidden;
-            CarriersList.Visibility = Visibility.Hidden;
-            OrdersList.Visibility = Visibility.Hidden;
-            ClientsList.Visibility = Visibility.Hidden;
-
-            // reset menu buttons to non-clicked status
+            // Reset menu buttons to non-clicked status
             MarketPlace.Background = Brushes.WhiteSmoke;
             Clients.Background = Brushes.WhiteSmoke;
             Orders.Background = Brushes.WhiteSmoke;
