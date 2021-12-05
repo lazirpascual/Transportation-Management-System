@@ -53,12 +53,17 @@ namespace Transportation_Management_System
         ///
         /// \brief Used to select carriers from targeted cities to complete an Order. This 
         /// adds a "trip" to the order for each carrier selected
-        /// 
-        
         ///
+        /// \param order  - <b>Order</b> - Order to select the invoic
+        /// \param carrierToSelect  - <b>Carrier</b> - Selected carrier
+        /// 
+        /// 
         /// \return Returns void
         /// 
-        public void SelectOrderCarrier(Carrier carrierToSelect) { }
+        public void SelectOrderCarrier(Order order, Carrier carrierToSelect) 
+        { 
+
+        }
 
 
 
