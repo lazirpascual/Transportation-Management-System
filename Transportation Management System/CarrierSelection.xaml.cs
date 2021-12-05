@@ -37,6 +37,11 @@ namespace Transportation_Management_System
             }
         }
 
+        private void SelectCarrier_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
         private class LTL
         {
             public string Name { get; set; }
@@ -119,11 +124,6 @@ namespace Transportation_Management_System
             {
                 CarrierList.Items.Add(new FTL { Name = carrier.Carrier.Name, DepotCity = carrier.DepotCity, FTLAval = carrier.FTLAval, FTLRate = carrier.Carrier.FTLRate, ReeferCharge = carrier.Carrier.ReeferCharge });
             }
-        }
-
-        private void SelectCarrier_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
         }
     }
 }
