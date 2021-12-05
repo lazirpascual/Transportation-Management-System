@@ -42,9 +42,8 @@ namespace Transportation_Management_System
         {
             string logDict = Logger.GetCurrentLogDirectory();
             string logFileName = ConfigurationManager.AppSettings.Get("LogFileName");
-            string newPath = logDict + logFileName;
-                           
-            return newPath;
+                                       
+            return logFileName;
                         
         }
 

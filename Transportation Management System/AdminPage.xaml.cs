@@ -51,7 +51,6 @@ namespace Transportation_Management_System
         private void Configuration_Click(object sender, RoutedEventArgs e)
         {
             resetStatus();
-            Configuration.Background = Brushes.LightSkyBlue;
             ConfigurationVisible();
         }
 
@@ -59,8 +58,7 @@ namespace Transportation_Management_System
         {
             resetStatus();
             Database.Background = Brushes.LightSkyBlue;
-            RouteData.Visibility = Visibility.Visible;
-            CarrierData.Visibility = Visibility.Visible;
+            DatabaseButtons.Visibility = Visibility.Visible;
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -76,16 +74,36 @@ namespace Transportation_Management_System
         private void PathUpdate_Click(object sender, RoutedEventArgs e)
         {
             UpdatePath();
+        }
 
+        private void CarrierData_Click(object sender, RoutedEventArgs e)
+        {
+            resetStatus();
+            Database.Background = Brushes.LightSkyBlue;
+            CarrierGrid.Visibility = Visibility.Visible;
+            CarrierDatabaseList.SelectedItem = null;
+            CarriersFieldsHander(sender, e);
+            PopulateCarrierList(sender, e);
+        }
+
+        private void RouteData_Click(object sender, RoutedEventArgs e)
+        {
+            resetStatus();
+            Database.Background = Brushes.LightSkyBlue;
+            RouteGrid.Visibility = Visibility.Visible;
+
+            List<Route> routeList = new List<Route>();
+            DAL db = new DAL();
+            routeList = db.GetRoute();
+            RouteDatabase.ItemsSource = routeList;
         }
 
         private void ChangeLogDirectory()
         {
-            //Variables
             FolderBrowserDialog dialog = new FolderBrowserDialog();
             string path = null;
 
-            //Sets the starting directory to the directory of the log files
+            //Open the directory selection dialog box
             dialog.Description = "Select the Directory for the Log Files";
 
             var result = dialog.ShowDialog();
@@ -115,119 +133,13 @@ namespace Transportation_Management_System
             }
         }
 
-        private void resetStatus()
-        {
-            // reset buttons
-            CarrierData.Visibility = Visibility.Hidden;
-            RouteData.Visibility = Visibility.Hidden;
-
-            Button4.Visibility = Visibility.Hidden;
-            Button5.Visibility = Visibility.Hidden;
-            AddCarrier.Visibility = Visibility.Hidden;
-            UpdateCarrier.Visibility = Visibility.Hidden;
-            DeleteCarrier.Visibility = Visibility.Hidden;
-            Clear.Visibility = Visibility.Hidden;
-
-            //reset any previous lists
-            CarrierDatabaseList.Visibility = Visibility.Hidden;
-            //InvoicesList.Visibility = Visibility.Hidden;
-            //CarriersList.Visibility = Visibility.Hidden;
-            //OrdersList.Visibility = Visibility.Hidden;
-            //ClientsList.Visibility = Visibility.Hidden;
-
-            //reset menu buttons to non-cliked
-            LogFiles.Background = Brushes.WhiteSmoke;
-            Database.Background = Brushes.WhiteSmoke;
-            Configuration.Background = Brushes.WhiteSmoke;
-
-            CityDatabase.Visibility = Visibility.Hidden;
-
-            AddButton.Visibility = Visibility.Hidden;
-            UpdateButton.Visibility = Visibility.Hidden;
-            DeleteButton.Visibility = Visibility.Hidden;
-            CarrierName.Visibility = Visibility.Hidden;
-            Departure.Visibility = Visibility.Hidden;
-            FTLAval.Visibility = Visibility.Hidden;
-            LTLAval.Visibility = Visibility.Hidden;
-            FTLRate.Visibility = Visibility.Hidden;
-            LTLRate.Visibility = Visibility.Hidden;
-            Reefer.Visibility = Visibility.Hidden;
-            NameLabel.Visibility = Visibility.Hidden;
-            DepartureLabel.Visibility = Visibility.Hidden;
-            FTLAvalLabel.Visibility = Visibility.Hidden;
-            LTLAvalLabel.Visibility = Visibility.Hidden;
-            FTLRateLabel.Visibility = Visibility.Hidden;
-            LTLRateLabel.Visibility = Visibility.Hidden;
-            ReeferChargeLabel.Visibility = Visibility.Hidden;
-            AdminLog.Visibility = Visibility.Hidden;
-
-            AdminLog.Visibility = Visibility.Hidden;
-            AdminLog.Text = "";
-            IPBox.Visibility = Visibility.Hidden;
-            PortBox.Visibility = Visibility.Hidden;
-            DatabaseConfig.Visibility = Visibility.Hidden;
-            IPLabel.Visibility = Visibility.Hidden;
-            PortLabel.Visibility = Visibility.Hidden;
-            LogLabel.Visibility = Visibility.Hidden;
-            LogPath.Visibility = Visibility.Hidden;
-            LogPathLabel.Visibility = Visibility.Hidden;
-            SelectPath.Visibility = Visibility.Hidden;
-            IPUpdate.Visibility = Visibility.Hidden;
-            PortUpdate.Visibility = Visibility.Hidden;
-            PathUpdate.Visibility = Visibility.Hidden;
-
-            //MainGrid.Visibility = Visibility.Hidden;
-        }
-
-        private void CarrierDatabaseVisible(object sender, RoutedEventArgs e)
-        {
-            CityDatabase.Visibility = Visibility.Visible;
-            CarrierDatabaseList.Visibility = Visibility.Visible;
-            AddCarrier.Visibility = Visibility.Visible;
-            UpdateCarrier.Visibility = Visibility.Visible;
-            DeleteCarrier.Visibility = Visibility.Visible;
-            Clear.Visibility = Visibility.Visible;
-            CarrierName.Visibility = Visibility.Visible;
-            Departure.Visibility = Visibility.Visible;
-            FTLAval.Visibility = Visibility.Visible;
-            LTLAval.Visibility = Visibility.Visible;
-            FTLRate.Visibility = Visibility.Visible;
-            LTLRate.Visibility = Visibility.Visible;
-            Reefer.Visibility = Visibility.Visible;
-            NameLabel.Visibility = Visibility.Visible;
-            DepartureLabel.Visibility = Visibility.Visible;
-            FTLAvalLabel.Visibility = Visibility.Visible;
-            LTLAvalLabel.Visibility = Visibility.Visible;
-            FTLRateLabel.Visibility = Visibility.Visible;
-            LTLRateLabel.Visibility = Visibility.Visible;
-            ReeferChargeLabel.Visibility = Visibility.Visible;
-
-
-            CarrierDatabaseList.SelectedItem = null;
-
-            CarriersFieldsHander(sender, e);
-        }
-
+             
         private void ConfigurationVisible()
         {
-            AdminLog.Visibility = Visibility.Visible;
-            AdminLog.Text = "";
-            IPBox.Visibility = Visibility.Visible;
-            PortBox.Visibility = Visibility.Visible;
-            DatabaseConfig.Visibility = Visibility.Visible;
-            IPLabel.Visibility = Visibility.Visible;
-            PortLabel.Visibility = Visibility.Visible;
-            LogLabel.Visibility = Visibility.Visible;
-            LogPath.Visibility = Visibility.Visible;
-            LogPathLabel.Visibility = Visibility.Visible;
-            SelectPath.Visibility = Visibility.Visible;
-            IPUpdate.Visibility = Visibility.Visible;
-            PortUpdate.Visibility = Visibility.Visible;
-            PathUpdate.Visibility = Visibility.Visible;
-
+            GeneralGrid.Visibility = Visibility.Visible;
+            Configuration.Background = Brushes.LightSkyBlue; 
             string logPath = Logger.GetCurrentLogDirectory();
             LogPath.Text = logPath;
-
         }
 
         private void ClearButton_Click(object sender, RoutedEventArgs e)
@@ -378,8 +290,6 @@ namespace Transportation_Management_System
                 System.Windows.MessageBox.Show("Something went wrong. Please try again.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
-
-
         }
 
 
@@ -515,24 +425,12 @@ namespace Transportation_Management_System
 
         }
 
-        private void CarrierData_Click(object sender, RoutedEventArgs e)
-        {
-            resetStatus();
-            CarrierDatabaseVisible(sender, e);
-
-            Database.Background = Brushes.LightSkyBlue;
-
-            PopulateCarrierList(sender, e);
-        }
-
-
         private void PopulateCarrierList(object sender, RoutedEventArgs e)
         {
             DAL db = new DAL();
             List<Carrier> carriersList = db.GetAllCarriers();
             CarrierDatabaseList.ItemsSource = carriersList;
         }
-
 
 
         private void PopulateCarrierCitiesList(object sender, RoutedEventArgs e)
@@ -545,58 +443,90 @@ namespace Transportation_Management_System
             CityDatabase.ItemsSource = carriersList;
         }
 
-        private void RouteData_Click(object sender, RoutedEventArgs e)
+        private void resetStatus()
         {
-            resetStatus();
-            Database.Background = Brushes.LightSkyBlue;
-            RouteDatabaseVisible();
+            // Hide all grids
+            AdminLog.Visibility = Visibility.Hidden;
+            GeneralGrid.Visibility = Visibility.Hidden;
+            DatabaseButtons.Visibility = Visibility.Hidden;
+            CarrierGrid.Visibility = Visibility.Hidden;
+            RouteGrid.Visibility = Visibility.Hidden;
 
-            //List<Route> routeList = new List<Route>; 
-            //routeList = routeList.GetRoute();
-            //RouteDatabase.ItemsSource = carriersList;
-        }
-
-        private void RouteDatabaseVisible()
-        {
-            RouteDatabase.Visibility = Visibility.Visible;
-            RouteDestination.Visibility = Visibility.Visible;
-            Km.Visibility = Visibility.Visible;
-            Time.Visibility = Visibility.Visible;
-            West.Visibility = Visibility.Visible;
-            East.Visibility = Visibility.Visible;
-            //Destination.Visibility = Visibility.Visible;
-            //RouteDatabase.Visibility = Visibility.Visible;
-            //RouteDatabase.Visibility = Visibility.Visible;
-            //RouteDatabase.Visibility = Visibility.Visible;
-
+            //Reset all buttons
+            Backup.Background = Brushes.WhiteSmoke;
+            LogFiles.Background = Brushes.WhiteSmoke;
+            Database.Background = Brushes.WhiteSmoke;
+            Configuration.Background = Brushes.WhiteSmoke;
 
         }
 
-        private void AddRoute_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
+       
         private void UpdateRoute_Click(object sender, RoutedEventArgs e)
         {
+            string destination;
+            int distance;
+            double time;
+            string west;
+            string east;
+            
+            Route route = null;
+            
+            DAL db = new DAL();
 
+            try
+            {
+                // Get the route information from the form
+                destination = RouteDestination.Text;
+                distance = int.Parse(Distance.Text);
+                time = double.Parse(Time.Text);
+                west = West.Text;
+                east = East.Text;
+
+                // create a route object with the values
+                route = new Route(destination, distance, time, west, east);
+                              
+            }
+            catch (Exception)
+            {
+                System.Windows.MessageBox.Show("Please, make sure that the fields were filled appropriately.", "Attention", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            // Update the Route List
+            try
+            {
+                db.UpdateRoute(route);
+
+                // Empty the route list
+                RouteDatabase.ItemsSource = new List<Route>();
+
+                // Reload the updated route list 
+                List<Route> routeList = new List<Route>();
+                routeList = db.GetRoute();
+                RouteDatabase.ItemsSource = routeList;
+               
+            }
+            // Inform the user if the operation fails
+            catch (ArgumentException exc)
+            {
+                System.Windows.MessageBox.Show(exc.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (Exception)
+            {
+                System.Windows.MessageBox.Show("Something went wrong. Please try again.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void ClearRoute_Click(object sender, RoutedEventArgs e)
         {
             RouteDestination.Text = "";
-            Km.Text = "";
+            Distance.Text = "";
             Time.Text = "";
             West.Text = "";
             East.Text = "";
 
         }
 
-        private void DeleteRoute_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
+        
         private void IPUpdate_Click(object sender, RoutedEventArgs e)
         {
             string field = "Server";

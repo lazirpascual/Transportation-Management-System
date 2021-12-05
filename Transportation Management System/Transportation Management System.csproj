@@ -119,6 +119,7 @@
     <Compile Include="Planner.cs" />
     <Compile Include="Carrier.cs" />
     <Compile Include="CarrierManager.cs" />
+    <Compile Include="Route.cs" />
     <Compile Include="Trip.cs" />
     <Compile Include="Admin.cs" />
     <Compile Include="User.cs" />

@@ -19,40 +19,61 @@
                 </Border.Background>
                 <Image Source="logo_white.png" Margin="10,10,667,281"/>
             </Border>
-            <Button x:Name="AcceptClient" Content="Accept" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Visibility="Visible" Margin="696,373,0,0" Click="AcceptClient_Click"/>
             <Button x:Name ="Invoice" Content="Invoices" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="0,209,0,0" Click="Invoice_Click"/>
             <Button x:Name ="Carriers" Content="Carriers" Background="WhiteSmoke" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="0,261,0,0" Click="Carriers_Click"/>
             <Button x:Name ="Orders" Content="Orders" Background="WhiteSmoke" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="0,312,0,0" Click="Orders_Click"/>
             <Button x:Name ="Clients" Content="Clients" Background="WhiteSmoke" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="0,363,0,0" Click="Clients_Click"/>
             <Button x:Name ="MarketPlace" Content="MarketPlace" Background="WhiteSmoke" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="0,158,0,0" Click="MarketPlace_Click"/>
-            <CheckBox x:Name="ActiveBox" Content="Active Orders" Background="WhiteSmoke" Margin="146,370,403,27" Visibility="Hidden" IsChecked="False" Click="ActiveBox_Click"/>
-            <CheckBox x:Name="CompletedBox" Content="Completed Orders" Background="WhiteSmoke" Margin="250,370,403,27" Visibility="Hidden" IsChecked="False" Click="CompletedBox_Click"/>
-            <ListView x:Name="ContractsList" Margin="145,10,21,61" Visibility="Visible" SelectionMode="Single">
-                <ListView.View>
-                    <GridView x:Name="ContractsListGrid">
-                        <GridViewColumn Header="Client Name" Width="120" DisplayMemberBinding="{Binding ClientName}" />
-                        <GridViewColumn Header="Destination" Width="100" DisplayMemberBinding="{Binding Destination}" />
-                        <GridViewColumn Header="Job Type" Width="70" DisplayMemberBinding="{Binding JobType}" />
-                        <GridViewColumn Header="Origin" Width="70" DisplayMemberBinding="{Binding Origin}" />
-                        <GridViewColumn Header="Quantity" Width="70" DisplayMemberBinding="{Binding Quantity}" />
-                        <GridViewColumn Header="Van Type" Width="70" DisplayMemberBinding="{Binding VanType}" />
-                    </GridView>
-                </ListView.View>
-            </ListView>
-            <ListView x:Name="OrdersList" Margin="145,10,21,61" Visibility="Hidden">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="Client Name" Width="100" DisplayMemberBinding="{Binding ClientName}" />
-                        <GridViewColumn Header="Creation Date" Width="90" DisplayMemberBinding="{Binding OrderCreationDate}" />
-                        <GridViewColumn Header="Origin" Width="80" DisplayMemberBinding="{Binding Origin}" />
-                        <GridViewColumn Header="Destination" Width="90" DisplayMemberBinding="{Binding Destination}" />
-                        <GridViewColumn Header="Job Type" Width="60" DisplayMemberBinding="{Binding JobType}" />
-                        <GridViewColumn Header="Van Type" Width="70" DisplayMemberBinding="{Binding VanType}" />
-                        <GridViewColumn Header="Quantity" Width="60" DisplayMemberBinding="{Binding Quantity}" />
-                        <GridViewColumn Header="Status" Width="70" DisplayMemberBinding="{Binding IsCompleted}" />
-                    </GridView>
-                </ListView.View>
-            </ListView>
+            <Grid x:Name="ClientsGrid">
+                    
+                
+            </Grid>
+            <Grid x:Name="OrdersGrid" Visibility="Hidden">
+                <CheckBox x:Name="ActiveBox" Content="Active Orders" Background="WhiteSmoke" Margin="146,370,403,27" IsChecked="False" Click="ActiveBox_Click"/>
+                <CheckBox x:Name="CompletedBox" Content="Completed Orders" Background="WhiteSmoke" Margin="250,370,403,27" IsChecked="False" Click="CompletedBox_Click"/>
+                <ListView x:Name="OrdersList" Margin="145,10,21,61">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Client Name" Width="100" DisplayMemberBinding="{Binding ClientName}" />
+                            <GridViewColumn Header="Creation Date" Width="90" DisplayMemberBinding="{Binding OrderCreationDate}" />
+                            <GridViewColumn Header="Origin" Width="80" DisplayMemberBinding="{Binding Origin}" />
+                            <GridViewColumn Header="Destination" Width="90" DisplayMemberBinding="{Binding Destination}" />
+                            <GridViewColumn Header="Job Type" Width="60" DisplayMemberBinding="{Binding JobType}" />
+                            <GridViewColumn Header="Van Type" Width="70" DisplayMemberBinding="{Binding VanType}" />
+                            <GridViewColumn Header="Quantity" Width="60" DisplayMemberBinding="{Binding Quantity}" />
+                            <GridViewColumn Header="Status" Width="70" DisplayMemberBinding="{Binding IsCompleted}" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Grid>
+            <Grid x:Name="CarriersGrid">
+
+
+            </Grid>
+            <Grid x:Name="InvoicesGrid">
+
+
+            </Grid>
+            <Grid x:Name="MarketPlaceGrid" Visibility="Visible">
+                <Button x:Name="AcceptClient" Content="Accept" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Visibility="Visible" Margin="696,373,0,0" Click="AcceptClient_Click"/>
+                <ListView x:Name="ContractsList" Margin="145,10,21,61" SelectionMode="Single">
+                    <ListView.View>
+                        <GridView x:Name="ContractsListGrid">
+                            <GridViewColumn Header="Client Name" Width="120" DisplayMemberBinding="{Binding ClientName}" />
+                            <GridViewColumn Header="Destination" Width="100" DisplayMemberBinding="{Binding Destination}" />
+                            <GridViewColumn Header="Job Type" Width="70" DisplayMemberBinding="{Binding JobType}" />
+                            <GridViewColumn Header="Origin" Width="70" DisplayMemberBinding="{Binding Origin}" />
+                            <GridViewColumn Header="Quantity" Width="70" DisplayMemberBinding="{Binding Quantity}" />
+                            <GridViewColumn Header="Van Type" Width="70" DisplayMemberBinding="{Binding VanType}" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Grid>
+           
+           
+            
+           
+           
             <ListView x:Name="InvoicesList" Margin="145,10,21,61" Visibility="Hidden"/>
             <ListView x:Name="CarriersList" Margin="145,10,21,61" Visibility="Hidden"/>
             <ListView x:Name="ClientsList" Margin="145,10,21,61" Visibility="Hidden"/>

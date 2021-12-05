@@ -441,6 +441,77 @@ namespace Transportation_Management_System
         }
 
 
+        ///
+        /// \brief Update an existing route's attributes
+        ///
+        /// \param newRoute  - <b>Route</b> - The new route information to be used in the update
+        /// 
+        public void UpdateRoute(Route newRoute)
+        {
+            string sql = "UPDATE Route SET Distance=@Distance, Time=@Time, WHERE Destination=@Destination";
+
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(this.ToString()))
+                {
+                    conn.Open();
+
+                    using (MySqlCommand cmd = new MySqlCommand(sql, conn))
+                    {
+                        // Populate all arguments in the insert
+                        cmd.Parameters.AddWithValue("@Distance", newRoute.Distance);
+                        cmd.Parameters.AddWithValue("@Time", newRoute.Time);
+                        cmd.Parameters.AddWithValue("@Destination", newRoute.Destination);
+                        
+                        // Execute the insertion and check the number of rows affected
+                        // An exception will be thrown if the column is repeated
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Logger.Log(e.Message, LogLevel.Error);
+                throw;
+            }
+        }
+
+
+        public List<Route> GetRoute()
+        {
+            List<Route> routeList= new List<Route>();
+            string qSQL = "SELECT * FROM Route";
+            try
+            {
+                string connectionString = this.ToString();
+                using (MySqlConnection conn = new MySqlConnection(connectionString))
+                {
+                    conn.Open();
+                    using (MySqlCommand cmd = new MySqlCommand(qSQL, conn))
+                    {
+                        MySqlDataReader rdr = cmd.ExecuteReader();
+                        if (rdr.HasRows)
+                        {
+                            while (rdr.Read())
+                            {
+                                Route route = new Route();
+                                route.Destination= rdr["Destination"].ToString();
+                                route.Distance= int.Parse(rdr["Distance"].ToString());
+                                route.Time = double.Parse(rdr["Time"].ToString());
+                                route.West= rdr["West"].ToString();
+                                route.East= rdr["East"].ToString();
+                                routeList.Add(route);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return routeList;
+        }
 
         ///
         /// \brief Inserts a new carrier in the Carrier table
