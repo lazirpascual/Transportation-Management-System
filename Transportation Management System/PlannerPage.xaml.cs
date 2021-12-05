@@ -79,13 +79,14 @@ namespace Transportation_Management_System
                 {
                     // completed box is also checked, get all orders
                     orderList = planner.FetchOrders(2);
-
+                    ViewCarrier.Visibility = Visibility.Hidden;
                 }              
                 else
                 {
                     // completed box is not checked, fetch only the active orders
                     orderList = planner.FetchOrders(0);
-                }             
+                    ViewCarrier.Visibility = Visibility.Visible;
+                }               
             }
             else
             {
@@ -99,7 +100,8 @@ namespace Transportation_Management_System
                 {
                     // completed box is not checked, fetch all orders
                     orderList = planner.FetchOrders(2);
-                }         
+                }
+                ViewCarrier.Visibility = Visibility.Hidden;
             }
 
             OrdersList.ItemsSource = orderList;
@@ -122,6 +124,7 @@ namespace Transportation_Management_System
                     // active box is not checked, get only completed orders
                     orderList = planner.FetchOrders(1);
                 }
+                ViewCarrier.Visibility = Visibility.Hidden;
             }
             else
             {
@@ -130,15 +133,25 @@ namespace Transportation_Management_System
                 {
                     // active box is checked, fetch only active orders
                     orderList = planner.FetchOrders(0);
+                    ViewCarrier.Visibility = Visibility.Visible;
                 }
                 else
                 {
                     // active box is also not checked, fetch all orders
                     orderList = planner.FetchOrders(2);
+                    ViewCarrier.Visibility = Visibility.Hidden;
                 }
             }
 
             OrdersList.ItemsSource = orderList;
+        }
+
+        private void View_Carrier(object sender, RoutedEventArgs e)
+        {
+            Order currentOrder = (Order) OrdersList.SelectedItem;
+            List<Carrier> carriers = planner.GetCarriers(currentOrder.Origin.ToString());
+            CarrierSelection selectCarrier = new CarrierSelection(carriers);
+            selectCarrier.Show();
         }
 
         private void resetStatus()
@@ -155,6 +168,7 @@ namespace Transportation_Management_System
             Button3.Visibility = Visibility.Hidden;
             Button4.Visibility = Visibility.Hidden;
             Button5.Visibility = Visibility.Hidden;
+            ViewCarrier.Visibility = Visibility.Hidden;
 
             // reset previous lists
             //ContractsList.Visibility = Visibility.Hidden;
