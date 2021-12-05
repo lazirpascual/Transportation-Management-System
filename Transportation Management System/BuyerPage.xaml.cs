@@ -69,6 +69,10 @@ namespace Transportation_Management_System
         {
             resetStatus();
             Clients.Background = Brushes.LightSkyBlue;
+
+            //List<Client> clientList = new List<Client>();
+
+            //clientList = buyer.FetchClients(2);
         }
 
         private void MarketPlace_Page()
