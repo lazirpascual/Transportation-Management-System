@@ -410,7 +410,12 @@ namespace Transportation_Management_System
         ///
         /// \param invoice  - <b>Invoice</b> - An Invoice object with all its information
         /// 
-        public void CreateInvoice(Invoice invoice) { }
+        public void CreateInvoice(Invoice invoice) 
+        {
+        
+        
+        
+        }
 
 
 
@@ -421,7 +426,7 @@ namespace Transportation_Management_System
         /// 
         public void CreateCarrier(Carrier carrier) 
         {
-            string sql = "INSERT INTO Carrier (CarrierName, FTLRate, LTLRate, reefCharge) VALUES (@CarrierName, @FTLRate, @LTLRate, @reefCharge)";
+            string sql = "INSERT INTO Carriers (CarrierName, FTLRate, LTLRate, reefCharge) VALUES (@CarrierName, @FTLRate, @LTLRate, @reefCharge)";
 
             try
             {
@@ -506,7 +511,7 @@ namespace Transportation_Management_System
         /// 
         public void UpdateCarrier(Carrier newCarrier) 
         {
-            string sql = "UPDATE Carrier SET CarrierName=@CarrierName, FTLRate=@FTLRate, LTLRate=@LTLRate, ReefCharge=ReefCharge WHERE CarrierID=@CarrierID";
+            string sql = "UPDATE Carriers SET CarrierName=@CarrierName, FTLRate=@FTLRate, LTLRate=@LTLRate, ReefCharge=ReefCharge WHERE CarrierID=@CarrierID";
 
             try
             {
@@ -582,7 +587,41 @@ namespace Transportation_Management_System
         /// 
         /// \return The found carrier or null otherwise
         /// 
-        //public Carrier GetCarrier(int carrierId) { }
+        public Carrier GetCarrier(int carrierId) 
+        {
+            string qSQL = "SELECT * FROM Carriers WHERE CarrierID=@CarrierID";
+            Carrier carr = null;
+            try
+            {
+                string conString = this.ToString();
+                using (MySqlConnection conn = new MySqlConnection(conString))
+                {
+                    conn.Open();
+                    using (MySqlCommand cmd = new MySqlCommand(qSQL, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@CarrierID", carrierId);
+                        MySqlDataReader rdr = cmd.ExecuteReader();
+                        if (rdr.HasRows)
+                        {
+                            while (rdr.Read())
+                            {
+                                carr = new Carrier();
+                                carr.CarrierID = int.Parse(rdr["CarrierID"].ToString());
+                                carr.Name = rdr["CarrierName"].ToString();
+                                carr.FTLRate = double.Parse(rdr["FTLRate"].ToString());
+                                carr.LTLRate = double.Parse(rdr["LTLRate"].ToString());
+                                carr.ReeferCharge = double.Parse(rdr["reefCharge"].ToString());
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return carr;
+        }
 
 
 
@@ -593,7 +632,7 @@ namespace Transportation_Management_System
         /// 
         public void DeactivateCarrier(Carrier carrier) 
         {
-            string sql = "UPDATE Carrier SET IsActive=0 WHERE CarrierID=@CarrierID";
+            string sql = "UPDATE Carriers SET IsActive=0 WHERE CarrierID=@CarrierID";
 
             try
             {
@@ -724,13 +763,6 @@ namespace Transportation_Management_System
             }
             return carrierCities;
         }
-
-
-
-        
-
-
-
 
         ///
         /// \brief Returns a list of all users in our system
@@ -992,7 +1024,92 @@ namespace Transportation_Management_System
 
             return clients;
         }
+
+        ///
+        /// \brief Return a list of all carriers in our system
+        /// 
+        /// \return A list of all carriers
+        /// 
+        public List<Carrier> GetAllCarriers()
+        {
+            string qSQL = "SELECT * FROM Carriers WHERE IsActive=1";
+            List<Carrier> carriers = new List<Carrier>();
+            Carrier carr = null;
+            try
+            {
+                string conString = this.ToString();
+                using (MySqlConnection conn = new MySqlConnection(conString))
+                {
+                    conn.Open();
+                    using (MySqlCommand cmd = new MySqlCommand(qSQL, conn))
+                    {
+
+                        MySqlDataReader rdr = cmd.ExecuteReader();
+                        if (rdr.HasRows)
+                        {
+                            while (rdr.Read())
+                            {
+                                carr = new Carrier();
+                                carr.CarrierID = int.Parse(rdr["CarrierID"].ToString());
+                                carr.Name = rdr["CarrierName"].ToString();
+                                carr.FTLRate = double.Parse(rdr["FTLRate"].ToString());
+                                carr.LTLRate = double.Parse(rdr["LTLRate"].ToString());
+                                carr.ReeferCharge = double.Parse(rdr["reefCharge"].ToString());
+                                carr.IsActive = Boolean.Parse(rdr["IsActive"].ToString());
+                                carriers.Add(carr);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return carriers;
+        }
+
+
+        ///
+        /// \brief Return carrierID of the carrier
+        /// 
+        /// \return carrier ID of the carrier
+        /// 
+
+        public int GetCarrierIdByName(string carrierName)
+        {
+            string qSQL = "SELECT CarrierID FROM Carriers WHERE CarrierName=@CarrierName";
+            int carrierID = 0;
+            try
+            {
+                string conString = this.ToString();
+                using (MySqlConnection conn = new MySqlConnection(conString))
+                {
+                    conn.Open();
+                    using (MySqlCommand cmd = new MySqlCommand(qSQL, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@CarrierName", carrierName);
+                        MySqlDataReader rdr = cmd.ExecuteReader();
+                        if (rdr.HasRows)
+                        {
+                            while (rdr.Read())
+                            {
+                                carrierID = int.Parse(rdr["CarrierID"].ToString());
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return carrierID;
+        }
+
     }
+
+
 
     ///
     /// \brief Returns a list with all trips attached to a specific orders

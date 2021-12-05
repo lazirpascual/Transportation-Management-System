@@ -35,5 +35,7 @@ namespace Transportation_Management_System
         /// The amount for reefer van type
         public double ReeferCharge { set; get; }
 
+        public bool IsActive { set; get; }
+
     }
 }
