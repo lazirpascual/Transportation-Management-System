@@ -410,11 +410,10 @@ namespace Transportation_Management_System
         /// \brief Inserts a new invoice in the Invoice table
         ///
         /// \param orderObj  - <b>Order</b> - An Order object with all its information
-        /// \param tripObj  - <b>Trip</b> - A Trip object with all its information
         /// 
-        public void CreateInvoice(Order orderObj, Trip tripObj) 
+        public void CreateInvoice(Order orderObj) 
         {
-
+            Trip tripObj = new Trip();
             long orderID = orderObj.OrderID;
             double totalCost = 0.0;
             int days = tripObj.TotalTime;
