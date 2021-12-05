@@ -26,7 +26,7 @@ namespace Transportation_Management_System
 
             DAL db = new DAL();
 
-            db.UpdateDatabaseConnectionString("User", "x4sqrh7d39h1orji");
+            db.FilterCompletedOrdersByTime();   
         }
 
         private void MainWindow_OnMouseDown(object sender, MouseButtonEventArgs e)
