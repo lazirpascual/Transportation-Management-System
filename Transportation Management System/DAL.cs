@@ -1076,7 +1076,7 @@ namespace Transportation_Management_System
                 string conString = this.ToString();
                 using (MySqlConnection con = new MySqlConnection(conString))
                 {
-                    MySqlCommand cmd = new MySqlCommand("SELECT Clients.ClientName, OrderDate, Origin, Destination, JobType, VanType, Quantity, IsCompleted FROM Orders" +
+                    MySqlCommand cmd = new MySqlCommand("SELECT Clients.ClientName, OrderDate, Origin, Destination, JobType, VanType, Quantity, IsCompleted, OrderCompletedDate FROM Orders" +
                          " INNER JOIN Clients ON Orders.ClientID = Clients.ClientID", con);
 
                     con.Open();
@@ -1095,7 +1095,10 @@ namespace Transportation_Management_System
                             newOrder.VanType = (VanType)int.Parse(rdr["VanType"].ToString());
                             newOrder.Quantity = int.Parse(rdr["Quantity"].ToString());
                             newOrder.IsCompleted = int.Parse(rdr["IsCompleted"].ToString());
-                            newOrder.OrderCompletionDate = DateTime.Parse(rdr["OrderCompletedDate"].ToString());
+                            if (DateTime.TryParse(rdr["OrderCompletedDate"].ToString(), out DateTime dt))
+                            {
+                                newOrder.OrderCompletionDate = dt;
+                            }
                             orders.Add(newOrder);
                         }
                     }
