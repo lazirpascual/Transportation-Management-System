@@ -71,7 +71,7 @@ namespace Transportation_Management_System
         {
             DAL db = new DAL();
 
-
+            db.CompleteOrder(order);
         }
 
 

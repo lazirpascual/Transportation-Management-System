@@ -1147,9 +1147,17 @@ namespace Transportation_Management_System
 
                         // Execute the insertion and check the number of rows affected
                         // An exception will be thrown if the column is repeated
-                        cmd.ExecuteNonQuery();
+                        if(cmd.ExecuteNonQuery() == 0)
+                        {
+                            throw new ArgumentException("Invalid Order");
+                        }
                     }
                 }
+            }
+            catch(ArgumentException e)
+            {
+                Logger.Log(e.Message, LogLevel.Error);
+                throw;
             }
             catch (Exception e)
             {
