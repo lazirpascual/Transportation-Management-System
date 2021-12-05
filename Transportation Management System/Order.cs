@@ -46,6 +46,8 @@ namespace Transportation_Management_System
         /// The indicator of current and completed orders
         public int IsCompleted { get; set; }
 
+        public DateTime OrderCompletionDate { get; set; }
+
 
         public Order(string clientName, DateTime creationTime, City origin, City destination, JobType jobType, int quantity, VanType vanType)
         {

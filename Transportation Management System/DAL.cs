@@ -1108,6 +1108,7 @@ namespace Transportation_Management_System
                             newOrder.VanType = (VanType)int.Parse(rdr["VanType"].ToString());
                             newOrder.Quantity = int.Parse(rdr["Quantity"].ToString());
                             newOrder.IsCompleted = int.Parse(rdr["IsCompleted"].ToString());
+                            newOrder.OrderCompletionDate = DateTime.Parse(rdr["OrderCompletedDate"].ToString());
                             orders.Add(newOrder);
                         }
                     }
@@ -1196,8 +1197,9 @@ namespace Transportation_Management_System
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                Logger.Log(e.Message, LogLevel.Error);
                 throw;
             }
             return carriers;
@@ -1235,8 +1237,9 @@ namespace Transportation_Management_System
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                Logger.Log(e.Message, LogLevel.Error);
                 throw;
             }
             return carrierID;
@@ -1253,6 +1256,71 @@ namespace Transportation_Management_System
         /// 
         //public List<Trip> FilterTripsByOrderId(int orderId) { }
 
+
+        //
+        /// \brief Returns a list with all orders filtered by 2 weeks or all time
+        /// 
+        /// \param orderId  - <b>int</b> - If of the order to filter the trip
+        /// 
+        /// \return A list with all trips attached to a specific orders
+        /// 
+        public List<Order> FilterCompletedOrdersByTime(bool onlyPast2Weeks = false) 
+        {
+            List<Order> orders = new List<Order>();
+
+            try
+            {
+                // If all time
+                if (!onlyPast2Weeks)
+                {
+                    orders = GetCompletedOrders();
+                }
+                else
+                {
+                    string qSQL = "SELECT * FROM Orders WHERE CarrierName=@CarrierName";
+                    
+                    string conString = this.ToString();
+                    using (MySqlConnection conn = new MySqlConnection(conString))
+                    {
+                        conn.Open();
+                        using (MySqlCommand cmd = new MySqlCommand(qSQL, conn))
+                        {
+                            cmd.Parameters.AddWithValue("@CarrierName", carrierName);
+                            MySqlDataReader rdr = cmd.ExecuteReader();
+                            if (rdr.HasRows)
+                            {
+                                while (rdr.Read())
+                                {
+                                    Order order = new Order();
+
+                                    order.ClientName = rdr["ClientName"].ToString();
+                                    order.OrderCreationDate = DateTime.Parse(rdr["OrderDate"].ToString());
+                                    order.Origin = (City)Enum.Parse(typeof(City), rdr["Origin"].ToString(), true);
+                                    order.Destination = (City)Enum.Parse(typeof(City), rdr["Destination"].ToString(), true);
+                                    order.JobType = (JobType)int.Parse(rdr["JobType"].ToString());
+                                    order.VanType = (VanType)int.Parse(rdr["VanType"].ToString());
+                                    order.Quantity = int.Parse(rdr["Quantity"].ToString());
+                                    order.IsCompleted = int.Parse(rdr["IsCompleted"].ToString());
+                                    order.OrderCompletionDate = DateTime.Parse(rdr["OrderCompletedDate"].ToString());
+
+                                    orders.Add(order);
+                                }
+                            }
+                        }
+                    }
+                }
+                
+            }
+            catch (Exception e)
+            {
+                Logger.Log(e.Message, LogLevel.Error);
+                throw;
+            }
+
+
+            return orders;
+            
+        }
 
 
         ///
