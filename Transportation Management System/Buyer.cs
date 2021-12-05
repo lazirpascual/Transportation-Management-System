@@ -111,8 +111,12 @@ namespace Transportation_Management_System
         /// 
         /// \param order  - <b>Order</b> - The order to generate the invoice
         /// 
-        /// \return An invoice object
+        /// \return None
         /// 
-        //public Invoice GenerateInvoice(Order order) { }
+        public void GenerateInvoice(Order order)
+        {
+            DAL invoice = new DAL();
+            invoice.CreateInvoice(order);
+        }
     }
 }
