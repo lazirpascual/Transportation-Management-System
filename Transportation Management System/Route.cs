@@ -59,9 +59,37 @@ namespace Transportation_Management_System
 
             DAL db = new DAL();
             List<Route> routes = db.GetRoutes();
-            
-            //Route 
 
+            // Create the graph
+            foreach (var route in routes)
+            {
+                // If not found (edges), return null
+                route.WestPtr = routes.ElementAtOrDefault((int) route.West);
+                route.EastPtr = routes.ElementAtOrDefault((int) route.East);
+            }
+
+            // Get the current city
+            Route curr = routes[(int) origin];
+
+            // While we're not in the destination city
+            do
+            {
+                //(5.5 Hours)
+                // If going east
+                if (origin < destination)
+                {
+                    // Windsor --> London --> Hamilton 
+
+                    curr = curr.EastPtr;
+                }
+                // If goint west
+                else if (destination < origin)
+                {
+                    // Hamilton --> London --> Windsor
+
+                    curr = curr.WestPtr;
+                }
+            } while (curr.Destination != destination);
 
 
             return new KeyValuePair<int, double>(totalDistance, totalTime);

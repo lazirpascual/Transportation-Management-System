@@ -15,7 +15,8 @@ namespace Transportation_Management_System
         Oshawa,
         Belleville,
         Kingston,
-        Ottawa
+        Ottawa,
+        Null,
     }
 
     /// 

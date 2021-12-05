@@ -476,6 +476,7 @@ namespace Transportation_Management_System
             }
         }
 
+
         public List<Route> GetRoutes()
         {
             List<Route> routeList= new List<Route>();
@@ -495,11 +496,15 @@ namespace Transportation_Management_System
                             {
                                 Route route = new Route();
 
+                                // Set default values
+                                route.West = City.Null;
+                                route.East = City.Null;
+
                                 route.Destination = (City)Int32.Parse(rdr["Destination"].ToString());
                                 if(int.TryParse(rdr["Distance"].ToString(), out int d)) route.Distance = d;
                                 if(double.TryParse(rdr["Time"].ToString(), out double t)) route.Time = t;
                                 if(Int32.TryParse(rdr["West"].ToString(), out int w)) route.West = (City) w;
-                                if (Int32.TryParse(rdr["East"].ToString(), out int e)) route.East = (City)e;
+                                if (Int32.TryParse(rdr["East"].ToString(), out int e)) route.East = (City) e;
 
                                 routeList.Add(route);
                             }
