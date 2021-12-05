@@ -41,8 +41,8 @@ namespace Transportation_Management_System
         /// The destination city for the transport
         public City DestinationCity { get; set; }
 
-        /// The total number of hours needed for the trip
-        public double TotalTime { get; set; }
+        /// The total number of days needed for the trip
+        public int TotalTime { get; set; }
 
         /// The total number of hours spent driving
         public double HoursDriven { get; set; }
