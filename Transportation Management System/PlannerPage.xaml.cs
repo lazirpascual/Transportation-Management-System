@@ -61,7 +61,7 @@ namespace Transportation_Management_System
             ActiveBox.Visibility = Visibility.Visible;
 
             List<Order> orderList = new List<Order>();
-            orderList = planner.FetchOrders(false);
+            orderList = planner.FetchOrders(2);
             OrdersList.ItemsSource = orderList;
             OrdersList.Visibility = Visibility.Visible;
             ActiveBox.Visibility = Visibility.Visible;
@@ -75,18 +75,65 @@ namespace Transportation_Management_System
             // Only active orders
             if (ActiveBox.IsChecked == true)
             {
-                orderList = planner.FetchOrders(true);
+                if (CompletedBox.IsChecked == true)
+                {
+                    orderList = planner.FetchOrders(2);
 
+                }
+                else
+                {
+                    orderList = planner.FetchOrders(0);
+                }             
             }
             // Show all orders
             else
             {
-                orderList = planner.FetchOrders();
+                if (CompletedBox.IsChecked == true)
+                {
+                    orderList = planner.FetchOrders(1);
+
+                }
+                else
+                {
+                    orderList = planner.FetchOrders(2);
+                }         
             }
 
             OrdersList.ItemsSource = orderList;
         }
 
+        private void CompletedBox_Click(object sender, RoutedEventArgs e)
+        {
+            var orderList = new List<Order>();
+
+            // Only completed orders
+            if (CompletedBox.IsChecked == true)
+            {            
+                if (ActiveBox.IsChecked == true)
+                {
+                    orderList = planner.FetchOrders(2);
+                }
+                else
+                {
+                    orderList = planner.FetchOrders(1);
+                }
+            }
+            // Show all orders
+            else
+            {
+                if (ActiveBox.IsChecked == true)
+                {
+                    orderList = planner.FetchOrders(0);
+
+                }
+                else
+                {
+                    orderList = planner.FetchOrders(2);
+                }
+            }
+
+            OrdersList.ItemsSource = orderList;
+        }
 
         private void resetStatus()
         {

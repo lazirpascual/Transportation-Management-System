@@ -22,20 +22,23 @@ namespace Transportation_Management_System
         ///
         /// \brief This method calls a query to to the orders database to fetch all orders from the buyer. 
         /// 
-        /// \param carrierToSelect  - <b>Carrier</b> - The selected carrier for the order to be completed
+        /// \param orderStatus  - <b>int</b> - 0 for active, 1 for completed, 2 for all orders
         /// 
         /// \return Returns list of all fetched orders
         /// 
-        public List<Order> FetchOrders(bool OnlyActives = false) 
+        public List<Order> FetchOrders(int orderStatus) 
         {
             List<Order> orderList;
 
             DAL db = new DAL();
 
-
-            if (OnlyActives)
+            if (orderStatus == 0)
             {
                 orderList = db.GetActiveOrders();
+            }
+            else if (orderStatus == 1)
+            {
+                orderList = db.GetCompletedOrders();
             }
             else
             {
