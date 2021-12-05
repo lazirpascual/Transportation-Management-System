@@ -448,7 +448,7 @@ namespace Transportation_Management_System
         /// 
         public void UpdateRoute(Route newRoute)
         {
-            string sql = "UPDATE Route SET Distance=@Distance, Time=@Time, WHERE Destination=@Destination";
+            string sql = "UPDATE Routes SET Distance=@Distance, Time=@Time, WHERE Destination=@Destination";
 
             try
             {
@@ -480,7 +480,7 @@ namespace Transportation_Management_System
         public List<Route> GetRoute()
         {
             List<Route> routeList= new List<Route>();
-            string qSQL = "SELECT * FROM Route";
+            string qSQL = "SELECT * FROM Routes";
             try
             {
                 string connectionString = this.ToString();

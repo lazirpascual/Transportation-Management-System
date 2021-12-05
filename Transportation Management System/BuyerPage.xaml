@@ -10,7 +10,7 @@
         Title="Buyer" Height="450" Width="800">
     <Viewbox>
         <Grid>
-            <Border RenderTransformOrigin="0.5,0.5" Height="419" Width="792" Grid.RowSpan="2">
+            <Border RenderTransformOrigin="0.5,0.5" Height="419" Width="792" Margin="0,0,3,0">
                 <Border.Background>
                     <LinearGradientBrush>
                         <GradientStop Color="LightBlue" Offset="0.0"/>
@@ -25,27 +25,26 @@
             <Button x:Name ="Clients" Content="Clients" Background="WhiteSmoke" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="0,363,0,0" Click="Clients_Click"/>
             <Button x:Name ="MarketPlace" Content="MarketPlace" Background="WhiteSmoke" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="0,158,0,0" Click="MarketPlace_Click"/>
             <Grid x:Name="ClientsGrid">
-                    
+                   
                 
             </Grid>
-            <Grid x:Name="OrdersGrid" Visibility="Hidden">
+            <Grid x:Name="OrdersGrid" Visibility="Visible">
                 <CheckBox x:Name="ActiveBox" Content="Active Orders" Background="WhiteSmoke" Margin="146,370,403,27" IsChecked="False" Click="ActiveBox_Click"/>
                 <CheckBox x:Name="CompletedBox" Content="Completed Orders" Background="WhiteSmoke" Margin="250,370,403,27" IsChecked="False" Click="CompletedBox_Click"/>
-                <ListView x:Name="OrdersList" Margin="145,10,21,61">
+                <ListView x:Name="OrdersList" Margin="145,10,10,61">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Client Name" Width="100" DisplayMemberBinding="{Binding ClientName}" />
-                            <GridViewColumn Header="Creation Date" Width="90" DisplayMemberBinding="{Binding OrderCreationDate}" />
+                            <GridViewColumn Header="Creation" Width="70" DisplayMemberBinding="{Binding OrderCreationDate}" />
                             <GridViewColumn Header="Origin" Width="80" DisplayMemberBinding="{Binding Origin}" />
                             <GridViewColumn Header="Destination" Width="90" DisplayMemberBinding="{Binding Destination}" />
                             <GridViewColumn Header="Job Type" Width="60" DisplayMemberBinding="{Binding JobType}" />
                             <GridViewColumn Header="Van Type" Width="70" DisplayMemberBinding="{Binding VanType}" />
-                            <GridViewColumn Header="Quantity" Width="60" DisplayMemberBinding="{Binding Quantity}" />
-                            <GridViewColumn Header="Status" Width="70" DisplayMemberBinding="{Binding IsCompleted}" />
-
-                        <GridViewColumn Header="Completion Date" Width="70" DisplayMemberBinding="{Binding OrderCompletedDate}" />
+                            <GridViewColumn Header="Qty" Width="30" DisplayMemberBinding="{Binding Quantity}" />
+                            <GridViewColumn Header="Status" Width="40" DisplayMemberBinding="{Binding IsCompleted}" />
+                            <GridViewColumn Header="Completion" Width="70" DisplayMemberBinding="{Binding OrderCompletedDate}" />
                     </GridView>
-                        </GridView>
+                        
                     </ListView.View>
                 </ListView>
             </Grid>
@@ -57,9 +56,9 @@
 
 
             </Grid>
-            <Grid x:Name="MarketPlaceGrid" Visibility="Visible">
+            <Grid x:Name="MarketPlaceGrid" Visibility="Hidden">
                 <Button x:Name="AcceptClient" Content="Accept" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Visibility="Visible" Margin="696,373,0,0" Click="AcceptClient_Click"/>
-                <ListView x:Name="ContractsList" Margin="145,10,21,61" SelectionMode="Single">
+                <ListView x:Name="ContractsList" Margin="189,10,37,61" SelectionMode="Single">
                     <ListView.View>
                         <GridView x:Name="ContractsListGrid">
                             <GridViewColumn Header="Client Name" Width="120" DisplayMemberBinding="{Binding ClientName}" />
