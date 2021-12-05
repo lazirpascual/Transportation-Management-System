@@ -50,6 +50,7 @@
                         <GridViewColumn Header="Van Type" Width="70" DisplayMemberBinding="{Binding VanType}" />
                         <GridViewColumn Header="Quantity" Width="60" DisplayMemberBinding="{Binding Quantity}" />
                         <GridViewColumn Header="Status" Width="70" DisplayMemberBinding="{Binding IsCompleted}" />
+                        <GridViewColumn Header="Completion Date" Width="70" DisplayMemberBinding="{Binding OrderCompletedDate}" />
                     </GridView>
                 </ListView.View>
             </ListView>
