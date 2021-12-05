@@ -1433,7 +1433,51 @@ namespace Transportation_Management_System
         /// 
         /// \return A list with all trips attached to a specific orders
         /// 
-        //public List<Trip> FilterTripsByOrderId(int orderId) { }
+        public List<Trip> FilterTripsByOrderId(int orderId)
+        {
+            List<Trip> trips = new List<Trip>();
+            string qSQL = "SELECT * FROM Trips WHERE OrderID=@OrderID";
+
+            try
+            {
+                string conString = this.ToString();
+                using (MySqlConnection conn = new MySqlConnection(conString))
+                {
+                    conn.Open();
+                    using (MySqlCommand cmd = new MySqlCommand(qSQL, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@OrderID", orderId);
+                        MySqlDataReader rdr = cmd.ExecuteReader();
+                        if (rdr.HasRows)
+                        {
+                            while (rdr.Read())
+                            {
+                                Trip trip = new Trip();
+                                trip.TripID = int.Parse(rdr["TripID"].ToString());
+                                trip.OrderID = int.Parse(rdr["OrderID"].ToString());
+                                trip.CarrierID = int.Parse(rdr["CarrierID"].ToString());
+                                trip.OriginCity= (City)Enum.Parse(typeof(City), rdr["OriginCity"].ToString(), true);
+                                trip.DestinationCity= (City)Enum.Parse(typeof(City), rdr["DestinationCity"].ToString(), true);
+                                trip.TotalDistance = double.Parse(rdr["TotalDistance"].ToString());
+                                trip.TotalTime = double.Parse(rdr["TotalTime"].ToString());
+                                trip.HoursDriven = double.Parse(rdr["HoursDriven"].ToString());
+                                trip.HoursUnloading= double.Parse(rdr["HoursUnloading"].ToString());
+                                trip.HoursLoading = double.Parse(rdr["HoursLoading"].ToString());
+
+                                trips.Add(trip);
+
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return trips;
+
+        }
 
 
         //

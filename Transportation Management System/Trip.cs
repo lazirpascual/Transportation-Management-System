@@ -32,17 +32,24 @@ namespace Transportation_Management_System
     ///
     public class Trip
     {
+        /// The trip ID for the Trip
+        public long TripID { get; set; }
         /// The order ID for the Trip
         public int OrderID { get; set; }
 
+        /// The carrier ID for the Trip
+        public int CarrierID { get; set; }
         /// The starting city for the transport
         public City OriginCity { get; set; }
 
         /// The destination city for the transport
         public City DestinationCity { get; set; }
 
+        /// The total distance for the transport
+        public double TotalDistance { get; set; }
+
         /// The total number of days needed for the trip
-        public int TotalTime { get; set; }
+        public double TotalTime { get; set; }
 
         /// The total number of hours spent driving
         public double HoursDriven { get; set; }
