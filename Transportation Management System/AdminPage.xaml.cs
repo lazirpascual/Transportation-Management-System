@@ -23,12 +23,12 @@ namespace Transportation_Management_System
     public partial class AdminPage : Window
     {
         private Admin admin;
-        private Carrier carrier;
+
+
         public AdminPage()
         {
             InitializeComponent();
             admin = new Admin();
-            carrier = new Carrier();
             resetStatus();
             ConfigurationVisible();
         }
@@ -145,7 +145,6 @@ namespace Transportation_Management_System
             AddButton.Visibility = Visibility.Hidden;
             UpdateButton.Visibility = Visibility.Hidden;
             DeleteButton.Visibility = Visibility.Hidden;
-            CarrierID.Visibility = Visibility.Hidden;
             CarrierName.Visibility = Visibility.Hidden;
             Departure.Visibility = Visibility.Hidden;
             FTLAval.Visibility = Visibility.Hidden;
@@ -154,7 +153,6 @@ namespace Transportation_Management_System
             LTLRate.Visibility = Visibility.Hidden;
             Reefer.Visibility = Visibility.Hidden;
             NameLabel.Visibility = Visibility.Hidden;
-            IDLabel.Visibility = Visibility.Hidden;
             DepartureLabel.Visibility = Visibility.Hidden;
             FTLAvalLabel.Visibility = Visibility.Hidden;
             LTLAvalLabel.Visibility = Visibility.Hidden;
@@ -181,7 +179,7 @@ namespace Transportation_Management_System
             //MainGrid.Visibility = Visibility.Hidden;
         }
 
-        private void CarrierDatabaseVisible()
+        private void CarrierDatabaseVisible(object sender, RoutedEventArgs e)
         {
             CityDatabase.Visibility = Visibility.Visible;
             CarrierDatabaseList.Visibility = Visibility.Visible;
@@ -189,7 +187,6 @@ namespace Transportation_Management_System
             UpdateCarrier.Visibility = Visibility.Visible;
             DeleteCarrier.Visibility = Visibility.Visible;
             Clear.Visibility = Visibility.Visible;
-            CarrierID.Visibility = Visibility.Visible;
             CarrierName.Visibility = Visibility.Visible;
             Departure.Visibility = Visibility.Visible;
             FTLAval.Visibility = Visibility.Visible;
@@ -198,7 +195,6 @@ namespace Transportation_Management_System
             LTLRate.Visibility = Visibility.Visible;
             Reefer.Visibility = Visibility.Visible;
             NameLabel.Visibility = Visibility.Visible;
-            IDLabel.Visibility = Visibility.Visible;
             DepartureLabel.Visibility = Visibility.Visible;
             FTLAvalLabel.Visibility = Visibility.Visible;
             LTLAvalLabel.Visibility = Visibility.Visible;
@@ -206,6 +202,10 @@ namespace Transportation_Management_System
             LTLRateLabel.Visibility = Visibility.Visible;
             ReeferChargeLabel.Visibility = Visibility.Visible;
 
+
+            CarrierDatabaseList.SelectedItem = null;
+
+            CarriersFieldsHander(sender, e);
         }
 
         private void ConfigurationVisible()
@@ -232,7 +232,6 @@ namespace Transportation_Management_System
 
         private void ClearButton_Click(object sender, RoutedEventArgs e)
         {
-            CarrierID.Text = "";
             CarrierName.Text = "";
             Departure.Text = "";
             FTLAval.Text = "";
@@ -250,13 +249,6 @@ namespace Transportation_Management_System
             // If no option is selected
             if (CarrierDatabaseList.SelectedItems.Count == 0 && CityDatabase.SelectedItems.Count == 0)
             {
-                Departure.Visibility = Visibility.Hidden;
-                FTLAval.Visibility = Visibility.Hidden;
-                LTLAval.Visibility = Visibility.Hidden;
-                DepartureLabel.Visibility = Visibility.Hidden;
-                FTLAvalLabel.Visibility = Visibility.Hidden;
-                LTLAvalLabel.Visibility = Visibility.Hidden;
-
                 UpdateCarrier.Visibility = Visibility.Hidden;
                 DeleteCarrier.Visibility = Visibility.Hidden;
 
@@ -264,6 +256,9 @@ namespace Transportation_Management_System
             }
             else
             {
+                UpdateCarrier.Visibility = Visibility.Visible;
+                DeleteCarrier.Visibility = Visibility.Visible;
+
                 Carrier selectedCarrier = (Carrier)CarrierDatabaseList.SelectedItem;
 
                 if ((sender as System.Windows.Controls.ListView).Name == "CarrierDatabaseList")
@@ -279,7 +274,6 @@ namespace Transportation_Management_System
                     
                 }
 
-                CarrierID.Text = "";
                 CarrierName.Text = selectedCarrier.Name;
                 FTLRate.Text = selectedCarrier.FTLRate.ToString();
                 LTLRate.Text = selectedCarrier.LTLRate.ToString();
@@ -313,10 +307,11 @@ namespace Transportation_Management_System
             int newFTL;
             int newLTL;
 
-            // create a carrier object with the values
-            Carrier carrier = null;
 
+            Carrier carrier = null;
             CarrierCity carrierCity = null;
+
+            DAL db = new DAL();
 
             try
             {
@@ -326,12 +321,13 @@ namespace Transportation_Management_System
                 _LTLRate = double.Parse(LTLRate.Text);
                 reefer = double.Parse(Reefer.Text);
 
-
+                // create a carrier object with the values
                 carrier = new Carrier(carrierName, _FTLRate, _LTLRate, reefer);
+                carrier.CarrierID = db.GetCarrierIdByName(carrier.Name);
 
-                // If changing the city
                 if (CarrierDatabaseList.SelectedItems.Count == 1 && CityDatabase.SelectedItems.Count == 1)
                 {
+
                     // Get the city and rates information
                     newDestination = Departure.Text;
                     newCity = (City)Enum.Parse(typeof(City), newDestination, true);
@@ -339,101 +335,86 @@ namespace Transportation_Management_System
                     newLTL = int.Parse(LTLAval.Text);
 
                     carrierCity = new CarrierCity(carrier, newCity, newFTL, newLTL);
-
-                    ///// Get ID
                 }
             }
             catch (Exception)
             {
-                System.Windows.MessageBox.Show("Please, make sure that the fields were filled appropriately.");
+                System.Windows.MessageBox.Show("Please, make sure that the fields were filled appropriately.", "Attention", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
 
 
-            DAL db = new DAL();
-
             try
             {
-                // If only a carrier is selected
                 if (CarrierDatabaseList.SelectedItems.Count == 1 && CityDatabase.SelectedItems.Count == 0)
                 {
                     db.UpdateCarrier(carrier);
 
+                    // Empty Cities list
+                    CityDatabase.ItemsSource = new List<CarrierCity>();
                 }
-                // If a city and the carrier is selected
+                // Show details about the city if carrier and city is selected
                 else if (CarrierDatabaseList.SelectedItems.Count == 1 && CityDatabase.SelectedItems.Count == 1)
                 {
+                    carrierCity.Carrier.CarrierID = db.GetCarrierIdByName(carrier.Name);
                     db.UpdateCarrierCity(carrierCity);
+
+                    // Update the cities list
+                    List<CarrierCity> carriersList = db.FilterCitiesByCarrier(carrier.Name);
+                    CityDatabase.ItemsSource = carriersList;
                 }
+
+                PopulateCarrierList(sender, e);
+
+
             }
             // Inform the user if the operation fails
             catch (ArgumentException exc)
             {
-                System.Windows.MessageBox.Show(exc.Message);
+                System.Windows.MessageBox.Show(exc.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             catch (Exception)
             {
-                System.Windows.MessageBox.Show("Something went wrong. Please try again.");
+                System.Windows.MessageBox.Show("Something went wrong. Please try again.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+
+
 
         }
 
+
         private void DeleteCarrier_Click(object sender, RoutedEventArgs e)
         {
-            string carrierName;
-            double _FTLRate;
-            double _LTLRate;
-            double reefer;
-
-            string newDestination;
-            City newCity;
-            int newFTL;
-            int newLTL;
-
-            try
-            {
-                // Get the carrier information from the form
-                carrierName = CarrierName.Text;
-                _FTLRate = double.Parse(FTLRate.Text);
-                _LTLRate = double.Parse(LTLRate.Text);
-                reefer = double.Parse(Reefer.Text);
-
-                // Get the city and rates information
-                newDestination = Departure.Text;
-                newCity = (City)Enum.Parse(typeof(City), newDestination, true);
-                newFTL = int.Parse(FTLAval.Text);
-                newLTL = int.Parse(LTLAval.Text);
-            }
-            catch (Exception)
-            {
-                System.Windows.MessageBox.Show("Please, make sure that the fields were filled appropriately.");
-                return;
-            }
-
-
-            // create a carrier object with the values
-            Carrier carrier = new Carrier(carrierName, _FTLRate, _LTLRate, reefer);
-            
-            
-            // GET ID
-            //////carrier.CarrierID
-
-            CarrierCity carrierCity = new CarrierCity(carrier, newCity, newFTL, newLTL);
 
             DAL db = new DAL();
 
-
             try
             {
+                Carrier carrier = (Carrier)CarrierDatabaseList.SelectedItem;
                 // If only a carrier is selected
                 if (CarrierDatabaseList.SelectedItems.Count == 1 && CityDatabase.SelectedItems.Count == 0)
                 {
                     db.DeleteCarrier(carrier);
+
+                    PopulateCarrierList(sender, e);
+
+                    CityDatabase.ItemsSource = new List<CarrierCity>();
                 }
                 // If a city and the carrier is selected
                 else if (CarrierDatabaseList.SelectedItems.Count == 1 && CityDatabase.SelectedItems.Count == 1)
                 {
+                    carrier.CarrierID = db.GetCarrierIdByName(carrier.Name);
+
+                    CarrierCity carrierCity = (CarrierCity) CityDatabase.SelectedItem;
+                    carrierCity.Carrier = carrier;
                     db.RemoveCarrierCity(carrierCity);
+
+                    PopulateCarrierCitiesList(sender, e);
+
+                }
+                else if(CarrierDatabaseList.SelectedItems.Count == 0 && CityDatabase.SelectedItems.Count == 0)
+                {
+                    System.Windows.MessageBox.Show("Select the Carrier or the City you would like to delete", "No option selected", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
             // Inform the user if the operation fails
@@ -465,6 +446,8 @@ namespace Transportation_Management_System
             Carrier newCarrier = null;
             CarrierCity newCarrierCity = null;
 
+            DAL db = new DAL();
+
             try
             {
                 // Get the carrier information from the form
@@ -475,7 +458,7 @@ namespace Transportation_Management_System
 
                 // create a carrier object with the values
                 newCarrier = new Carrier(carrierName, _FTLRate, _LTLRate, reefer);
-
+                newCarrier.CarrierID = db.GetCarrierIdByName(newCarrier.Name);
                 
                 // Get the city and rates information
                 newDestination = Departure.Text;
@@ -495,21 +478,29 @@ namespace Transportation_Management_System
             }
 
 
-
-            // create a carrier object with the values
-           newCarrier = new Carrier(carrierName, _FTLRate, _LTLRate, reefer);
-
-            //CarrierCity newCarrierCity = new CarrierCity(newCarrier, newCity, newFTL, newLTL);
-
-
-            
-            DAL db = new DAL();
-
             try
             {
+                // If carrier exist, create city for that carrier (-1 if it doesnt exist)
+                if(db.GetCarrierIdByName(carrierName) != -1)
+                {
+                    db.CreateCarrierCity(newCarrierCity);
+                }
+                // If it's a new carrier, create the carrier and the city
+                else
+                {
+                    newCarrier.CarrierID = db.CreateCarrier(newCarrier);
+                    db.CreateCarrierCity(newCarrierCity);
 
-                newCarrierCity.Carrier.CarrierID = db.CreateCarrier(newCarrier);
-                db.CreateCarrierCity(newCarrierCity);
+
+                    
+                }
+
+                PopulateCarrierList(sender, e);
+
+                // Update the cities list
+                List<CarrierCity> carriersList = db.FilterCitiesByCarrier(newCarrier.Name);
+                CityDatabase.ItemsSource = carriersList;
+
 
             }
             // Inform the user if the operation fails
@@ -527,13 +518,31 @@ namespace Transportation_Management_System
         private void CarrierData_Click(object sender, RoutedEventArgs e)
         {
             resetStatus();
-            CarrierDatabaseVisible();
+            CarrierDatabaseVisible(sender, e);
 
             Database.Background = Brushes.LightSkyBlue;
 
+            PopulateCarrierList(sender, e);
+        }
+
+
+        private void PopulateCarrierList(object sender, RoutedEventArgs e)
+        {
             DAL db = new DAL();
-            List<Carrier> carriersList = db.FilterCarriersByCity(City.Toronto);
+            List<Carrier> carriersList = db.GetAllCarriers();
             CarrierDatabaseList.ItemsSource = carriersList;
+        }
+
+
+
+        private void PopulateCarrierCitiesList(object sender, RoutedEventArgs e)
+        {
+            DAL db = new DAL();
+
+            Carrier selectedCarrier = (Carrier)CarrierDatabaseList.SelectedItem;
+
+            List<CarrierCity> carriersList = db.FilterCitiesByCarrier(selectedCarrier.Name);
+            CityDatabase.ItemsSource = carriersList;
         }
 
         private void RouteData_Click(object sender, RoutedEventArgs e)

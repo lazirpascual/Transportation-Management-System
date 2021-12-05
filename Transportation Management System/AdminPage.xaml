@@ -10,14 +10,14 @@
         Title="Administrator" Height="450" Width="800">
     <Viewbox>
         <Grid>
-            <Border RenderTransformOrigin="0.5,0.5" Height="419" Width="792" Grid.RowSpan="2">
+            <Border RenderTransformOrigin="0.5,0.5" Height="419" Width="792" Margin="0,0,3,0">
                 <Border.Background>
                     <LinearGradientBrush>
                         <GradientStop Color="LightBlue" Offset="0.0"/>
                         <GradientStop Color="Navy" Offset="1.8"/>
                     </LinearGradientBrush>
                 </Border.Background>
-                <Image Source="logo_white.png" Margin="10,10,667,281"/>
+                <Image Source="logo_white.png" Margin="10,0,667,291"/>
             </Border>
             <Button x:Name ="Button5" FontSize="16" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="650,363,0,0" Visibility="Hidden"/>
             <Button x:Name ="Button4" FontSize="16" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="524,363,0,0" Visibility="Hidden"/>
@@ -26,12 +26,12 @@
             <Button x:Name ="UpdateButton" Content="Update" FontSize="16" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="524,363,0,0" Visibility="Hidden"/>
             <Button x:Name ="DeleteButton" Content="Delete" FontSize="16" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="398,363,0,0" Visibility="Hidden"/>
             <Button x:Name ="RouteData" FontSize="16" Content="Routes" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="146,363,0,0" Visibility="Hidden" Click="RouteData_Click"/>
-            <Button x:Name ="Backup" Content="Backup" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="0,209,0,0"/>
-            <Button x:Name ="LogFiles" Content="Log File" Background="WhiteSmoke" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="0,261,0,0" Click="LogFiles_Click"/>
-            <Button x:Name ="Database" Content="Database" Background="WhiteSmoke" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="0,312,0,0" Click="Database_Click"/>
-            <Button x:Name ="Configuration" Content="General Config" Background="WhiteSmoke" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="0,363,0,0" Click="Configuration_Click"/>
+            <Button x:Name ="Backup" Content="Backup" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,209,0,0"/>
+            <Button x:Name ="LogFiles" Content="Log File" Background="WhiteSmoke" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,261,0,0" Click="LogFiles_Click"/>
+            <Button x:Name ="Database" Content="Database" Background="WhiteSmoke" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,312,0,0" Click="Database_Click"/>
+            <Button x:Name ="Configuration" Content="General Config" Background="WhiteSmoke" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,363,0,0" Click="Configuration_Click"/>
             <TextBox  x:Name="AdminLog" AcceptsReturn="true" Margin="146,10,20,10" Visibility="Hidden" TextWrapping="WrapWithOverflow" Background="GhostWhite"/>
-            <ListView x:Name="CarrierDatabaseList" Margin="146,6,268,172" Visibility="Hidden" SelectionMode="Single" SelectionChanged="CarriersFieldsHander">
+            <ListView x:Name="CarrierDatabaseList" Margin="146,6,255,172" Visibility="Hidden" SelectionMode="Single" PreviewMouseLeftButtonUp="CarriersFieldsHander">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Name" Width="160" DisplayMemberBinding="{Binding Name}" />
@@ -41,7 +41,7 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-            <ListView x:Name="CityDatabase" Visibility="Hidden" Margin="530,6,43,170" SelectionMode="Single" SelectionChanged="CarriersFieldsHander">
+            <ListView x:Name="CityDatabase" Visibility="Hidden" Margin="548,6,25,172" SelectionMode="Single" PreviewMouseLeftButtonUp="CarriersFieldsHander">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Departure City" Width="92" DisplayMemberBinding="{Binding DepotCity}" />
@@ -61,31 +61,29 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-            <TextBox x:Name="CarrierID" IsReadOnly="True" Background="LightGray" HorizontalAlignment="Left" Height="23" Margin="228,260,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Visibility="Visible"/>
             <TextBox x:Name="CarrierName" HorizontalAlignment="Left" Height="23" Margin="228,289,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Visibility="Visible"/>
-            <TextBox x:Name="Departure" HorizontalAlignment="Left" Height="23" Margin="650,263,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Visibility="Visible"/>
-            <TextBox x:Name="FTLAval" HorizontalAlignment="Left" Height="23" Margin="650,292,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Visibility="Visible"/>
+            <TextBox x:Name="Departure" HorizontalAlignment="Left" Height="23" Margin="650,257,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Visibility="Visible"/>
+            <TextBox x:Name="FTLAval" HorizontalAlignment="Left" Height="23" Margin="650,289,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Visibility="Visible"/>
             <TextBox x:Name="LTLAval" HorizontalAlignment="Left" Height="23" Margin="650,322,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Visibility="Visible"/>
-            <TextBox x:Name="FTLRate" HorizontalAlignment="Left" Height="23" Margin="420,292,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Visibility="Visible"/>
-            <TextBox x:Name="LTLRate" HorizontalAlignment="Left" Height="23" Margin="420,323,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Visibility="Visible"/>
+            <TextBox x:Name="FTLRate" HorizontalAlignment="Left" Height="23" Margin="420,289,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Visibility="Visible"/>
+            <TextBox x:Name="LTLRate" HorizontalAlignment="Left" Height="23" Margin="420,322,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Visibility="Visible"/>
             <TextBox x:Name="Reefer" HorizontalAlignment="Left" Height="23" Margin="228,322,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Visibility="Visible"/>
-            <Label Name="NameLabel" Content="Name" HorizontalAlignment="Left" Margin="146,289,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.032,0.428" Width="82" Visibility="Visible"/>
-            <Label Name="IDLabel" Content="Carrier ID" HorizontalAlignment="Left" Margin="146,256,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.032,0.428" Width="82" Visibility="Visible"/>
-            <Label Name="DepartureLabel" Content="Departure" HorizontalAlignment="Left" Margin="576,262,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.032,0.428" Width="82" Visibility="Visible"/>
-            <Label Name="FTLAvalLabel" Content="FTLAval" HorizontalAlignment="Left" Margin="576,292,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.032,0.428" Width="82" Visibility="Visible"/>
+            <Label Name="NameLabel" Content="Name" HorizontalAlignment="Left" Margin="146,286,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.032,0.428" Width="82" Visibility="Visible"/>
+            <Label Name="DepartureLabel" Content="Departure" HorizontalAlignment="Left" Margin="576,254,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.032,0.428" Width="82" Visibility="Visible"/>
+            <Label Name="FTLAvalLabel" Content="FTLAval" HorizontalAlignment="Left" Margin="576,289,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.032,0.428" Width="82" Visibility="Visible"/>
             <Label Name="LTLAvalLabel" Content="LTLAval" HorizontalAlignment="Left" Margin="576,322,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.032,0.428" Width="82" Visibility="Visible"/>
-            <Label Name="FTLRateLabel" Content="FTLRate" HorizontalAlignment="Left" Margin="358,289,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.032,0.428" Width="82" Visibility="Visible"/>
+            <Label Name="FTLRateLabel" Content="FTLRate" HorizontalAlignment="Left" Margin="358,288,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.032,0.428" Width="82" Visibility="Visible"/>
             <Label Name="LTLRateLabel" Content="LTLRate" HorizontalAlignment="Left" Margin="358,320,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.032,0.428" Width="82" Visibility="Visible"/>
-            <Label Name="ReeferChargeLabel" Content="ReeferCharge" HorizontalAlignment="Left" Margin="144,319,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.032,0.428" Width="82" Visibility="Visible"/>
+            <Label Name="ReeferChargeLabel" Content="ReeferCharge" HorizontalAlignment="Left" Margin="146,320,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.032,0.428" Width="82" Visibility="Visible"/>
             <TextBox Name="IPBox" HorizontalAlignment="Left" Height="23" Margin="246,67,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Visibility="Hidden"/>
             <TextBox Name="PortBox" HorizontalAlignment="Left" Height="23" Margin="246,110,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Visibility="Hidden"/>
             <Label Name="DatabaseConfig" Content="Database Configuration" FontWeight="Bold" HorizontalAlignment="Left" Margin="157,22,0,0" VerticalAlignment="Top" Width="225" Visibility="Hidden"/>
             <Label Name="IPLabel" Content="IP Address" HorizontalAlignment="Left" Margin="157,64,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.528,-0.41" Visibility="Hidden"/>
             <Label Name="PortLabel" Content="Port Number" HorizontalAlignment="Left" Margin="157,110,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.528,-0.41" Visibility="Hidden"/>
             <Label Name="LogLabel" Content="LogFile Configuration" FontWeight="Bold" HorizontalAlignment="Left" Margin="157,165,0,0" VerticalAlignment="Top" Width="225" Visibility="Hidden"/>
-            <TextBox Name="LogPath" HorizontalAlignment="Left" Height="23" Margin="246,209,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="473" Visibility="Hidden"/>
+            <TextBox Name="LogPath" HorizontalAlignment="Left" Height="23" Margin="246,209,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="473" Visibility="Hidden"/>
             <Label Name ="LogPathLabel" Content="Log Path" HorizontalAlignment="Left" Margin="157,206,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.528,-0.41" Visibility="Hidden"/>
-            <Button Name="SelectPath" Content="Select Path" HorizontalAlignment="Left" Margin="246,246,0,0" VerticalAlignment="Top" Width="75" Click="SelectPath_Click" Visibility="Hidden"/>
+            <Button Name="SelectPath" Content="Select Path" HorizontalAlignment="Left" Margin="246,246,0,0" VerticalAlignment="Top" Width="75" Click="SelectPath_Click" Visibility="Hidden" />
             <Button Name="IPUpdate" Content="Update" HorizontalAlignment="Left" Margin="398,67,0,0" VerticalAlignment="Top" Width="75" Visibility="Hidden"/>
             <Button Name="PortUpdate" Content="Update" HorizontalAlignment="Left" Margin="398,110,0,0" VerticalAlignment="Top" Width="75" Visibility="Hidden"/>
             <Button Name="PathUpdate" Content="Update" HorizontalAlignment="Left" Margin="326,246,0,0" VerticalAlignment="Top" Width="75" Click="PathUpdate_Click" Visibility="Hidden"/>
