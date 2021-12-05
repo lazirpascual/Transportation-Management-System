@@ -86,11 +86,11 @@ namespace Transportation_Management_System
         /// 
         /// \return Returns void
         /// 
-        public List<Carrier> GetCarriers(string originCity)
+        public List<CarrierCity> GetCarriers(string originCity, JobType jobType)
         {
             DAL db = new DAL();
-            List<Carrier> carriers = db.FilterCarriersByCity((City)Enum.Parse(typeof(City), originCity, true));
-            return carriers;
+            List<CarrierCity> carriersCities = db.FilterCarriersByCity((City)Enum.Parse(typeof(City), originCity, true), Convert.ToInt32(jobType));
+            return carriersCities;
         }
 
 

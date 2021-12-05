@@ -149,8 +149,8 @@ namespace Transportation_Management_System
         private void View_Carrier(object sender, RoutedEventArgs e)
         {
             Order currentOrder = (Order) OrdersList.SelectedItem;
-            List<Carrier> carriers = planner.GetCarriers(currentOrder.Origin.ToString());
-            CarrierSelection selectCarrier = new CarrierSelection(carriers);
+            List<CarrierCity> carrierCity = planner.GetCarriers(currentOrder.Origin.ToString(), currentOrder.JobType);
+            CarrierSelection selectCarrier = new CarrierSelection(carrierCity, currentOrder.JobType);
             selectCarrier.Show();
         }
 
