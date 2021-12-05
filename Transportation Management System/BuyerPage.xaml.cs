@@ -56,7 +56,7 @@ namespace Transportation_Management_System
         {
             resetStatus();
             Orders.Background = Brushes.LightSkyBlue;
-                         
+              
             List<Order> orderList = new List<Order>();
             orderList = buyer.GetOrders(2);             
             OrdersList.ItemsSource = orderList;

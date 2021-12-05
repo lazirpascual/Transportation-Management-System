@@ -19,92 +19,93 @@
                 </Border.Background>
                 <Image Source="logo_white.png" Margin="10,0,667,291"/>
             </Border>
-            <Button x:Name ="Button5" FontSize="16" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="650,363,0,0" Visibility="Hidden"/>
-            <Button x:Name ="Button4" FontSize="16" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="524,363,0,0" Visibility="Hidden"/>
-            <Button x:Name ="CarrierData" FontSize="16" Content="Carriers" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="277,363,0,0" Visibility="Hidden" Click="CarrierData_Click"/>
-            <Button x:Name ="AddButton" Content="Add" FontSize="16" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="272,363,0,0"  Visibility="Hidden"/>
-            <Button x:Name ="UpdateButton" Content="Update" FontSize="16" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="524,363,0,0" Visibility="Hidden"/>
-            <Button x:Name ="DeleteButton" Content="Delete" FontSize="16" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="398,363,0,0" Visibility="Hidden"/>
-            <Button x:Name ="RouteData" FontSize="16" Content="Routes" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="146,363,0,0" Visibility="Hidden" Click="RouteData_Click"/>
             <Button x:Name ="Backup" Content="Backup" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,209,0,0"/>
             <Button x:Name ="LogFiles" Content="Log File" Background="WhiteSmoke" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,261,0,0" Click="LogFiles_Click"/>
             <Button x:Name ="Database" Content="Database" Background="WhiteSmoke" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,312,0,0" Click="Database_Click"/>
             <Button x:Name ="Configuration" Content="General Config" Background="WhiteSmoke" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,363,0,0" Click="Configuration_Click"/>
             <TextBox  x:Name="AdminLog" AcceptsReturn="true" Margin="146,10,20,10" Visibility="Hidden" TextWrapping="WrapWithOverflow" Background="GhostWhite"/>
-            <ListView x:Name="CarrierDatabaseList" Margin="146,6,255,172" Visibility="Hidden" SelectionMode="Single" PreviewMouseLeftButtonUp="CarriersFieldsHander">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="Name" Width="160" DisplayMemberBinding="{Binding Name}" />
-                        <GridViewColumn Header="FTLRate" Width="60" DisplayMemberBinding="{Binding FTLRate}" />
-                        <GridViewColumn Header="LTLRate" Width="59" DisplayMemberBinding="{Binding LTLRate}" />
-                        <GridViewColumn Header="ReeferCharge" Width="79" DisplayMemberBinding="{Binding ReeferCharge}" />
-                    </GridView>
-                </ListView.View>
-            </ListView>
-            <ListView x:Name="CityDatabase" Visibility="Hidden" Margin="548,6,25,172" SelectionMode="Single" PreviewMouseLeftButtonUp="CarriersFieldsHander">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="Departure City" Width="92" DisplayMemberBinding="{Binding DepotCity}" />
-                        <GridViewColumn Header="FTLAval" Width="60" DisplayMemberBinding="{Binding FTLAval}" />
-                        <GridViewColumn Header="LTLAval" Width="60" DisplayMemberBinding="{Binding LTLAval}" />
-                    </GridView>
-                </ListView.View>
-            </ListView>
-            <ListView x:Name="RouteDatabase" Margin="144,4,36,172" Visibility="Hidden">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="Destination" Width="160" DisplayMemberBinding="{Binding Destination}" />
-                        <GridViewColumn Header="KM" Width="60" DisplayMemberBinding="{Binding WestCity}" />
-                        <GridViewColumn Header="Time" Width="60" DisplayMemberBinding="{Binding EastCity}" />
-                        <GridViewColumn Header="West" Width="160" DisplayMemberBinding="{Binding WestCity}" />
-                        <GridViewColumn Header="East" Width="160" DisplayMemberBinding="{Binding EastCity}" />
-                    </GridView>
-                </ListView.View>
-            </ListView>
-            <TextBox x:Name="CarrierName" HorizontalAlignment="Left" Height="23" Margin="228,289,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Visibility="Visible"/>
-            <TextBox x:Name="Departure" HorizontalAlignment="Left" Height="23" Margin="650,257,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Visibility="Visible"/>
-            <TextBox x:Name="FTLAval" HorizontalAlignment="Left" Height="23" Margin="650,289,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Visibility="Visible"/>
-            <TextBox x:Name="LTLAval" HorizontalAlignment="Left" Height="23" Margin="650,322,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Visibility="Visible"/>
-            <TextBox x:Name="FTLRate" HorizontalAlignment="Left" Height="23" Margin="420,289,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Visibility="Visible"/>
-            <TextBox x:Name="LTLRate" HorizontalAlignment="Left" Height="23" Margin="420,322,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Visibility="Visible"/>
-            <TextBox x:Name="Reefer" HorizontalAlignment="Left" Height="23" Margin="228,322,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Visibility="Visible"/>
-            <Label Name="NameLabel" Content="Name" HorizontalAlignment="Left" Margin="146,286,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.032,0.428" Width="82" Visibility="Visible"/>
-            <Label Name="DepartureLabel" Content="Departure" HorizontalAlignment="Left" Margin="576,254,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.032,0.428" Width="82" Visibility="Visible"/>
-            <Label Name="FTLAvalLabel" Content="FTLAval" HorizontalAlignment="Left" Margin="576,289,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.032,0.428" Width="82" Visibility="Visible"/>
-            <Label Name="LTLAvalLabel" Content="LTLAval" HorizontalAlignment="Left" Margin="576,322,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.032,0.428" Width="82" Visibility="Visible"/>
-            <Label Name="FTLRateLabel" Content="FTLRate" HorizontalAlignment="Left" Margin="358,288,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.032,0.428" Width="82" Visibility="Visible"/>
-            <Label Name="LTLRateLabel" Content="LTLRate" HorizontalAlignment="Left" Margin="358,320,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.032,0.428" Width="82" Visibility="Visible"/>
-            <Label Name="ReeferChargeLabel" Content="ReeferCharge" HorizontalAlignment="Left" Margin="146,320,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.032,0.428" Width="82" Visibility="Visible"/>
-            <TextBox Name="IPBox" HorizontalAlignment="Left" Height="23" Margin="246,67,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Visibility="Hidden"/>
-            <TextBox Name="PortBox" HorizontalAlignment="Left" Height="23" Margin="246,110,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Visibility="Hidden"/>
-            <Label Name="DatabaseConfig" Content="Database Configuration" FontWeight="Bold" HorizontalAlignment="Left" Margin="157,22,0,0" VerticalAlignment="Top" Width="225" Visibility="Hidden"/>
-            <Label Name="IPLabel" Content="IP Address" HorizontalAlignment="Left" Margin="157,64,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.528,-0.41" Visibility="Hidden"/>
-            <Label Name="PortLabel" Content="Port Number" HorizontalAlignment="Left" Margin="157,110,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.528,-0.41" Visibility="Hidden"/>
-            <Label Name="LogLabel" Content="LogFile Configuration" FontWeight="Bold" HorizontalAlignment="Left" Margin="157,165,0,0" VerticalAlignment="Top" Width="225" Visibility="Hidden"/>
-            <TextBox Name="LogPath" HorizontalAlignment="Left" Height="23" Margin="246,209,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="473" Visibility="Hidden"/>
-            <Label Name ="LogPathLabel" Content="Log Path" HorizontalAlignment="Left" Margin="157,206,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.528,-0.41" Visibility="Hidden"/>
-            <Button Name="SelectPath" Content="Select Path" HorizontalAlignment="Left" Margin="246,246,0,0" VerticalAlignment="Top" Width="75" Click="SelectPath_Click" Visibility="Hidden" />
-            <Button Name="IPUpdate" Content="Update" HorizontalAlignment="Left" Margin="398,67,0,0" VerticalAlignment="Top" Width="75" Visibility="Hidden"/>
-            <Button Name="PortUpdate" Content="Update" HorizontalAlignment="Left" Margin="398,110,0,0" VerticalAlignment="Top" Width="75" Visibility="Hidden"/>
-            <Button Name="PathUpdate" Content="Update" HorizontalAlignment="Left" Margin="326,246,0,0" VerticalAlignment="Top" Width="75" Click="PathUpdate_Click" Visibility="Hidden"/>
-            <Button Name="AddCarrier" Content="Add" HorizontalAlignment="Left" Margin="684,376,0,0" VerticalAlignment="Top" Width="75" Click="AddCarrier_Click" Visibility="Hidden"/>
-            <Button Name="UpdateCarrier" Content="Update" HorizontalAlignment="Left" Margin="246,376,0,0" VerticalAlignment="Top" Width="75" Click="UpdateCarrier_Click" Visibility="Hidden"/>
-            <Button Name="Clear" Content="Clear Fields" HorizontalAlignment="Left" Margin="160,376,0,0" VerticalAlignment="Top" Width="75" Click="ClearButton_Click" Visibility="Hidden"/>
-            <Button Name="DeleteCarrier" Content="Delete" HorizontalAlignment="Left" Margin="595,376,0,0" VerticalAlignment="Top" Width="75" Click="DeleteCarrier_Click" Visibility="Hidden"/>
-            <TextBox x:Name="RouteDestination" Visibility="Hidden" HorizontalAlignment="Left" Height="23" Margin="233,266,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-            <TextBox x:Name="Km" HorizontalAlignment="Left" Visibility="Hidden" Height="23" Margin="233,306,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-            <TextBox x:Name="Time" HorizontalAlignment="Left" Visibility="Hidden" Height="23" Margin="233,345,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-            <TextBox x:Name="West" HorizontalAlignment="Left" Visibility="Hidden" Height="23" Margin="476,266,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-            <TextBox x:Name="East" HorizontalAlignment="Left" Visibility="Hidden" Height="23" Margin="476,306,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-            <Label Content="Destination" Margin="146,265,549,0" VerticalAlignment="Top" Visibility="Hidden"/>
-            <Label Content="KM" Margin="144,302,551,0" VerticalAlignment="Top" Visibility="Hidden"/>
-            <Label Content="Time" Margin="144,340,551,0" VerticalAlignment="Top" Visibility="Hidden"/>
-            <Label Content="West" Margin="401,265,294,0" VerticalAlignment="Top" Visibility="Hidden"/>
-            <Label Content="East" Margin="401,304,294,0" VerticalAlignment="Top" Visibility="Hidden"/>
-            <Button Name="AddRoute" Content="Add" HorizontalAlignment="Left" Margin="677,376,0,0" VerticalAlignment="Top" Width="75" Click="AddRoute_Click" Visibility="Hidden"/>
-            <Button Name="UpdateRoute" Content="Update" HorizontalAlignment="Left" Margin="677,300,0,0" VerticalAlignment="Top" Width="75" Click="UpdateRoute_Click" Visibility="Hidden"/>
-            <Button Name="ClearRoute" Content="Clear Fields" HorizontalAlignment="Left" Margin="677,265,0,0" VerticalAlignment="Top" Width="75" Click="ClearRoute_Click" Visibility="Hidden"/>
-            <Button Name="DeleteRoute" Content="Delete" HorizontalAlignment="Left" Margin="677,338,0,0" VerticalAlignment="Top" Width="75" Click="DeleteRoute_Click" Visibility="Hidden"/>
+            <Grid x:Name="GeneralGrid" Visibility="Hidden">
+                <TextBox Name="IPBox" HorizontalAlignment="Left" Height="23" Margin="246,67,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <TextBox Name="PortBox" HorizontalAlignment="Left" Height="23" Margin="246,110,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <Label Name="DatabaseConfig" Content="Database Configuration" FontWeight="Bold" HorizontalAlignment="Left" Margin="157,22,0,0" VerticalAlignment="Top" Width="225"/>
+                <Label Name="IPLabel" Content="IP Address" HorizontalAlignment="Left" Margin="157,64,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.528,-0.41"/>
+                <Label Name="PortLabel" Content="Port Number" HorizontalAlignment="Left" Margin="157,110,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.528,-0.41"/>
+                <Label Name="LogLabel" Content="LogFile Configuration" FontWeight="Bold" HorizontalAlignment="Left" Margin="157,165,0,0" VerticalAlignment="Top" Width="225"/>
+                <TextBox Name="LogPath" HorizontalAlignment="Left" Height="23" Margin="246,209,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="473"/>
+                <Label Name ="LogPathLabel" Content="Log Path" HorizontalAlignment="Left" Margin="157,206,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.528,-0.41"/>
+                <Button Name="SelectPath" Content="Select Path" HorizontalAlignment="Left" Margin="246,246,0,0" VerticalAlignment="Top" Width="75" Click="SelectPath_Click"/>
+                <Button Name="IPUpdate" Content="Update" HorizontalAlignment="Left" Margin="398,67,0,0" VerticalAlignment="Top" Width="75"/>
+                <Button Name="PortUpdate" Content="Update" HorizontalAlignment="Left" Margin="398,110,0,0" VerticalAlignment="Top" Width="75"/>
+                <Button Name="PathUpdate" Content="Update" HorizontalAlignment="Left" Margin="326,246,0,0" VerticalAlignment="Top" Width="75" Click="PathUpdate_Click"/>
+            </Grid>
+            <Grid x:Name="DatabaseButtons" Visibility="Hidden">
+                <Button x:Name ="CarrierData" FontSize="16" Content="Carriers" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="146,312,0,0" Click="CarrierData_Click"/>
+                <Button x:Name ="RouteData" FontSize="16" Content="Routes" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="146,363,0,0" Click="RouteData_Click"/>
+            </Grid>
+            <Grid x:Name="CarrierGrid" Visibility="Hidden">
+                <TextBox x:Name="CarrierName" HorizontalAlignment="Left" Height="23" Margin="228,289,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <TextBox x:Name="Departure" HorizontalAlignment="Left" Height="23" Margin="650,257,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <TextBox x:Name="FTLAval" HorizontalAlignment="Left" Height="23" Margin="650,289,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <TextBox x:Name="LTLAval" HorizontalAlignment="Left" Height="23" Margin="650,322,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <TextBox x:Name="FTLRate" HorizontalAlignment="Left" Height="23" Margin="420,289,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <TextBox x:Name="LTLRate" HorizontalAlignment="Left" Height="23" Margin="420,322,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <TextBox x:Name="Reefer" HorizontalAlignment="Left" Height="23" Margin="228,322,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <Label Name="NameLabel" Content="Name" HorizontalAlignment="Left" Margin="146,286,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.032,0.428" Width="82"/>
+                <Label Name="DepartureLabel" Content="Departure" HorizontalAlignment="Left" Margin="576,254,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.032,0.428" Width="82"/>
+                <Label Name="FTLAvalLabel" Content="FTLAval" HorizontalAlignment="Left" Margin="576,289,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.032,0.428" Width="82"/>
+                <Label Name="LTLAvalLabel" Content="LTLAval" HorizontalAlignment="Left" Margin="576,322,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.032,0.428" Width="82"/>
+                <Label Name="FTLRateLabel" Content="FTLRate" HorizontalAlignment="Left" Margin="358,288,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.032,0.428" Width="82"/>
+                <Label Name="LTLRateLabel" Content="LTLRate" HorizontalAlignment="Left" Margin="358,320,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.032,0.428" Width="82"/>
+                <Label Name="ReeferChargeLabel" Content="ReeferCharge" HorizontalAlignment="Left" Margin="146,320,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.032,0.428" Width="82"/>
+                <Button Name="AddCarrier" Content="Add" HorizontalAlignment="Left" Margin="684,376,0,0" VerticalAlignment="Top" Width="75" Click="AddCarrier_Click"/>
+                <Button Name="UpdateCarrier" Content="Update" HorizontalAlignment="Left" Margin="246,376,0,0" VerticalAlignment="Top" Width="75" Click="UpdateCarrier_Click"/>
+                <Button Name="Clear" Content="Clear Fields" HorizontalAlignment="Left" Margin="160,376,0,0" VerticalAlignment="Top" Width="75" Click="ClearButton_Click"/>
+                <Button Name="DeleteCarrier" Content="Delete" HorizontalAlignment="Left" Margin="595,376,0,0" VerticalAlignment="Top" Width="75" Click="DeleteCarrier_Click"/>
+                <ListView x:Name="CarrierDatabaseList" Margin="146,6,255,172" SelectionMode="Single" PreviewMouseLeftButtonUp="CarriersFieldsHander">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Name" Width="160" DisplayMemberBinding="{Binding Name}" />
+                            <GridViewColumn Header="FTLRate" Width="60" DisplayMemberBinding="{Binding FTLRate}" />
+                            <GridViewColumn Header="LTLRate" Width="59" DisplayMemberBinding="{Binding LTLRate}" />
+                            <GridViewColumn Header="ReeferCharge" Width="79" DisplayMemberBinding="{Binding ReeferCharge}" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+                <ListView x:Name="CityDatabase" Margin="548,6,25,172" SelectionMode="Single" PreviewMouseLeftButtonUp="CarriersFieldsHander">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Departure City" Width="92" DisplayMemberBinding="{Binding DepotCity}" />
+                            <GridViewColumn Header="FTLAval" Width="60" DisplayMemberBinding="{Binding FTLAval}" />
+                            <GridViewColumn Header="LTLAval" Width="60" DisplayMemberBinding="{Binding LTLAval}" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Grid>
+            <Grid x:Name="RouteGrid" Visibility="Hidden">
+                <TextBox x:Name="RouteDestination" HorizontalAlignment="Left" Height="23" Margin="233,266,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <TextBox x:Name="Distance" HorizontalAlignment="Left" Height="23" Margin="233,306,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <TextBox x:Name="Time" HorizontalAlignment="Left" Height="23" Margin="233,345,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <TextBox x:Name="West" HorizontalAlignment="Left" Height="23" Margin="476,266,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <TextBox x:Name="East" HorizontalAlignment="Left" Height="23" Margin="476,306,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <Label Content="Destination" Margin="146,265,549,0" VerticalAlignment="Top"/>
+                <Label Content="Distance" Margin="144,302,551,0" VerticalAlignment="Top"/>
+                <Label Content="Time" Margin="144,340,551,0" VerticalAlignment="Top"/>
+                <Label Content="West" Margin="401,265,294,0" VerticalAlignment="Top"/>
+                <Label Content="East" Margin="401,304,294,0" VerticalAlignment="Top"/>
+                <Button Name="UpdateRoute" Content="Update" HorizontalAlignment="Left" Margin="673,379,0,0" VerticalAlignment="Top" Width="75" Click="UpdateRoute_Click"/>
+                <Button Name="ClearRoute" Content="Clear Fields" HorizontalAlignment="Left" Margin="673,343,0,0" VerticalAlignment="Top" Width="75" Click="ClearRoute_Click"/>
+                <ListView x:Name="RouteDatabase" Margin="144,4,36,172">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Destination" Width="160" DisplayMemberBinding="{Binding Destination}" />
+                            <GridViewColumn Header="Distance" Width="60" DisplayMemberBinding="{Binding WestCity}" />
+                            <GridViewColumn Header="Time" Width="60" DisplayMemberBinding="{Binding EastCity}" />
+                            <GridViewColumn Header="West" Width="160" DisplayMemberBinding="{Binding WestCity}" />
+                            <GridViewColumn Header="East" Width="160" DisplayMemberBinding="{Binding EastCity}" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Grid>
         </Grid>
     </Viewbox>
 </Window>

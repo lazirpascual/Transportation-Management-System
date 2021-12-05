@@ -407,6 +407,113 @@ namespace Transportation_Management_System
 
 
         ///
+        /// \brief Inserts a new invoice in the Invoice table
+        ///
+        /// \param orderObj  - <b>Order</b> - An Order object with all its information
+        /// 
+        public void CreateInvoice(Order orderObj) 
+        {
+            Trip tripObj = new Trip();
+            long orderID = orderObj.OrderID;
+            double totalCost = 0.0;
+            int days = tripObj.TotalTime;
+            string clientName = orderObj.ClientName;
+            string origin = (orderObj.Origin).ToString();
+            string destination = (orderObj.Destination).ToString();
+            Random randNum = new Random();
+            int invoiceNum = randNum.Next(0, 100);
+
+            string invoiceText = String.Format("Sales Invoice\nInvoice Number: {0}\n\nOrder Number: {1}\nClient: {2}\nOrigin City: {3}\nDestination City: {4}\nDays taken: {5}\n\n\nTotal: {6}\n", invoiceNum, clientName, origin, destination, days, totalCost);
+            string invoiceDirectory = Directory.GetCurrentDirectory();
+            string invoiceName = invoiceDirectory +"\\Invoice"+ invoiceNum + ".txt";
+            try
+            {
+                using(StreamWriter writer = new StreamWriter(invoiceName))
+                {
+                    writer.Write(invoiceText);
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+        }
+
+
+        ///
+        /// \brief Update an existing route's attributes
+        ///
+        /// \param newRoute  - <b>Route</b> - The new route information to be used in the update
+        /// 
+        public void UpdateRoute(Route newRoute)
+        {
+            string sql = "UPDATE Route SET Distance=@Distance, Time=@Time, WHERE Destination=@Destination";
+
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(this.ToString()))
+                {
+                    conn.Open();
+
+                    using (MySqlCommand cmd = new MySqlCommand(sql, conn))
+                    {
+                        // Populate all arguments in the insert
+                        cmd.Parameters.AddWithValue("@Distance", newRoute.Distance);
+                        cmd.Parameters.AddWithValue("@Time", newRoute.Time);
+                        cmd.Parameters.AddWithValue("@Destination", newRoute.Destination);
+                        
+                        // Execute the insertion and check the number of rows affected
+                        // An exception will be thrown if the column is repeated
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Logger.Log(e.Message, LogLevel.Error);
+                throw;
+            }
+        }
+
+
+        public List<Route> GetRoute()
+        {
+            List<Route> routeList= new List<Route>();
+            string qSQL = "SELECT * FROM Route";
+            try
+            {
+                string connectionString = this.ToString();
+                using (MySqlConnection conn = new MySqlConnection(connectionString))
+                {
+                    conn.Open();
+                    using (MySqlCommand cmd = new MySqlCommand(qSQL, conn))
+                    {
+                        MySqlDataReader rdr = cmd.ExecuteReader();
+                        if (rdr.HasRows)
+                        {
+                            while (rdr.Read())
+                            {
+                                Route route = new Route();
+                                route.Destination= rdr["Destination"].ToString();
+                                route.Distance= int.Parse(rdr["Distance"].ToString());
+                                route.Time = double.Parse(rdr["Time"].ToString());
+                                route.West= rdr["West"].ToString();
+                                route.East= rdr["East"].ToString();
+                                routeList.Add(route);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return routeList;
+        }
+
+        ///
         /// \brief Inserts a new carrier in the Carrier table
         ///
         /// \param carrier  - <b>Carrier</b> - An Carrier object with all their information
