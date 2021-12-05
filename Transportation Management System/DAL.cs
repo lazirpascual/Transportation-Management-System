@@ -1123,6 +1123,41 @@ namespace Transportation_Management_System
             return orders;
         }
 
+
+        ///
+        /// \brief Set an order to completed
+        /// 
+        public void CompleteOrder(Order order)
+        {
+            string sql = "UPDATE Orders SET IsCompleted=1, OrderCompletedDate=@OrderCompletedDate WHERE OrderID=@OrderID";
+
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(this.ToString()))
+                {
+                    conn.Open();
+
+                    using (MySqlCommand cmd = new MySqlCommand(sql, conn))
+                    {
+                        order.OrderCompletionDate = DateTime.Now;
+
+                        // Populate all arguments in the insert
+                        cmd.Parameters.AddWithValue("@OrderID", order.OrderID);
+                        cmd.Parameters.AddWithValue("@OrderCompletedDate", order.OrderCompletionDate.ToString("yyyy-MM-dd H:mm:ss"));
+
+                        // Execute the insertion and check the number of rows affected
+                        // An exception will be thrown if the column is repeated
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Logger.Log(e.Message, LogLevel.Error);
+                throw;
+            }
+        }
+
         ///
         /// \brief Return a list of all active customers in our system
         /// 

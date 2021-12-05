@@ -67,7 +67,12 @@ namespace Transportation_Management_System
         /// 
         /// \return Returns void
         /// 
-        public void CompleteOrder() { }
+        public void CompleteOrder(Order order)
+        {
+            DAL db = new DAL();
+
+
+        }
 
 
 
