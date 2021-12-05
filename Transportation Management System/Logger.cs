@@ -206,7 +206,19 @@ namespace Transportation_Management_System
         */
         public static string GetCurrentLogDirectory()
         {
-            return ConfigurationManager.AppSettings.Get("LogDirectory");
+            string dict = ConfigurationManager.AppSettings.Get("LogDirectory");
+            string logFileName = ConfigurationManager.AppSettings.Get("LogFileName");
+
+            if (dict == "")
+            {
+                dict = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName);
+            }
+            if (logFileName == "")
+            {
+                logFileName = "tms.log";
+            }
+
+            return String.Format($"{dict}\\{logFileName}"); ;
         }
 
 

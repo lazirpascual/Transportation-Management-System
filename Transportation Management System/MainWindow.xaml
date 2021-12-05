@@ -29,7 +29,7 @@
                 <TextBlock Text="Transportation Management System" FontSize="18" Foreground="DarkBlue" FontFamily="Bernard MT Condensed" HorizontalAlignment="center" Margin="0,0,0,20"/>
                 <Image Source="logo_white.png" Height="125" Margin="66,0,72,0" Width="154"/>
             </StackPanel>
-            <StackPanel Grid.Row="1">
+            <StackPanel Grid.Row="1" FocusManager.FocusedElement="{Binding ElementName=UsernameText}">
                 <StackPanel Orientation="Horizontal" Margin="50,10,0,0">
                     <TextBlock FontFamily="Elephant" FontSize="16" Foreground="DarkBlue" Text="Username" Background="Transparent" Width="100" HorizontalAlignment="Right"/>
                     <TextBox x:Name="UsernameText" FontFamily="Verdana" FontSize="15" HorizontalAlignment="Center" Background="WhiteSmoke" BorderThickness="0" Width="185" Height="25"/>
@@ -39,7 +39,7 @@
                     <PasswordBox x:Name="PasswordText" FontFamily="Verdana" FontWeight="Light" FontSize="15" HorizontalAlignment="Center" Background="WhiteSmoke" BorderThickness="0" Width="185" Height="25"/>
                 </StackPanel>
                 <StackPanel Margin="0,25,45,0">
-                    <Button x:Name="SigninButton" Content="Sign in" Foreground="DarkBlue" FontSize="14" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Right" Width="60" Background="WhiteSmoke" Click="Signin_Button_Click"/>
+                    <Button x:Name="SigninButton" Content="Sign in" Foreground="DarkBlue" IsDefault="True"  FontSize="14" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Right" Width="60" Background="WhiteSmoke" Click="Signin_Button_Click"/>
                 </StackPanel>
             </StackPanel>
         </Grid>

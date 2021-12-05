@@ -269,8 +269,14 @@ namespace Transportation_Management_System
                 if ((sender as System.Windows.Controls.ListView).Name == "CarrierDatabaseList")
                 {
                     DAL db = new DAL();
-                    List<CarrierCity> carriersList = db.FilterCitiesByCarrier(selectedCarrier.Name);
-                    CityDatabase.ItemsSource = carriersList;
+                    try
+                    {
+                        List<CarrierCity> carriersList = db.FilterCitiesByCarrier(selectedCarrier.Name);
+                        CityDatabase.ItemsSource = carriersList;
+                    }
+                    catch (Exception) { }
+                    
+                    
                 }
 
                 CarrierID.Text = "";
@@ -307,6 +313,11 @@ namespace Transportation_Management_System
             int newFTL;
             int newLTL;
 
+            // create a carrier object with the values
+            Carrier carrier = null;
+
+            CarrierCity carrierCity = null;
+
             try
             {
                 // Get the carrier information from the form
@@ -315,11 +326,22 @@ namespace Transportation_Management_System
                 _LTLRate = double.Parse(LTLRate.Text);
                 reefer = double.Parse(Reefer.Text);
 
-                // Get the city and rates information
-                newDestination = Departure.Text;
-                newCity = (City)Enum.Parse(typeof(City), newDestination, true);
-                newFTL = int.Parse(FTLAval.Text);
-                newLTL = int.Parse(LTLAval.Text);
+
+                carrier = new Carrier(carrierName, _FTLRate, _LTLRate, reefer);
+
+                // If changing the city
+                if (CarrierDatabaseList.SelectedItems.Count == 1 && CityDatabase.SelectedItems.Count == 1)
+                {
+                    // Get the city and rates information
+                    newDestination = Departure.Text;
+                    newCity = (City)Enum.Parse(typeof(City), newDestination, true);
+                    newFTL = int.Parse(FTLAval.Text);
+                    newLTL = int.Parse(LTLAval.Text);
+
+                    carrierCity = new CarrierCity(carrier, newCity, newFTL, newLTL);
+
+                    ///// Get ID
+                }
             }
             catch (Exception)
             {
@@ -328,46 +350,30 @@ namespace Transportation_Management_System
             }
 
 
-            // create a carrier object with the values
-            Carrier carrier = new Carrier(carrierName, _FTLRate, _LTLRate, reefer);
-
-            CarrierCity carrierCity = new CarrierCity(carrier, newCity, newFTL, newLTL);
-
             DAL db = new DAL();
 
-            // If only a carrier is selected
-            if (CarrierDatabaseList.SelectedItems.Count == 1 && CityDatabase.SelectedItems.Count == 0)
+            try
             {
-                try
+                // If only a carrier is selected
+                if (CarrierDatabaseList.SelectedItems.Count == 1 && CityDatabase.SelectedItems.Count == 0)
                 {
                     db.UpdateCarrier(carrier);
+
                 }
-                // Inform the user if the operation fails
-                catch (ArgumentException exc)
-                {
-                    System.Windows.MessageBox.Show(exc.Message);
-                }
-                catch (Exception)
-                {
-                    System.Windows.MessageBox.Show("Something went wrong. Please try again.");
-                }
-            }
-            // If a city and the carrier is selected
-            else if (CarrierDatabaseList.SelectedItems.Count == 1 && CityDatabase.SelectedItems.Count == 1)
-            {
-                try
+                // If a city and the carrier is selected
+                else if (CarrierDatabaseList.SelectedItems.Count == 1 && CityDatabase.SelectedItems.Count == 1)
                 {
                     db.UpdateCarrierCity(carrierCity);
                 }
-                // Inform the user if the operation fails
-                catch (ArgumentException exc)
-                {
-                    System.Windows.MessageBox.Show(exc.Message);
-                }
-                catch (Exception)
-                {
-                    System.Windows.MessageBox.Show("Something went wrong. Please try again.");
-                }
+            }
+            // Inform the user if the operation fails
+            catch (ArgumentException exc)
+            {
+                System.Windows.MessageBox.Show(exc.Message);
+            }
+            catch (Exception)
+            {
+                System.Windows.MessageBox.Show("Something went wrong. Please try again.");
             }
 
         }
@@ -407,45 +413,39 @@ namespace Transportation_Management_System
 
             // create a carrier object with the values
             Carrier carrier = new Carrier(carrierName, _FTLRate, _LTLRate, reefer);
+            
+            
+            // GET ID
+            //////carrier.CarrierID
 
             CarrierCity carrierCity = new CarrierCity(carrier, newCity, newFTL, newLTL);
 
             DAL db = new DAL();
 
-            // If only a carrier is selected
-            if (CarrierDatabaseList.SelectedItems.Count == 1 && CityDatabase.SelectedItems.Count == 0)
+
+            try
             {
-                try
+                // If only a carrier is selected
+                if (CarrierDatabaseList.SelectedItems.Count == 1 && CityDatabase.SelectedItems.Count == 0)
                 {
-                    db.DeactivateCarrier(carrier);
+                    db.DeleteCarrier(carrier);
                 }
-                // Inform the user if the operation fails
-                catch (ArgumentException exc)
-                {
-                    System.Windows.MessageBox.Show(exc.Message);
-                }
-                catch (Exception)
-                {
-                    System.Windows.MessageBox.Show("Something went wrong. Please try again.");
-                }
-            }
-            // If a city and the carrier is selected
-            else if (CarrierDatabaseList.SelectedItems.Count == 1 && CityDatabase.SelectedItems.Count == 1)
-            {
-                try
+                // If a city and the carrier is selected
+                else if (CarrierDatabaseList.SelectedItems.Count == 1 && CityDatabase.SelectedItems.Count == 1)
                 {
                     db.RemoveCarrierCity(carrierCity);
                 }
-                // Inform the user if the operation fails
-                catch (ArgumentException exc)
-                {
-                    System.Windows.MessageBox.Show(exc.Message);
-                }
-                catch (Exception)
-                {
-                    System.Windows.MessageBox.Show("Something went wrong. Please try again.");
-                }
             }
+            // Inform the user if the operation fails
+            catch (ArgumentException exc)
+            {
+                System.Windows.MessageBox.Show(exc.Message);
+            }
+            catch (Exception)
+            {
+                System.Windows.MessageBox.Show("Something went wrong. Please try again.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            
         }
 
         private void AddCarrier_Click(object sender, RoutedEventArgs e)
@@ -461,6 +461,10 @@ namespace Transportation_Management_System
             int newFTL;
             int newLTL;
 
+
+            Carrier newCarrier = null;
+            CarrierCity newCarrierCity = null;
+
             try
             {
                 // Get the carrier information from the form
@@ -469,22 +473,27 @@ namespace Transportation_Management_System
                 _LTLRate = double.Parse(LTLRate.Text);
                 reefer = double.Parse(Reefer.Text);
 
-                // If both selected
-                if (CarrierDatabaseList.SelectedItems.Count == 1 && CityDatabase.SelectedItems.Count == 1)
-                {
-                    // Get the city and rates information
-                    newDestination = Departure.Text;
-                    newCity = (City)Enum.Parse(typeof(City), newDestination, true);
-                    newFTL = int.Parse(FTLAval.Text);
-                    newLTL = int.Parse(LTLAval.Text);
-                }
+                // create a carrier object with the values
+                newCarrier = new Carrier(carrierName, _FTLRate, _LTLRate, reefer);
+
+                
+                // Get the city and rates information
+                newDestination = Departure.Text;
+                newCity = (City)Enum.Parse(typeof(City), newDestination, true);
+                newFTL = int.Parse(FTLAval.Text);
+                newLTL = int.Parse(LTLAval.Text);
+
+                newCarrierCity = new CarrierCity(newCarrier, newCity, newFTL, newLTL);
+
 
             }
+
             catch (Exception)
             {
-                System.Windows.MessageBox.Show("Please, make sure that the fields were filled appropriately.");
+                System.Windows.MessageBox.Show("Please, make sure that the fields were filled appropriately.", "Attention", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
+
 
 
             // create a carrier object with the values
@@ -492,41 +501,25 @@ namespace Transportation_Management_System
 
             //CarrierCity newCarrierCity = new CarrierCity(newCarrier, newCity, newFTL, newLTL);
 
+
+            
             DAL db = new DAL();
 
-            // If a city and the carrier is selected
-            if (CarrierDatabaseList.SelectedItems.Count == 1 && CityDatabase.SelectedItems.Count == 1)
+            try
             {
-                try
-                {
-                    //db.CreateCarrierCity(newCarrierCity);
-                }
-                // Inform the user if the operation fails
-                catch (ArgumentException exc)
-                {
-                    System.Windows.MessageBox.Show(exc.Message);
-                }
-                catch (Exception)
-                {
-                    System.Windows.MessageBox.Show("Something went wrong. Please try again.");
-                }
+
+                newCarrierCity.Carrier.CarrierID = db.CreateCarrier(newCarrier);
+                db.CreateCarrierCity(newCarrierCity);
+
             }
-            // If the user is creating a carrier
-            else
+            // Inform the user if the operation fails
+            catch (ArgumentException exc)
             {
-                try
-                {
-                    db.CreateCarrier(newCarrier);
-                }
-                // Inform the user if the operation fails
-                catch (ArgumentException exc)
-                {
-                    System.Windows.MessageBox.Show(exc.Message);
-                }
-                catch (Exception)
-                {
-                    System.Windows.MessageBox.Show("Something went wrong. Please try again.");
-                }
+                System.Windows.MessageBox.Show(exc.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (Exception)
+            {
+                System.Windows.MessageBox.Show("Something went wrong. Please try again.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
         }
