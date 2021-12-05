@@ -161,6 +161,7 @@ namespace Transportation_Management_System
             // reset buttons status
             AcceptClient.Visibility = Visibility.Hidden;
             ActiveBox.Visibility = Visibility.Hidden;
+            CompletedBox.Visibility = Visibility.Hidden;
 
             // reset previous lists
             ContractsList.Visibility = Visibility.Hidden;

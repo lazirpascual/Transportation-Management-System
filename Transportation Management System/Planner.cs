@@ -74,6 +74,20 @@ namespace Transportation_Management_System
         ///
         /// \brief Used to confirm and finalize an order. Completed orders are marked for follow up from the buyer.
         /// 
+        /// \return Returns void
+        /// 
+        public List<Carrier> GetCarriers(string originCity)
+        {
+            DAL db = new DAL();
+            List<Carrier> carriers = db.FilterCarriersByCity((City)Enum.Parse(typeof(City), originCity, true));
+            return carriers;
+        }
+
+
+
+        ///
+        /// \brief Used to confirm and finalize an order. Completed orders are marked for follow up from the buyer.
+        /// 
         /// \param period  - <b>string</b> - current period (all time or past 2 weeks) for which the invoice will be generated
         ///
         /// \return Returns summmary report of invoice data
