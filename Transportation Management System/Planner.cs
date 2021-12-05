@@ -91,26 +91,28 @@ namespace Transportation_Management_System
 
 
         ///
-        /// \brief Used to confirm and finalize an order. Completed orders are marked for follow up from the buyer.
+        /// \brief Used to display a list of invoices based on time period
         /// 
-        /// \param period  - <b>string</b> - current period (all time or past 2 weeks) for which the invoice will be generated
+        /// \param timeperiod  - <b>bool</b> - true = past 2 weeks only, false = all time.
         ///
         /// \return Returns summmary report of invoice data
         /// 
-        //public List<Invoice> GenerateSummaryReport(bool timePeriod)
-        //{
-        //    DAL invoiceList = new DAL();
-        //    Buyer buyer = new Buyer();
+        public List<Invoice> GenerateSummaryReport(bool timePeriod)
+        {
+            DAL invoiceList = new DAL();
+            Buyer buyer = new Buyer();
 
-        //    List<Invoice> invoices = invoiceList.FilterCompletedOrdersByTime(timePeriod);
-        //    foreach (var inv in invoices)
-        //    {
-                
-        //    }
+            List<Order> orders = invoiceList.FilterCompletedOrdersByTime(timePeriod);
+            List<Invoice> invoices = new List<Invoice>();
+            foreach (var inv in orders)
+            {
 
-        //    return invoices;
-        
-        //}
+                invoices.Add(buyer.CreateInvoice(inv));
+            }
+
+            return invoices;
+
+        }
     }
 
 }
