@@ -172,19 +172,19 @@ namespace Transportation_Management_System
                 DeleteCarrier.Visibility = Visibility.Visible;
 
                 Carrier selectedCarrier = (Carrier)CarrierDatabaseList.SelectedItem;
-
-                if ((sender as System.Windows.Controls.ListView).Name == "CarrierDatabaseList")
+                    
+                
+                try
                 {
-                    DAL db = new DAL();
-                    try
+                    if ((sender as System.Windows.Controls.ListView).Name == "CarrierDatabaseList")
                     {
+                        DAL db = new DAL();
+
                         List<CarrierCity> carriersList = db.FilterCitiesByCarrier(selectedCarrier.Name);
                         CityDatabase.ItemsSource = carriersList;
                     }
-                    catch (Exception) { }
-                    
-                    
                 }
+                catch (Exception) { }
 
                 CarrierName.Text = selectedCarrier.Name;
                 FTLRate.Text = selectedCarrier.FTLRate.ToString();
@@ -565,6 +565,32 @@ namespace Transportation_Management_System
             catch (Exception)
             {
                 System.Windows.MessageBox.Show("Something went wrong. Please try again.");
+            }
+        }
+
+        private void RouteDatabase_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            ClearButton_Click(sender, e);
+
+            // If no option is selected
+            if (RouteDatabase.SelectedItems.Count == 0)
+            {
+                UpdateRoute.Visibility = Visibility.Hidden;
+
+                RouteDatabase.ItemsSource = new List<Route>();
+            }
+            else
+            {
+                UpdateRoute.Visibility = Visibility.Visible;
+
+                Route selectedRoute = (Route)RouteDatabase.SelectedItem;
+
+                RouteDestination.Text = selectedRoute.Destination.ToString();
+                Distance.Text = selectedRoute.Distance.ToString();
+                Time.Text = selectedRoute.Time.ToString();
+                West.Text = selectedRoute.West.ToString();
+                East.Text = selectedRoute.East.ToString();
+
             }
         }
     }
