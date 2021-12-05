@@ -31,7 +31,6 @@ namespace Transportation_Management_System
             carrier = new Carrier();
             resetStatus();
             ConfigurationVisible();
-
         }
 
         private void LogFiles_Click(object sender, RoutedEventArgs e)
@@ -45,8 +44,8 @@ namespace Transportation_Management_System
             if (logFileName != null)
             {
                 AdminLog.Text = File.ReadAllText(logFileName);
-            }                        
-                        
+            }
+
         }
 
         private void Configuration_Click(object sender, RoutedEventArgs e)
@@ -77,11 +76,11 @@ namespace Transportation_Management_System
         private void PathUpdate_Click(object sender, RoutedEventArgs e)
         {
             UpdatePath();
-           
+
         }
 
         private void ChangeLogDirectory()
-        {        
+        {
             //Variables
             FolderBrowserDialog dialog = new FolderBrowserDialog();
             string path = null;
@@ -95,14 +94,14 @@ namespace Transportation_Management_System
             {
                 path = dialog.SelectedPath;
             }
-           
+
             LogPath.Text = path;
 
         }
 
         private void UpdatePath()
         {
-            string newPath= LogPath.Text;
+            string newPath = LogPath.Text;
 
             bool result = admin.ChangeLogDirectory(newPath);
 
@@ -115,7 +114,7 @@ namespace Transportation_Management_System
                 System.Windows.MessageBox.Show("Logfile path was not updated, try again", "LogFile Path", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-        
+
         private void resetStatus()
         {
             // reset buttons
@@ -177,6 +176,8 @@ namespace Transportation_Management_System
             IPUpdate.Visibility = Visibility.Hidden;
             PortUpdate.Visibility = Visibility.Hidden;
             PathUpdate.Visibility = Visibility.Hidden;
+
+            //MainGrid.Visibility = Visibility.Hidden;
         }
 
         private void CarrierDatabaseVisible()
@@ -205,7 +206,7 @@ namespace Transportation_Management_System
             ReeferChargeLabel.Visibility = Visibility.Visible;
 
         }
-        
+
         private void ConfigurationVisible()
         {
             AdminLog.Visibility = Visibility.Visible;
@@ -222,7 +223,9 @@ namespace Transportation_Management_System
             IPUpdate.Visibility = Visibility.Visible;
             PortUpdate.Visibility = Visibility.Visible;
             PathUpdate.Visibility = Visibility.Visible;
-            LogPath.Text = Logger.GetCurrentLogDirectory();
+
+            string logPath = Logger.GetCurrentLogDirectory();
+            LogPath.Text = logPath;
 
         }
 
@@ -260,9 +263,9 @@ namespace Transportation_Management_System
             }
             else
             {
-                Carrier selectedCarrier = (Carrier) CarrierDatabaseList.SelectedItem;
+                Carrier selectedCarrier = (Carrier)CarrierDatabaseList.SelectedItem;
 
-                if((sender as System.Windows.Controls.ListView).Name == "CarrierDatabaseList")
+                if ((sender as System.Windows.Controls.ListView).Name == "CarrierDatabaseList")
                 {
                     DAL db = new DAL();
                     List<CarrierCity> carriersList = db.FilterCitiesByCarrier(selectedCarrier.Name);
@@ -474,7 +477,7 @@ namespace Transportation_Management_System
                     newFTL = int.Parse(FTLAval.Text);
                     newLTL = int.Parse(LTLAval.Text);
                 }
-                    
+
             }
             catch (Exception)
             {
@@ -486,8 +489,8 @@ namespace Transportation_Management_System
             // create a carrier object with the values
             Carrier newCarrier = new Carrier(carrierName, _FTLRate, _LTLRate, reefer);
 
-            CarrierCity newCarrierCity = new CarrierCity(newCarrier, newCity, newFTL, newLTL);
-            
+            //CarrierCity newCarrierCity = new CarrierCity(newCarrier, newCity, newFTL, newLTL);
+
             DAL db = new DAL();
 
             // If a city and the carrier is selected
@@ -495,7 +498,7 @@ namespace Transportation_Management_System
             {
                 try
                 {
-                    db.CreateCarrierCity(newCarrierCity);
+                    //db.CreateCarrierCity(newCarrierCity);
                 }
                 // Inform the user if the operation fails
                 catch (ArgumentException exc)
@@ -524,7 +527,7 @@ namespace Transportation_Management_System
                     System.Windows.MessageBox.Show("Something went wrong. Please try again.");
                 }
             }
-            
+
         }
 
         private void CarrierData_Click(object sender, RoutedEventArgs e)
@@ -583,12 +586,47 @@ namespace Transportation_Management_System
             Time.Text = "";
             West.Text = "";
             East.Text = "";
-         
+
         }
 
         private void DeleteRoute_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void IPUpdate_Click(object sender, RoutedEventArgs e)
+        {
+            string field = "Server";
+            string newData = IPBox.Text;
+
+            DAL db = new DAL();
+            try
+            {
+                db.UpdateDatabaseConnectionString(field, newData);
+                System.Windows.MessageBox.Show("IPAddress successfully updated");
+            }
+            catch (Exception)
+            {
+                System.Windows.MessageBox.Show("Something went wrong. Please try again.");
+            }
+
+        }
+
+        private void PortUpdate_Click(object sender, RoutedEventArgs e)
+        {
+            string field = "Port";
+            string newData = PortBox.Text;
+
+            DAL db = new DAL();
+            try
+            {
+                db.UpdateDatabaseConnectionString(field, newData);
+                System.Windows.MessageBox.Show("Port successfully updated");
+            }
+            catch (Exception)
+            {
+                System.Windows.MessageBox.Show("Something went wrong. Please try again.");
+            }
         }
     }
 }
