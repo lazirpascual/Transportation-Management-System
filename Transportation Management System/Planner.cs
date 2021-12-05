@@ -20,11 +20,33 @@ namespace Transportation_Management_System
     class Planner : User
     {
         ///
-        /// \brief This method calls a query to to the orders database to fetch all orders from the buyer. 
+        /// \brief This method calls a query to to the orders database to fetch all active, compeleted, or all orders from the buyer. 
+        /// 
+        /// \param orderStatus  - <b>int</b> - 0 for active, 1 for completed, 2 for all orders
         /// 
         /// \return Returns list of all fetched orders
         /// 
-        //public List<Order> FetchOrders() { }
+        public List<Order> FetchOrders(int orderStatus) 
+        {
+            List<Order> orderList;
+
+            DAL db = new DAL();
+
+            if (orderStatus == 0)
+            {
+                orderList = db.GetActiveOrders();
+            }
+            else if (orderStatus == 1)
+            {
+                orderList = db.GetCompletedOrders();
+            }
+            else
+            {
+                orderList = db.GetAllOrders();
+            }
+
+            return orderList;
+        }
 
 
 
@@ -32,7 +54,7 @@ namespace Transportation_Management_System
         /// \brief Used to select carriers from targeted cities to complete an Order. This 
         /// adds a "trip" to the order for each carrier selected
         /// 
-        /// \param carrierToSelect  - <b>Carrier</b> - The selected carrier for the order to be completed
+        
         ///
         /// \return Returns void
         /// 

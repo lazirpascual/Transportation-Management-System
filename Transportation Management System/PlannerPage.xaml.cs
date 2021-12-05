@@ -19,6 +19,8 @@ namespace Transportation_Management_System
     /// </summary>
     public partial class PlannerPage : Window
     {
+        private Planner planner = new Planner();
+
         public PlannerPage()
         {
             InitializeComponent();
@@ -55,9 +57,90 @@ namespace Transportation_Management_System
             resetStatus();
 
             Orders.Background = Brushes.LightSkyBlue;
+            OrdersList.Visibility = Visibility.Visible;
+            ActiveBox.Visibility = Visibility.Visible;
+
+            List<Order> orderList = new List<Order>();
+            orderList = planner.FetchOrders(2);
+            OrdersList.ItemsSource = orderList;
+            OrdersList.Visibility = Visibility.Visible;
+            ActiveBox.Visibility = Visibility.Visible;
+            CompletedBox.Visibility = Visibility.Visible;
         }
 
-               
+        private void ActiveBox_Click(object sender, RoutedEventArgs e)
+        {
+            var orderList = new List<Order>();
+      
+            if (ActiveBox.IsChecked == true)
+            {
+                // active box is checked
+                if (CompletedBox.IsChecked == true)
+                {
+                    // completed box is also checked, get all orders
+                    orderList = planner.FetchOrders(2);
+
+                }              
+                else
+                {
+                    // completed box is not checked, fetch only the active orders
+                    orderList = planner.FetchOrders(0);
+                }             
+            }
+            else
+            {
+                // active box is not checked
+                if (CompletedBox.IsChecked == true)
+                {
+                    // completed box is checked, fetch only completed orders
+                    orderList = planner.FetchOrders(1);
+                }
+                else
+                {
+                    // completed box is not checked, fetch all orders
+                    orderList = planner.FetchOrders(2);
+                }         
+            }
+
+            OrdersList.ItemsSource = orderList;
+        }
+
+        private void CompletedBox_Click(object sender, RoutedEventArgs e)
+        {
+            var orderList = new List<Order>();
+
+            if (CompletedBox.IsChecked == true)
+            {      
+                // completed box is checked
+                if (ActiveBox.IsChecked == true)
+                {
+                    // active box is also checked, get all orders
+                    orderList = planner.FetchOrders(2);
+                }
+                else
+                {
+                    // active box is not checked, get only completed orders
+                    orderList = planner.FetchOrders(1);
+                }
+            }
+            else
+            {
+                // completed box is not checked
+                if (ActiveBox.IsChecked == true)
+                {
+                    // active box is checked, fetch only active orders
+                    orderList = planner.FetchOrders(0);
+                }
+                else
+                {
+                    // active box is also not checked, fetch all orders
+                    orderList = planner.FetchOrders(2);
+                }
+            }
+
+            OrdersList.ItemsSource = orderList;
+        }
+
         private void resetStatus()
         {
             // reset buttons to non-clicked status

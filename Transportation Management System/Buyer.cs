@@ -77,20 +77,25 @@ namespace Transportation_Management_System
 
 
         ///
-        /// \brief Return a list of all active orders in our system
+        /// \brief Return a list of active, completed or all orders in our system
         /// 
-        /// \param OnlyActives  - <b>bool</b> - True if only active orders are supposed to be returned
+        /// \param OnlyActives  - <b>bool</b> - 0 for active, 1 for completed, 2 for all orders
         /// 
         /// \return A list of all active orders
         /// 
-        public List<Order> GetOrders(bool OnlyActives = false) 
+        public List<Order> GetOrders(int orderStatus) 
         {
             List<Order> orderList;
 
             DAL db = new DAL();
-            if (OnlyActives)
+
+            if (orderStatus == 0)
             {
                 orderList = db.GetActiveOrders();
+            }
+            else if (orderStatus == 1)
+            {
+                orderList = db.GetCompletedOrders();
             }
             else
             {

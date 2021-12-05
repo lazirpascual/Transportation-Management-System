@@ -976,6 +976,54 @@ namespace Transportation_Management_System
         }
 
 
+
+        ///
+        /// \brief Returns a list of all completed orders
+        /// 
+        /// \return List of all completed orders
+        /// 
+        public List<Order> GetCompletedOrders()
+        {
+            List<Order> orders = new List<Order>();
+            try
+            {
+                string conString = this.ToString();
+                using (MySqlConnection con = new MySqlConnection(conString))
+                {
+                    MySqlCommand cmd = new MySqlCommand("SELECT Clients.ClientName, OrderDate, Origin, Destination, JobType, VanType, Quantity FROM Orders " +
+                         "INNER JOIN Clients ON Orders.ClientID = Clients.ClientID WHERE IsCompleted=1", con);
+                    con.Open();
+                    MySqlDataReader rdr = cmd.ExecuteReader();
+
+                    if (rdr.HasRows)
+                    {
+                        while (rdr.Read())
+                        {
+                            Order newOrder = new Order();
+                            newOrder.ClientName = rdr["ClientName"].ToString();
+                            newOrder.OrderCreationDate = DateTime.Parse(rdr["OrderDate"].ToString());
+                            newOrder.Origin = (City)Enum.Parse(typeof(City), rdr["Origin"].ToString(), true);
+                            newOrder.Destination = (City)Enum.Parse(typeof(City), rdr["Destination"].ToString(), true);
+                            newOrder.JobType = (JobType)int.Parse(rdr["JobType"].ToString());
+                            newOrder.VanType = (VanType)int.Parse(rdr["VanType"].ToString());
+                            newOrder.Quantity = int.Parse(rdr["Quantity"].ToString());
+                            newOrder.IsCompleted = 1;
+                            orders.Add(newOrder);
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Logger.Log(e.Message, LogLevel.Error);
+                throw new ArgumentException($"Unable to fetch all completed orders. {e.Message}");
+            }
+
+            return orders;
+        }
+
+
+
         ///
         /// \brief Returns a list of all orders
         /// 

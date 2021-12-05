@@ -120,6 +120,7 @@ namespace Transportation_Management_System
             // reset buttons
             CarrierData.Visibility = Visibility.Hidden;
             RouteData.Visibility = Visibility.Hidden;
+
             Button4.Visibility = Visibility.Hidden;
             Button5.Visibility = Visibility.Hidden;
             AddCarrier.Visibility = Visibility.Hidden;
