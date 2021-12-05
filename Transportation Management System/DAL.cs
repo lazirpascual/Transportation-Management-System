@@ -498,7 +498,6 @@ namespace Transportation_Management_System
         }
 
 
-
         ///
         /// \brief Update an existing carrier's attributes
         ///
@@ -620,6 +619,41 @@ namespace Transportation_Management_System
         }
 
 
+        ///
+        /// \brief Remove a city from the carrier
+        ///
+        /// \param carrierCity  - <b>CarrierCity</b> - The city to be deleted
+        /// 
+        public void RemoveCarrierCity(CarrierCity carrierCity)
+        {
+            string sql = "DELETE FROM CarrierCity INNER JOIN Carriers ON CarrierCity.CarrierID = Carriers.CarrierID WHERE CarrierID=@CarrierID AND DepotCity=@DepotCity";
+
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(this.ToString()))
+                {
+                    conn.Open();
+
+                    using (MySqlCommand cmd = new MySqlCommand(sql, conn))
+                    {
+                        // Populate all arguments in the insert
+                        cmd.Parameters.AddWithValue("@CarrierID", carrierCity.Carrier.CarrierID);
+                        cmd.Parameters.AddWithValue("@DepotCity", carrierCity.DepotCity);
+
+                        // Execute the insertion and check the number of rows affected
+                        // An exception will be thrown if the column is repeated
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Logger.Log(e.Message, LogLevel.Error);
+                throw;
+            }
+        }
+
+
 
         ///
         /// \brief Filter carriers by city
@@ -678,7 +712,7 @@ namespace Transportation_Management_System
         public List<CarrierCity> FilterCitiesByCarrier(string carrierName)
         {
             List<CarrierCity> carrierCities = new List<CarrierCity>();
-            string qSQL = "SELECT * FROM Carriers INNER JOIN CarrierCity ON CarrierCity.CarrierID = Carriers.CarrierID WHERE CarrierName=@CarrierName";
+            string qSQL = "SELECT * FROM CarrierCity INNER JOIN Carriers ON CarrierCity.CarrierID = Carriers.CarrierID WHERE CarrierName=@CarrierName";
 
             try
             {
@@ -724,11 +758,6 @@ namespace Transportation_Management_System
             }
             return carrierCities;
         }
-
-
-
-        
-
 
 
 

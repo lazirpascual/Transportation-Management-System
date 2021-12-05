@@ -58,10 +58,10 @@ namespace Transportation_Management_System
 
         private void Database_Click(object sender, RoutedEventArgs e)
         {
-
-            CarrierData.Visibility = Visibility.Visible;
+            resetStatus();
+            Database.Background = Brushes.LightSkyBlue;
             RouteData.Visibility = Visibility.Visible;
-            RateData.Visibility = Visibility.Visible;
+            CarrierData.Visibility = Visibility.Visible;
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -121,7 +121,6 @@ namespace Transportation_Management_System
             // reset buttons
             CarrierData.Visibility = Visibility.Hidden;
             RouteData.Visibility = Visibility.Hidden;
-            RateData.Visibility = Visibility.Hidden;
             Button4.Visibility = Visibility.Hidden;
             Button5.Visibility = Visibility.Hidden;
             AddCarrier.Visibility = Visibility.Hidden;
@@ -141,6 +140,8 @@ namespace Transportation_Management_System
             Database.Background = Brushes.WhiteSmoke;
             Configuration.Background = Brushes.WhiteSmoke;
 
+            CityDatabase.Visibility = Visibility.Hidden;
+
             AddButton.Visibility = Visibility.Hidden;
             UpdateButton.Visibility = Visibility.Hidden;
             DeleteButton.Visibility = Visibility.Hidden;
@@ -152,14 +153,14 @@ namespace Transportation_Management_System
             FTLRate.Visibility = Visibility.Hidden;
             LTLRate.Visibility = Visibility.Hidden;
             Reefer.Visibility = Visibility.Hidden;
-            label1.Visibility = Visibility.Hidden;
-            label2.Visibility = Visibility.Hidden;
-            label3.Visibility = Visibility.Hidden;
-            label4.Visibility = Visibility.Hidden;
-            label5.Visibility = Visibility.Hidden;
-            label6.Visibility = Visibility.Hidden;
-            label7.Visibility = Visibility.Hidden;
-            label8.Visibility = Visibility.Hidden;
+            NameLabel.Visibility = Visibility.Hidden;
+            IDLabel.Visibility = Visibility.Hidden;
+            DepartureLabel.Visibility = Visibility.Hidden;
+            FTLAvalLabel.Visibility = Visibility.Hidden;
+            LTLAvalLabel.Visibility = Visibility.Hidden;
+            FTLRateLabel.Visibility = Visibility.Hidden;
+            LTLRateLabel.Visibility = Visibility.Hidden;
+            ReeferChargeLabel.Visibility = Visibility.Hidden;
             AdminLog.Visibility = Visibility.Hidden;
 
             AdminLog.Visibility = Visibility.Hidden;
@@ -180,7 +181,6 @@ namespace Transportation_Management_System
 
         private void CarrierDatabaseVisible()
         {
-            AdminLog.Visibility = Visibility.Visible;
             CityDatabase.Visibility = Visibility.Visible;
             CarrierDatabaseList.Visibility = Visibility.Visible;
             AddCarrier.Visibility = Visibility.Visible;
@@ -195,14 +195,14 @@ namespace Transportation_Management_System
             FTLRate.Visibility = Visibility.Visible;
             LTLRate.Visibility = Visibility.Visible;
             Reefer.Visibility = Visibility.Visible;
-            label1.Visibility = Visibility.Visible;
-            label2.Visibility = Visibility.Visible;
-            label3.Visibility = Visibility.Visible;
-            label4.Visibility = Visibility.Visible;
-            label5.Visibility = Visibility.Visible;
-            label6.Visibility = Visibility.Visible;
-            label7.Visibility = Visibility.Visible;
-            label8.Visibility = Visibility.Visible;
+            NameLabel.Visibility = Visibility.Visible;
+            IDLabel.Visibility = Visibility.Visible;
+            DepartureLabel.Visibility = Visibility.Visible;
+            FTLAvalLabel.Visibility = Visibility.Visible;
+            LTLAvalLabel.Visibility = Visibility.Visible;
+            FTLRateLabel.Visibility = Visibility.Visible;
+            LTLRateLabel.Visibility = Visibility.Visible;
+            ReeferChargeLabel.Visibility = Visibility.Visible;
 
         }
         
@@ -238,19 +238,293 @@ namespace Transportation_Management_System
             Reefer.Text = "";
         }
 
+
+        private void CarriersFieldsHander(object sender, RoutedEventArgs e)
+        {
+            ClearButton_Click(sender, e);
+
+            // If no option is selected
+            if (CarrierDatabaseList.SelectedItems.Count == 0 && CityDatabase.SelectedItems.Count == 0)
+            {
+                Departure.Visibility = Visibility.Hidden;
+                FTLAval.Visibility = Visibility.Hidden;
+                LTLAval.Visibility = Visibility.Hidden;
+                DepartureLabel.Visibility = Visibility.Hidden;
+                FTLAvalLabel.Visibility = Visibility.Hidden;
+                LTLAvalLabel.Visibility = Visibility.Hidden;
+
+                UpdateCarrier.Visibility = Visibility.Hidden;
+                DeleteCarrier.Visibility = Visibility.Hidden;
+
+                CityDatabase.ItemsSource = new List<CarrierCity>();
+            }
+            else
+            {
+                Carrier selectedCarrier = (Carrier) CarrierDatabaseList.SelectedItem;
+
+                if((sender as System.Windows.Controls.ListView).Name == "CarrierDatabaseList")
+                {
+                    DAL db = new DAL();
+                    List<CarrierCity> carriersList = db.FilterCitiesByCarrier(selectedCarrier.Name);
+                    CityDatabase.ItemsSource = carriersList;
+                }
+
+                CarrierID.Text = "";
+                CarrierName.Text = selectedCarrier.Name;
+                FTLRate.Text = selectedCarrier.FTLRate.ToString();
+                LTLRate.Text = selectedCarrier.LTLRate.ToString();
+                Reefer.Text = selectedCarrier.ReeferCharge.ToString();
+
+                // Show details about the city if carrier and city is selected
+                if (CarrierDatabaseList.SelectedItems.Count == 1 && CityDatabase.SelectedItems.Count == 1)
+                {
+                    Departure.Visibility = Visibility.Visible;
+                    FTLAval.Visibility = Visibility.Visible;
+                    LTLAval.Visibility = Visibility.Visible;
+
+                    CarrierCity selectedCity = (CarrierCity)CityDatabase.SelectedItem;
+                    Departure.Text = selectedCity.DepotCity.ToString();
+                    FTLAval.Text = selectedCity.FTLAval.ToString();
+                    LTLAval.Text = selectedCity.LTLAval.ToString();
+                }
+
+            }
+        }
+
         private void UpdateCarrier_Click(object sender, RoutedEventArgs e)
         {
-            //update database 
+            string carrierName;
+            double _FTLRate;
+            double _LTLRate;
+            double reefer;
+
+            string newDestination;
+            City newCity;
+            int newFTL;
+            int newLTL;
+
+            try
+            {
+                // Get the carrier information from the form
+                carrierName = CarrierName.Text;
+                _FTLRate = double.Parse(FTLRate.Text);
+                _LTLRate = double.Parse(LTLRate.Text);
+                reefer = double.Parse(Reefer.Text);
+
+                // Get the city and rates information
+                newDestination = Departure.Text;
+                newCity = (City)Enum.Parse(typeof(City), newDestination, true);
+                newFTL = int.Parse(FTLAval.Text);
+                newLTL = int.Parse(LTLAval.Text);
+            }
+            catch (Exception)
+            {
+                System.Windows.MessageBox.Show("Please, make sure that the fields were filled appropriately.");
+                return;
+            }
+
+
+            // create a carrier object with the values
+            Carrier carrier = new Carrier(carrierName, _FTLRate, _LTLRate, reefer);
+
+            CarrierCity carrierCity = new CarrierCity(carrier, newCity, newFTL, newLTL);
+
+            DAL db = new DAL();
+
+            // If only a carrier is selected
+            if (CarrierDatabaseList.SelectedItems.Count == 1 && CityDatabase.SelectedItems.Count == 0)
+            {
+                try
+                {
+                    db.UpdateCarrier(carrier);
+                }
+                // Inform the user if the operation fails
+                catch (ArgumentException exc)
+                {
+                    System.Windows.MessageBox.Show(exc.Message);
+                }
+                catch (Exception)
+                {
+                    System.Windows.MessageBox.Show("Something went wrong. Please try again.");
+                }
+            }
+            // If a city and the carrier is selected
+            else if (CarrierDatabaseList.SelectedItems.Count == 1 && CityDatabase.SelectedItems.Count == 1)
+            {
+                try
+                {
+                    db.UpdateCarrierCity(carrierCity);
+                }
+                // Inform the user if the operation fails
+                catch (ArgumentException exc)
+                {
+                    System.Windows.MessageBox.Show(exc.Message);
+                }
+                catch (Exception)
+                {
+                    System.Windows.MessageBox.Show("Something went wrong. Please try again.");
+                }
+            }
+
         }
 
         private void DeleteCarrier_Click(object sender, RoutedEventArgs e)
         {
-            //Delete entry from database
+            string carrierName;
+            double _FTLRate;
+            double _LTLRate;
+            double reefer;
+
+            string newDestination;
+            City newCity;
+            int newFTL;
+            int newLTL;
+
+            try
+            {
+                // Get the carrier information from the form
+                carrierName = CarrierName.Text;
+                _FTLRate = double.Parse(FTLRate.Text);
+                _LTLRate = double.Parse(LTLRate.Text);
+                reefer = double.Parse(Reefer.Text);
+
+                // Get the city and rates information
+                newDestination = Departure.Text;
+                newCity = (City)Enum.Parse(typeof(City), newDestination, true);
+                newFTL = int.Parse(FTLAval.Text);
+                newLTL = int.Parse(LTLAval.Text);
+            }
+            catch (Exception)
+            {
+                System.Windows.MessageBox.Show("Please, make sure that the fields were filled appropriately.");
+                return;
+            }
+
+
+            // create a carrier object with the values
+            Carrier carrier = new Carrier(carrierName, _FTLRate, _LTLRate, reefer);
+
+            CarrierCity carrierCity = new CarrierCity(carrier, newCity, newFTL, newLTL);
+
+            DAL db = new DAL();
+
+            // If only a carrier is selected
+            if (CarrierDatabaseList.SelectedItems.Count == 1 && CityDatabase.SelectedItems.Count == 0)
+            {
+                try
+                {
+                    db.DeactivateCarrier(carrier);
+                }
+                // Inform the user if the operation fails
+                catch (ArgumentException exc)
+                {
+                    System.Windows.MessageBox.Show(exc.Message);
+                }
+                catch (Exception)
+                {
+                    System.Windows.MessageBox.Show("Something went wrong. Please try again.");
+                }
+            }
+            // If a city and the carrier is selected
+            else if (CarrierDatabaseList.SelectedItems.Count == 1 && CityDatabase.SelectedItems.Count == 1)
+            {
+                try
+                {
+                    db.RemoveCarrierCity(carrierCity);
+                }
+                // Inform the user if the operation fails
+                catch (ArgumentException exc)
+                {
+                    System.Windows.MessageBox.Show(exc.Message);
+                }
+                catch (Exception)
+                {
+                    System.Windows.MessageBox.Show("Something went wrong. Please try again.");
+                }
+            }
         }
 
         private void AddCarrier_Click(object sender, RoutedEventArgs e)
         {
-            //add new entry to database
+
+            string carrierName;
+            double _FTLRate;
+            double _LTLRate;
+            double reefer;
+
+            string newDestination;
+            City newCity;
+            int newFTL;
+            int newLTL;
+
+            try
+            {
+                // Get the carrier information from the form
+                carrierName = CarrierName.Text;
+                _FTLRate = double.Parse(FTLRate.Text);
+                _LTLRate = double.Parse(LTLRate.Text);
+                reefer = double.Parse(Reefer.Text);
+
+                // If both selected
+                if (CarrierDatabaseList.SelectedItems.Count == 1 && CityDatabase.SelectedItems.Count == 1)
+                {
+                    // Get the city and rates information
+                    newDestination = Departure.Text;
+                    newCity = (City)Enum.Parse(typeof(City), newDestination, true);
+                    newFTL = int.Parse(FTLAval.Text);
+                    newLTL = int.Parse(LTLAval.Text);
+                }
+                    
+            }
+            catch (Exception)
+            {
+                System.Windows.MessageBox.Show("Please, make sure that the fields were filled appropriately.");
+                return;
+            }
+
+
+            // create a carrier object with the values
+            Carrier newCarrier = new Carrier(carrierName, _FTLRate, _LTLRate, reefer);
+
+            CarrierCity newCarrierCity = new CarrierCity(newCarrier, newCity, newFTL, newLTL);
+            
+            DAL db = new DAL();
+
+            // If a city and the carrier is selected
+            if (CarrierDatabaseList.SelectedItems.Count == 1 && CityDatabase.SelectedItems.Count == 1)
+            {
+                try
+                {
+                    db.CreateCarrierCity(newCarrierCity);
+                }
+                // Inform the user if the operation fails
+                catch (ArgumentException exc)
+                {
+                    System.Windows.MessageBox.Show(exc.Message);
+                }
+                catch (Exception)
+                {
+                    System.Windows.MessageBox.Show("Something went wrong. Please try again.");
+                }
+            }
+            // If the user is creating a carrier
+            else
+            {
+                try
+                {
+                    db.CreateCarrier(newCarrier);
+                }
+                // Inform the user if the operation fails
+                catch (ArgumentException exc)
+                {
+                    System.Windows.MessageBox.Show(exc.Message);
+                }
+                catch (Exception)
+                {
+                    System.Windows.MessageBox.Show("Something went wrong. Please try again.");
+                }
+            }
+            
         }
 
         private void CarrierData_Click(object sender, RoutedEventArgs e)
@@ -260,17 +534,59 @@ namespace Transportation_Management_System
 
             Database.Background = Brushes.LightSkyBlue;
 
-            //List<Carrier> carriersList = new List<Carrier>; 
-            //carriersList = carrier.GetCarriers();
-            //CarrierDatabaseList.ItemsSource = carriersList;
+            DAL db = new DAL();
+            List<Carrier> carriersList = db.FilterCarriersByCity(City.Toronto);
+            CarrierDatabaseList.ItemsSource = carriersList;
         }
 
         private void RouteData_Click(object sender, RoutedEventArgs e)
         {
+            resetStatus();
+            Database.Background = Brushes.LightSkyBlue;
+            RouteDatabaseVisible();
+
+            //List<Route> routeList = new List<Route>; 
+            //routeList = routeList.GetRoute();
+            //RouteDatabase.ItemsSource = carriersList;
+        }
+
+        private void RouteDatabaseVisible()
+        {
+            RouteDatabase.Visibility = Visibility.Visible;
+            RouteDestination.Visibility = Visibility.Visible;
+            Km.Visibility = Visibility.Visible;
+            Time.Visibility = Visibility.Visible;
+            West.Visibility = Visibility.Visible;
+            East.Visibility = Visibility.Visible;
+            //Destination.Visibility = Visibility.Visible;
+            //RouteDatabase.Visibility = Visibility.Visible;
+            //RouteDatabase.Visibility = Visibility.Visible;
+            //RouteDatabase.Visibility = Visibility.Visible;
+
 
         }
 
-        private void RateData_Click(object sender, RoutedEventArgs e)
+        private void AddRoute_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void UpdateRoute_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ClearRoute_Click(object sender, RoutedEventArgs e)
+        {
+            RouteDestination.Text = "";
+            Km.Text = "";
+            Time.Text = "";
+            West.Text = "";
+            East.Text = "";
+         
+        }
+
+        private void DeleteRoute_Click(object sender, RoutedEventArgs e)
         {
 
         }

@@ -35,5 +35,16 @@ namespace Transportation_Management_System
         /// The amount for reefer van type
         public double ReeferCharge { set; get; }
 
+        public Carrier(string newName, double newFTL, double newLTL, double newReefer)
+        {
+            Name = newName;
+            FTLRate = newFTL;
+            LTLRate = newLTL;
+            ReeferCharge = newReefer;
+        }
+
+        public Carrier() { }
+                
+
     }
 }
