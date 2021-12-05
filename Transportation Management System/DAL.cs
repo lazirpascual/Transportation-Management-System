@@ -494,14 +494,14 @@ namespace Transportation_Management_System
                         {
                             while (rdr.Read())
                             {
-                                Route route = new Route
-                                {
-                                    Destination = (City)Int32.Parse(rdr["Destination"].ToString()),
-                                    Distance = int.Parse(rdr["Distance"].ToString()),
-                                    Time = double.Parse(rdr["Time"].ToString()),
-                                    West = (City)Int32.Parse(rdr["West"].ToString()),
-                                    East = (City)Int32.Parse(rdr["East"].ToString())
-                                };
+                                Route route = new Route();
+
+                                route.Destination = (City)Int32.Parse(rdr["Destination"].ToString());
+                                if(int.TryParse(rdr["Distance"].ToString(), out int d)) route.Distance = d;
+                                if(double.TryParse(rdr["Time"].ToString(), out double t)) route.Time = t;
+                                if(Int32.TryParse(rdr["West"].ToString(), out int w)) route.West = (City) w;
+                                if (Int32.TryParse(rdr["East"].ToString(), out int e)) route.East = (City)e;
+
                                 routeList.Add(route);
                             }
                         }
