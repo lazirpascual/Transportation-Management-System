@@ -9,7 +9,7 @@
         Title="Carrier Selection" Height="400" Width="420">
     <Grid>
         <ListView x:Name="CarrierList" >
-            <ListView.View>
+            <!--<ListView.View>
                 <GridView>
                     <GridViewColumn Header="Carrier ID" Width="60" DisplayMemberBinding="{Binding CarrierID}" />
                     <GridViewColumn Header="Carrier Name" Width="100" DisplayMemberBinding="{Binding Name}" />
@@ -17,7 +17,7 @@
                     <GridViewColumn Header="LTLRate" Width="70" DisplayMemberBinding="{Binding LTLRate}" />
                     <GridViewColumn Header="Reefer Charge" Width="100" DisplayMemberBinding="{Binding ReeferCharge}" />
                 </GridView>
-            </ListView.View>
+            </ListView.View>-->
         </ListView>
         <Button x:Name="SelectCarrier" Content="Select Carrier" Margin="312,322,10,18" Click="SelectCarrier_Click" />
     </Grid>

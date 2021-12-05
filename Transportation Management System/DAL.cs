@@ -740,11 +740,21 @@ namespace Transportation_Management_System
         /// 
         /// \return A list of carriers that belong to the specified city
         /// 
-        public List<Carrier> FilterCarriersByCity(City city)
+        public List<CarrierCity> FilterCarriersByCity(City city, int jobType)
         {
-            List<Carrier> carriers = new List<Carrier>();
-            string qSQL = "SELECT * FROM Carriers INNER JOIN CarrierCity ON CarrierCity.CarrierID = Carriers.CarrierID WHERE DepotCity=@DepotCity AND IsActive=1";
-
+            List<CarrierCity> carrierCities = new List<CarrierCity>();
+            string qSQL;
+            if (jobType == 0)
+            {
+                // job type is FTL
+                qSQL = "SELECT * FROM Carriers INNER JOIN CarrierCity ON CarrierCity.CarrierID = Carriers.CarrierID WHERE DepotCity=@DepotCity AND IsActive=1 AND FTLAval>0";
+            }
+            else
+            {
+                // job type is LTL
+                qSQL = "SELECT * FROM Carriers INNER JOIN CarrierCity ON CarrierCity.CarrierID = Carriers.CarrierID WHERE DepotCity=@DepotCity AND IsActive=1 AND LTLAval>0";
+            }
+        
             try
             {
                 string conString = this.ToString();
@@ -765,8 +775,14 @@ namespace Transportation_Management_System
                                 carr.FTLRate = double.Parse(rdr["FTLRate"].ToString());
                                 carr.LTLRate = double.Parse(rdr["LTLRate"].ToString());
                                 carr.ReeferCharge = double.Parse(rdr["reefCharge"].ToString());
-                                carriers.Add(carr);
 
+                                CarrierCity carrCity = new CarrierCity();
+                                carrCity.Carrier = carr;
+                                carrCity.DepotCity = (City)Enum.Parse(typeof(City), rdr["DepotCity"].ToString(), true);
+                                carrCity.FTLAval = int.Parse(rdr["FTLAval"].ToString());
+                                carrCity.LTLAval = int.Parse(rdr["LTLAval"].ToString());
+
+                                carrierCities.Add(carrCity);
                             }
                         }
                     }
@@ -776,14 +792,14 @@ namespace Transportation_Management_System
             {
                 throw;
             }
-            return carriers;
+            return carrierCities;
         }
 
 
         ///
-        /// \brief Filter carriers by city
+        /// \brief Filter cities by carrier
         ///
-        /// \param city  - <b>string</b> - The city to be filter the carriers
+        /// \param city  - <b>string</b> - The carrier name to be filtered
         /// 
         /// \return A list of carriers that belong to the specified city
         /// 
