@@ -674,7 +674,7 @@ namespace Transportation_Management_System
         /// 
         public void DeleteCarrier(Carrier carrier)
         {
-            string sql = "DELETE FROM Carriers WHERE CarrierID=@CarrierID";
+            string sql = "DELETE FROM Carriers WHERE CarrierName=@CarrierName";
 
 
             try
@@ -686,7 +686,7 @@ namespace Transportation_Management_System
                     using (MySqlCommand cmd = new MySqlCommand(sql, conn))
                     {
                         // Populate all arguments in the insert
-                        cmd.Parameters.AddWithValue("@CarrierID", carrier.CarrierID);
+                        cmd.Parameters.AddWithValue("@CarrierName", carrier.Name);
 
                         // Execute the insertion and check the number of rows affected
                         // An exception will be thrown if the column is repeated
@@ -709,7 +709,7 @@ namespace Transportation_Management_System
         /// 
         public void RemoveCarrierCity(CarrierCity carrierCity)
         {
-            string sql = "DELETE FROM CarrierCity INNER JOIN Carriers ON CarrierCity.CarrierID = Carriers.CarrierID WHERE CarrierID=@CarrierID AND DepotCity=@DepotCity";
+            string sql = "DELETE FROM CarrierCity WHERE CarrierID=@CarrierID AND DepotCity=@DepotCity";
 
             try
             {
@@ -721,7 +721,7 @@ namespace Transportation_Management_System
                     {
                         // Populate all arguments in the insert
                         cmd.Parameters.AddWithValue("@CarrierID", carrierCity.Carrier.CarrierID);
-                        cmd.Parameters.AddWithValue("@DepotCity", carrierCity.DepotCity);
+                        cmd.Parameters.AddWithValue("@DepotCity", carrierCity.DepotCity.ToString());
 
                         // Execute the insertion and check the number of rows affected
                         // An exception will be thrown if the column is repeated
@@ -1205,7 +1205,8 @@ namespace Transportation_Management_System
         public int GetCarrierIdByName(string carrierName)
         {
             string qSQL = "SELECT CarrierID FROM Carriers WHERE CarrierName=@CarrierName";
-            int carrierID = 0;
+            int carrierID = -1;
+
             try
             {
                 string conString = this.ToString();
@@ -1233,31 +1234,56 @@ namespace Transportation_Management_System
             return carrierID;
         }
 
+
+
+        ///
+        /// \brief Returns a list with all trips attached to a specific orders
+        /// 
+        /// \param orderId  - <b>int</b> - If of the order to filter the trip
+        /// 
+        /// \return A list with all trips attached to a specific orders
+        /// 
+        //public List<Trip> FilterTripsByOrderId(int orderId) { }
+
+
+
+        ///
+        /// \brief Backup up the entire database to a .sql file
+        /// 
+        /// https://stackoverflow.com/questions/12311492/backing-up-database-in-mysql-using-c-sharp/12311685
+        /// 
+        public void BackupDatabase(string backUpFilePath)
+        {
+            string fileName = $"TMS-DB-Backup-{DateTime.Now}.sql";
+            if(backUpFilePath == "")
+            {
+                throw new ArgumentNullException("Backup file path was not provided. Backup failed.");
+            }
+
+            string fullPath = $"{backUpFilePath}\\{fileName}";
+
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(this.ToString()))
+                {
+                    using (MySqlCommand cmd = new MySqlCommand())
+                    {
+                        using (MySqlBackup mb = new MySqlBackup(cmd))
+                        {
+                            cmd.Connection = conn;
+                            conn.Open();
+                            mb.ExportToFile(fullPath);
+                            conn.Close();
+                        }
+                    }
+                }
+            }
+            catch()
+            {
+
+            }
+            
+        }
     }
-
-
-
-    ///
-    /// \brief Returns a list with all trips attached to a specific orders
-    /// 
-    /// \param orderId  - <b>int</b> - If of the order to filter the trip
-    /// 
-    /// \return A list with all trips attached to a specific orders
-    /// 
-    //public List<Trip> FilterTripsByOrderId(int orderId) { }
-
-
-
-    ///
-    /// \brief Backup up the entire database to a .sql file
-    /// 
-    /// \return True if successful, false otherwise
-    /// 
-    //public bool BackupDatabase()
-    //{
-    //    // https://stackoverflow.com/questions/12311492/backing-up-database-in-mysql-using-c-sharp/12311685
-    //}
-
-
 }
 
