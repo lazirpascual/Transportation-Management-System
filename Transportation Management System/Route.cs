@@ -9,7 +9,7 @@ namespace Transportation_Management_System
     public class Route
     {
         /// The destination city
-        public string Destination { set; get; }
+        public City Destination { set; get; }
 
         /// The total distance in KM
         public int Distance { set; get; }
@@ -18,15 +18,21 @@ namespace Transportation_Management_System
         public double Time { set; get; }
 
         /// The city that is located to the West of destination
-        public string West { set; get; }
+        public City West { set; get; }
+
+        /// "Pointer" to the city on west
+        public Route WestPtr { set; get; }
 
         /// The city that is located to the East of destination
-        public string East { set; get; }
+        public City East { set; get; }
+
+        // "Pointer" to the city on East
+        public Route EastPtr { set; get; }
 
 
         public Route() { }
 
-        public Route(string newDestination, int newDistance, double newTime, string newWest, string newEast)
+        public Route(City newDestination, int newDistance, double newTime, City newWest, City newEast)
         {
             Destination = newDestination;
             Distance = newDistance;
@@ -34,6 +40,18 @@ namespace Transportation_Management_System
             West = newWest;
             East = newEast;
         }
-                
+
+
+
+        ///
+        /// \brief Used to calculate the total distance and time between two cities based on the routes table
+        ///
+        /// \param origin  - <b>City</b> - Origin city
+        /// \param destination  - <b>City</b> - Destination city
+        /// 
+        /// 
+        /// \return A keyValuePair with the distance and time between those two cities
+        /// 
+        
     }
 }

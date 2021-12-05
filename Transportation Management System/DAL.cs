@@ -477,7 +477,7 @@ namespace Transportation_Management_System
         }
 
 
-        public List<Route> GetRoute()
+        public List<Route> GetRoutes()
         {
             List<Route> routeList= new List<Route>();
             string qSQL = "SELECT * FROM Route";
@@ -494,12 +494,14 @@ namespace Transportation_Management_System
                         {
                             while (rdr.Read())
                             {
-                                Route route = new Route();
-                                route.Destination= rdr["Destination"].ToString();
-                                route.Distance= int.Parse(rdr["Distance"].ToString());
-                                route.Time = double.Parse(rdr["Time"].ToString());
-                                route.West= rdr["West"].ToString();
-                                route.East= rdr["East"].ToString();
+                                Route route = new Route
+                                {
+                                    Destination = (City)Int32.Parse(rdr["Destination"].ToString()),
+                                    Distance = int.Parse(rdr["Distance"].ToString()),
+                                    Time = double.Parse(rdr["Time"].ToString()),
+                                    West = (City)Int32.Parse(rdr["West"].ToString()),
+                                    East = (City)Int32.Parse(rdr["East"].ToString())
+                                };
                                 routeList.Add(route);
                             }
                         }
@@ -1223,7 +1225,9 @@ namespace Transportation_Management_System
 
         ///
         /// \brief Set an order to completed
-        /// 
+        ///
+        /// \param order  - <b>Order</b> - The order to be completed
+        ///
         public void CompleteOrder(Order order)
         {
             string sql = "UPDATE Orders SET IsCompleted=1, OrderCompletedDate=@OrderCompletedDate WHERE OrderID=@OrderID";
