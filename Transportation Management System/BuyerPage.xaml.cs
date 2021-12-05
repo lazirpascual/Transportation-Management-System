@@ -58,11 +58,11 @@ namespace Transportation_Management_System
             Orders.Background = Brushes.LightSkyBlue;
                          
             List<Order> orderList = new List<Order>();
-            orderList = buyer.GetOrders(false);             
+            orderList = buyer.GetOrders(2);             
             OrdersList.ItemsSource = orderList;
             OrdersList.Visibility = Visibility.Visible;
             ActiveBox.Visibility = Visibility.Visible;
-
+            CompletedBox.Visibility = Visibility.Visible;
         }
 
         private void Clients_Click(object sender, RoutedEventArgs e)
@@ -86,22 +86,76 @@ namespace Transportation_Management_System
         private void ActiveBox_Click(object sender, RoutedEventArgs e)
         {
             var orderList = new List<Order>();
-            Buyer buyer = new Buyer();
-            // Only active orders
-            if(ActiveBox.IsChecked == true)
+
+            if (ActiveBox.IsChecked == true)
             {
-                orderList = buyer.GetOrders(true);
-                
+                // active box is checked
+                if (CompletedBox.IsChecked == true)
+                {
+                    // completed box is also checked, get all orders
+                    orderList = buyer.GetOrders(2);
+
+                }
+                else
+                {
+                    // completed box is not checked, fetch only the active orders
+                    orderList = buyer.GetOrders(0);
+                }
             }
-            // Show all orders
             else
             {
-                orderList = buyer.GetOrders();
+                // active box is not checked
+                if (CompletedBox.IsChecked == true)
+                {
+                    // completed box is checked, fetch only completed orders
+                    orderList = buyer.GetOrders(1);
+                }
+                else
+                {
+                    // completed box is not checked, fetch all orders
+                    orderList = buyer.GetOrders(2);
+                }
             }
 
             OrdersList.ItemsSource = orderList;
         }
-              
+
+        private void CompletedBox_Click(object sender, RoutedEventArgs e)
+        {
+            var orderList = new List<Order>();
+
+            if (CompletedBox.IsChecked == true)
+            {
+                // completed box is checked
+                if (ActiveBox.IsChecked == true)
+                {
+                    // active box is also checked, get all orders
+                    orderList = buyer.GetOrders(2);
+                }
+                else
+                {
+                    // active box is not checked, get only completed orders
+                    orderList = buyer.GetOrders(1);
+                }
+            }
+            else
+            {
+                // completed box is not checked
+                if (ActiveBox.IsChecked == true)
+                {
+                    // active box is checked, fetch only active orders
+                    orderList = buyer.GetOrders(0);
+                }
+                else
+                {
+                    // active box is also not checked, fetch all orders
+                    orderList = buyer.GetOrders(2);
+                }
+            }
+
+            OrdersList.ItemsSource = orderList;
+        }
+
         private void resetStatus()
         {
             // reset buttons status

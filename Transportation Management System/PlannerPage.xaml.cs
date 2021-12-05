@@ -71,30 +71,33 @@ namespace Transportation_Management_System
         private void ActiveBox_Click(object sender, RoutedEventArgs e)
         {
             var orderList = new List<Order>();
-
-            // Only active orders
+      
             if (ActiveBox.IsChecked == true)
             {
+                // active box is checked
                 if (CompletedBox.IsChecked == true)
                 {
+                    // completed box is also checked, get all orders
                     orderList = planner.FetchOrders(2);
 
-                }
+                }              
                 else
                 {
+                    // completed box is not checked, fetch only the active orders
                     orderList = planner.FetchOrders(0);
                 }             
             }
-            // Show all orders
             else
             {
+                // active box is not checked
                 if (CompletedBox.IsChecked == true)
                 {
+                    // completed box is checked, fetch only completed orders
                     orderList = planner.FetchOrders(1);
-
                 }
                 else
                 {
+                    // completed box is not checked, fetch all orders
                     orderList = planner.FetchOrders(2);
                 }         
             }
@@ -106,28 +109,31 @@ namespace Transportation_Management_System
         {
             var orderList = new List<Order>();
 
-            // Only completed orders
             if (CompletedBox.IsChecked == true)
-            {            
+            {      
+                // completed box is checked
                 if (ActiveBox.IsChecked == true)
                 {
+                    // active box is also checked, get all orders
                     orderList = planner.FetchOrders(2);
                 }
                 else
                 {
+                    // active box is not checked, get only completed orders
                     orderList = planner.FetchOrders(1);
                 }
             }
-            // Show all orders
             else
             {
+                // completed box is not checked
                 if (ActiveBox.IsChecked == true)
                 {
+                    // active box is checked, fetch only active orders
                     orderList = planner.FetchOrders(0);
-
                 }
                 else
                 {
+                    // active box is also not checked, fetch all orders
                     orderList = planner.FetchOrders(2);
                 }
             }

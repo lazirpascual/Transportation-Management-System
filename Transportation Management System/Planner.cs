@@ -20,7 +20,7 @@ namespace Transportation_Management_System
     class Planner : User
     {
         ///
-        /// \brief This method calls a query to to the orders database to fetch all orders from the buyer. 
+        /// \brief This method calls a query to to the orders database to fetch all active, compeleted, or all orders from the buyer. 
         /// 
         /// \param orderStatus  - <b>int</b> - 0 for active, 1 for completed, 2 for all orders
         /// 
