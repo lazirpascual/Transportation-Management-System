@@ -52,6 +52,19 @@ namespace Transportation_Management_System
         /// 
         /// \return A keyValuePair with the distance and time between those two cities
         /// 
-        
+        public KeyValuePair<int, double> CalculateDistanceAndTime(City origin, City destination)
+        {
+            int totalDistance = 0;
+            double totalTime = 0.0;
+
+            DAL db = new DAL();
+            List<Route> routes = db.GetRoutes();
+            
+            //Route 
+
+
+
+            return new KeyValuePair<int, double>(totalDistance, totalTime);
+        }
     }
 }
