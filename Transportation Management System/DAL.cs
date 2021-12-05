@@ -476,7 +476,6 @@ namespace Transportation_Management_System
             }
         }
 
-
         public List<Route> GetRoutes()
         {
             List<Route> routeList= new List<Route>();
