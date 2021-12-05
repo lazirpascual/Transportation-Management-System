@@ -94,7 +94,7 @@ namespace Transportation_Management_System
 
             List<Route> routeList = new List<Route>();
             DAL db = new DAL();
-            routeList = db.GetRoute();
+            routeList = db.GetRoutes();
             RouteDatabase.ItemsSource = routeList;
         }
 
@@ -464,6 +464,9 @@ namespace Transportation_Management_System
         private void UpdateRoute_Click(object sender, RoutedEventArgs e)
         {
             string destination;
+            City newDestination;
+            City newWest;
+            City newEast;
             int distance;
             double time;
             string west;
@@ -477,13 +480,16 @@ namespace Transportation_Management_System
             {
                 // Get the route information from the form
                 destination = RouteDestination.Text;
+                newDestination = (City)Enum.Parse(typeof(City), destination, true);
                 distance = int.Parse(Distance.Text);
                 time = double.Parse(Time.Text);
                 west = West.Text;
                 east = East.Text;
+                newWest = (City)Enum.Parse(typeof(City), west, true);
+                newEast = (City)Enum.Parse(typeof(City), east, true);
 
                 // create a route object with the values
-                route = new Route(destination, distance, time, west, east);
+                route = new Route(newDestination, distance, time, newWest, newEast);
                               
             }
             catch (Exception)
@@ -501,7 +507,7 @@ namespace Transportation_Management_System
 
                 // Reload the updated route list 
                 List<Route> routeList = new List<Route>();
-                routeList = db.GetRoute();
+                routeList = db.GetRoutes();
                 RouteDatabase.ItemsSource = routeList;
                
             }
