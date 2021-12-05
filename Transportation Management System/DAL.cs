@@ -1289,6 +1289,45 @@ namespace Transportation_Management_System
         }
 
 
+        ///
+        /// \brief Used to select carriers from targeted cities to complete an Order. This 
+        /// adds a "trip" to the order for each carrier selected
+        ///
+        /// \param order  - <b>Order</b> - Order to select the invoic
+        /// \param carrierToSelect  - <b>Carrier</b> - Selected carrier
+        /// 
+        /// 
+        /// \return Returns void
+        /// 
+        public void CreateTrip(Order order, Carrier carrierToSelect)
+        {
+            string sql = "INSERT INTO Trips (OrderID, CarrierID, OriginCity, DestinationCity) VALUE (@OrderID, @CarrierID, @OriginCity, @DestinationCity)";
+
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(this.ToString()))
+                {
+                    conn.Open();
+
+                    using (MySqlCommand cmd = new MySqlCommand(sql, conn))
+                    {
+                        // Populate all arguments in the insert
+                        cmd.Parameters.AddWithValue("@OrderID", order.OrderID);
+                        cmd.Parameters.AddWithValue("@CarrierID", carrierToSelect.CarrierID);
+                        cmd.Parameters.AddWithValue("@OriginCity", order.Origin);
+                        cmd.Parameters.AddWithValue("@DestinationCity", order.Destination);
+
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Logger.Log(e.Message, LogLevel.Error);
+                throw;
+            }
+        }
+
 
         ///
         /// \brief Returns a list with all trips attached to a specific orders

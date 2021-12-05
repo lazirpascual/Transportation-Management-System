@@ -23,10 +23,6 @@ namespace Transportation_Management_System
         public MainWindow()
         {
             InitializeComponent();
-
-            DAL db = new DAL();
-
-            db.FilterCompletedOrdersByTime();   
         }
 
         private void MainWindow_OnMouseDown(object sender, MouseButtonEventArgs e)
