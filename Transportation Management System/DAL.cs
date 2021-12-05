@@ -1277,7 +1277,8 @@ namespace Transportation_Management_System
                 }
                 else
                 {
-                    string qSQL = "SELECT * FROM Orders WHERE CarrierName=@CarrierName";
+                    // Filter all orders from the past 2 weeks
+                    string qSQL = "SELECT * FROM Orders WHERE IsCompleted=1 AND OrderCompletedDate between date_sub(now(),INTERVAL 2 WEEK) and now()";
                     
                     string conString = this.ToString();
                     using (MySqlConnection conn = new MySqlConnection(conString))
@@ -1285,7 +1286,6 @@ namespace Transportation_Management_System
                         conn.Open();
                         using (MySqlCommand cmd = new MySqlCommand(qSQL, conn))
                         {
-                            cmd.Parameters.AddWithValue("@CarrierName", carrierName);
                             MySqlDataReader rdr = cmd.ExecuteReader();
                             if (rdr.HasRows)
                             {
