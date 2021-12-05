@@ -20,5 +20,14 @@ namespace Transportation_Management_System
         /// The number of less than truckloads available
         public int LTLAval { set; get; }
 
+        public CarrierCity() { }
+        
+        public CarrierCity(Carrier newCarrier, City newDepot, int newFTL, int newLTL)
+        {
+            Carrier = newCarrier;
+            DepotCity = newDepot;
+            FTLAval = newFTL;
+            LTLAval = newLTL;
+        }
     }
 }

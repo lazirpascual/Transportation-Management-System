@@ -26,7 +26,7 @@
             <Button x:Name ="Clients" Content="Clients" Background="WhiteSmoke" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="0,363,0,0" Click="Clients_Click"/>
             <Button x:Name ="MarketPlace" Content="MarketPlace" Background="WhiteSmoke" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="0,158,0,0" Click="MarketPlace_Click"/>
             <CheckBox x:Name="ActiveBox" Content="Active Orders" Background="WhiteSmoke" Margin="146,370,403,27" Visibility="Hidden" IsChecked="False" Click="ActiveBox_Click"/>
-            <ListView x:Name="ContractsList" Margin="145,10,21,61" Visibility="Visible">
+            <ListView x:Name="ContractsList" Margin="145,10,21,61" Visibility="Visible" SelectionMode="Single">
                 <ListView.View>
                     <GridView x:Name="ContractsListGrid">
                         <GridViewColumn Header="Client Name" Width="120" DisplayMemberBinding="{Binding ClientName}" />
