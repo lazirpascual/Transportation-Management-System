@@ -112,21 +112,25 @@ namespace Transportation_Management_System
         ///
         /// \param orderObj  - <b>Order</b> - An Order object with all its information
         /// 
-        public void CreateInvoice(Order orderObj)
+        public Invoice CreateInvoice(Order orderObj)
         {
+            Invoice invoice = new Invoice();
             Trip tripObj = new Trip();
             long orderID = orderObj.OrderID;
+           
+            
+            int quantity = orderObj.Quantity;
             double totalCost = 0.0;
             int days = tripObj.TotalTime;
             string clientName = orderObj.ClientName;
             string origin = (orderObj.Origin).ToString();
             string destination = (orderObj.Destination).ToString();
             Random randNum = new Random();
-            int invoiceNum = randNum.Next(0, 100);
+            int invoiceNum = randNum.Next(0, 1000);
 
             string invoiceText = String.Format("Sales Invoice\nInvoice Number: {0}\n\nOrder Number: {1}\nClient: {2}\nOrigin City: {3}\nDestination City: {4}\nDays taken: {5}\n\n\nTotal: {6}\n", invoiceNum, clientName, origin, destination, days, totalCost);
             string invoiceDirectory = Directory.GetCurrentDirectory();
-            string invoiceName = invoiceDirectory + "\\Invoice" + invoiceNum + ".txt";
+            string invoiceName = invoiceDirectory + "\\"+clientName+"-" + orderID + ".txt";
             try
             {
                 using (StreamWriter writer = new StreamWriter(invoiceName))
@@ -138,6 +142,17 @@ namespace Transportation_Management_System
             {
                 throw;
             }
+
+            invoice.OrderID = orderID;
+            invoice.PalletQuantity = quantity;
+            invoice.TotalAmount = totalCost;
+            invoice.ClientName = clientName;
+            invoice.Origin = (City)Enum.Parse(typeof(City), origin, true);
+            invoice.Destination= (City)Enum.Parse(typeof(City), destination, true);
+            invoice.Days = days;
+
+            return invoice;
+
 
         }
     }

@@ -92,7 +92,20 @@ namespace Transportation_Management_System
         ///
         /// \return Returns summmary report of invoice data
         /// 
-        //public string GenerateInvoice(string period) { }
+        //public List<Invoice> GenerateSummaryReport(bool timePeriod)
+        //{
+        //    DAL invoiceList = new DAL();
+        //    Buyer buyer = new Buyer();
+
+        //    List<Invoice> invoices = invoiceList.FilterCompletedOrdersByTime(timePeriod);
+        //    foreach (var inv in invoices)
+        //    {
+                
+        //    }
+
+        //    return invoices;
+        
+        //}
     }
 
 }
