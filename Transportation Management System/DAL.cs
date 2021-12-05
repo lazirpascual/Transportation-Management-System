@@ -1095,6 +1095,7 @@ namespace Transportation_Management_System
                             newOrder.VanType = (VanType)int.Parse(rdr["VanType"].ToString());
                             newOrder.Quantity = int.Parse(rdr["Quantity"].ToString());
                             newOrder.IsCompleted = int.Parse(rdr["IsCompleted"].ToString());
+                            newOrder.OrderCompletionDate = DateTime.Parse(rdr["OrderCompletedDate"].ToString());
                             orders.Add(newOrder);
                         }
                     }
@@ -1107,6 +1108,49 @@ namespace Transportation_Management_System
             }
 
             return orders;
+        }
+
+
+        ///
+        /// \brief Set an order to completed
+        /// 
+        public void CompleteOrder(Order order)
+        {
+            string sql = "UPDATE Orders SET IsCompleted=1, OrderCompletedDate=@OrderCompletedDate WHERE OrderID=@OrderID";
+
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(this.ToString()))
+                {
+                    conn.Open();
+
+                    using (MySqlCommand cmd = new MySqlCommand(sql, conn))
+                    {
+                        order.OrderCompletionDate = DateTime.Now;
+
+                        // Populate all arguments in the insert
+                        cmd.Parameters.AddWithValue("@OrderID", order.OrderID);
+                        cmd.Parameters.AddWithValue("@OrderCompletedDate", order.OrderCompletionDate.ToString("yyyy-MM-dd H:mm:ss"));
+
+                        // Execute the insertion and check the number of rows affected
+                        // An exception will be thrown if the column is repeated
+                        if(cmd.ExecuteNonQuery() == 0)
+                        {
+                            throw new ArgumentException("Invalid Order");
+                        }
+                    }
+                }
+            }
+            catch(ArgumentException e)
+            {
+                Logger.Log(e.Message, LogLevel.Error);
+                throw;
+            }
+            catch (Exception e)
+            {
+                Logger.Log(e.Message, LogLevel.Error);
+                throw;
+            }
         }
 
         ///
@@ -1183,8 +1227,9 @@ namespace Transportation_Management_System
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                Logger.Log(e.Message, LogLevel.Error);
                 throw;
             }
             return carriers;
@@ -1222,8 +1267,9 @@ namespace Transportation_Management_System
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                Logger.Log(e.Message, LogLevel.Error);
                 throw;
             }
             return carrierID;
@@ -1240,6 +1286,70 @@ namespace Transportation_Management_System
         /// 
         //public List<Trip> FilterTripsByOrderId(int orderId) { }
 
+
+        //
+        /// \brief Returns a list with all orders filtered by 2 weeks or all time
+        /// 
+        /// \param orderId  - <b>int</b> - If of the order to filter the trip
+        /// 
+        /// \return A list with all trips attached to a specific orders
+        /// 
+        public List<Order> FilterCompletedOrdersByTime(bool onlyPast2Weeks = false) 
+        {
+            List<Order> orders = new List<Order>();
+
+            try
+            {
+                // If all time
+                if (!onlyPast2Weeks)
+                {
+                    orders = GetCompletedOrders();
+                }
+                else
+                {
+                    // Filter all orders from the past 2 weeks
+                    string qSQL = "SELECT * FROM Orders INNER JOIN Clients ON Orders.ClientID = Clients.ClientID WHERE IsCompleted=1 AND OrderCompletedDate between date_sub(now(),INTERVAL 2 WEEK) and now()";
+                    
+                    string conString = this.ToString();
+                    using (MySqlConnection conn = new MySqlConnection(conString))
+                    {
+                        conn.Open();
+                        using (MySqlCommand cmd = new MySqlCommand(qSQL, conn))
+                        {
+                            MySqlDataReader rdr = cmd.ExecuteReader();
+                            if (rdr.HasRows)
+                            {
+                                while (rdr.Read())
+                                {
+                                    Order order = new Order();
+
+                                    order.ClientName = rdr["ClientName"].ToString();
+                                    order.OrderCreationDate = DateTime.Parse(rdr["OrderDate"].ToString());
+                                    order.Origin = (City)Enum.Parse(typeof(City), rdr["Origin"].ToString(), true);
+                                    order.Destination = (City)Enum.Parse(typeof(City), rdr["Destination"].ToString(), true);
+                                    order.JobType = (JobType)int.Parse(rdr["JobType"].ToString());
+                                    order.VanType = (VanType)int.Parse(rdr["VanType"].ToString());
+                                    order.Quantity = int.Parse(rdr["Quantity"].ToString());
+                                    order.IsCompleted = int.Parse(rdr["IsCompleted"].ToString());
+                                    order.OrderCompletionDate = DateTime.Parse(rdr["OrderCompletedDate"].ToString());
+
+                                    orders.Add(order);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Logger.Log(e.Message, LogLevel.Error);
+                throw;
+            }
+
+
+            return orders;
+            
+        }
 
 
         ///
