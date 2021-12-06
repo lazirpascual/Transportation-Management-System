@@ -1616,6 +1616,7 @@ namespace Transportation_Management_System
 
         ///
         /// \brief Return carrierID of the carrier
+        /// \param carrierName  -   <b>string</b> - name of the carrier
         /// 
         /// \return carrier ID of the carrier
         /// 
@@ -1654,11 +1655,10 @@ namespace Transportation_Management_System
 
 
         ///
-        /// \brief Used to select carriers from targeted cities to complete an Order. This 
-        /// adds a "trip" to the order for each carrier selected
+        /// \brief Used to create a trip using trip object
         ///
-        /// \param order  - <b>Order</b> - Order to select the invoic
-        /// \param carrierToSelect  - <b>Carrier</b> - Selected carrier
+        /// \param trip  - <b>Trip</b> - Order to select the invoic
+        /// \param carrierToSelect  - <b>Carrier</b> - trip object
         /// 
         /// 
         /// \return Returns void
@@ -1698,7 +1698,7 @@ namespace Transportation_Management_System
 
 
         ///
-        /// \brief Returns a list with all trips attached to a specific orders
+        /// \brief Returns a list with all trips attached to a specific order
         /// 
         /// \param orderId  - <b>int</b> - If of the order to filter the trip
         /// 
