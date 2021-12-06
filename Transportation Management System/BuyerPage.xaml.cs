@@ -79,6 +79,7 @@ namespace Transportation_Management_System
 
             clientList = buyer.FetchClients(25);
             ClientsList.ItemsSource = clientList;
+            CActiveBox.IsChecked = false;
         }
 
         private void MarketPlace_Page()
