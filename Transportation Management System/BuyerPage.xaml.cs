@@ -45,6 +45,10 @@ namespace Transportation_Management_System
             resetStatus();
             InvoicesGrid.Visibility = Visibility.Visible;
             Invoice.Background = Brushes.LightSkyBlue;
+
+            List<Order> orderList = new List<Order>();
+            orderList = buyer.GetOrders(2);
+            InvoiceList.ItemsSource = orderList;
         }
 
         private void Carriers_Click(object sender, RoutedEventArgs e)
@@ -63,7 +67,7 @@ namespace Transportation_Management_System
             OrdersGrid.Visibility = Visibility.Visible;
             Orders.Background = Brushes.LightSkyBlue;
             List<Order> orderList = new List<Order>();
-            orderList = buyer.GetOrders(2);             
+            orderList = buyer.GetOrders(25);             
             OrdersList.ItemsSource = orderList;
             ActiveBox.IsChecked = false;
             CompletedBox.IsChecked = false;
@@ -78,7 +82,7 @@ namespace Transportation_Management_System
 
             List<Client> clientList = new List<Client>();
 
-            clientList = buyer.FetchClients(2);
+            clientList = buyer.FetchClients(25);
             ClientsList.ItemsSource = clientList;
         }
 
@@ -103,7 +107,7 @@ namespace Transportation_Management_System
                 if (CompletedBox.IsChecked == true)
                 {
                     // completed box is also checked, get all orders
-                    orderList = buyer.GetOrders(2);
+                    orderList = buyer.GetOrders(25);
 
                 }
                 else
@@ -123,7 +127,7 @@ namespace Transportation_Management_System
                 else
                 {
                     // completed box is not checked, fetch all orders
-                    orderList = buyer.GetOrders(2);
+                    orderList = buyer.GetOrders(25);
                 }
             }
 
@@ -140,7 +144,7 @@ namespace Transportation_Management_System
                 if (ActiveBox.IsChecked == true)
                 {
                     // active box is also checked, get all orders
-                    orderList = buyer.GetOrders(2);
+                    orderList = buyer.GetOrders(25);
                 }
                 else
                 {
@@ -160,7 +164,7 @@ namespace Transportation_Management_System
                 else
                 {
                     // active box is also not checked, fetch all orders
-                    orderList = buyer.GetOrders(2);
+                    orderList = buyer.GetOrders(25);
                 }
             }
 
@@ -232,6 +236,11 @@ namespace Transportation_Management_System
                     GenerateInvoice.Visibility = Visibility.Hidden;
                 }
             }
+        }
+
+        private void InvoiceList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ViewInvoice.Visibility = Visibility.Visible;
         }
     }
 }
