@@ -155,6 +155,7 @@ namespace Transportation_Management_System
                 CompleteOrder.Visibility = Visibility.Visible;
                 OrderProgress.Visibility = Visibility.Visible;
                 ViewCarrier.Visibility = Visibility.Hidden;
+                Refresh_Orders();
             }
         }
 
@@ -176,9 +177,14 @@ namespace Transportation_Management_System
             TimeSpan TimePassed = DateTime.Now - currentOrder.OrderCreationDate;
 
             double result = TimePassed.TotalHours * 100 / TotalTimeSpan.TotalHours;
-            if(result > 100)
+            if(result >= 100)
             {
                 result = 100;
+                CompleteOrder.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                CompleteOrder.Visibility = Visibility.Hidden;
             }
             OrderProgressBar.Value = result;
         }
@@ -193,7 +199,6 @@ namespace Transportation_Management_System
                 {
                     // carrier has already been assigned, display complete order button
                     Simulate_OrderStatus();
-                    CompleteOrder.Visibility = Visibility.Visible;
                     OrderProgress.Visibility = Visibility.Visible;
                     ViewCarrier.Visibility = Visibility.Hidden;
                 }
@@ -226,10 +231,14 @@ namespace Transportation_Management_System
             ActivitiesGrid.Visibility = Visibility.Hidden;
             OrdersGrid.Visibility = Visibility.Hidden;
 
+
             ActiveBox.IsChecked = false;
             CompletedBox.IsChecked = false;
             AllInvoices.IsChecked = false;
             PastInvoice.IsChecked = false;
+
+            CompleteOrder.Visibility = Visibility.Hidden;
+
         }
 
     }

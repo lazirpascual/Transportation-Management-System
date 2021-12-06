@@ -59,14 +59,15 @@
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Order ID" Width="50" DisplayMemberBinding="{Binding OrderID}" />
-                            <GridViewColumn Header="Client Name" Width="100" DisplayMemberBinding="{Binding ClientName}" />
-                            <GridViewColumn Header="Creation Date" Width="90" DisplayMemberBinding="{Binding OrderCreationDate}" />
+                            <GridViewColumn Header="Client Name" Width="90" DisplayMemberBinding="{Binding ClientName}" />
                             <GridViewColumn Header="Origin" Width="80" DisplayMemberBinding="{Binding Origin}" />
                             <GridViewColumn Header="Destination" Width="90" DisplayMemberBinding="{Binding Destination}" />
                             <GridViewColumn Header="Job Type" Width="60" DisplayMemberBinding="{Binding JobType}" />
-                            <GridViewColumn Header="Van Type" Width="70" DisplayMemberBinding="{Binding VanType}" />
-                            <GridViewColumn Header="Quantity" Width="60" DisplayMemberBinding="{Binding Quantity}" />
+                            <GridViewColumn Header="Van Type" Width="60" DisplayMemberBinding="{Binding VanType}" />
+                            <GridViewColumn Header="Quantity" Width="50" DisplayMemberBinding="{Binding Quantity}" />
                             <GridViewColumn Header="Status" Width="50" DisplayMemberBinding="{Binding IsCompleted}" />
+                            <GridViewColumn Header="Creation Date" Width="90" DisplayMemberBinding="{Binding OrderCreationDate}" />
+                            <GridViewColumn Header="Completion Date" Width="70" DisplayMemberBinding="{Binding OrderCompletionDate}" />
                         </GridView>
                     </ListView.View>
                 </ListView>

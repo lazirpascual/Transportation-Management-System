@@ -304,8 +304,8 @@ namespace Transportation_Management_System
         /// 
         public void CreateOrder(Order order) 
         {
-            string sql = "INSERT INTO Orders (ClientID, Origin, Destination, JobType, Quantity, VanType) " +
-                "VALUES (@ClientID, @Origin, @Destination, @JobType, @Quantity, @VanType)";
+            string sql = "INSERT INTO Orders (ClientID, Origin, Destination, JobType, Quantity, VanType, OrderCreationDate) " +
+                "VALUES (@ClientID, @Origin, @Destination, @JobType, @Quantity, @VanType, @OrderCreationDate)";
 
 
             try
@@ -323,6 +323,8 @@ namespace Transportation_Management_System
 
                     using (MySqlCommand cmd = new MySqlCommand(sql, conn))
                     {
+                        order.OrderAcceptedDate = DateTime.Now;
+
                         // Populate all arguments in the insert
                         cmd.Parameters.AddWithValue("@ClientID", client.ClientID);
                         cmd.Parameters.AddWithValue("@Origin", order.Origin.ToString());
@@ -330,6 +332,7 @@ namespace Transportation_Management_System
                         cmd.Parameters.AddWithValue("@JobType", order.JobType);
                         cmd.Parameters.AddWithValue("@Quantity", order.Quantity);
                         cmd.Parameters.AddWithValue("@VanType", order.VanType);
+                        cmd.Parameters.AddWithValue("@OrderCreationDate", order.OrderAcceptedDate);
 
                         // Execute the insertion and check the number of rows affected
                         // An exception will be thrown if the column is repeated
@@ -376,7 +379,7 @@ namespace Transportation_Management_System
                     using (MySqlCommand cmd = new MySqlCommand(sql, conn))
                     {
                         cmd.Parameters.AddWithValue("@OrderID", currentOrder.OrderID);
-                        cmd.Parameters.AddWithValue("@OrderDate", DateTime.Now.ToString("MM-dd-yyyy HH-mm-ss"));
+                        cmd.Parameters.AddWithValue("@OrderDate", DateTime.Now);
                         cmd.ExecuteNonQuery();
                     }
                 }
@@ -1257,13 +1260,14 @@ namespace Transportation_Management_System
                             newOrder.OrderID = int.Parse(rdr["OrderID"].ToString());
                             newOrder.ClientName = rdr["ClientName"].ToString();
                             if (DateTime.TryParse(rdr["OrderDate"].ToString(), out DateTime dt)) newOrder.OrderCreationDate = dt;
-                            newOrder.Origin = (City) Enum.Parse(typeof(City), rdr["Origin"].ToString(), true);
-                            newOrder.Destination = (City) Enum.Parse(typeof(City), rdr["Destination"].ToString(), true);
-                            newOrder.JobType = (JobType) int.Parse(rdr["JobType"].ToString());
-                            newOrder.VanType = (VanType) int.Parse(rdr["VanType"].ToString());
+                            newOrder.Origin = (City)Enum.Parse(typeof(City), rdr["Origin"].ToString(), true);
+                            newOrder.Destination = (City)Enum.Parse(typeof(City), rdr["Destination"].ToString(), true);
+                            newOrder.JobType = (JobType)int.Parse(rdr["JobType"].ToString());
+                            newOrder.VanType = (VanType)int.Parse(rdr["VanType"].ToString());
                             newOrder.Quantity = int.Parse(rdr["Quantity"].ToString());
-                            newOrder.InvoiceGenerated = int.Parse(rdr["InvoiceGenerated"].ToString());
-                            newOrder.IsCompleted = 0;
+                            newOrder.IsCompleted = int.Parse(rdr["IsCompleted"].ToString());
+                            if (DateTime.TryParse(rdr["OrderCreationDate"].ToString(), out DateTime dt2)) newOrder.OrderAcceptedDate = dt2;
+                            if (DateTime.TryParse(rdr["OrderCompletedDate"].ToString(), out DateTime dt3)) newOrder.OrderCompletionDate = dt3;
                             orders.Add(newOrder);
                         }
                     }
@@ -1311,8 +1315,9 @@ namespace Transportation_Management_System
                             newOrder.JobType = (JobType)int.Parse(rdr["JobType"].ToString());
                             newOrder.VanType = (VanType)int.Parse(rdr["VanType"].ToString());
                             newOrder.Quantity = int.Parse(rdr["Quantity"].ToString());
-                            newOrder.InvoiceGenerated = int.Parse(rdr["InvoiceGenerated"].ToString());
-                            newOrder.IsCompleted = 1;
+                            newOrder.IsCompleted = int.Parse(rdr["IsCompleted"].ToString());
+                            if (DateTime.TryParse(rdr["OrderCreationDate"].ToString(), out DateTime dt2)) newOrder.OrderAcceptedDate = dt2;
+                            if (DateTime.TryParse(rdr["OrderCompletedDate"].ToString(), out DateTime dt3)) newOrder.OrderCompletionDate = dt3;
                             orders.Add(newOrder);
                         }
                     }
@@ -1353,7 +1358,7 @@ namespace Transportation_Management_System
                             Order newOrder = new Order();
                             newOrder.OrderID = int.Parse(rdr["OrderID"].ToString());
                             newOrder.ClientName = rdr["ClientName"].ToString();
-                            if (DateTime.TryParse(rdr["OrderDate"].ToString(), out DateTime dt)) newOrder.OrderCreationDate = dt;
+                            if (DateTime.TryParse(rdr["OrderCreationDate"].ToString(), out DateTime dt)) newOrder.OrderAcceptedDate = dt;
                             newOrder.Origin = (City)Enum.Parse(typeof(City), rdr["Origin"].ToString(), true);
                             newOrder.Destination = (City)Enum.Parse(typeof(City), rdr["Destination"].ToString(), true);
                             newOrder.JobType = (JobType)int.Parse(rdr["JobType"].ToString());
@@ -1389,7 +1394,7 @@ namespace Transportation_Management_System
                 string conString = this.ToString();
                 using (MySqlConnection con = new MySqlConnection(conString))
                 {
-                    MySqlCommand cmd = new MySqlCommand("SELECT OrderID, Clients.ClientName, OrderDate, Origin, Destination, JobType, VanType, Quantity, IsCompleted, OrderCompletedDate FROM Orders" +
+                    MySqlCommand cmd = new MySqlCommand("SELECT * FROM Orders" +
                          " INNER JOIN Clients ON Orders.ClientID = Clients.ClientID", con);
 
                     con.Open();
@@ -1409,7 +1414,8 @@ namespace Transportation_Management_System
                             newOrder.VanType = (VanType)int.Parse(rdr["VanType"].ToString());
                             newOrder.Quantity = int.Parse(rdr["Quantity"].ToString());
                             newOrder.IsCompleted = int.Parse(rdr["IsCompleted"].ToString());
-                            if (DateTime.TryParse(rdr["OrderCompletedDate"].ToString(), out dt)) newOrder.OrderCompletionDate = dt;
+                            if (DateTime.TryParse(rdr["OrderCreationDate"].ToString(), out DateTime dt2)) newOrder.OrderAcceptedDate = dt2;
+                            if (DateTime.TryParse(rdr["OrderCompletedDate"].ToString(), out DateTime dt3)) newOrder.OrderCompletionDate = dt3;
                             orders.Add(newOrder);
                         }
                     }

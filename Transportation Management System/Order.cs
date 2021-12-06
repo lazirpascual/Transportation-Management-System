@@ -25,8 +25,11 @@ namespace Transportation_Management_System
         /// The client related the order
         public string ClientName { get; set; }
 
-        /// The date when the order was created
+        /// The date when the order was created from the marketplace
         public DateTime OrderCreationDate { get; set; }
+
+        /// The date when the order was 
+        public DateTime OrderAcceptedDate { get; set; }
 
         /// The origin of the order's trip
         public City Origin { get; set; }
