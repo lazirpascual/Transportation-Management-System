@@ -165,9 +165,6 @@ namespace Transportation_Management_System
             return invoice;
         }
 
-
-        }
-
         public void SaveInvoice(Invoice invoice)
         {
             Random randNum = new Random();
