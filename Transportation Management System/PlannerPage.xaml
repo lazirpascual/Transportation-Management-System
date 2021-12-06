@@ -36,6 +36,7 @@
 
             </Grid>
             <Grid x:Name="OrdersGrid" Visibility="Hidden">
+                <Button x:Name="CompleteOrder" Content="Complete Order" HorizontalAlignment="Left" VerticalAlignment="Top" Width="135" Visibility="Hidden" Margin="635,372,0,0"/>
                 <Button x:Name="ViewCarrier" Content="View Available Carriers" HorizontalAlignment="Left" VerticalAlignment="Top" Width="135" Margin="635,372,0,0" Click="View_Carrier" Visibility="Hidden"/>
                 <CheckBox x:Name="ActiveBox" Content="Active Orders" Background="WhiteSmoke" Margin="146,370,403,27" IsChecked="False" Click="ActiveBox_Click"/>
                 <CheckBox x:Name="CompletedBox" Content="Completed Orders" Background="WhiteSmoke" Margin="250,370,403,27" IsChecked="False" Click="CompletedBox_Click"/>
