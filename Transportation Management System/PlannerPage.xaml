@@ -9,7 +9,7 @@
         Closing="Window_Closing"
         Title="Planner" Height="450" Width="800"
         Loaded="Window_Loaded">
-        <Viewbox>
+    <Viewbox>
         <Grid>
             <Border RenderTransformOrigin="0.5,0.5" Height="419">
                 <Border.Background>
@@ -23,10 +23,10 @@
             <Button x:Name ="Invoices" Content="Invoices" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,312,0,0" Click="Invoices_Click"/>
             <Button x:Name ="Orders" Content="Orders" Background="WhiteSmoke" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,363,0,0" Click="Orders_Click"/>
             <Grid x:Name="ReportsGrid" Visibility="Hidden">
-                
+
                 <RadioButton x:Name="AllInvoices" Content="All Invoices" HorizontalAlignment="Left" Margin="170,361,0,0" VerticalAlignment="Top" Click="AllInvoices_Click"/>
                 <RadioButton x:Name="PastInvoice" Content="Past 2 weeks" HorizontalAlignment="Left" Margin="253,361,0,0" VerticalAlignment="Top" Click="PastInvoices_Click"/>
-                
+
                 <ListView x:Name="ReportList" Margin="145,10,21,61" SelectionMode="Single" SelectionChanged="Selection_Changed" HorizontalAlignment="Center" VerticalAlignment="Center" Height="324" Width="608">
                     <ListView.View>
                         <GridView>
@@ -39,7 +39,7 @@
                             <GridViewColumn Header="Total" Width="70" DisplayMemberBinding="{Binding TotalAmount}" />
                         </GridView>
                     </ListView.View>
-                </ListView>               
+                </ListView>
             </Grid>
 
             <Grid x:Name="ActivitiesGrid" Visibility="Hidden">
@@ -54,7 +54,7 @@
                 <RadioButton x:Name="AllBox" Content="All Orders" Background="WhiteSmoke" Margin="156,368,590,29" IsChecked="False" Click="AllBox_Click"/>
                 <RadioButton x:Name="ActiveBox" Content="Active Orders" Background="WhiteSmoke" Margin="238,368,488,29" IsChecked="False" Click="ActiveBox_Click"/>
                 <RadioButton x:Name="CompletedBox" Content="Completed Orders" Background="WhiteSmoke" Margin="340,368,357,29" IsChecked="False" Click="CompletedBox_Click"/>
-                
+
                 <ListView x:Name="OrdersList" Margin="156,23,10,72" SelectionMode="Single" SelectionChanged="Selection_Changed" HorizontalAlignment="Center" VerticalAlignment="Center" Height="324" Width="657">
                     <ListView.View>
                         <GridView>
@@ -73,7 +73,7 @@
                 <Grid x:Name="OrderProgress" Visibility="Hidden" >
                     <ProgressBar x:Name="OrderProgressBar" Value="2" HorizontalAlignment="Left" Height="20" Margin="555,373,0,0" VerticalAlignment="Top" Width="123" Minimum="0" Maximum="100"/>
                     <Label HorizontalAlignment="Left" Height="23" Margin="573,375,0,0" Content="Order Progress" VerticalAlignment="Top" Width="120" BorderThickness="0" Padding="0" Background="Transparent"/>
-                   
+
                 </Grid>
             </Grid>
         </Grid>

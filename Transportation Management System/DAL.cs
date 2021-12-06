@@ -123,7 +123,6 @@ namespace Transportation_Management_System
 
             using (MySqlConnection conn = new MySqlConnection(this.ToString()))
             {
-                Console.WriteLine("Connecting to MySQL...");
                 conn.Open();
                 try
                 {
@@ -144,9 +143,10 @@ namespace Transportation_Management_System
                         }
                     }
                 }
-                catch (Exception ex)
+                catch (Exception e)
                 {
-                    Console.WriteLine(ex.ToString());
+                    Logger.Log(e.Message, LogLevel.Error);
+                    throw;
                 }
                 conn.Close();
             }
@@ -171,7 +171,6 @@ namespace Transportation_Management_System
 
             using (MySqlConnection conn = new MySqlConnection(this.ToString()))
             {
-                Console.WriteLine("Connecting to MySQL...");
                 conn.Open();
                 try
                 {
@@ -192,9 +191,10 @@ namespace Transportation_Management_System
                         }
                     }
                 }
-                catch (Exception ex)
+                catch (Exception e)
                 {
-                    Console.WriteLine(ex.ToString());
+                    Logger.Log(e.Message, LogLevel.Error);
+                    throw;
                 }
                 conn.Close();
             }
@@ -219,7 +219,6 @@ namespace Transportation_Management_System
 
             using (MySqlConnection conn = new MySqlConnection(this.ToString()))
             {
-                Console.WriteLine("Connecting to MySQL...");
                 conn.Open();
                 try
                 {
@@ -237,9 +236,10 @@ namespace Transportation_Management_System
                         }
                     }
                 }
-                catch (Exception ex)
+                catch (Exception e)
                 {
-                    Console.WriteLine(ex.ToString());
+                    Logger.Log(e.Message, LogLevel.Error);
+                    throw;
                 }
                 conn.Close();
             }
@@ -774,8 +774,9 @@ namespace Transportation_Management_System
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                Logger.Log(e.Message, LogLevel.Error);
                 throw;
             }
             return carr;
@@ -979,8 +980,9 @@ namespace Transportation_Management_System
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                Logger.Log(e.Message, LogLevel.Error);
                 throw;
             }
             return carrierCities;
@@ -1086,8 +1088,9 @@ namespace Transportation_Management_System
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                Logger.Log(e.Message, LogLevel.Error);
                 throw;
             }
             return carrierCities;
@@ -1129,8 +1132,9 @@ namespace Transportation_Management_System
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                Logger.Log(e.Message, LogLevel.Error);
                 throw;
             }
             return usersList;
@@ -1169,8 +1173,9 @@ namespace Transportation_Management_System
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                Logger.Log(e.Message, LogLevel.Error);
                 throw;
             }
             return clientsList;
@@ -1906,8 +1911,6 @@ namespace Transportation_Management_System
                 Logger.Log(e.Message, LogLevel.Error);
                 throw;
             }
-            
         }
     }
 }
-
