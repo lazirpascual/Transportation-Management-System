@@ -19,7 +19,8 @@
                 </Border.Background>
                 <Image Source="logo_white.png" Margin="10,10,667,281"/>
             </Border>
-            <Button x:Name="ViewCarrier" Content="View Available Carriers" HorizontalAlignment="Left" VerticalAlignment="Top" Width="135" Visibility="Visible" Margin="635,372,0,0" Click="View_Carrier"/>
+            <Button x:Name="CompleteOrder" Content="Complete Order" HorizontalAlignment="Left" VerticalAlignment="Top" Width="135" Visibility="Hidden" Margin="635,372,0,0"/>
+            <Button x:Name="ViewCarrier" Content="View Available Carriers" HorizontalAlignment="Left" VerticalAlignment="Top" Width="135" Visibility="Hidden" Margin="635,372,0,0" Click="View_Carrier"/>
             <Button x:Name ="Button5" Content="Backup" FontSize="16" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="650,363,0,0"/>
             <Button x:Name ="Button4" Content="Backup" FontSize="16" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" RenderTransformOrigin="1.496,1.196" Margin="524,363,0,0"/>
             <Button x:Name ="Button3" Content="Backup" FontSize="16" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="398,363,0,0"/>
@@ -31,7 +32,7 @@
             <Button x:Name ="Orders" Content="Orders" Background="WhiteSmoke" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="0,363,0,0" Click="Orders_Click"/>
             <CheckBox x:Name="ActiveBox" Content="Active Orders" Background="WhiteSmoke" Margin="146,370,403,27" Visibility="Hidden" IsChecked="False" Click="ActiveBox_Click"/>
             <CheckBox x:Name="CompletedBox" Content="Completed Orders" Background="WhiteSmoke" Margin="250,370,403,27" Visibility="Hidden" IsChecked="False" Click="CompletedBox_Click"/>
-            <ListView x:Name="OrdersList" Margin="145,10,21,61" Visibility="Hidden" SelectionMode="Single">
+            <ListView x:Name="OrdersList" Margin="145,10,21,61" Visibility="Hidden" SelectionMode="Single" SelectionChanged="Selection_Changed">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="OrderID" Width="50" DisplayMemberBinding="{Binding OrderID}" />

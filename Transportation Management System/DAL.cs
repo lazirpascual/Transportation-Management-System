@@ -1286,6 +1286,8 @@ namespace Transportation_Management_System
                          " INNER JOIN Orders ON Orders.OrderID = Trips.OrderID" +
                          " WHERE Trips.OrderID = @OrderID", con);
 
+                    con.Open();
+
                     cmd.Parameters.AddWithValue("@OrderID", currentOrder.OrderID);
                     MySqlDataReader rdr = cmd.ExecuteReader();
 
