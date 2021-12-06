@@ -1442,7 +1442,7 @@ namespace Transportation_Management_System
         /// 
         /// \return Returns void
         /// 
-        public void CreateTrip(Order order, Carrier carrierToSelect)
+        public void CreateTrip(Order order, long carrierID)
         {
             string sql = "INSERT INTO Trips (OrderID, CarrierID, OriginCity, DestinationCity) VALUE (@OrderID, @CarrierID, @OriginCity, @DestinationCity)";
 
@@ -1456,7 +1456,7 @@ namespace Transportation_Management_System
                     {
                         // Populate all arguments in the insert
                         cmd.Parameters.AddWithValue("@OrderID", order.OrderID);
-                        cmd.Parameters.AddWithValue("@CarrierID", carrierToSelect.CarrierID);
+                        cmd.Parameters.AddWithValue("@CarrierID", carrierID);
                         cmd.Parameters.AddWithValue("@OriginCity", order.Origin);
                         cmd.Parameters.AddWithValue("@DestinationCity", order.Destination);
 

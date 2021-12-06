@@ -43,7 +43,7 @@
                         <GridViewColumn Header="Job Type" Width="60" DisplayMemberBinding="{Binding JobType}" />
                         <GridViewColumn Header="Van Type" Width="70" DisplayMemberBinding="{Binding VanType}" />
                         <GridViewColumn Header="Quantity" Width="60" DisplayMemberBinding="{Binding Quantity}" />
-                        <GridViewColumn Header="Status" Width="70" DisplayMemberBinding="{Binding IsCompleted}" />
+                        <GridViewColumn Header="Status" Width="50" DisplayMemberBinding="{Binding IsCompleted}" />
                     </GridView>
                 </ListView.View>
             </ListView>

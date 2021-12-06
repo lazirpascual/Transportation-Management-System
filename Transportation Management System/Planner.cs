@@ -51,6 +51,23 @@ namespace Transportation_Management_System
 
 
         ///
+        /// \brief This method adds a trip based on the selected order and carrier
+        /// 
+        /// \param currentOrder  - <b>Order</b> - current selected order
+        /// \param currentCarrier  - <b>Carrier</b> - current selected carrier
+        /// 
+        /// \return Void
+        /// 
+        public void AddTrip(Order currentOrder, long currentCarrier)
+        {
+            DAL db = new DAL();
+
+            db.CreateTrip(currentOrder, currentCarrier);
+        }
+
+
+
+        ///
         /// \brief Determine whether an order has been assigned to a carrier or not
         ///
         /// \param order  - <b>Order</b> - selected order
