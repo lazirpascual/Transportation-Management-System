@@ -8,6 +8,7 @@ namespace Transportation_Management_System
 {
     public enum City
     {
+        Null = -1,
         Windsor,
         London,
         Hamilton,
@@ -15,7 +16,7 @@ namespace Transportation_Management_System
         Oshawa,
         Belleville,
         Kingston,
-        Ottawa
+        Ottawa,
     }
 
     /// 
