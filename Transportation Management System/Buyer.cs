@@ -135,31 +135,7 @@ namespace Transportation_Management_System
             string clientName = orderObj.ClientName;
             string origin = (orderObj.Origin).ToString();
             string destination = (orderObj.Destination).ToString();
-            Random randNum = new Random();
-            int invoiceNum = randNum.Next(0, 1000);
-
-            string invoiceText = String.Format("====Sales Invoice====\n" + 
-                                                "Invoice Number: {0}\n\n" +
-                                                "Order Number: {1}\n" +
-                                                "Client: {2}\n" +
-                                                "Origin City: {3}\n" +
-                                                "Destination City: {4}\n" +
-                                                "Days taken: {5}\n\n\n" +
-                                                "Total: ${6}\n", invoiceNum, clientName, origin, destination, days, totalCost.ToString("C0"));
-
-            string invoiceDirectory = Directory.GetCurrentDirectory();
-            string invoiceName = invoiceDirectory + "\\"+clientName+"-" + orderID + ".txt";
-            try
-            {
-                using (StreamWriter writer = new StreamWriter(invoiceName))
-                {
-                    writer.Write(invoiceText);
-                }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            
 
             invoice.OrderID = orderID;
             invoice.PalletQuantity = quantity;
@@ -173,6 +149,37 @@ namespace Transportation_Management_System
 
 
         }
+
+        public void SaveInvoice(Invoice invoice)
+        {
+            Random randNum = new Random();
+            int invoiceNum = randNum.Next(0, 1000);
+
+            string invoiceText = String.Format("====Sales Invoice====\n" +
+                                                "Invoice Number: {0}\n\n" +
+                                                "Order Number: {1}\n" +
+                                                "Client: {2}\n" +
+                                                "Origin City: {3}\n" +
+                                                "Destination City: {4}\n" +
+                                                "Days taken: {5}\n\n\n" +
+                                                "Total: ${6}\n", invoiceNum, invoice.ClientName, invoice.Origin, invoice.Destination, invoice.Days, invoice.TotalAmount.ToString("C0"));
+
+            string invoiceDirectory = Directory.GetCurrentDirectory();
+            string invoiceName = invoiceDirectory + "\\" + invoice.ClientName + "-" + invoice.OrderID + ".txt";
+            try
+            {
+                using (StreamWriter writer = new StreamWriter(invoiceName))
+                {
+                    writer.Write(invoiceText);
+                }
+            }
+            catch (Exception e)
+            {
+                Logger.Log(e.Message, LogLevel.Error);
+                throw;
+            }
+        }
+
 
         ///
         /// \brief Used to display a list of clients
