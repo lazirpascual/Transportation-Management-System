@@ -56,6 +56,9 @@ namespace Transportation_Management_System
         {
             resetStatus();
 
+            ActiveBox.IsChecked = false;
+            CompletedBox.IsChecked = false;
+
             Orders.Background = Brushes.LightSkyBlue;
             OrdersList.Visibility = Visibility.Visible;
             ActiveBox.Visibility = Visibility.Visible;
