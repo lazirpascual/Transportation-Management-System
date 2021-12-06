@@ -472,7 +472,7 @@ namespace Transportation_Management_System
         /// 
         public void UpdateRoute(Route newRoute)
         {
-            string sql = "UPDATE Routes SET Distance=@Distance, Time=@Time, WHERE Destination=@Destination";
+            string sql = "UPDATE Routes SET Distance=@Distance, Time=@Time WHERE Destination=@Destination";
 
             try
             {
@@ -614,6 +614,14 @@ namespace Transportation_Management_System
 
             try
             {
+
+                var CarrierCities = this.FilterCitiesByCarrier(carrierCity.Carrier.Name);
+                // Check if current carrier already contains the new depot city, if so, don't duplicate
+                if ((CarrierCities.FindIndex(_carrierCity => _carrierCity.DepotCity == carrierCity.DepotCity) >= 0))
+                {
+                    throw new ArgumentException($"Carrier city {carrierCity.DepotCity} already exists.");
+                }
+
                 using (MySqlConnection conn = new MySqlConnection(this.ToString()))
                 {
                     conn.Open();
@@ -688,18 +696,18 @@ namespace Transportation_Management_System
         ///
         /// \param newCarrier  - <b>Carrier</b> - The new carrier information to be used in the update
         /// 
-        public void UpdateCarrierCity(CarrierCity newCarrierCity)
+        public void UpdateCarrierCity(CarrierCity newCarrierCity, City oldCity)
         {
-            string sql = "UPDATE CarrierCity SET DepotCity=@DepotCity, FTLAval=@FTLAval, LTLAval=@LTLAval WHERE CarrierID=@CarrierID";
+            string sql = "UPDATE CarrierCity SET DepotCity=@DepotCity, FTLAval=@FTLAval, LTLAval=@LTLAval WHERE CarrierID=@CarrierID AND DepotCity=@OldDepotCity";
 
             try
             {
-                //var CarrierCities = this.FilterCitiesByCarrier(newCarrierCity.Carrier.Name);
+                var CarrierCities = this.FilterCitiesByCarrier(newCarrierCity.Carrier.Name);
                 // Check if current carrier already contains the new depot city, if so, don't duplicate
-                //if (CarrierCities.FindIndex(carrierCity => carrierCity.DepotCity == newCarrierCity.DepotCity) >= 0)
-                //{
-                    //throw;
-                //}
+                if ((CarrierCities.FindIndex(carrierCity => carrierCity.DepotCity == newCarrierCity.DepotCity) >= 0) && oldCity != newCarrierCity.DepotCity)
+                {
+                    throw new ArgumentException($"Carrier city {newCarrierCity.DepotCity} already exists.");
+                }
 
 
                 using (MySqlConnection conn = new MySqlConnection(this.ToString()))
@@ -709,6 +717,7 @@ namespace Transportation_Management_System
                     using (MySqlCommand cmd = new MySqlCommand(sql, conn))
                     {
                         // Populate all arguments in the insert
+                        cmd.Parameters.AddWithValue("@OldDepotCity", oldCity.ToString());
                         cmd.Parameters.AddWithValue("@CarrierID", newCarrierCity.Carrier.CarrierID);
                         cmd.Parameters.AddWithValue("@DepotCity", newCarrierCity.DepotCity.ToString());
                         cmd.Parameters.AddWithValue("@FTLAval", newCarrierCity.FTLAval);

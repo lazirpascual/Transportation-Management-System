@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using System.IO;
 //using System.Drawing;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 
 
 namespace Transportation_Management_System
@@ -279,20 +280,23 @@ namespace Transportation_Management_System
 
                     // Empty Cities list
                     CityDatabase.ItemsSource = new List<CarrierCity>();
+
+                    System.Windows.MessageBox.Show($"{carrier.Name} updated successfully", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 // Show details about the city if carrier and city is selected
                 else if (CarrierDatabaseList.SelectedItems.Count == 1 && CityDatabase.SelectedItems.Count == 1)
                 {
                     carrierCity.Carrier.CarrierID = db.GetCarrierIdByName(carrier.Name);
-                    db.UpdateCarrierCity(carrierCity);
+                    db.UpdateCarrierCity(carrierCity, ((CarrierCity) CityDatabase.SelectedItem).DepotCity);
 
                     // Update the cities list
                     List<CarrierCity> carriersList = db.FilterCitiesByCarrier(carrier.Name);
                     CityDatabase.ItemsSource = carriersList;
+
+                    System.Windows.MessageBox.Show($"{carrierCity.DepotCity} updated successfully", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
 
                 PopulateCarrierList(sender, e);
-
 
             }
             // Inform the user if the operation fails
@@ -318,11 +322,18 @@ namespace Transportation_Management_System
                 // If only a carrier is selected
                 if (CarrierDatabaseList.SelectedItems.Count == 1 && CityDatabase.SelectedItems.Count == 0)
                 {
-                    db.DeleteCarrier(carrier);
+                    var result = System.Windows.MessageBox.Show($"Are you sure you want to delete the carrier {carrier.Name}?", "Are you sure?", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        db.DeleteCarrier(carrier);
 
-                    PopulateCarrierList(sender, e);
 
-                    CityDatabase.ItemsSource = new List<CarrierCity>();
+                        PopulateCarrierList(sender, e);
+
+                        CityDatabase.ItemsSource = new List<CarrierCity>();
+
+                        System.Windows.MessageBox.Show($"{carrier.Name} deleted successfully", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
                 }
                 // If a city and the carrier is selected
                 else if (CarrierDatabaseList.SelectedItems.Count == 1 && CityDatabase.SelectedItems.Count == 1)
@@ -331,9 +342,17 @@ namespace Transportation_Management_System
 
                     CarrierCity carrierCity = (CarrierCity) CityDatabase.SelectedItem;
                     carrierCity.Carrier = carrier;
-                    db.RemoveCarrierCity(carrierCity);
 
-                    PopulateCarrierCitiesList(sender, e);
+                    var result = System.Windows.MessageBox.Show($"Are you sure you want to delete the carrier city {carrierCity.DepotCity}?", "Are you sure?", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        db.RemoveCarrierCity(carrierCity);
+
+                        PopulateCarrierCitiesList(sender, e);
+
+
+                        System.Windows.MessageBox.Show($"{carrierCity.DepotCity} deleted successfully", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
 
                 }
                 else if(CarrierDatabaseList.SelectedItems.Count == 0 && CityDatabase.SelectedItems.Count == 0)
@@ -403,19 +422,25 @@ namespace Transportation_Management_System
                 if(db.GetCarrierIdByName(carrierName) != -1)
                 {
                     db.CreateCarrierCity(newCarrierCity);
+
+                    // Update the cities list
+                    List<CarrierCity> carriersList = db.FilterCitiesByCarrier(newCarrier.Name);
+                    CityDatabase.ItemsSource = carriersList;
+
+                    System.Windows.MessageBox.Show($"New carrier depot city {newCarrierCity.DepotCity} created successfully", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 // If it's a new carrier, create the carrier and the city
                 else
                 {
                     newCarrier.CarrierID = db.CreateCarrier(newCarrier);
-                    db.CreateCarrierCity(newCarrierCity);                   
+                    db.CreateCarrierCity(newCarrierCity);
+
+                    PopulateCarrierList(sender, e);
+                    CityDatabase.ItemsSource = new List<CarrierCity>();
+
+                    System.Windows.MessageBox.Show($"New carrier {newCarrier.Name} created successfully", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
 
-                PopulateCarrierList(sender, e);
-
-                // Update the cities list
-                List<CarrierCity> carriersList = db.FilterCitiesByCarrier(newCarrier.Name);
-                CityDatabase.ItemsSource = carriersList;
             }
             // Inform the user if the operation fails
             catch (ArgumentException exc)
@@ -503,16 +528,19 @@ namespace Transportation_Management_System
             // Update the Route List
             try
             {
-                db.UpdateRoute(route);
+                var result = System.Windows.MessageBox.Show($"Are you sure you want to update the route to {route.Destination}?", "Are you sure?", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (result == MessageBoxResult.Yes)
+                {
+                    db.UpdateRoute(route);
 
-                // Empty the route list
-                RouteDatabase.ItemsSource = new List<Route>();
+                    // Reload the updated route list 
+                    List<Route> routeList = new List<Route>();
+                    routeList = db.GetRoutes();
+                    RouteDatabase.ItemsSource = routeList;
 
-                // Reload the updated route list 
-                List<Route> routeList = new List<Route>();
-                routeList = db.GetRoutes();
-                RouteDatabase.ItemsSource = routeList;
-               
+                    System.Windows.MessageBox.Show($"Route to {route.Destination} updated successfully", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+
             }
             // Inform the user if the operation fails
             catch (ArgumentException exc)
