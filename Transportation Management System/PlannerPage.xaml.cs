@@ -47,12 +47,6 @@ namespace Transportation_Management_System
             Refresh_Invoices();
         }
 
-        private void Activities_Click(object sender, RoutedEventArgs e)
-        {
-            ResetStatus();
-            ActivitiesGrid.Visibility = Visibility.Visible;
-            Activities.Background = Brushes.LightSkyBlue;
-        }
 
 
         private void Orders_Click(object sender, RoutedEventArgs e)
@@ -84,7 +78,6 @@ namespace Transportation_Management_System
         {
             ResetStatus();
             ReportsGrid.Visibility = Visibility.Visible;
-            GenerateReport.Background = Brushes.LightSkyBlue;
             AllInvoices.IsChecked = true;
 
             Refresh_Invoices();
@@ -226,9 +219,7 @@ namespace Transportation_Management_System
         {
             // Reset all buttons background
             Invoices.Background = Brushes.WhiteSmoke;
-            Activities.Background = Brushes.WhiteSmoke;
             Orders.Background = Brushes.WhiteSmoke;
-            GenerateReport.Background = Brushes.WhiteSmoke;
 
             // Hide all grids
             ReportsGrid.Visibility = Visibility.Hidden;
