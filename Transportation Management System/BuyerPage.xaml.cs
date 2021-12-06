@@ -218,7 +218,10 @@ namespace Transportation_Management_System
 
         private void GenerateInvoice_Click(object sender, RoutedEventArgs e)
         {
-
+            Order selectedInvoice = (Order)InvoiceList.SelectedItem;
+            Invoice invoice = buyer.CreateInvoice(selectedInvoice);
+            InvoiceInformation inv = new InvoiceInformation(invoice);
+            inv.ShowDialog();
         }
     }
 }
