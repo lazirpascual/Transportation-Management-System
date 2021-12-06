@@ -24,7 +24,7 @@
             <Button x:Name ="Clients" Content="Clients" Background="WhiteSmoke" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,363,0,0" Click="Clients_Click"/>
             <Button x:Name ="MarketPlace" Content="MarketPlace" Background="WhiteSmoke" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,210,0,0" Click="MarketPlace_Click"/>
             <Grid x:Name="ClientsGrid" Visibility="Hidden">
-                <CheckBox x:Name="CActiveBox" Content="Active Clients" Background="WhiteSmoke" Margin="146,370,403,27" IsChecked="False" Click="CActiveBox_Click"/>
+                <RadioButton x:Name="CActiveBox" Content="Active Clients" Background="WhiteSmoke" Margin="146,370,403,27" IsChecked="False" Click="CActiveBox_Click"/>
                 <ListView x:Name="ClientsList" Margin="146,10,47,61">
                     <ListView.View>
                         <GridView>
@@ -36,8 +36,11 @@
                 </ListView>
             </Grid>
             <Grid x:Name="OrdersGrid" Visibility="Hidden">
-                <CheckBox x:Name="ActiveBox" Content="Active Orders" Background="WhiteSmoke" Margin="146,370,403,27" IsChecked="False" Click="ActiveBox_Click"/>
-                <CheckBox x:Name="CompletedBox" Content="Completed Orders" Background="WhiteSmoke" Margin="250,370,403,27" IsChecked="False" Click="CompletedBox_Click"/>
+                
+                <RadioButton x:Name="ActiveBox" Content="Active Orders" Background="WhiteSmoke" Margin="146,370,403,27" IsChecked="False" Click="ActiveBox_Click"/>
+                <RadioButton x:Name="CompletedBox" Content="Completed Orders" Background="WhiteSmoke" Margin="250,370,403,27" IsChecked="False" Click="CompletedBox_Click"/>
+                
+                
                 <ListView x:Name="OrdersList" Margin="145,10,21,61">
                     <ListView.View>
                         <GridView>
