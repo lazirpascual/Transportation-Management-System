@@ -24,7 +24,7 @@
             <Button x:Name ="LogFiles" Content="Log File" Background="WhiteSmoke" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,261,0,0" Click="LogFiles_Click"/>
             <Button x:Name ="Database" Content="Database" Background="WhiteSmoke" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,312,0,0" Click="Database_Click"/>
             <Button x:Name ="Configuration" Content="General Config" Background="WhiteSmoke" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,363,0,0" Click="Configuration_Click"/>
-            <TextBox  x:Name="AdminLog" AcceptsReturn="true" Margin="146,10,20,10" Visibility="Visible" TextWrapping="WrapWithOverflow" Background="GhostWhite"/>
+            <TextBlock x:Name="AdminLog" Margin="146,10,20,10" Visibility="Visible" TextWrapping="WrapWithOverflow" Background="GhostWhite"/>
             <Grid x:Name="GeneralGrid" Visibility="Hidden">
                 <TextBox Name="IPBox" HorizontalAlignment="Left" Height="23" Margin="246,67,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
                 <TextBox Name="PortBox" HorizontalAlignment="Left" Height="23" Margin="246,110,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
@@ -62,7 +62,7 @@
                 <Button Name="UpdateCarrier" Content="Update" HorizontalAlignment="Left" Margin="246,376,0,0" VerticalAlignment="Top" Width="75" Click="UpdateCarrier_Click"/>
                 <Button Name="Clear" Content="Clear Fields" HorizontalAlignment="Left" Margin="160,376,0,0" VerticalAlignment="Top" Width="75" Click="ClearButton_Click"/>
                 <Button Name="DeleteCarrier" Content="Delete" HorizontalAlignment="Left" Margin="595,376,0,0" VerticalAlignment="Top" Width="75" Click="DeleteCarrier_Click"/>
-                <ListView x:Name="CarrierDatabaseList" Margin="146,6,255,172" SelectionMode="Single" PreviewMouseLeftButtonUp="CarriersFieldsHander">
+                <ListView x:Name="CarrierDatabaseList" Margin="146,6,255,172" SelectionMode="Single" SelectionChanged="CarriersFieldsHander">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Name" Width="160" DisplayMemberBinding="{Binding Name}" />
@@ -72,7 +72,7 @@
                         </GridView>
                     </ListView.View>
                 </ListView>
-                <ListView x:Name="CityDatabase" Margin="548,6,25,172" SelectionMode="Single" PreviewMouseLeftButtonUp="CarriersFieldsHander">
+                <ListView x:Name="CityDatabase" Margin="548,6,25,172" SelectionMode="Single" SelectionChanged="CarriersFieldsHander">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Departure City" Width="92" DisplayMemberBinding="{Binding DepotCity}" />

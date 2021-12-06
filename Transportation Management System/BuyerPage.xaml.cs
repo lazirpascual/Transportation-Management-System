@@ -51,12 +51,7 @@ namespace Transportation_Management_System
             InvoiceList.ItemsSource = orderList;
         }
 
-        private void Carriers_Click(object sender, RoutedEventArgs e)
-        {
-            resetStatus();
-            CarriersGrid.Visibility = Visibility.Visible;
-            Carriers.Background = Brushes.LightSkyBlue;
-        }
+
 
         private void Orders_Click(object sender, RoutedEventArgs e)
         {
@@ -157,7 +152,6 @@ namespace Transportation_Management_System
             MarketPlace.Background = Brushes.WhiteSmoke;
             Clients.Background = Brushes.WhiteSmoke;
             Orders.Background = Brushes.WhiteSmoke;
-            Carriers.Background = Brushes.WhiteSmoke;
             Invoice.Background = Brushes.WhiteSmoke;
         }
 

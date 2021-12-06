@@ -180,34 +180,43 @@ namespace Transportation_Management_System
                 Carrier selectedCarrier = (Carrier)CarrierDatabaseList.SelectedItem;
                     
                 
-                try
+                if (selectedCarrier != null)
                 {
-                    if ((sender as System.Windows.Controls.ListView).Name == "CarrierDatabaseList")
+                    try
                     {
-                        DAL db = new DAL();
+                        string caller = (sender as System.Windows.Controls.ListView).Name;
+                        if (caller == "CarrierDatabaseList")
+                        {
+                            DAL db = new DAL();
 
-                        List<CarrierCity> carriersList = db.FilterCitiesByCarrier(selectedCarrier.Name);
-                        CityDatabase.ItemsSource = carriersList;
+                            List<CarrierCity> carriersList = db.FilterCitiesByCarrier(selectedCarrier.Name);
+                            CityDatabase.ItemsSource = carriersList;
+
+                        }
+                    }
+                    catch (Exception) { }
+
+                    CarrierName.Text = selectedCarrier.Name;
+                    FTLRate.Text = selectedCarrier.FTLRate.ToString();
+                    LTLRate.Text = selectedCarrier.LTLRate.ToString();
+                    Reefer.Text = selectedCarrier.ReeferCharge.ToString();
+
+                    // Show details about the city if carrier and city is selected
+                    if (CarrierDatabaseList.SelectedItems.Count == 1 && CityDatabase.SelectedItems.Count == 1)
+                    {
+                        Departure.Visibility = Visibility.Visible;
+                        FTLAval.Visibility = Visibility.Visible;
+                        LTLAval.Visibility = Visibility.Visible;
+
+                        CarrierCity selectedCity = (CarrierCity)CityDatabase.SelectedItem;
+                        Departure.Text = selectedCity.DepotCity.ToString();
+                        FTLAval.Text = selectedCity.FTLAval.ToString();
+                        LTLAval.Text = selectedCity.LTLAval.ToString();
                     }
                 }
-                catch (Exception) { }
-
-                CarrierName.Text = selectedCarrier.Name;
-                FTLRate.Text = selectedCarrier.FTLRate.ToString();
-                LTLRate.Text = selectedCarrier.LTLRate.ToString();
-                Reefer.Text = selectedCarrier.ReeferCharge.ToString();
-
-                // Show details about the city if carrier and city is selected
-                if (CarrierDatabaseList.SelectedItems.Count == 1 && CityDatabase.SelectedItems.Count == 1)
+                else
                 {
-                    Departure.Visibility = Visibility.Visible;
-                    FTLAval.Visibility = Visibility.Visible;
-                    LTLAval.Visibility = Visibility.Visible;
-
-                    CarrierCity selectedCity = (CarrierCity)CityDatabase.SelectedItem;
-                    Departure.Text = selectedCity.DepotCity.ToString();
-                    FTLAval.Text = selectedCity.FTLAval.ToString();
-                    LTLAval.Text = selectedCity.LTLAval.ToString();
+                    CityDatabase.ItemsSource = new List<CarrierCity>();
                 }
 
             }

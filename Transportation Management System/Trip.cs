@@ -35,11 +35,13 @@ namespace Transportation_Management_System
     {
         /// The trip ID for the Trip
         public long TripID { get; set; }
+
         /// The order ID for the Trip
         public long OrderID { get; set; }
 
         /// The carrier ID for the Trip
         public long CarrierID { get; set; }
+
         /// The starting city for the transport
         public City OriginCity { get; set; }
 
@@ -47,13 +49,15 @@ namespace Transportation_Management_System
         public City DestinationCity { get; set; }
 
         /// The total distance for the transport
-        public double TotalDistance { get; set; }
+        public int TotalDistance { get; set; }
 
         /// The total number of days needed for the trip
         public double TotalTime { get; set; }
 
+        /// The JobType for the trip
         public JobType JobType { get; set; }
 
+        /// The VanType for the trip
         public VanType VanType { get; set; }
 
 

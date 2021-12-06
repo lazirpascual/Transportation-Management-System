@@ -46,11 +46,22 @@ namespace Transportation_Management_System
             Activities.Background = Brushes.LightSkyBlue;
         }
 
-        private void Trip_Click(object sender, RoutedEventArgs e)
+        private void Report_Click(object sender, RoutedEventArgs e)
         {
             resetStatus();
-            TripGrid.Visibility = Visibility.Visible;
-            TripManagement.Background = Brushes.LightSkyBlue;
+            ReportsGrid.Visibility = Visibility.Visible;
+            GenerateReport.Background = Brushes.LightSkyBlue;
+
+            DAL db = new DAL();
+            Buyer buyer = new Buyer();
+
+            var orders = db.GetInvoiceGeneratedOrders();
+            var invoices = new List<Invoice>();
+            foreach (var order in orders)
+            {
+                invoices.Add(buyer.CreateInvoice(order));
+            }
+            ReportList.ItemsSource = invoices;
         }
 
         private void Orders_Click(object sender, RoutedEventArgs e)
@@ -199,13 +210,15 @@ namespace Transportation_Management_System
             Invoices.Background = Brushes.WhiteSmoke;
             Activities.Background = Brushes.WhiteSmoke;
             Orders.Background = Brushes.WhiteSmoke;
-            TripManagement.Background = Brushes.WhiteSmoke;
+            GenerateReport.Background = Brushes.WhiteSmoke;
 
             // Hide all grids
             ReportsGrid.Visibility = Visibility.Hidden;
             ActivitiesGrid.Visibility = Visibility.Hidden;
             TripGrid.Visibility = Visibility.Hidden;
-            OrdersGrid.Visibility = Visibility.Hidden;           
+            OrdersGrid.Visibility = Visibility.Hidden;
+            
         }
+              
     }
 }
