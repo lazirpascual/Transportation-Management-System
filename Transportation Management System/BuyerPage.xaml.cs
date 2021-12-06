@@ -65,7 +65,9 @@ namespace Transportation_Management_System
             List<Order> orderList = new List<Order>();
             orderList = buyer.GetOrders(2);             
             OrdersList.ItemsSource = orderList;
-            
+            ActiveBox.IsChecked = false;
+            CompletedBox.IsChecked = false;
+            GenerateInvoice.Visibility = Visibility.Hidden;
         }
 
         private void Clients_Click(object sender, RoutedEventArgs e)
@@ -94,7 +96,7 @@ namespace Transportation_Management_System
         private void ActiveBox_Click(object sender, RoutedEventArgs e)
         {
             var orderList = new List<Order>();
-
+            GenerateInvoice.Visibility = Visibility.Hidden;
             if (ActiveBox.IsChecked == true)
             {
                 // active box is checked
@@ -148,6 +150,7 @@ namespace Transportation_Management_System
             }
             else
             {
+                GenerateInvoice.Visibility = Visibility.Hidden;
                 // completed box is not checked
                 if (ActiveBox.IsChecked == true)
                 {
@@ -218,16 +221,14 @@ namespace Transportation_Management_System
         private void OrdersList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Order currentOrder = (Order)OrdersList.SelectedItem;
-            if (currentOrder != null && CompletedBox.IsChecked == true)
+            if (currentOrder != null)
             {
                 if (buyer.InvoiceGeneration(currentOrder) == true)
                 {
-                    GenerateInvoice.Visibility = Visibility.Visible;
-                   
+                    GenerateInvoice.Visibility = Visibility.Visible;                  
                 }
                 else
                 {
-
                     GenerateInvoice.Visibility = Visibility.Hidden;
                 }
             }
