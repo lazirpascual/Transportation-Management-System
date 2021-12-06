@@ -36,6 +36,7 @@ namespace Transportation_Management_System
             resetStatus();
             ReportsGrid.Visibility = Visibility.Visible;
             Invoices.Background = Brushes.LightSkyBlue;
+
         }
 
         private void Activities_Click(object sender, RoutedEventArgs e)
