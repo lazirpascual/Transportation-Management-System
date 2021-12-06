@@ -113,6 +113,7 @@ namespace Transportation_Management_System
         /// \brief Inserts a new invoice in the Invoice table
         ///
         /// \param orderObj  - <b>Order</b> - An Order object with all its information
+        /// \return invoice -   <b>Invoice</b>  -   An Invoice object with all its information
         /// 
         /// \return An invoice object
         public Invoice CreateInvoice(Order orderObj)
@@ -122,6 +123,7 @@ namespace Transportation_Management_System
             long orderID = orderObj.OrderID;
 
             DAL db = new DAL();
+            db.UpdateInvoiceGenerated(orderID);
             List<Trip> trips = db.FilterTripsByOrderId(orderID);
 
             double hours = 0.0;
@@ -163,6 +165,7 @@ namespace Transportation_Management_System
         }
 
 
+        }
 
         public void SaveInvoice(Invoice invoice)
         {
@@ -176,7 +179,7 @@ namespace Transportation_Management_System
                                                 "Origin City: {3}\n" +
                                                 "Destination City: {4}\n" +
                                                 "Days taken: {5}\n\n\n" +
-                                                "Total: ${6}\n", invoiceNum, invoice.ClientName, invoice.Origin, invoice.Destination, invoice.Days, invoice.TotalAmount.ToString("C0"));
+                                                "Total: {6}\n", invoiceNum, invoice.OrderID, invoice.ClientName, invoice.Origin, invoice.Destination, invoice.Days, invoice.TotalAmount.ToString("C0"));
 
             string invoiceDirectory = Directory.GetCurrentDirectory();
             string invoiceName = invoiceDirectory + "\\" + invoice.ClientName + "-" + invoice.OrderID + ".txt";

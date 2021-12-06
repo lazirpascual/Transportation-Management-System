@@ -47,7 +47,7 @@ namespace Transportation_Management_System
             Invoice.Background = Brushes.LightSkyBlue;
 
             List<Order> orderList = new List<Order>();
-            orderList = buyer.GetOrders(2);
+            orderList = buyer.GetOrders(1);
             InvoiceList.ItemsSource = orderList;
         }
 
@@ -92,7 +92,7 @@ namespace Transportation_Management_System
             MarketPlace.Background = Brushes.LightSkyBlue;
         }
 
-        private void ActiveBox_Click(object sender, RoutedEventArgs e)
+        private void Refresh_Orders()
         {
             var orderList = new List<Order>();
             GenerateInvoice.Visibility = Visibility.Hidden;
@@ -129,41 +129,14 @@ namespace Transportation_Management_System
             OrdersList.ItemsSource = orderList;
         }
 
+        private void ActiveBox_Click(object sender, RoutedEventArgs e)
+        {
+            Refresh_Orders();
+        }
+
         private void CompletedBox_Click(object sender, RoutedEventArgs e)
         {
-            var orderList = new List<Order>();
-
-            if (CompletedBox.IsChecked == true)
-            {
-                // completed box is checked
-                if (ActiveBox.IsChecked == true)
-                {
-                    // active box is also checked, get all orders
-                    orderList = buyer.GetOrders(25);
-                }
-                else
-                {
-                    // active box is not checked, get only completed orders
-                    orderList = buyer.GetOrders(1);
-                }
-            }
-            else
-            {
-                GenerateInvoice.Visibility = Visibility.Hidden;
-                // completed box is not checked
-                if (ActiveBox.IsChecked == true)
-                {
-                    // active box is checked, fetch only active orders
-                    orderList = buyer.GetOrders(0);
-                }
-                else
-                {
-                    // active box is also not checked, fetch all orders
-                    orderList = buyer.GetOrders(25);
-                }
-            }
-
-            OrdersList.ItemsSource = orderList;
+            Refresh_Orders();
         }
 
         private void resetStatus()
@@ -216,25 +189,33 @@ namespace Transportation_Management_System
             ClientsList.ItemsSource = clientList;
         }
 
-        private void OrdersList_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            Order currentOrder = (Order)OrdersList.SelectedItem;
-            if (currentOrder != null)
-            {
-                if (buyer.InvoiceGeneration(currentOrder) == true)
-                {
-                    GenerateInvoice.Visibility = Visibility.Visible;                  
-                }
-                else
-                {
-                    GenerateInvoice.Visibility = Visibility.Hidden;
-                }
-            }
-        }
+        //private void OrdersList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //{
+        //    Order currentOrder = (Order)OrdersList.SelectedItem;
+        //    if (currentOrder != null)
+        //    {
+        //        if (buyer.InvoiceGeneration(currentOrder) == false)
+        //        {
+        //            GenerateInvoice.Visibility = Visibility.Visible;                  
+        //        }
+        //        else
+        //        {
+        //            GenerateInvoice.Visibility = Visibility.Hidden;
+        //        }
+        //    }
+        //}
 
         private void InvoiceList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ViewInvoice.Visibility = Visibility.Visible;
+            GenerateInvoice.Visibility = Visibility.Visible;
+        }
+
+        private void GenerateInvoice_Click(object sender, RoutedEventArgs e)
+        {
+            Order selectedInvoice = (Order)InvoiceList.SelectedItem;
+            Invoice invoice = buyer.CreateInvoice(selectedInvoice);
+            InvoiceInformation inv = new InvoiceInformation(invoice);
+            inv.ShowDialog();
         }
     }
 }
