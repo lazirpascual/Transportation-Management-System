@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen" 
         Closing="Window_Closing"
-        Title="Planner" Height="450" Width="800"
+        Title="Planner" Height="434" Width="799"
         Loaded="Window_Loaded">
         <Viewbox>
         <Grid>
