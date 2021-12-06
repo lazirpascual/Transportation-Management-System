@@ -1242,7 +1242,7 @@ namespace Transportation_Management_System
                             Order newOrder = new Order();
                             newOrder.OrderID = int.Parse(rdr["OrderID"].ToString());
                             newOrder.ClientName = rdr["ClientName"].ToString();
-                            newOrder.OrderCreationDate = DateTime.Parse(rdr["OrderDate"].ToString());
+                            if (DateTime.TryParse(rdr["OrderDate"].ToString(), out DateTime dt)) newOrder.OrderCreationDate = dt;
                             newOrder.Origin = (City) Enum.Parse(typeof(City), rdr["Origin"].ToString(), true);
                             newOrder.Destination = (City) Enum.Parse(typeof(City), rdr["Destination"].ToString(), true);
                             newOrder.JobType = (JobType) int.Parse(rdr["JobType"].ToString());
@@ -1291,7 +1291,7 @@ namespace Transportation_Management_System
                             Order newOrder = new Order();
                             newOrder.OrderID = int.Parse(rdr["OrderID"].ToString());
                             newOrder.ClientName = rdr["ClientName"].ToString();
-                            newOrder.OrderCreationDate = DateTime.Parse(rdr["OrderDate"].ToString());
+                            if (DateTime.TryParse(rdr["OrderDate"].ToString(), out DateTime dt)) newOrder.OrderCreationDate = dt;
                             newOrder.Origin = (City)Enum.Parse(typeof(City), rdr["Origin"].ToString(), true);
                             newOrder.Destination = (City)Enum.Parse(typeof(City), rdr["Destination"].ToString(), true);
                             newOrder.JobType = (JobType)int.Parse(rdr["JobType"].ToString());
@@ -1339,7 +1339,7 @@ namespace Transportation_Management_System
                             Order newOrder = new Order();
                             newOrder.OrderID = int.Parse(rdr["OrderID"].ToString());
                             newOrder.ClientName = rdr["ClientName"].ToString();
-                            newOrder.OrderCreationDate = DateTime.Parse(rdr["OrderDate"].ToString());
+                            if (DateTime.TryParse(rdr["OrderDate"].ToString(), out DateTime dt)) newOrder.OrderCreationDate = dt;
                             newOrder.Origin = (City)Enum.Parse(typeof(City), rdr["Origin"].ToString(), true);
                             newOrder.Destination = (City)Enum.Parse(typeof(City), rdr["Destination"].ToString(), true);
                             newOrder.JobType = (JobType)int.Parse(rdr["JobType"].ToString());
@@ -1388,17 +1388,14 @@ namespace Transportation_Management_System
                             Order newOrder = new Order();
                             newOrder.OrderID = int.Parse(rdr["OrderID"].ToString());
                             newOrder.ClientName = rdr["ClientName"].ToString();
-                            newOrder.OrderCreationDate = DateTime.Parse(rdr["OrderDate"].ToString());
+                            if(DateTime.TryParse(rdr["OrderDate"].ToString(), out DateTime dt)) newOrder.OrderCreationDate = dt;
                             newOrder.Origin = (City)Enum.Parse(typeof(City), rdr["Origin"].ToString(), true);
                             newOrder.Destination = (City)Enum.Parse(typeof(City), rdr["Destination"].ToString(), true);
                             newOrder.JobType = (JobType)int.Parse(rdr["JobType"].ToString());
                             newOrder.VanType = (VanType)int.Parse(rdr["VanType"].ToString());
                             newOrder.Quantity = int.Parse(rdr["Quantity"].ToString());
                             newOrder.IsCompleted = int.Parse(rdr["IsCompleted"].ToString());
-                            if (DateTime.TryParse(rdr["OrderCompletedDate"].ToString(), out DateTime dt))
-                            {
-                                newOrder.OrderCompletionDate = dt;
-                            }
+                            if (DateTime.TryParse(rdr["OrderCompletedDate"].ToString(), out dt)) newOrder.OrderCompletionDate = dt;
                             orders.Add(newOrder);
                         }
                     }
@@ -1833,14 +1830,14 @@ namespace Transportation_Management_System
                                     Order order = new Order();
 
                                     order.ClientName = rdr["ClientName"].ToString();
-                                    order.OrderCreationDate = DateTime.Parse(rdr["OrderDate"].ToString());
+                                    if (DateTime.TryParse(rdr["OrderDate"].ToString(), out DateTime dt)) order.OrderCreationDate = dt;
                                     order.Origin = (City)Enum.Parse(typeof(City), rdr["Origin"].ToString(), true);
                                     order.Destination = (City)Enum.Parse(typeof(City), rdr["Destination"].ToString(), true);
                                     order.JobType = (JobType)int.Parse(rdr["JobType"].ToString());
                                     order.VanType = (VanType)int.Parse(rdr["VanType"].ToString());
                                     order.Quantity = int.Parse(rdr["Quantity"].ToString());
                                     order.IsCompleted = int.Parse(rdr["IsCompleted"].ToString());
-                                    order.OrderCompletionDate = DateTime.Parse(rdr["OrderCompletedDate"].ToString());
+                                    if (DateTime.TryParse(rdr["OrderCompletedDate"].ToString(), out dt)) order.OrderCompletionDate = dt;
 
                                     orders.Add(order);
                                 }
