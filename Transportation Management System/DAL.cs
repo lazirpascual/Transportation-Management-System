@@ -398,18 +398,6 @@ namespace Transportation_Management_System
 
 
         ///
-        /// \brief Inserts a new trip in the Trip table
-        ///
-        /// \param trip  - <b>Trip</b> - An Trip object with all its information
-        /// 
-        public void CreateTrip(Trip trip) { }
-
-
-
-     
-
-
-        ///
         /// \brief Inserts a new invoice in the Invoice table
         ///
         /// \param orderObj  - <b>Order</b> - An Order object with all its information
@@ -922,6 +910,55 @@ namespace Transportation_Management_System
         }
 
 
+
+        ///
+        /// \brief Filter carriers by id
+        ///
+        /// \param carrierID  - <b>int</b> - The carrier ID
+        /// 
+        /// \return A carrier Object
+        /// 
+        public Carrier FilterCarriersByID(long carrierID)
+        {
+            Carrier carrier = new Carrier();
+            string qSQL = "SELECT * FROM Carriers WHERE CarrierID=@CarrierID";
+            
+            try
+            {
+                string conString = this.ToString();
+                using (MySqlConnection conn = new MySqlConnection(conString))
+                {
+                    conn.Open();
+                    using (MySqlCommand cmd = new MySqlCommand(qSQL, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@CarrierID", carrierID);
+
+                        MySqlDataReader rdr = cmd.ExecuteReader();
+                        if (rdr.HasRows)
+                        {
+                            while (rdr.Read())
+                            {
+                                carrier.CarrierID = int.Parse(rdr["CarrierID"].ToString());
+                                carrier.Name = rdr["CarrierName"].ToString();
+                                carrier.FTLRate = double.Parse(rdr["FTLRate"].ToString());
+                                carrier.LTLRate = double.Parse(rdr["LTLRate"].ToString());
+                                carrier.ReeferCharge = double.Parse(rdr["reefCharge"].ToString());
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Logger.Log(e.Message, LogLevel.Error);
+                throw;
+            }
+
+
+            return carrier;
+        }
+
+
         ///
         /// \brief Filter cities by carrier
         ///
@@ -1143,6 +1180,7 @@ namespace Transportation_Management_System
                             newOrder.JobType = (JobType) int.Parse(rdr["JobType"].ToString());
                             newOrder.VanType = (VanType) int.Parse(rdr["VanType"].ToString());
                             newOrder.Quantity = int.Parse(rdr["Quantity"].ToString());
+                            newOrder.InvoiceGenerated = int.Parse(rdr["InvoiceGenerated"].ToString());
                             newOrder.IsCompleted = 0;
                             orders.Add(newOrder);
                         }
@@ -1191,6 +1229,7 @@ namespace Transportation_Management_System
                             newOrder.JobType = (JobType)int.Parse(rdr["JobType"].ToString());
                             newOrder.VanType = (VanType)int.Parse(rdr["VanType"].ToString());
                             newOrder.Quantity = int.Parse(rdr["Quantity"].ToString());
+                            newOrder.InvoiceGenerated = int.Parse(rdr["InvoiceGenerated"].ToString());
                             newOrder.IsCompleted = 1;
                             orders.Add(newOrder);
                         }
@@ -1206,6 +1245,53 @@ namespace Transportation_Management_System
             return orders;
         }
 
+
+        ///
+        /// \brief Returns a list of all completed orders that have an invoice generated for them
+        /// 
+        /// \return List of all completed orders with invoice
+        /// 
+        public List<Order> GetInvoiceGeneratedOrders()
+        {
+            List<Order> orders = new List<Order>();
+            try
+            {
+                string conString = this.ToString();
+                using (MySqlConnection con = new MySqlConnection(conString))
+                {
+                    MySqlCommand cmd = new MySqlCommand("SELECT * FROM Orders " +
+                         "INNER JOIN Clients ON Orders.ClientID = Clients.ClientID WHERE IsCompleted=1 AND InvoiceGenerated=1", con);
+                    con.Open();
+                    MySqlDataReader rdr = cmd.ExecuteReader();
+
+                    if (rdr.HasRows)
+                    {
+                        while (rdr.Read())
+                        {
+                            Order newOrder = new Order();
+                            newOrder.OrderID = int.Parse(rdr["OrderID"].ToString());
+                            newOrder.ClientName = rdr["ClientName"].ToString();
+                            newOrder.OrderCreationDate = DateTime.Parse(rdr["OrderDate"].ToString());
+                            newOrder.Origin = (City)Enum.Parse(typeof(City), rdr["Origin"].ToString(), true);
+                            newOrder.Destination = (City)Enum.Parse(typeof(City), rdr["Destination"].ToString(), true);
+                            newOrder.JobType = (JobType)int.Parse(rdr["JobType"].ToString());
+                            newOrder.VanType = (VanType)int.Parse(rdr["VanType"].ToString());
+                            newOrder.Quantity = int.Parse(rdr["Quantity"].ToString());
+                            newOrder.InvoiceGenerated = int.Parse(rdr["InvoiceGenerated"].ToString());
+                            newOrder.IsCompleted = int.Parse(rdr["IsCompleted"].ToString());
+                            orders.Add(newOrder);
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Logger.Log(e.Message, LogLevel.Error);
+                throw new ArgumentException($"Unable to fetch all completed orders. {e.Message}");
+            }
+
+            return orders;
+        }
 
 
         ///
@@ -1355,7 +1441,7 @@ namespace Transportation_Management_System
                 string conString = this.ToString();
                 using (MySqlConnection con = new MySqlConnection(conString))
                 {
-                    MySqlCommand cmd = new MySqlCommand("SELECT OrderID from Orders WHERE OrderID=@OrderID", con);
+                    MySqlCommand cmd = new MySqlCommand("SELECT OrderID from Orders WHERE OrderID=@OrderID AND InvoiceGenerated=1", con);
 
                     con.Open();
 
@@ -1512,9 +1598,9 @@ namespace Transportation_Management_System
         /// 
         /// \return Returns void
         /// 
-        public void CreateTrip(Order order, long carrierID)
+        public void CreateTrip(Trip trip)
         {
-            string sql = "INSERT INTO Trips (OrderID, CarrierID, OriginCity, DestinationCity, JobType) VALUE (@OrderID, @CarrierID, @OriginCity, @DestinationCity, @JobType)";
+            string sql = "INSERT INTO Trips (OrderID, CarrierID, OriginCity, DestinationCity, JobType, VanType, TotalDistance, TotalTime) VALUE (@OrderID, @CarrierID, @OriginCity, @DestinationCity, @JobType, @VanType, @TotalDistance, @TotalTime)";
 
             try
             {
@@ -1525,11 +1611,14 @@ namespace Transportation_Management_System
                     using (MySqlCommand cmd = new MySqlCommand(sql, conn))
                     {
                         // Populate all arguments in the insert
-                        cmd.Parameters.AddWithValue("@OrderID", order.OrderID);
-                        cmd.Parameters.AddWithValue("@CarrierID", carrierID);
-                        cmd.Parameters.AddWithValue("@OriginCity", order.Origin);
-                        cmd.Parameters.AddWithValue("@DestinationCity", order.Destination);
-                        cmd.Parameters.AddWithValue("@JobType", order.JobType);
+                        cmd.Parameters.AddWithValue("@OrderID", trip.OrderID);
+                        cmd.Parameters.AddWithValue("@CarrierID", trip.CarrierID);
+                        cmd.Parameters.AddWithValue("@OriginCity", trip.OriginCity);
+                        cmd.Parameters.AddWithValue("@DestinationCity", trip.DestinationCity);
+                        cmd.Parameters.AddWithValue("@JobType", trip.JobType);
+                        cmd.Parameters.AddWithValue("@VanType", trip.VanType);
+                        cmd.Parameters.AddWithValue("@TotalDistance", trip.TotalDistance);
+                        cmd.Parameters.AddWithValue("@TotalTime", trip.TotalTime);
 
                         cmd.ExecuteNonQuery();
                     }
@@ -1550,7 +1639,7 @@ namespace Transportation_Management_System
         /// 
         /// \return A list with all trips attached to a specific orders
         /// 
-        public List<Trip> FilterTripsByOrderId(int orderId)
+        public List<Trip> FilterTripsByOrderId(long orderId)
         {
             List<Trip> trips = new List<Trip>();
             string qSQL = "SELECT * FROM Trips WHERE OrderID=@OrderID";
@@ -1584,16 +1673,18 @@ namespace Transportation_Management_System
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                Logger.Log(e.Message, LogLevel.Error);
                 throw;
             }
-            return trips;
 
+            return trips;
         }
 
 
-        //
+
+        ///
         /// \brief Returns a list with all orders filtered by 2 weeks or all time
         /// 
         /// \param orderId  - <b>int</b> - If of the order to filter the trip

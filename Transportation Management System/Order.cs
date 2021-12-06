@@ -46,6 +46,10 @@ namespace Transportation_Management_System
         /// The indicator of current and completed orders
         public int IsCompleted { get; set; }
 
+        /// The indicator of whether invoice has been generated for this order or not
+        public int InvoiceGenerated { get; set; }
+
+        /// The date when the order was completed
         public DateTime OrderCompletionDate { get; set; }
 
 
@@ -59,6 +63,7 @@ namespace Transportation_Management_System
             Quantity = quantity;
             VanType = vanType;
             IsCompleted = 0;
+            InvoiceGenerated = 0;
         }
 
         public Order() {}

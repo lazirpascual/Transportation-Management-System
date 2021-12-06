@@ -82,12 +82,12 @@ namespace Transportation_Management_System
                     // completed box is also checked, get all orders
                     orderList = planner.FetchOrders(2);
                     ViewCarrier.Visibility = Visibility.Hidden;
+                    CompleteOrder.Visibility = Visibility.Hidden;
                 }              
                 else
                 {
                     // completed box is not checked, fetch only the active orders
                     orderList = planner.FetchOrders(0);
-                    ViewCarrier.Visibility = Visibility.Visible;
                 }               
             }
             else
@@ -101,9 +101,10 @@ namespace Transportation_Management_System
                 else
                 {
                     // completed box is not checked, fetch all orders
-                    orderList = planner.FetchOrders(2);
+                    orderList = planner.FetchOrders(2);                   
                 }
                 ViewCarrier.Visibility = Visibility.Hidden;
+                CompleteOrder.Visibility = Visibility.Hidden;
             }
 
             OrdersList.ItemsSource = orderList;
@@ -127,6 +128,7 @@ namespace Transportation_Management_System
                     orderList = planner.FetchOrders(1);
                 }
                 ViewCarrier.Visibility = Visibility.Hidden;
+                CompleteOrder.Visibility = Visibility.Hidden;
             }
             else
             {
@@ -135,13 +137,13 @@ namespace Transportation_Management_System
                 {
                     // active box is checked, fetch only active orders
                     orderList = planner.FetchOrders(0);
-                    ViewCarrier.Visibility = Visibility.Visible;
                 }
                 else
                 {
                     // active box is also not checked, fetch all orders
                     orderList = planner.FetchOrders(2);
                     ViewCarrier.Visibility = Visibility.Hidden;
+                    CompleteOrder.Visibility = Visibility.Hidden;
                 }
             }
 
@@ -153,25 +155,39 @@ namespace Transportation_Management_System
             Order currentOrder = (Order) OrdersList.SelectedItem;
             List<CarrierCity> carrierCity = planner.GetCarriers(currentOrder.Origin.ToString(), currentOrder.JobType);
             CarrierSelection selectCarrier = new CarrierSelection(carrierCity, currentOrder);
-            selectCarrier.Show();
+            if (selectCarrier.ShowDialog() == true)
+            {
+                CompleteOrder.Visibility = Visibility.Visible;
+                ViewCarrier.Visibility = Visibility.Hidden; ;
+            }
         }
 
         private void Selection_Changed(object sender, RoutedEventArgs e)
         {
+            // order selection has changed
             Order currentOrder = (Order)OrdersList.SelectedItem;
-            if (currentOrder != null && ActiveBox.IsChecked == true)
+            if (currentOrder != null)
             {
                 if (planner.CarrierAssigned(currentOrder) == true)
                 {
+                    // carrier has already been assigned, display complete order button
                     CompleteOrder.Visibility = Visibility.Visible;
                     ViewCarrier.Visibility = Visibility.Hidden;
                 }
                 else
                 {
+                    // carrier has already been assigned, display view carrier button
                     ViewCarrier.Visibility = Visibility.Visible;
                     CompleteOrder.Visibility = Visibility.Hidden;
                 }
-            }        
+
+                if (currentOrder.IsCompleted == 1)
+                {
+                    // current order is completed, hide both buttons
+                    ViewCarrier.Visibility = Visibility.Hidden;
+                    CompleteOrder.Visibility = Visibility.Hidden;
+                }
+            }                
         }
 
         private void resetStatus()
