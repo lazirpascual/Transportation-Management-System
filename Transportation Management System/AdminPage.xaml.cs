@@ -23,8 +23,7 @@ namespace Transportation_Management_System
     public partial class AdminPage : Window
     {
         private Admin admin;
-
-
+        
         public AdminPage()
         {
             InitializeComponent();
@@ -45,7 +44,6 @@ namespace Transportation_Management_System
             {
                 AdminLog.Text = File.ReadAllText(logFileName);
             }
-
         }
 
         private void Configuration_Click(object sender, RoutedEventArgs e)
@@ -59,6 +57,13 @@ namespace Transportation_Management_System
             resetStatus();
             Database.Background = Brushes.LightSkyBlue;
             DatabaseButtons.Visibility = Visibility.Visible;
+        }
+
+        private void Backup_Click(object sender, RoutedEventArgs e)
+        {
+            resetStatus();
+            Backup.Background = Brushes.LightSkyBlue;
+            BackupGrid.Visibility = Visibility.Visible;
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -106,7 +111,7 @@ namespace Transportation_Management_System
             //Open the directory selection dialog box
             dialog.Description = "Select the Directory for the Log Files";
 
-            var result = dialog.ShowDialog();
+            dialog.ShowDialog();
 
             if (dialog.SelectedPath != null)
             {
@@ -205,6 +210,7 @@ namespace Transportation_Management_System
                 }
 
             }
+            
         }
 
         private void UpdateCarrier_Click(object sender, RoutedEventArgs e)
@@ -255,7 +261,6 @@ namespace Transportation_Management_System
                 return;
             }
 
-
             try
             {
                 if (CarrierDatabaseList.SelectedItems.Count == 1 && CityDatabase.SelectedItems.Count == 0)
@@ -289,7 +294,6 @@ namespace Transportation_Management_System
             {
                 System.Windows.MessageBox.Show("Something went wrong. Please try again.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-
         }
 
 
@@ -335,8 +339,7 @@ namespace Transportation_Management_System
             catch (Exception)
             {
                 System.Windows.MessageBox.Show("Something went wrong. Please try again.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            
+            }            
         }
 
         private void AddCarrier_Click(object sender, RoutedEventArgs e)
@@ -351,7 +354,6 @@ namespace Transportation_Management_System
             City newCity;
             int newFTL;
             int newLTL;
-
 
             Carrier newCarrier = null;
             CarrierCity newCarrierCity = null;
@@ -377,8 +379,6 @@ namespace Transportation_Management_System
                 newLTL = int.Parse(LTLAval.Text);
 
                 newCarrierCity = new CarrierCity(newCarrier, newCity, newFTL, newLTL);
-
-
             }
 
             catch (Exception)
@@ -386,7 +386,6 @@ namespace Transportation_Management_System
                 System.Windows.MessageBox.Show("Please, make sure that the fields were filled appropriately.", "Attention", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
-
 
             try
             {
@@ -399,10 +398,7 @@ namespace Transportation_Management_System
                 else
                 {
                     newCarrier.CarrierID = db.CreateCarrier(newCarrier);
-                    db.CreateCarrierCity(newCarrierCity);
-
-
-                    
+                    db.CreateCarrierCity(newCarrierCity);                   
                 }
 
                 PopulateCarrierList(sender, e);
@@ -410,8 +406,6 @@ namespace Transportation_Management_System
                 // Update the cities list
                 List<CarrierCity> carriersList = db.FilterCitiesByCarrier(newCarrier.Name);
                 CityDatabase.ItemsSource = carriersList;
-
-
             }
             // Inform the user if the operation fails
             catch (ArgumentException exc)
@@ -422,7 +416,6 @@ namespace Transportation_Management_System
             {
                 System.Windows.MessageBox.Show("Something went wrong. Please try again.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-
         }
 
         private void PopulateCarrierList(object sender, RoutedEventArgs e)
@@ -451,13 +444,13 @@ namespace Transportation_Management_System
             DatabaseButtons.Visibility = Visibility.Hidden;
             CarrierGrid.Visibility = Visibility.Hidden;
             RouteGrid.Visibility = Visibility.Hidden;
+            BackupGrid.Visibility = Visibility.Hidden;
 
-            //Reset all buttons
+            // Reset all buttons background
             Backup.Background = Brushes.WhiteSmoke;
             LogFiles.Background = Brushes.WhiteSmoke;
             Database.Background = Brushes.WhiteSmoke;
             Configuration.Background = Brushes.WhiteSmoke;
-
         }
 
        
@@ -529,7 +522,6 @@ namespace Transportation_Management_System
             Time.Text = "";
             West.Text = "";
             East.Text = "";
-
         }
 
         
@@ -548,7 +540,6 @@ namespace Transportation_Management_System
             {
                 System.Windows.MessageBox.Show("Something went wrong. Please try again.");
             }
-
         }
 
         private void PortUpdate_Click(object sender, RoutedEventArgs e)
@@ -568,6 +559,7 @@ namespace Transportation_Management_System
             }
         }
 
+        
         private void RouteDatabase_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             ClearButton_Click(sender, e);
@@ -593,5 +585,50 @@ namespace Transportation_Management_System
 
             }
         }
+
+        private void BackupSelect_Click(object sender, RoutedEventArgs e)
+        {
+            FolderBrowserDialog dialog = new FolderBrowserDialog();
+            string path = null;
+
+            //Open the directory selection dialog box
+            dialog.Description = "Select the Directory for the Backup";
+
+            dialog.ShowDialog();
+
+            // If a path was selected, get the full path
+            if (dialog.SelectedPath != null)
+            {
+                path = dialog.SelectedPath;
+            }
+            // Show the selected path in the textbox          
+            BackupPath.Text = path;
+        }
+
+        private void ProcessBackup_Click(object sender, RoutedEventArgs e)
+        {
+            //Set up the database object 
+            DAL db = new DAL();
+
+            // Get the current path for processing the backup
+            string backupPath = BackupPath.Text;
+
+            try
+            {
+                // Process the backup
+                db.BackupDatabase(backupPath);
+                System.Windows.MessageBox.Show("The backup was succesfully processed!", "Backup Processed", MessageBoxButton.OK, MessageBoxImage.Information);
+                BackupDate.Content = DateTime.Now.ToString("MM-dd-yyyy HH:mm");
+            }
+            // If not successful, inform the user
+            catch(ArgumentNullException)
+            {
+                System.Windows.MessageBox.Show("Please check the Backup path and try again", "Backup Falied", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch(Exception)
+            {
+                System.Windows.MessageBox.Show("Backup was not processed. Please try again.", "Backup Falied", MessageBoxButton.OK, MessageBoxImage.Error);
+            }            
+        }      
     }
 }

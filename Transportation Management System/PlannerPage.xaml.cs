@@ -31,41 +31,36 @@ namespace Transportation_Management_System
             App.Current.MainWindow.Visibility = Visibility.Visible;
         }
 
-        private void Reports_Click(object sender, RoutedEventArgs e)
+        private void Invoices_Click(object sender, RoutedEventArgs e)
         {
             resetStatus();
-
-            Reports.Background = Brushes.LightSkyBlue;
+            ReportsGrid.Visibility = Visibility.Visible;
+            Invoices.Background = Brushes.LightSkyBlue;
         }
 
         private void Activities_Click(object sender, RoutedEventArgs e)
         {
             resetStatus();
-
+            ActivitiesGrid.Visibility = Visibility.Visible;
             Activities.Background = Brushes.LightSkyBlue;
         }
 
         private void Trip_Click(object sender, RoutedEventArgs e)
         {
             resetStatus();
-
+            TripGrid.Visibility = Visibility.Visible;
             Trip.Background = Brushes.LightSkyBlue;
         }
 
         private void Orders_Click(object sender, RoutedEventArgs e)
         {
-            resetStatus();
-
+            resetStatus();            
             Orders.Background = Brushes.LightSkyBlue;
-            OrdersList.Visibility = Visibility.Visible;
-            ActiveBox.Visibility = Visibility.Visible;
-
+            OrdersGrid.Visibility = Visibility.Visible;
             List<Order> orderList = new List<Order>();
             orderList = planner.FetchOrders(2);
             OrdersList.ItemsSource = orderList;
-            OrdersList.Visibility = Visibility.Visible;
-            ActiveBox.Visibility = Visibility.Visible;
-            CompletedBox.Visibility = Visibility.Visible;
+            
         }
 
         private void ActiveBox_Click(object sender, RoutedEventArgs e)
@@ -156,26 +151,19 @@ namespace Transportation_Management_System
 
         private void resetStatus()
         {
-            // reset buttons to non-clicked status
-            Reports.Background = Brushes.WhiteSmoke;
+            // Reset all buttons background
+            Invoices.Background = Brushes.WhiteSmoke;
             Activities.Background = Brushes.WhiteSmoke;
             Orders.Background = Brushes.WhiteSmoke;
             Trip.Background = Brushes.WhiteSmoke;
 
-            // reset clicking buttons options
-            Button1.Visibility = Visibility.Hidden;
-            Button2.Visibility = Visibility.Hidden;
-            Button3.Visibility = Visibility.Hidden;
-            Button4.Visibility = Visibility.Hidden;
-            Button5.Visibility = Visibility.Hidden;
-            ViewCarrier.Visibility = Visibility.Hidden;
-
-            // reset previous lists
-            //ContractsList.Visibility = Visibility.Hidden;
-            //InvoicesList.Visibility = Visibility.Hidden;
-            //CarriersList.Visibility = Visibility.Hidden;
-            //OrdersList.Visibility = Visibility.Hidden;
-            //ClientsList.Visibility = Visibility.Hidden;
+            // Hide all grids
+            ReportsGrid.Visibility = Visibility.Hidden;
+            ActivitiesGrid.Visibility = Visibility.Hidden;
+            TripGrid.Visibility = Visibility.Hidden;
+            OrdersGrid.Visibility = Visibility.Hidden;
+            
         }
+              
     }
 }

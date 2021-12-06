@@ -416,7 +416,7 @@ namespace Transportation_Management_System
             Trip tripObj = new Trip();
             long orderID = orderObj.OrderID;
             double totalCost = 0.0;
-            int days = tripObj.TotalTime;
+            double days = tripObj.TotalTime;
             string clientName = orderObj.ClientName;
             string origin = (orderObj.Origin).ToString();
             string destination = (orderObj.Destination).ToString();
@@ -1573,7 +1573,7 @@ namespace Transportation_Management_System
         /// 
         public void BackupDatabase(string backUpFilePath)
         {
-            string fileName = $"TMS-DB-Backup-{DateTime.Now}.sql";
+            string fileName = $"TMS-DB-Backup-{DateTime.Now.ToString("MM-dd-yyyy HH-mm-ss")}.sql";
             if(backUpFilePath == "")
             {
                 throw new ArgumentNullException("Backup file path was not provided. Backup failed.");
