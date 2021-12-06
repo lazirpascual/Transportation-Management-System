@@ -778,6 +778,41 @@ namespace Transportation_Management_System
 
 
         ///
+        /// \brief Used to update the invoice generated field for a specific order
+        ///
+        /// \param orderID  - <b>int</b> - The order id of the order to be updated
+        /// 
+        public void UpdateInvoiceGenerated(long orderID)
+        {
+
+            string sql = "UPDATE Orders SET InvoiceGenerated=1 WHERE OrderID=@OrderID";
+
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(this.ToString()))
+                {
+                    conn.Open();
+
+                    using (MySqlCommand cmd = new MySqlCommand(sql, conn))
+                    {
+                        // Populate all arguments in the insert
+                        cmd.Parameters.AddWithValue("@OrderID", orderID);
+
+                        // Execute the insertion and check the number of rows affected
+                        // An exception will be thrown if the column is repeated
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Logger.Log(e.Message, LogLevel.Error);
+                throw;
+            }
+        }
+
+
+        ///
         /// \brief Deactivate an active carrier by its id
         ///
         /// \param carrier  - <b>Carrier</b> - The new carrier information to be used in the deactivation
