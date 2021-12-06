@@ -187,6 +187,7 @@ namespace Transportation_Management_System
             {
                 clientList = buyer.FetchClients(1);
             }
+
             ClientsList.ItemsSource = clientList;
         }
 

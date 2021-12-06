@@ -45,23 +45,6 @@ namespace Transportation_Management_System
             Activities.Background = Brushes.LightSkyBlue;
         }
 
-        private void Report_Click(object sender, RoutedEventArgs e)
-        {
-            ResetStatus();
-            ReportsGrid.Visibility = Visibility.Visible;
-            GenerateReport.Background = Brushes.LightSkyBlue;
-
-            DAL db = new DAL();
-            Buyer buyer = new Buyer();
-
-            var orders = db.GetInvoiceGeneratedOrders();
-            var invoices = new List<Invoice>();
-            foreach (var order in orders)
-            {
-                invoices.Add(buyer.CreateInvoice(order));
-            }
-            ReportList.ItemsSource = invoices;
-        }
 
         private void Orders_Click(object sender, RoutedEventArgs e)
         {
@@ -91,6 +74,24 @@ namespace Transportation_Management_System
         }
 
 
+        private void Report_Click(object sender, RoutedEventArgs e)
+        {
+            ResetStatus();
+            ReportsGrid.Visibility = Visibility.Visible;
+            GenerateReport.Background = Brushes.LightSkyBlue;
+
+            DAL db = new DAL();
+            Buyer buyer = new Buyer();
+
+            var orders = db.GetInvoiceGeneratedOrders();
+            var invoices = new List<Invoice>();
+            foreach (var order in orders)
+            {
+                invoices.Add(buyer.CreateInvoice(order));
+            }
+            ReportList.ItemsSource = invoices;
+        }
+
         private void Refresh_Invoices()
         {
             List<Invoice> invoicesList = new List<Invoice>();
@@ -101,15 +102,12 @@ namespace Transportation_Management_System
                     invoicesList = planner.GenerateSummaryReport(true);           
                
             }
-            else
+            else if (PastInvoice.IsChecked == true)
             {
-                // All invoices box is not checked
-                if (PastInvoice.IsChecked == true)
-                {
-                    // completed box is checked, fetch only completed orders
-                    invoicesList = planner.GenerateSummaryReport(false);
-                }
+                // completed box is checked, fetch only completed orders
+                invoicesList = planner.GenerateSummaryReport(false);
             }
+
             ReportList.ItemsSource = invoicesList;           
         }           
         
