@@ -57,7 +57,7 @@ namespace Transportation_Management_System
             this.Close();
             string success = "File saved successfully.";
             string title = "File Saved";
-            MessageBox.Show(success, title);
+            MessageBox.Show(success, title, MessageBoxButtons.OK, MessageBoxIcon.Information);
 
         }
 
