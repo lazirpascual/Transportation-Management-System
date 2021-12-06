@@ -41,20 +41,27 @@ namespace Transportation_Management_System
 
         private void SelectCarrier_Click(object sender, RoutedEventArgs e)
         {
-            Planner planner = new Planner();
-            var currentCarrier = CarrierList.SelectedItem;
-            if (currentCarrier is FTL)
+            if (CarrierList.SelectedItem == null)
             {
-                FTL FTLCarrier = (FTL)CarrierList.SelectedItem;
-                planner.SelectOrderCarrier(currentOrder, FTLCarrier.CarrierID);
+                MessageBox.Show("Please select a carrier!");
             }
             else
             {
-                LTL LTLCarrier = (LTL)CarrierList.SelectedItem;
-                planner.SelectOrderCarrier(currentOrder, LTLCarrier.CarrierID);
-            }
-            DialogResult = true;
-            Close();
+                Planner planner = new Planner();
+                var currentCarrier = CarrierList.SelectedItem;
+                if (currentCarrier is FTL)
+                {
+                    FTL FTLCarrier = (FTL)CarrierList.SelectedItem;
+                    planner.SelectOrderCarrier(currentOrder, FTLCarrier.CarrierID);
+                }
+                else
+                {
+                    LTL LTLCarrier = (LTL)CarrierList.SelectedItem;
+                    planner.SelectOrderCarrier(currentOrder, LTLCarrier.CarrierID);
+                }
+                DialogResult = true;
+                Close();
+            }     
         }
 
         private class LTL
