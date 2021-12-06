@@ -150,7 +150,7 @@ namespace Transportation_Management_System
         {
             Order currentOrder = (Order) OrdersList.SelectedItem;
             List<CarrierCity> carrierCity = planner.GetCarriers(currentOrder.Origin.ToString(), currentOrder.JobType);
-            CarrierSelection selectCarrier = new CarrierSelection(carrierCity, currentOrder.JobType);
+            CarrierSelection selectCarrier = new CarrierSelection(carrierCity, currentOrder);
             selectCarrier.Show();
         }
 

@@ -24,10 +24,10 @@ namespace Transportation_Management_System
             InitializeComponent();
         }
 
-        public CarrierSelection(List<CarrierCity> carriers, JobType jobType)
+        public CarrierSelection(List<CarrierCity> carriers, Order currentOrder)
         {
             InitializeComponent();
-            if (jobType == 0)
+            if (currentOrder.JobType == 0)
             {
                 CreateCarrierFTL(carriers);
             }
