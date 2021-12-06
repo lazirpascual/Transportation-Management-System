@@ -115,6 +115,7 @@ namespace Transportation_Management_System
         /// \brief Inserts a new invoice in the Invoice table
         ///
         /// \param orderObj  - <b>Order</b> - An Order object with all its information
+        /// \return invoice -   <b>Invoice</b>  -   An Invoice object with all its information
         /// 
         public Invoice CreateInvoice(Order orderObj)
         {
@@ -146,10 +147,15 @@ namespace Transportation_Management_System
             invoice.Days = days;
 
             return invoice;
-
-
         }
 
+
+        ///
+        /// \brief Creates a txt file for the invoice of the order
+        ///
+        /// \param invoice  - <b>Invoice</b> - An Invoice object with all its information
+        /// \return None
+        /// 
         public void SaveInvoice(Invoice invoice)
         {
             Random randNum = new Random();

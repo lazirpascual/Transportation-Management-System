@@ -47,7 +47,7 @@ namespace Transportation_Management_System
             Invoice.Background = Brushes.LightSkyBlue;
 
             List<Order> orderList = new List<Order>();
-            orderList = buyer.GetOrders(2);
+            orderList = buyer.GetOrders(1);
             InvoiceList.ItemsSource = orderList;
         }
 
@@ -222,25 +222,30 @@ namespace Transportation_Management_System
             ClientsList.ItemsSource = clientList;
         }
 
-        private void OrdersList_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            Order currentOrder = (Order)OrdersList.SelectedItem;
-            if (currentOrder != null)
-            {
-                if (buyer.InvoiceGeneration(currentOrder) == true)
-                {
-                    GenerateInvoice.Visibility = Visibility.Visible;                  
-                }
-                else
-                {
-                    GenerateInvoice.Visibility = Visibility.Hidden;
-                }
-            }
-        }
+        //private void OrdersList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //{
+        //    Order currentOrder = (Order)OrdersList.SelectedItem;
+        //    if (currentOrder != null)
+        //    {
+        //        if (buyer.InvoiceGeneration(currentOrder) == false)
+        //        {
+        //            GenerateInvoice.Visibility = Visibility.Visible;                  
+        //        }
+        //        else
+        //        {
+        //            GenerateInvoice.Visibility = Visibility.Hidden;
+        //        }
+        //    }
+        //}
 
         private void InvoiceList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ViewInvoice.Visibility = Visibility.Visible;
+            GenerateInvoice.Visibility = Visibility.Visible;
+        }
+
+        private void GenerateInvoice_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
