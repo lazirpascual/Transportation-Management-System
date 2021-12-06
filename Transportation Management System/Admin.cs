@@ -31,8 +31,7 @@ namespace Transportation_Management_System
         /// 
         /// 
         /// \return Returns list of current log files
-        ///
-        
+        ///        
         public Admin()
         {
             LogFile = "tms.log";

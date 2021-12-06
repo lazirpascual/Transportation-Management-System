@@ -19,11 +19,11 @@
                 </Border.Background>
                 <Image Source="logo_white.png" Margin="10,0,667,291"/>
             </Border>
-            <Button x:Name ="Backup" Content="Backup" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,209,0,0"/>
+            <Button x:Name ="Backup" Content="Backup" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,209,0,0" Click="Backup_Click"/>
             <Button x:Name ="LogFiles" Content="Log File" Background="WhiteSmoke" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,261,0,0" Click="LogFiles_Click"/>
             <Button x:Name ="Database" Content="Database" Background="WhiteSmoke" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,312,0,0" Click="Database_Click"/>
             <Button x:Name ="Configuration" Content="General Config" Background="WhiteSmoke" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,363,0,0" Click="Configuration_Click"/>
-            <TextBox  x:Name="AdminLog" AcceptsReturn="true" Margin="146,10,20,10" Visibility="Hidden" TextWrapping="WrapWithOverflow" Background="GhostWhite"/>
+            <TextBox  x:Name="AdminLog" AcceptsReturn="true" Margin="146,10,20,10" Visibility="Visible" TextWrapping="WrapWithOverflow" Background="GhostWhite"/>
             <Grid x:Name="GeneralGrid" Visibility="Hidden">
                 <TextBox Name="IPBox" HorizontalAlignment="Left" Height="23" Margin="246,67,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
                 <TextBox Name="PortBox" HorizontalAlignment="Left" Height="23" Margin="246,110,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
@@ -105,6 +105,15 @@
                         </GridView>
                     </ListView.View>
                 </ListView>
+            </Grid>
+            <Grid x:Name="BackupGrid" Visibility="Visible">
+                <Label x:Name="BackupConfig" Content="Backup Configuration" FontWeight="Bold" HorizontalAlignment="Left" Margin="177,36,0,0" VerticalAlignment="Top"/>
+                <Label x:Name="LastBackup" Content="Last Backup Processed:" HorizontalAlignment="Left" Margin="178,194,0,0" VerticalAlignment="Top"/>
+                <Label x:Name="BackupDate" Content="12-04-2021 10:30" HorizontalAlignment="Left" Margin="310,194,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.608,0.627"/>
+                <Label x:Name="PathLabel" Content="Backup Path" HorizontalAlignment="Left" Margin="177,98,0,0" VerticalAlignment="Top"/>
+                <TextBox x:Name="BackupPath" HorizontalAlignment="Left" Height="23" Margin="257,98,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="477"/>
+                <Button x:Name="BackupSelect" Content="Select Path" HorizontalAlignment="Left" Margin="257,136,0,0" VerticalAlignment="Top" Width="75" Click="BackupSelect_Click"/>
+                <Button x:Name="ProcessBackup" Content="Backup" HorizontalAlignment="Left" Margin="337,136,0,0" VerticalAlignment="Top" Width="75" Click="ProcessBackup_Click"/>
             </Grid>
         </Grid>
     </Viewbox>
