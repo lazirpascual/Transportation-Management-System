@@ -52,44 +52,75 @@ namespace Transportation_Management_System
         /// 
         /// \return A keyValuePair with the distance and time between those two cities
         /// 
-        public KeyValuePair<int, double> CalculateDistanceAndTime(City origin, City destination)
+        public KeyValuePair<int, double> CalculateDistanceAndTime(City origin, City destination, JobType jb)
         {
             int totalDistance = 0;
             double totalTime = 0.0;
+            double dailyDrivingTime = 0.0;
 
             DAL db = new DAL();
             List<Route> routes = db.GetRoutes();
 
-            // Create the graph
-            foreach (var route in routes)
-            {
-                // If not found (edges), return null
-                route.WestPtr = routes.ElementAtOrDefault((int) route.West);
-                route.EastPtr = routes.ElementAtOrDefault((int) route.East);
-            }
 
             // Get the current city
             Route curr = routes[(int) origin];
 
-            // While we're not in the destination city
-            do
+
+            // Do the calculation while we're didn't pass destination city or at the end of the route table
+            // Going east
+            if (origin < destination)
             {
-                //(5.5 Hours)
-                // If going east
-                if (origin < destination)
+                do
                 {
-                    // Windsor --> London --> Hamilton 
+                    totalDistance += curr.Distance;
+                    dailyDrivingTime += curr.Time;
 
+                    // If in origin or destination or ltl + 2
+                    if(curr.Destination == origin || curr.Destination == destination || jb == JobType.LTL)
+                    {
+                        // Load, Unload and stop time
+                        totalTime += 2;
+                    }
+                    
+                    // The driver can only drive for 8 hours
+                    if(dailyDrivingTime >= 8)
+                    {
+                        // Start working again next day
+                        totalTime += 16;
+
+                        // Start fresh next day
+                        dailyDrivingTime = 0;
+                    }
+
+
+                    totalTime += dailyDrivingTime;
                     curr = curr.EastPtr;
-                }
-                // If goint west
-                else if (destination < origin)
-                {
-                    // Hamilton --> London --> Windsor
 
+                } while (curr != null && curr.West != destination);
+            }
+            // Goint west
+            else if (destination < origin)
+            {
+                do
+                {
+                    totalDistance += curr.Distance;
+                    dailyDrivingTime += curr.Time;
+
+                    // If in origin or destination or ltl + 2
+                    if (curr.Destination == origin || curr.Destination == destination || jb == JobType.LTL)
+                    {
+                        // Load, Unload and stop time
+                        totalTime += 2;
+                    }
+
+
+                    totalTime += dailyDrivingTime;
                     curr = curr.WestPtr;
-                }
-            } while (curr.Destination != destination);
+
+
+                } while (curr != null && curr.East != destination) ;
+            
+            }
 
 
             return new KeyValuePair<int, double>(totalDistance, totalTime);

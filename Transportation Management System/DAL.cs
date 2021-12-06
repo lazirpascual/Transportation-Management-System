@@ -501,9 +501,9 @@ namespace Transportation_Management_System
                                 route.East = City.Null;
 
                                 route.Destination = (City)Int32.Parse(rdr["Destination"].ToString());
-                                if(int.TryParse(rdr["Distance"].ToString(), out int d)) route.Distance = d;
-                                if(double.TryParse(rdr["Time"].ToString(), out double t)) route.Time = t;
-                                if(Int32.TryParse(rdr["West"].ToString(), out int w)) route.West = (City) w;
+                                if (int.TryParse(rdr["Distance"].ToString(), out int d)) route.Distance = d;
+                                if (double.TryParse(rdr["Time"].ToString(), out double t)) route.Time = t;
+                                if (Int32.TryParse(rdr["West"].ToString(), out int w)) route.West = (City) w;
                                 if (Int32.TryParse(rdr["East"].ToString(), out int e)) route.East = (City) e;
 
                                 routeList.Add(route);
@@ -511,9 +511,19 @@ namespace Transportation_Management_System
                         }
                     }
                 }
+
+                // Create the graph
+                foreach (var route in routeList)
+                {
+                    // If not found (edges), return null
+                    route.WestPtr = routeList.ElementAtOrDefault((int)route.West);
+                    route.EastPtr = routeList.ElementAtOrDefault((int)route.East);
+                }
+
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                Logger.Log(e.Message, LogLevel.Error);
                 throw;
             }
             return routeList;
