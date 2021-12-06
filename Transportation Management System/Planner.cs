@@ -51,30 +51,6 @@ namespace Transportation_Management_System
 
 
         ///
-        /// \brief This method adds a trip based on the selected order and carrier
-        /// 
-        /// \param currentOrder  - <b>Order</b> - current selected order
-        /// \param currentCarrier  - <b>Carrier</b> - current selected carrier
-        /// 
-        /// \return Void
-        /// 
-        public void AddTrip(Order currentOrder, int currentCarrier)
-        {
-            DAL db = new DAL();
-            Trip trip = new Trip();
-            trip.CarrierID = currentCarrier;
-            trip.OrderID = currentOrder.OrderID;
-            trip.OriginCity = currentOrder.Origin;
-            trip.DestinationCity = currentOrder.Destination;
-            trip.JobType = currentOrder.JobType;
-            trip.VanType = currentOrder.VanType;
-            trip.CalculateDistanceAndTime();
-            db.CreateTrip(trip);
-        }
-
-
-
-        ///
         /// \brief Determine whether an order has been assigned to a carrier or not
         ///
         /// \param order  - <b>Order</b> - selected order
@@ -94,14 +70,23 @@ namespace Transportation_Management_System
         /// adds a "trip" to the order for each carrier selected
         ///
         /// \param order  - <b>Order</b> - Order to select the invoic
-        /// \param carrierToSelect  - <b>Carrier</b> - Selected carrier
+        /// \param currentCarrier  - <b>Carrier</b> - Selected carrier
         /// 
         /// 
         /// \return Returns void
         /// 
-        public void SelectOrderCarrier(Order order, Carrier carrierToSelect) 
-        { 
-
+        public void SelectOrderCarrier(Order currentOrder, int carrierID) 
+        {
+            DAL db = new DAL();
+            Trip trip = new Trip();
+            trip.CarrierID = carrierID;
+            trip.OrderID = currentOrder.OrderID;
+            trip.OriginCity = currentOrder.Origin;
+            trip.DestinationCity = currentOrder.Destination;
+            trip.JobType = currentOrder.JobType;
+            trip.VanType = currentOrder.VanType;
+            trip.CalculateDistanceAndTime();
+            db.CreateTrip(trip);
         }
 
 
@@ -114,7 +99,6 @@ namespace Transportation_Management_System
         public void CompleteOrder(Order order)
         {
             DAL db = new DAL();
-
             db.CompleteOrder(order);
         }
 

@@ -46,12 +46,12 @@ namespace Transportation_Management_System
             if (currentCarrier is FTL)
             {
                 FTL FTLCarrier = (FTL)CarrierList.SelectedItem;
-                planner.AddTrip(currentOrder, FTLCarrier.CarrierID);
+                planner.SelectOrderCarrier(currentOrder, FTLCarrier.CarrierID);
             }
             else
             {
                 LTL LTLCarrier = (LTL)CarrierList.SelectedItem;
-                planner.AddTrip(currentOrder, LTLCarrier.CarrierID);
+                planner.SelectOrderCarrier(currentOrder, LTLCarrier.CarrierID);
             }
             DialogResult = true;
             Close();

@@ -97,7 +97,7 @@ namespace Transportation_Management_System
             MarketPlace.Background = Brushes.LightSkyBlue;
         }
 
-        private void ActiveBox_Click(object sender, RoutedEventArgs e)
+        private void Refresh_Orders()
         {
             var orderList = new List<Order>();
             GenerateInvoice.Visibility = Visibility.Hidden;
@@ -134,41 +134,14 @@ namespace Transportation_Management_System
             OrdersList.ItemsSource = orderList;
         }
 
+        private void ActiveBox_Click(object sender, RoutedEventArgs e)
+        {
+            Refresh_Orders();
+        }
+
         private void CompletedBox_Click(object sender, RoutedEventArgs e)
         {
-            var orderList = new List<Order>();
-
-            if (CompletedBox.IsChecked == true)
-            {
-                // completed box is checked
-                if (ActiveBox.IsChecked == true)
-                {
-                    // active box is also checked, get all orders
-                    orderList = buyer.GetOrders(25);
-                }
-                else
-                {
-                    // active box is not checked, get only completed orders
-                    orderList = buyer.GetOrders(1);
-                }
-            }
-            else
-            {
-                GenerateInvoice.Visibility = Visibility.Hidden;
-                // completed box is not checked
-                if (ActiveBox.IsChecked == true)
-                {
-                    // active box is checked, fetch only active orders
-                    orderList = buyer.GetOrders(0);
-                }
-                else
-                {
-                    // active box is also not checked, fetch all orders
-                    orderList = buyer.GetOrders(25);
-                }
-            }
-
-            OrdersList.ItemsSource = orderList;
+            Refresh_Orders();
         }
 
         private void resetStatus()

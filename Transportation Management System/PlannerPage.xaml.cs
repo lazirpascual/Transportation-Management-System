@@ -70,10 +70,10 @@ namespace Transportation_Management_System
             
         }
 
-        private void ActiveBox_Click(object sender, RoutedEventArgs e)
+        private void Refresh_Orders()
         {
             var orderList = new List<Order>();
-      
+
             if (ActiveBox.IsChecked == true)
             {
                 // active box is checked
@@ -83,12 +83,12 @@ namespace Transportation_Management_System
                     orderList = planner.FetchOrders(2);
                     ViewCarrier.Visibility = Visibility.Hidden;
                     CompleteOrder.Visibility = Visibility.Hidden;
-                }              
+                }
                 else
                 {
                     // completed box is not checked, fetch only the active orders
                     orderList = planner.FetchOrders(0);
-                }               
+                }
             }
             else
             {
@@ -101,7 +101,7 @@ namespace Transportation_Management_System
                 else
                 {
                     // completed box is not checked, fetch all orders
-                    orderList = planner.FetchOrders(2);                   
+                    orderList = planner.FetchOrders(2);
                 }
                 ViewCarrier.Visibility = Visibility.Hidden;
                 CompleteOrder.Visibility = Visibility.Hidden;
@@ -110,44 +110,14 @@ namespace Transportation_Management_System
             OrdersList.ItemsSource = orderList;
         }
 
+        private void ActiveBox_Click(object sender, RoutedEventArgs e)
+        {
+            Refresh_Orders();
+        }
+
         private void CompletedBox_Click(object sender, RoutedEventArgs e)
         {
-            var orderList = new List<Order>();
-
-            if (CompletedBox.IsChecked == true)
-            {      
-                // completed box is checked
-                if (ActiveBox.IsChecked == true)
-                {
-                    // active box is also checked, get all orders
-                    orderList = planner.FetchOrders(2);
-                }
-                else
-                {
-                    // active box is not checked, get only completed orders
-                    orderList = planner.FetchOrders(1);
-                }
-                ViewCarrier.Visibility = Visibility.Hidden;
-                CompleteOrder.Visibility = Visibility.Hidden;
-            }
-            else
-            {
-                // completed box is not checked
-                if (ActiveBox.IsChecked == true)
-                {
-                    // active box is checked, fetch only active orders
-                    orderList = planner.FetchOrders(0);
-                }
-                else
-                {
-                    // active box is also not checked, fetch all orders
-                    orderList = planner.FetchOrders(2);
-                    ViewCarrier.Visibility = Visibility.Hidden;
-                    CompleteOrder.Visibility = Visibility.Hidden;
-                }
-            }
-
-            OrdersList.ItemsSource = orderList;
+            Refresh_Orders();
         }
 
         private void View_Carrier(object sender, RoutedEventArgs e)
@@ -158,8 +128,16 @@ namespace Transportation_Management_System
             if (selectCarrier.ShowDialog() == true)
             {
                 CompleteOrder.Visibility = Visibility.Visible;
-                ViewCarrier.Visibility = Visibility.Hidden; ;
+                ViewCarrier.Visibility = Visibility.Hidden;
             }
+        }
+
+        private void Complete_Order(object sender, RoutedEventArgs e)
+        {
+            Order currentOrder = (Order)OrdersList.SelectedItem;
+            planner.CompleteOrder(currentOrder);
+            CompleteOrder.Visibility = Visibility.Hidden;
+            Refresh_Orders();
         }
 
         private void Selection_Changed(object sender, RoutedEventArgs e)
@@ -202,9 +180,7 @@ namespace Transportation_Management_System
             ReportsGrid.Visibility = Visibility.Hidden;
             ActivitiesGrid.Visibility = Visibility.Hidden;
             TripGrid.Visibility = Visibility.Hidden;
-            OrdersGrid.Visibility = Visibility.Hidden;
-            
-        }
-              
+            OrdersGrid.Visibility = Visibility.Hidden;           
+        }            
     }
 }
