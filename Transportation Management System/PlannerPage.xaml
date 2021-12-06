@@ -7,17 +7,18 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen" 
         Closing="Window_Closing"
-        Title="Planner" Height="450" Width="800">
+        Title="Planner" Height="450" Width="800"
+        ResizeMode="NoResize">
     <Viewbox>
         <Grid>
-            <Border RenderTransformOrigin="0.5,0.5" Height="419" Width="792" Grid.RowSpan="2">
+            <Border RenderTransformOrigin="0.5,0.5" Height="419" Margin="0,0,2,0">
                 <Border.Background>
                     <LinearGradientBrush>
                         <GradientStop Color="LightBlue" Offset="0.0"/>
                         <GradientStop Color="Navy" Offset="1.8"/>
                     </LinearGradientBrush>
                 </Border.Background>
-                <Image Source="logo_white.png" Margin="10,10,667,281"/>
+                <Image Source="logo_white.png" Margin="10,10,667,281" RenderTransformOrigin="0.765,0.717"/>
             </Border>
             <Button x:Name ="Invoices" Content="Invoices" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="0,209,0,0" Click="Invoices_Click"/>
             <Button x:Name ="Activities" Content="Activities" Background="WhiteSmoke" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="0,261,0,0" Click="Activities_Click"/>
