@@ -160,8 +160,6 @@ namespace Transportation_Management_System
             Order currentOrder = (Order)OrdersList.SelectedItem;
 
             DateTime expectedDeliveryDate = currentOrder.OrderCreationDate.AddHours(planner.GetTotalTime(currentOrder));
-
-
             TimeSpan TotalTimeSpan = expectedDeliveryDate - currentOrder.OrderCreationDate;
             TimeSpan TimePassed = DateTime.Now - currentOrder.OrderCreationDate;
 
@@ -170,6 +168,7 @@ namespace Transportation_Management_System
             {
                 result = 100;
             }
+            OrderProgressBar.Value = result;
         }
 
         private void Selection_Changed(object sender, RoutedEventArgs e)
