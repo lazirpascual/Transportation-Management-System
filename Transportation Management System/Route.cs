@@ -50,11 +50,11 @@ namespace Transportation_Management_System
         /// 
         /// \return A keyValuePair with the distance and time between those two cities
         /// 
-        public KeyValuePair<int, double> CalculateDistanceAndTime(Order order)
+        public void CalculateDistanceAndTime(Trip trip)
         {
-            City origin = order.Origin;
-            City destination = order.Destination;
-            JobType jb = order.JobType;
+            City origin = trip.OriginCity;
+            City destination = trip.DestinationCity;
+            JobType jb = trip.JobType;
 
             int totalDistance = 0;
             double totalTime = 0.0;
@@ -70,7 +70,10 @@ namespace Transportation_Management_System
             // Check if origin and destination are the same, return 0
             if(origin == destination)
             {
-                return new KeyValuePair<int, double>(0, 0.0);
+                trip.TotalTime = 0.0;
+                trip.TotalDistance = 0;
+                
+                return;
             }
 
             DAL db = new DAL();
@@ -181,9 +184,11 @@ namespace Transportation_Management_System
 
             // Keep going until we're not at the end of the line and past the destination city
             } while (curr != null && lastCity != destination);
-            
 
-            return new KeyValuePair<int, double>(totalDistance, totalTime);
+
+            // Populate fields
+            trip.TotalTime = totalTime;
+            trip.TotalDistance = totalDistance;
         }
     }
 }
