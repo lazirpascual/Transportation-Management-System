@@ -33,22 +33,21 @@ namespace Transportation_Management_System
 
         private void Invoices_Click(object sender, RoutedEventArgs e)
         {
-            resetStatus();
+            ResetStatus();
             ReportsGrid.Visibility = Visibility.Visible;
             Invoices.Background = Brushes.LightSkyBlue;
-
         }
 
         private void Activities_Click(object sender, RoutedEventArgs e)
         {
-            resetStatus();
+            ResetStatus();
             ActivitiesGrid.Visibility = Visibility.Visible;
             Activities.Background = Brushes.LightSkyBlue;
         }
 
         private void Report_Click(object sender, RoutedEventArgs e)
         {
-            resetStatus();
+            ResetStatus();
             ReportsGrid.Visibility = Visibility.Visible;
             GenerateReport.Background = Brushes.LightSkyBlue;
 
@@ -66,7 +65,7 @@ namespace Transportation_Management_System
 
         private void Orders_Click(object sender, RoutedEventArgs e)
         {
-            resetStatus();            
+            ResetStatus();            
 
 
             ActiveBox.IsChecked = false;
@@ -80,6 +79,40 @@ namespace Transportation_Management_System
             OrdersList.ItemsSource = orderList;
             
         }
+
+        private void AllInvoices_Click(object sender, RoutedEventArgs e)
+        {
+            Refresh_Invoices();
+        }
+
+        private void PastInvoices_Click(object sender, RoutedEventArgs e)
+        {
+            Refresh_Invoices();
+        }
+
+
+        private void Refresh_Invoices()
+        {
+            List<Invoice> invoicesList = new List<Invoice>();
+
+            if(AllInvoices.IsChecked == true)
+            {
+                    // past invoice is also checked, get all invoices
+                    invoicesList = planner.GenerateSummaryReport(true);           
+               
+            }
+            else
+            {
+                // All invoices box is not checked
+                if (PastInvoice.IsChecked == true)
+                {
+                    // completed box is checked, fetch only completed orders
+                    invoicesList = planner.GenerateSummaryReport(false);
+                }
+            }
+            ReportList.ItemsSource = invoicesList;           
+        }           
+        
 
         private void Refresh_Orders()
         {
@@ -203,7 +236,7 @@ namespace Transportation_Management_System
             }                
         }
 
-        private void resetStatus()
+        private void ResetStatus()
         {
             // Reset all buttons background
             Invoices.Background = Brushes.WhiteSmoke;
