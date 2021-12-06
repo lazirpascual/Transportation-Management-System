@@ -1162,7 +1162,7 @@ namespace Transportation_Management_System
                 string conString = this.ToString();
                 using (MySqlConnection con = new MySqlConnection(conString))
                 {
-                    MySqlCommand cmd = new MySqlCommand("SELECT OrderID, Clients.ClientName, OrderDate, Origin, Destination, JobType, VanType, Quantity FROM Orders " +
+                    MySqlCommand cmd = new MySqlCommand("SELECT * FROM Orders " +
                          "INNER JOIN Clients ON Orders.ClientID = Clients.ClientID WHERE IsCompleted=0", con);
                     con.Open();
                     MySqlDataReader rdr = cmd.ExecuteReader();
@@ -1211,7 +1211,7 @@ namespace Transportation_Management_System
                 string conString = this.ToString();
                 using (MySqlConnection con = new MySqlConnection(conString))
                 {
-                    MySqlCommand cmd = new MySqlCommand("SELECT OrderID, Clients.ClientName, OrderDate, Origin, Destination, JobType, VanType, Quantity FROM Orders " +
+                    MySqlCommand cmd = new MySqlCommand("SELECT * FROM Orders " +
                          "INNER JOIN Clients ON Orders.ClientID = Clients.ClientID WHERE IsCompleted=1", con);
                     con.Open();
                     MySqlDataReader rdr = cmd.ExecuteReader();
