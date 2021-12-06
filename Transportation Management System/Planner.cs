@@ -142,10 +142,20 @@ namespace Transportation_Management_System
         /// 
         public List<Invoice> GenerateSummaryReport(bool timePeriod)
         {
-            DAL invoiceList = new DAL();
+            DAL db = new DAL();
             Buyer buyer = new Buyer();
+            List<Order> orders = new List<Order>();
 
-            List<Order> orders = invoiceList.FilterCompletedOrdersByTime(timePeriod);
+            // If it's for the all time
+            if (!timePeriod)
+            {
+                orders = db.GetInvoiceGeneratedOrders();
+            }
+            else
+            {
+                orders = db.FilterCompletedOrdersByTime(timePeriod);
+            }
+
             List<Invoice> invoices = new List<Invoice>();
             foreach (var inv in orders)
             {
