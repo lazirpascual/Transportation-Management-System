@@ -36,13 +36,13 @@ namespace Transportation_Management_System
 
         private void MarketPlace_Click(object sender, RoutedEventArgs e)
         {
-            resetStatus();
+            ResetStatus();
             MarketPlace_Page();
         }
         
         private void Invoice_Click(object sender, RoutedEventArgs e)
         {
-            resetStatus();
+            ResetStatus();
             InvoicesGrid.Visibility = Visibility.Visible;
             Invoice.Background = Brushes.LightSkyBlue;
 
@@ -55,7 +55,7 @@ namespace Transportation_Management_System
 
         private void Orders_Click(object sender, RoutedEventArgs e)
         {
-            resetStatus();
+            ResetStatus();
 
             ActiveBox.IsChecked = false;
             CompletedBox.IsChecked = false;
@@ -71,7 +71,7 @@ namespace Transportation_Management_System
 
         private void Clients_Click(object sender, RoutedEventArgs e)
         {
-            resetStatus();
+            ResetStatus();
             ClientsGrid.Visibility = Visibility.Visible;
             Clients.Background = Brushes.LightSkyBlue;
 
@@ -84,7 +84,7 @@ namespace Transportation_Management_System
 
         private void MarketPlace_Page()
         {
-            resetStatus();
+            ResetStatus();
             ContractMarketPlace CMP = new ContractMarketPlace();
             MarketPlaceGrid.Visibility = Visibility.Visible;
             contractList = new List<Contract>();
@@ -140,7 +140,7 @@ namespace Transportation_Management_System
             Refresh_Orders();
         }
 
-        private void resetStatus()
+        private void ResetStatus()
         {
             // Hide all modules
             ClientsGrid.Visibility = Visibility.Hidden;

@@ -29,13 +29,13 @@ namespace Transportation_Management_System
         {
             InitializeComponent();
             admin = new Admin();
-            resetStatus();
+            ResetStatus();
             ConfigurationVisible();
         }
 
         private void LogFiles_Click(object sender, RoutedEventArgs e)
         {
-            resetStatus();
+            ResetStatus();
             AdminLog.Visibility = Visibility.Visible;
             LogFiles.Background = Brushes.LightSkyBlue;
 
@@ -49,20 +49,20 @@ namespace Transportation_Management_System
 
         private void Configuration_Click(object sender, RoutedEventArgs e)
         {
-            resetStatus();
+            ResetStatus();
             ConfigurationVisible();
         }
 
         private void Database_Click(object sender, RoutedEventArgs e)
         {
-            resetStatus();
+            ResetStatus();
             Database.Background = Brushes.LightSkyBlue;
             DatabaseButtons.Visibility = Visibility.Visible;
         }
 
         private void Backup_Click(object sender, RoutedEventArgs e)
         {
-            resetStatus();
+            ResetStatus();
             Backup.Background = Brushes.LightSkyBlue;
             BackupGrid.Visibility = Visibility.Visible;
         }
@@ -84,7 +84,7 @@ namespace Transportation_Management_System
 
         private void CarrierData_Click(object sender, RoutedEventArgs e)
         {
-            resetStatus();
+            ResetStatus();
             Database.Background = Brushes.LightSkyBlue;
             CarrierGrid.Visibility = Visibility.Visible;
             CarrierDatabaseList.SelectedItem = null;
@@ -94,7 +94,7 @@ namespace Transportation_Management_System
 
         private void RouteData_Click(object sender, RoutedEventArgs e)
         {
-            resetStatus();
+            ResetStatus();
             Database.Background = Brushes.LightSkyBlue;
             RouteGrid.Visibility = Visibility.Visible;
 
@@ -446,7 +446,7 @@ namespace Transportation_Management_System
             CityDatabase.ItemsSource = carriersList;
         }
 
-        private void resetStatus()
+        private void ResetStatus()
         {
             // Hide all grids
             AdminLog.Visibility = Visibility.Hidden;

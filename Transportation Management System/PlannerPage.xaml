@@ -7,26 +7,26 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen" 
         Closing="Window_Closing"
-        Title="Planner" Height="450" Width="800"
-        ResizeMode="NoResize">
-    <Viewbox>
+        Title="Planner" Height="450" Width="800">
+        <Viewbox>
         <Grid>
-            <Border RenderTransformOrigin="0.5,0.5" Height="419" Margin="0,0,2,0">
+            <Border RenderTransformOrigin="0.5,0.5" Height="419">
                 <Border.Background>
                     <LinearGradientBrush>
                         <GradientStop Color="LightBlue" Offset="0.0"/>
                         <GradientStop Color="Navy" Offset="1.8"/>
                     </LinearGradientBrush>
                 </Border.Background>
-                <Image Source="logo_white.png" Margin="10,10,667,281" RenderTransformOrigin="0.765,0.717"/>
+                <Image Source="logo_white.png" Margin="10,10,667,281"/>
             </Border>
             <Button x:Name ="Invoices" Content="Invoices" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,210,0,0" Click="Invoices_Click"/>
             <Button x:Name ="Activities" Content="Activities" Background="WhiteSmoke" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,261,0,0" Click="Activities_Click"/>
             <Button x:Name ="GenerateReport" Content="Generate Report" Background="WhiteSmoke" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,312,0,0" Click="Report_Click"/>
             <Button x:Name ="Orders" Content="Orders" Background="WhiteSmoke" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,363,0,0" Click="Orders_Click"/>
-
-            <Grid x:Name="ReportsGrid" Visibility="Visible">
-                <ListView x:Name="ReportList" Margin="212,38,26,57" SelectionMode="Single" SelectionChanged="Selection_Changed" HorizontalAlignment="Center" VerticalAlignment="Center" Height="324" Width="608">
+            <Grid x:Name="ReportsGrid" Visibility="Hidden">
+                <CheckBox x:Name="AllInvoices" Content="All Invoices" HorizontalAlignment="Left" Margin="170,373,0,0" VerticalAlignment="Top" Click="AllInvoices_Click"/>
+                <CheckBox x:Name="PastInvoice" Content="Past 2 weeks" HorizontalAlignment="Left" Margin="293,373,0,0" VerticalAlignment="Top" Click="PastInvoices_Click"/>
+                <ListView x:Name="ReportList" Margin="145,10,21,61" SelectionMode="Single" SelectionChanged="Selection_Changed" HorizontalAlignment="Center" VerticalAlignment="Center" Height="324" Width="608">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Order ID" Width="60" DisplayMemberBinding="{Binding OrderID}" />
@@ -38,7 +38,7 @@
                             <GridViewColumn Header="Total" Width="70" DisplayMemberBinding="{Binding TotalAmount}" />
                         </GridView>
                     </ListView.View>
-                </ListView>
+                </ListView>               
             </Grid>
 
             <Grid x:Name="ActivitiesGrid" Visibility="Hidden">
@@ -47,12 +47,11 @@
             </Grid>
 
             <Grid x:Name="OrdersGrid" Visibility="Hidden">
-
-                <Button x:Name="CompleteOrder" Content="Complete Order" HorizontalAlignment="Left" VerticalAlignment="Top" Width="110" Visibility="Hidden" Margin="710,372,0,0" Click="Complete_Order"  Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" />
+                <Button x:Name="CompleteOrder" Content="Complete Order" HorizontalAlignment="Left" VerticalAlignment="Top" Width="110" Visibility="Visible" Margin="710,372,0,0" Click="Complete_Order"  Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" />
                 <Button x:Name="ViewCarrier" Content="View Available Carriers" HorizontalAlignment="Left" VerticalAlignment="Top" Width="165" Margin="655,372,0,0" Click="View_Carrier" Visibility="Hidden"  Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" />
                 <CheckBox x:Name="ActiveBox" Content="Active Orders" Background="WhiteSmoke" Margin="146,370,403,27" IsChecked="False" Click="ActiveBox_Click"/>
                 <CheckBox x:Name="CompletedBox" Content="Completed Orders" Background="WhiteSmoke" Margin="250,370,403,27" IsChecked="False" Click="CompletedBox_Click"/>
-                <ListView x:Name="OrdersList" Margin="145,10,21,61" SelectionMode="Single" SelectionChanged="Selection_Changed" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <ListView x:Name="OrdersList" Margin="156,23,10,72" SelectionMode="Single" SelectionChanged="Selection_Changed" HorizontalAlignment="Center" VerticalAlignment="Center" Height="324" Width="657">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Order ID" Width="50" DisplayMemberBinding="{Binding OrderID}" />
@@ -63,13 +62,14 @@
                             <GridViewColumn Header="Job Type" Width="60" DisplayMemberBinding="{Binding JobType}" />
                             <GridViewColumn Header="Van Type" Width="70" DisplayMemberBinding="{Binding VanType}" />
                             <GridViewColumn Header="Quantity" Width="60" DisplayMemberBinding="{Binding Quantity}" />
-                            <GridViewColumn Header="Status" Width="70" DisplayMemberBinding="{Binding IsCompleted}" />
+                            <GridViewColumn Header="Status" Width="50" DisplayMemberBinding="{Binding IsCompleted}" />
                         </GridView>
                     </ListView.View>
                 </ListView>
                 <Grid x:Name="OrderProgress" Visibility="Hidden" >
                     <ProgressBar x:Name="OrderProgressBar" Value="2" HorizontalAlignment="Left" Height="20" Margin="555,373,0,0" VerticalAlignment="Top" Width="123" Minimum="0" Maximum="100"/>
                     <Label HorizontalAlignment="Left" Height="23" Margin="573,375,0,0" Content="Order Progress" VerticalAlignment="Top" Width="120" BorderThickness="0" Padding="0" Background="Transparent"/>
+                   
                 </Grid>
             </Grid>
         </Grid>
