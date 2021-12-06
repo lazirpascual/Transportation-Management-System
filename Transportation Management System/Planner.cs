@@ -67,7 +67,7 @@ namespace Transportation_Management_System
             trip.OriginCity = currentOrder.Origin;
             trip.DestinationCity = currentOrder.Destination;
             trip.JobType = currentOrder.JobType;
-
+            trip.VanType = currentOrder.VanType;
             trip.CalculateDistanceAndTime();
             db.CreateTrip(trip);
         }

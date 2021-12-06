@@ -1502,7 +1502,7 @@ namespace Transportation_Management_System
         /// 
         public void CreateTrip(Trip trip)
         {
-            string sql = "INSERT INTO Trips (OrderID, CarrierID, OriginCity, DestinationCity, JobType, TotalDistance, TotalTime) VALUE (@OrderID, @CarrierID, @OriginCity, @DestinationCity, @JobType, @TotalDistance, @TotalTime)";
+            string sql = "INSERT INTO Trips (OrderID, CarrierID, OriginCity, DestinationCity, JobType, VanType, TotalDistance, TotalTime) VALUE (@OrderID, @CarrierID, @OriginCity, @DestinationCity, @JobType, @VanType, @TotalDistance, @TotalTime)";
 
             try
             {
@@ -1518,6 +1518,7 @@ namespace Transportation_Management_System
                         cmd.Parameters.AddWithValue("@OriginCity", trip.OriginCity);
                         cmd.Parameters.AddWithValue("@DestinationCity", trip.DestinationCity);
                         cmd.Parameters.AddWithValue("@JobType", trip.JobType);
+                        cmd.Parameters.AddWithValue("@VanType", trip.VanType);
                         cmd.Parameters.AddWithValue("@TotalDistance", trip.TotalDistance);
                         cmd.Parameters.AddWithValue("@TotalTime", trip.TotalTime);
 

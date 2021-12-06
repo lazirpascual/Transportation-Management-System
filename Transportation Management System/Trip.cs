@@ -54,6 +54,8 @@ namespace Transportation_Management_System
 
         public JobType JobType { get; set; }
 
+        public VanType VanType { get; set; }
+
 
 
         ///
