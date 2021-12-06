@@ -27,7 +27,7 @@ namespace Transportation_Management_System
 
         private void MainWindow_OnMouseDown(object sender, MouseButtonEventArgs e)
         {
-            if(e.LeftButton == MouseButtonState.Pressed)
+            if (e.LeftButton == MouseButtonState.Pressed)
             {
                 DragMove();
             }
@@ -61,24 +61,32 @@ namespace Transportation_Management_System
                     admin.Show();
                 }
                 App.Current.MainWindow.Hide();
-            }        
+            }
         }
 
         private string CheckLogin()
         {
             DAL auth = new DAL();
 
-            if (auth.CheckUsername(UsernameText.Text) == false)
+            if (UsernameText.Text == "" || PasswordText.Password == "")
             {
-                // username is invalid
-                MessageBox.Show("This username does not exist.");
+                MessageBox.Show("Username and Password field must not be blank");
                 return null;
             }
-            if (auth.CheckUserPassword(UsernameText.Text, PasswordText.Password) == false)
+            else
             {
-                // password is invalid
-                MessageBox.Show("This password is not valid.");
-                return null;
+                if (auth.CheckUsername(UsernameText.Text) == false)
+                {
+                    // username is invalid
+                    MessageBox.Show("This username does not exist.");
+                    return null;
+                }
+                if (auth.CheckUserPassword(UsernameText.Text, PasswordText.Password) == false)
+                {
+                    // password is invalid
+                    MessageBox.Show("This password is not valid.");
+                    return null;
+                }
             }
             string UserType = auth.GetUserType(UsernameText.Text);
         
