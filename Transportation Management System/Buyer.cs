@@ -159,7 +159,7 @@ namespace Transportation_Management_System
             invoice.ClientName = clientName;
             invoice.Origin = (City)Enum.Parse(typeof(City), origin, true);
             invoice.Destination= (City)Enum.Parse(typeof(City), destination, true);
-            invoice.Days = days;
+            invoice.Days = Math.Round(days, 1);
             invoice.TotalKM = distance;
 
             return invoice;
