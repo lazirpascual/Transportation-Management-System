@@ -70,7 +70,7 @@ namespace Transportation_Management_System
 
             if (UsernameText.Text == "" || PasswordText.Password == "")
             {
-                MessageBox.Show("Username and Password field must not be blank");
+                MessageBox.Show("Username and Password field must not be blank", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return null;
             }
             else
@@ -78,13 +78,13 @@ namespace Transportation_Management_System
                 if (auth.CheckUsername(UsernameText.Text) == false)
                 {
                     // username is invalid
-                    MessageBox.Show("This username does not exist.");
+                    MessageBox.Show("This username does not exist. Please enter a valid username", "Error", MessageBoxButton.OK, MessageBoxImage.Information);
                     return null;
                 }
                 if (auth.CheckUserPassword(UsernameText.Text, PasswordText.Password) == false)
                 {
                     // password is invalid
-                    MessageBox.Show("This password is not valid.");
+                    MessageBox.Show("This password does not match the username. Please enter a valid password", "Error", MessageBoxButton.OK, MessageBoxImage.Information);
                     return null;
                 }
             }
