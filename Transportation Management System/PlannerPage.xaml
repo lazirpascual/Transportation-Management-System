@@ -40,9 +40,10 @@
                 <Button x:Name="ViewCarrier" Content="View Available Carriers" HorizontalAlignment="Left" VerticalAlignment="Top" Width="135" Margin="635,372,0,0" Click="View_Carrier" Visibility="Hidden"/>
                 <CheckBox x:Name="ActiveBox" Content="Active Orders" Background="WhiteSmoke" Margin="146,370,403,27" IsChecked="False" Click="ActiveBox_Click"/>
                 <CheckBox x:Name="CompletedBox" Content="Completed Orders" Background="WhiteSmoke" Margin="250,370,403,27" IsChecked="False" Click="CompletedBox_Click"/>
-                <ListView x:Name="OrdersList" Margin="145,10,21,61" SelectionMode="Single">
+                <ListView x:Name="OrdersList" Margin="145,10,21,61" SelectionMode="Single" SelectionChanged="Selection_Changed">
                     <ListView.View>
                         <GridView>
+                            <GridViewColumn Header="Client ID" Width="50" DisplayMemberBinding="{Binding OrderID}" />
                             <GridViewColumn Header="Client Name" Width="100" DisplayMemberBinding="{Binding ClientName}" />
                             <GridViewColumn Header="Creation Date" Width="90" DisplayMemberBinding="{Binding OrderCreationDate}" />
                             <GridViewColumn Header="Origin" Width="80" DisplayMemberBinding="{Binding Origin}" />
