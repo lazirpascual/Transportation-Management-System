@@ -212,5 +212,23 @@ namespace Transportation_Management_System
             }
             ClientsList.ItemsSource = clientList;
         }
+
+        private void OrdersList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Order currentOrder = (Order)OrdersList.SelectedItem;
+            if (currentOrder != null && CompletedBox.IsChecked == true)
+            {
+                if (buyer.InvoiceGeneration(currentOrder) == true)
+                {
+                    GenerateInvoice.Visibility = Visibility.Visible;
+                   
+                }
+                else
+                {
+
+                    GenerateInvoice.Visibility = Visibility.Hidden;
+                }
+            }
+        }
     }
 }
