@@ -59,7 +59,7 @@ namespace Transportation_Management_System
 
         private class LTL
         {
-            public long CarrierID { get; set; }
+            public int CarrierID { get; set; }
             public string Name { get; set; }
             public City DepotCity { get; set; }
             public int LTLAval { get; set; }
@@ -68,7 +68,7 @@ namespace Transportation_Management_System
 
         private class FTL
         {
-            public long CarrierID { get; set; }
+            public int CarrierID { get; set; }
             public string Name { get; set; }
             public City DepotCity { get; set; }
             public int FTLAval { get; set; }
@@ -103,7 +103,7 @@ namespace Transportation_Management_System
 
             foreach (var carrier in carriers)
             {
-                CarrierList.Items.Add(new LTL{ CarrierID = carrier.Carrier.CarrierID, Name = carrier.Carrier.Name, DepotCity = carrier.DepotCity, LTLAval = carrier.LTLAval, LTLRate = carrier.Carrier.LTLRate });
+                CarrierList.Items.Add(new LTL{ CarrierID = (int)carrier.Carrier.CarrierID, Name = carrier.Carrier.Name, DepotCity = carrier.DepotCity, LTLAval = carrier.LTLAval, LTLRate = carrier.Carrier.LTLRate });
             }
         }
 
@@ -139,7 +139,7 @@ namespace Transportation_Management_System
 
             foreach (var carrier in carriers)
             {
-                CarrierList.Items.Add(new FTL { CarrierID = carrier.Carrier.CarrierID, Name = carrier.Carrier.Name, DepotCity = carrier.DepotCity, FTLAval = carrier.FTLAval, FTLRate = carrier.Carrier.FTLRate, ReeferCharge = carrier.Carrier.ReeferCharge });
+                CarrierList.Items.Add(new FTL { CarrierID = (int)carrier.Carrier.CarrierID, Name = carrier.Carrier.Name, DepotCity = carrier.DepotCity, FTLAval = carrier.FTLAval, FTLRate = carrier.Carrier.FTLRate, ReeferCharge = carrier.Carrier.ReeferCharge });
             }
         }
     }

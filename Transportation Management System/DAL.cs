@@ -398,18 +398,6 @@ namespace Transportation_Management_System
 
 
         ///
-        /// \brief Inserts a new trip in the Trip table
-        ///
-        /// \param trip  - <b>Trip</b> - An Trip object with all its information
-        /// 
-        public void CreateTrip(Trip trip) { }
-
-
-
-     
-
-
-        ///
         /// \brief Inserts a new invoice in the Invoice table
         ///
         /// \param orderObj  - <b>Order</b> - An Order object with all its information
@@ -1512,9 +1500,9 @@ namespace Transportation_Management_System
         /// 
         /// \return Returns void
         /// 
-        public void CreateTrip(Order order, long carrierID)
+        public void CreateTrip(Trip trip)
         {
-            string sql = "INSERT INTO Trips (OrderID, CarrierID, OriginCity, DestinationCity, JobType) VALUE (@OrderID, @CarrierID, @OriginCity, @DestinationCity, @JobType)";
+            string sql = "INSERT INTO Trips (OrderID, CarrierID, OriginCity, DestinationCity, JobType, TotalDistance, TotalTime) VALUE (@OrderID, @CarrierID, @OriginCity, @DestinationCity, @JobType, @TotalDistance, @TotalTime)";
 
             try
             {
@@ -1525,11 +1513,13 @@ namespace Transportation_Management_System
                     using (MySqlCommand cmd = new MySqlCommand(sql, conn))
                     {
                         // Populate all arguments in the insert
-                        cmd.Parameters.AddWithValue("@OrderID", order.OrderID);
-                        cmd.Parameters.AddWithValue("@CarrierID", carrierID);
-                        cmd.Parameters.AddWithValue("@OriginCity", order.Origin);
-                        cmd.Parameters.AddWithValue("@DestinationCity", order.Destination);
-                        cmd.Parameters.AddWithValue("@JobType", order.JobType);
+                        cmd.Parameters.AddWithValue("@OrderID", trip.OrderID);
+                        cmd.Parameters.AddWithValue("@CarrierID", trip.CarrierID);
+                        cmd.Parameters.AddWithValue("@OriginCity", trip.OriginCity);
+                        cmd.Parameters.AddWithValue("@DestinationCity", trip.DestinationCity);
+                        cmd.Parameters.AddWithValue("@JobType", trip.JobType);
+                        cmd.Parameters.AddWithValue("@TotalDistance", trip.TotalDistance);
+                        cmd.Parameters.AddWithValue("@TotalTime", trip.TotalTime);
 
                         cmd.ExecuteNonQuery();
                     }
