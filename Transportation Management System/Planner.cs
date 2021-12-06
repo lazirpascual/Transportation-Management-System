@@ -58,11 +58,18 @@ namespace Transportation_Management_System
         /// 
         /// \return Void
         /// 
-        public void AddTrip(Order currentOrder, long currentCarrier)
+        public void AddTrip(Order currentOrder, int currentCarrier)
         {
             DAL db = new DAL();
-
-            db.CreateTrip(currentOrder, currentCarrier);
+            Trip trip = new Trip();
+            trip.CarrierID = currentCarrier;
+            trip.OrderID = currentOrder.OrderID;
+            trip.OriginCity = currentOrder.Origin;
+            trip.DestinationCity = currentOrder.Destination;
+            trip.JobType = currentOrder.JobType;
+            trip.VanType = currentOrder.VanType;
+            trip.CalculateDistanceAndTime();
+            db.CreateTrip(trip);
         }
 
 
