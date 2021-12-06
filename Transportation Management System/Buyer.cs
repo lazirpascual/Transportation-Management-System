@@ -115,9 +115,9 @@ namespace Transportation_Management_System
         public Invoice CreateInvoice(Order orderObj)
         {
             Invoice invoice = new Invoice();
-            Trip tripObj = new Trip();
+
             long orderID = orderObj.OrderID;
-            double hours = tripObj.TotalTime;
+            double hours = 0.0;
             TimeSpan timeInDays = TimeSpan.FromHours(hours);
             double days = timeInDays.TotalDays;
             
