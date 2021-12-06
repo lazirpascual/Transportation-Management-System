@@ -79,6 +79,7 @@ namespace Transportation_Management_System
         {
             DAL db = new DAL();
             Trip trip = new Trip();
+            db.StartOrder(currentOrder);
             trip.CarrierID = carrierID;
             trip.OrderID = currentOrder.OrderID;
             trip.OriginCity = currentOrder.Origin;
@@ -100,6 +101,20 @@ namespace Transportation_Management_System
         {
             DAL db = new DAL();
             db.CompleteOrder(order);
+        }
+
+
+
+        ///
+        /// \brief Used to get the total time of a trip based on an order
+        /// 
+        /// \return Returns double
+        /// 
+        public double GetTotalTime(Order order)
+        {
+            DAL db = new DAL();
+            double totalTime = db.GetTotalTimeFromTrip(order);
+            return totalTime;
         }
 
 
