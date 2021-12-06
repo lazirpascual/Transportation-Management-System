@@ -85,7 +85,7 @@ namespace Transportation_Management_System
         /// 
         public List<Order> GetOrders(int orderStatus) 
         {
-            List<Order> orderList;
+            List<Order> orderList = new List<Order>();
 
             DAL db = new DAL();
 
@@ -98,10 +98,6 @@ namespace Transportation_Management_System
                 orderList = db.GetCompletedOrders();
             }
             else if (orderStatus==2)
-            {
-                orderList = db.GetInvoiceGeneratedOrders();
-            }
-            else
             {
                 orderList = db.GetAllOrders();
             }

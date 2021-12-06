@@ -34,6 +34,11 @@ namespace Transportation_Management_System
             App.Current.MainWindow.Visibility = Visibility.Visible;
         }
 
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            Orders_Click(sender, e);
+        }
+
         private void MarketPlace_Click(object sender, RoutedEventArgs e)
         {
             ResetStatus();
@@ -57,16 +62,13 @@ namespace Transportation_Management_System
         {
             ResetStatus();
 
-            ActiveBox.IsChecked = false;
-            CompletedBox.IsChecked = false;
-            OrdersGrid.Visibility = Visibility.Visible;
+            AllBox.IsChecked = true;
+
             Orders.Background = Brushes.LightSkyBlue;
-            List<Order> orderList = new List<Order>();
-            orderList = buyer.GetOrders(25);             
-            OrdersList.ItemsSource = orderList;
-            ActiveBox.IsChecked = false;
-            CompletedBox.IsChecked = false;
-            GenerateInvoice.Visibility = Visibility.Hidden;
+            OrdersGrid.Visibility = Visibility.Visible;
+
+            Refresh_Orders();
+
         }
 
         private void Clients_Click(object sender, RoutedEventArgs e)
@@ -96,38 +98,29 @@ namespace Transportation_Management_System
         private void Refresh_Orders()
         {
             var orderList = new List<Order>();
-            GenerateInvoice.Visibility = Visibility.Hidden;
-            if (ActiveBox.IsChecked == true)
-            {
-                // active box is checked
-                if (CompletedBox.IsChecked == true)
-                {
-                    // completed box is also checked, get all orders
-                    orderList = buyer.GetOrders(25);
 
-                }
-                else
-                {
-                    // completed box is not checked, fetch only the active orders
-                    orderList = buyer.GetOrders(0);
-                }
-            }
-            else
+            if (AllBox.IsChecked == true)
             {
-                // active box is not checked
-                if (CompletedBox.IsChecked == true)
-                {
-                    // completed box is checked, fetch only completed orders
-                    orderList = buyer.GetOrders(1);
-                }
-                else
-                {
-                    // completed box is not checked, fetch all orders
-                    orderList = buyer.GetOrders(25);
-                }
+                // Get all orders
+                orderList = buyer.GetOrders(2);
+            }
+            else if (ActiveBox.IsChecked == true)
+            {
+                // Get active orders
+                orderList = buyer.GetOrders(0);
+            }
+            else if (CompletedBox.IsChecked == true)
+            {
+                // completed box is checked, fetch only completed orders
+                orderList = buyer.GetOrders(1);
             }
 
             OrdersList.ItemsSource = orderList;
+        }
+
+        private void AllBox_Click(object sender, RoutedEventArgs e)
+        {
+            Refresh_Orders();
         }
 
         private void ActiveBox_Click(object sender, RoutedEventArgs e)
@@ -148,12 +141,17 @@ namespace Transportation_Management_System
             MarketPlaceGrid.Visibility = Visibility.Hidden;
             CarriersGrid.Visibility = Visibility.Hidden;
             InvoicesGrid.Visibility = Visibility.Hidden;
+            GenerateInvoice.Visibility = Visibility.Hidden;
 
             // Reset menu buttons to non-clicked status
             MarketPlace.Background = Brushes.WhiteSmoke;
             Clients.Background = Brushes.WhiteSmoke;
             Orders.Background = Brushes.WhiteSmoke;
             Invoice.Background = Brushes.WhiteSmoke;
+
+            AllBox.IsChecked = false;
+            ActiveBox.IsChecked = false;
+            CompletedBox.IsChecked = false;
         }
 
         private void AcceptClient_Click(object sender, RoutedEventArgs e)
@@ -219,5 +217,6 @@ namespace Transportation_Management_System
             InvoiceInformation inv = new InvoiceInformation(invoice);
             inv.ShowDialog();
         }
+
     }
 }
