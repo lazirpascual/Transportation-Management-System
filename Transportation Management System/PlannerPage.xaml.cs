@@ -154,6 +154,24 @@ namespace Transportation_Management_System
             selectCarrier.Show();
         }
 
+        private void Selection_Changed(object sender, RoutedEventArgs e)
+        {
+            Order currentOrder = (Order)OrdersList.SelectedItem;
+            if (currentOrder != null && ActiveBox.IsChecked == true)
+            {
+                if (planner.CarrierAssigned(currentOrder) == true)
+                {
+                    CompleteOrder.Visibility = Visibility.Visible;
+                    ViewCarrier.Visibility = Visibility.Hidden;
+                }
+                else
+                {
+                    ViewCarrier.Visibility = Visibility.Visible;
+                    CompleteOrder.Visibility = Visibility.Hidden;
+                }
+            }        
+        }
+
         private void resetStatus()
         {
             // reset buttons to non-clicked status

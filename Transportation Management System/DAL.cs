@@ -1090,7 +1090,7 @@ namespace Transportation_Management_System
                 string conString = this.ToString();
                 using (MySqlConnection con = new MySqlConnection(conString))
                 {
-                    MySqlCommand cmd = new MySqlCommand("SELECT Clients.ClientName, OrderDate, Origin, Destination, JobType, VanType, Quantity FROM Orders " +
+                    MySqlCommand cmd = new MySqlCommand("SELECT OrderID, Clients.ClientName, OrderDate, Origin, Destination, JobType, VanType, Quantity FROM Orders " +
                          "INNER JOIN Clients ON Orders.ClientID = Clients.ClientID WHERE IsCompleted=0", con);
                     con.Open();
                     MySqlDataReader rdr = cmd.ExecuteReader();
@@ -1100,6 +1100,7 @@ namespace Transportation_Management_System
                         while (rdr.Read())
                         {
                             Order newOrder = new Order();
+                            newOrder.OrderID = int.Parse(rdr["OrderID"].ToString());
                             newOrder.ClientName = rdr["ClientName"].ToString();
                             newOrder.OrderCreationDate = DateTime.Parse(rdr["OrderDate"].ToString());
                             newOrder.Origin = (City) Enum.Parse(typeof(City), rdr["Origin"].ToString(), true);
@@ -1137,7 +1138,7 @@ namespace Transportation_Management_System
                 string conString = this.ToString();
                 using (MySqlConnection con = new MySqlConnection(conString))
                 {
-                    MySqlCommand cmd = new MySqlCommand("SELECT Clients.ClientName, OrderDate, Origin, Destination, JobType, VanType, Quantity FROM Orders " +
+                    MySqlCommand cmd = new MySqlCommand("SELECT OrderID, Clients.ClientName, OrderDate, Origin, Destination, JobType, VanType, Quantity FROM Orders " +
                          "INNER JOIN Clients ON Orders.ClientID = Clients.ClientID WHERE IsCompleted=1", con);
                     con.Open();
                     MySqlDataReader rdr = cmd.ExecuteReader();
@@ -1147,6 +1148,7 @@ namespace Transportation_Management_System
                         while (rdr.Read())
                         {
                             Order newOrder = new Order();
+                            newOrder.OrderID = int.Parse(rdr["OrderID"].ToString());
                             newOrder.ClientName = rdr["ClientName"].ToString();
                             newOrder.OrderCreationDate = DateTime.Parse(rdr["OrderDate"].ToString());
                             newOrder.Origin = (City)Enum.Parse(typeof(City), rdr["Origin"].ToString(), true);
@@ -1184,7 +1186,7 @@ namespace Transportation_Management_System
                 string conString = this.ToString();
                 using (MySqlConnection con = new MySqlConnection(conString))
                 {
-                    MySqlCommand cmd = new MySqlCommand("SELECT Clients.ClientName, OrderDate, Origin, Destination, JobType, VanType, Quantity, IsCompleted, OrderCompletedDate FROM Orders" +
+                    MySqlCommand cmd = new MySqlCommand("SELECT OrderID, Clients.ClientName, OrderDate, Origin, Destination, JobType, VanType, Quantity, IsCompleted, OrderCompletedDate FROM Orders" +
                          " INNER JOIN Clients ON Orders.ClientID = Clients.ClientID", con);
 
                     con.Open();
@@ -1195,6 +1197,7 @@ namespace Transportation_Management_System
                         while (rdr.Read())
                         {
                             Order newOrder = new Order();
+                            newOrder.OrderID = int.Parse(rdr["OrderID"].ToString());
                             newOrder.ClientName = rdr["ClientName"].ToString();
                             newOrder.OrderCreationDate = DateTime.Parse(rdr["OrderDate"].ToString());
                             newOrder.Origin = (City)Enum.Parse(typeof(City), rdr["Origin"].ToString(), true);
@@ -1266,6 +1269,44 @@ namespace Transportation_Management_System
             }
         }
 
+
+        ///
+        /// \brief Determine whether an order has been assigned to a carrier or not
+        ///
+        /// \param order  - <b>Order</b> - selected order
+        ///
+        public bool IsCarriedAssigned(Order currentOrder)
+        {
+            bool isCarrierAssigned = false;
+            try
+            {
+                string conString = this.ToString();
+                using (MySqlConnection con = new MySqlConnection(conString))
+                {
+                    MySqlCommand cmd = new MySqlCommand("SELECT Trips.OrderID FROM Trips" +
+                         " INNER JOIN Orders ON Orders.OrderID = Trips.OrderID" +
+                         " WHERE Trips.OrderID = @OrderID", con);
+
+                    con.Open();
+
+                    cmd.Parameters.AddWithValue("@OrderID", currentOrder.OrderID);
+                    MySqlDataReader rdr = cmd.ExecuteReader();
+
+                    if (rdr.HasRows)
+                    {
+                        isCarrierAssigned = true;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Logger.Log(e.Message, LogLevel.Error);
+                throw new ArgumentException($"Unable to fetch all orders. {e.Message}");
+            }
+            return isCarrierAssigned;
+        }
+
+
         ///
         /// \brief Return a list of all active customers in our system
         /// 
@@ -1304,6 +1345,7 @@ namespace Transportation_Management_System
 
             return clients;
         }
+
 
         ///
         /// \brief Return a list of all carriers in our system
@@ -1356,7 +1398,6 @@ namespace Transportation_Management_System
         /// 
         /// \return carrier ID of the carrier
         /// 
-
         public int GetCarrierIdByName(string carrierName)
         {
             string qSQL = "SELECT CarrierID FROM Carriers WHERE CarrierName=@CarrierName";
