@@ -72,9 +72,10 @@ namespace Transportation_Management_System
             ClientsGrid.Visibility = Visibility.Visible;
             Clients.Background = Brushes.LightSkyBlue;
 
-            //List<Client> clientList = new List<Client>();
+            List<Client> clientList = new List<Client>();
 
-            //clientList = buyer.FetchClients(2);
+            clientList = buyer.FetchClients(2);
+            ClientsList.ItemsSource = clientList;
         }
 
         private void MarketPlace_Page()
@@ -194,6 +195,22 @@ namespace Transportation_Management_System
 
             // Update the contracts list
             ContractsList.ItemsSource = currentList;
+        }
+
+        private void CActiveBox_Click(object sender, RoutedEventArgs e)
+        {
+            var clientList = new List<Client>();
+
+            if (CActiveBox.IsChecked == true)
+            {
+                // active box is checked
+                clientList = buyer.FetchClients(0);
+            }
+            else
+            {
+                clientList = buyer.FetchClients(1);
+            }
+            ClientsList.ItemsSource = clientList;
         }
     }
 }

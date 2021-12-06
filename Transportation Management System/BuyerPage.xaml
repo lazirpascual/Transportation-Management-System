@@ -24,9 +24,18 @@
             <Button x:Name ="Orders" Content="Orders" Background="WhiteSmoke" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="0,312,0,0" Click="Orders_Click"/>
             <Button x:Name ="Clients" Content="Clients" Background="WhiteSmoke" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="0,363,0,0" Click="Clients_Click"/>
             <Button x:Name ="MarketPlace" Content="MarketPlace" Background="WhiteSmoke" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="0,158,0,0" Click="MarketPlace_Click"/>
-            <Grid x:Name="ClientsGrid">
-                   
-                
+            <Grid x:Name="ClientsGrid" Visibility="Visible">
+                <CheckBox x:Name="CActiveBox" Content="Active Clients" Background="WhiteSmoke" Margin="146,370,403,27" IsChecked="False" Click="CActiveBox_Click"/>
+                <ListView x:Name="ClientsList" Margin="145,10,21,61">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Client Name" Width="100" DisplayMemberBinding="{Binding ClientName}" />
+                            <GridViewColumn Header="Client ID" Width="100" DisplayMemberBinding="{Binding ClientID}" />
+                            <GridViewColumn Header="IsActive" Width="100" DisplayMemberBinding="{Binding IsActive}" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+
             </Grid>
             <Grid x:Name="OrdersGrid" Visibility="Visible">
                 <CheckBox x:Name="ActiveBox" Content="Active Orders" Background="WhiteSmoke" Margin="146,370,403,27" IsChecked="False" Click="ActiveBox_Click"/>
@@ -52,7 +61,7 @@
 
 
             </Grid>
-            <Grid x:Name="InvoicesGrid">
+            <Grid x:Name="InvoicesGrid" Visibility="Visible">
 
 
             </Grid>
@@ -71,14 +80,14 @@
                     </ListView.View>
                 </ListView>
             </Grid>
-           
-           
-            
-           
-           
+
+
+
+
+
             <ListView x:Name="InvoicesList" Margin="145,10,21,61" Visibility="Hidden"/>
             <ListView x:Name="CarriersList" Margin="145,10,21,61" Visibility="Hidden"/>
-            <ListView x:Name="ClientsList" Margin="145,10,21,61" Visibility="Hidden"/>
+            
         </Grid>
     </Viewbox>
 </Window>

@@ -25,7 +25,7 @@ namespace Transportation_Management_System
         public string ClientName { get; set; }
 
         /// used to describe whether the client is active or not
-        public bool IsActive { get; set; }
+        public int IsActive { get; set; }
 
         /// Create client Constructor
         public Client(string name)
