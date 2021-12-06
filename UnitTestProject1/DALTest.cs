@@ -115,7 +115,7 @@ namespace UnitTestProject1
             // Generate order 
             City origin = (City)Enum.Parse(typeof(City), contract.Origin.ToString(), true);
             City destination = (City)Enum.Parse(typeof(City), contract.Destination.ToString(), true);
-            Order order = new Order(contract.ClientName, DateTime.Now, origin, destination, contract.JobType, contract.Quantity, contract.VanType);
+            Order order = new Order(contract.ClientName, origin, destination, contract.JobType, contract.Quantity, contract.VanType);
 
 
             DAL db = new DAL();
@@ -145,7 +145,7 @@ namespace UnitTestProject1
             // Generate order 
             City origin = (City)Enum.Parse(typeof(City), contract.Origin.ToString(), true);
             City destination = (City)Enum.Parse(typeof(City), contract.Destination.ToString(), true);
-            Order order = new Order("NonExistentBuddy", DateTime.Now, origin, destination, contract.JobType, contract.Quantity, contract.VanType);
+            Order order = new Order("NonExistentBuddy", origin, destination, contract.JobType, contract.Quantity, contract.VanType);
 
 
             DAL db = new DAL();
