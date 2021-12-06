@@ -472,7 +472,7 @@ namespace Transportation_Management_System
         /// 
         public void UpdateRoute(Route newRoute)
         {
-            string sql = "UPDATE Routes SET Distance=@Distance, Time=@Time, WHERE Destination=@Destination";
+            string sql = "UPDATE Routes SET Distance=@Distance, Time=@Time WHERE Destination=@Destination";
 
             try
             {

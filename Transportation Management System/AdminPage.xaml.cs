@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using System.IO;
 //using System.Drawing;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 
 
 namespace Transportation_Management_System
@@ -527,16 +528,19 @@ namespace Transportation_Management_System
             // Update the Route List
             try
             {
-                db.UpdateRoute(route);
+                var result = System.Windows.MessageBox.Show($"Are you sure you want to update the route to {route.Destination}?", "Are you sure?", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (result == MessageBoxResult.Yes)
+                {
+                    db.UpdateRoute(route);
 
-                // Empty the route list
-                RouteDatabase.ItemsSource = new List<Route>();
+                    // Reload the updated route list 
+                    List<Route> routeList = new List<Route>();
+                    routeList = db.GetRoutes();
+                    RouteDatabase.ItemsSource = routeList;
 
-                // Reload the updated route list 
-                List<Route> routeList = new List<Route>();
-                routeList = db.GetRoutes();
-                RouteDatabase.ItemsSource = routeList;
-               
+                    System.Windows.MessageBox.Show($"Route to {route.Destination} updated successfully", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+
             }
             // Inform the user if the operation fails
             catch (ArgumentException exc)
