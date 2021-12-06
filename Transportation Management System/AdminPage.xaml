@@ -59,7 +59,7 @@
                 <Label Name="ReeferChargeLabel" Content="ReeferCharge" HorizontalAlignment="Left" Margin="146,320,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.032,0.428" Width="82"/>
                 <Button Name="AddCarrier" Content="Add" HorizontalAlignment="Left" Margin="684,376,0,0" VerticalAlignment="Top" Width="75" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Click="AddCarrier_Click"/>
                 <Button Name="UpdateCarrier" Content="Update" HorizontalAlignment="Left" Margin="246,376,0,0" VerticalAlignment="Top" Width="75" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Click="UpdateCarrier_Click"/>
-                <Button Name="Clear" Content="Clear Fields" HorizontalAlignment="Left" Margin="160,376,0,0" VerticalAlignment="Top" Width="75" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Click="ClearButton_Click"/>
+                <Button Name="Clear" Content="Clear Fields" HorizontalAlignment="Left" Margin="160,376,0,0" VerticalAlignment="Top" Width="80" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Click="ClearButton_Click"/>
                 <Button Name="DeleteCarrier" Content="Delete" HorizontalAlignment="Left" Margin="595,376,0,0" VerticalAlignment="Top" Width="75" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Click="DeleteCarrier_Click"/>
                 <ListView x:Name="CarrierDatabaseList" Margin="146,6,255,172" SelectionMode="Single" SelectionChanged="CarriersFieldsHander">
                     <ListView.View>
@@ -93,7 +93,7 @@
                 <Label Content="West" Margin="401,265,294,0" VerticalAlignment="Top"/>
                 <Label Content="East" Margin="401,304,294,0" VerticalAlignment="Top"/>
                 <Button Name="UpdateRoute" Content="Update" HorizontalAlignment="Left" Margin="664,379,0,0" VerticalAlignment="Top" Width="84" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Click="UpdateRoute_Click"/>
-                <Button Name="ClearRoute" Content="Clear Fields" HorizontalAlignment="Left" Margin="664,343,0,0" VerticalAlignment="Top" Width="84" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Click="ClearRoute_Click"/>
+                <Button Name="ClearRoute" Content="Clear Fields" HorizontalAlignment="Left" Margin="664,343,0,0" VerticalAlignment="Top" Width="87" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Click="ClearRoute_Click"/>
                 <ListView x:Name="RouteDatabase" Margin="144,4,36,172"  SelectionMode="Single" PreviewMouseLeftButtonUp="RouteDatabase_PreviewMouseLeftButtonUp">
                     <ListView.View>
                         <GridView>
