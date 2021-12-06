@@ -83,6 +83,7 @@ namespace Transportation_Management_System
                     orderList = planner.FetchOrders(2);
                     ViewCarrier.Visibility = Visibility.Hidden;
                     CompleteOrder.Visibility = Visibility.Hidden;
+                    OrderProgress.Visibility = Visibility.Hidden;
                 }
                 else
                 {
@@ -105,6 +106,7 @@ namespace Transportation_Management_System
                 }
                 ViewCarrier.Visibility = Visibility.Hidden;
                 CompleteOrder.Visibility = Visibility.Hidden;
+                OrderProgress.Visibility = Visibility.Hidden;
             }
 
             OrdersList.ItemsSource = orderList;
@@ -128,6 +130,7 @@ namespace Transportation_Management_System
             if (selectCarrier.ShowDialog() == true)
             {
                 CompleteOrder.Visibility = Visibility.Visible;
+                OrderProgress.Visibility = Visibility.Visible;
                 ViewCarrier.Visibility = Visibility.Hidden;
             }
         }
@@ -137,6 +140,7 @@ namespace Transportation_Management_System
             Order currentOrder = (Order)OrdersList.SelectedItem;
             planner.CompleteOrder(currentOrder);
             CompleteOrder.Visibility = Visibility.Hidden;
+            OrderProgress.Visibility = Visibility.Hidden;
             Refresh_Orders();
         }
 
@@ -150,6 +154,7 @@ namespace Transportation_Management_System
                 {
                     // carrier has already been assigned, display complete order button
                     CompleteOrder.Visibility = Visibility.Visible;
+                    OrderProgress.Visibility = Visibility.Visible;
                     ViewCarrier.Visibility = Visibility.Hidden;
                 }
                 else
@@ -157,6 +162,7 @@ namespace Transportation_Management_System
                     // carrier has already been assigned, display view carrier button
                     ViewCarrier.Visibility = Visibility.Visible;
                     CompleteOrder.Visibility = Visibility.Hidden;
+                    OrderProgress.Visibility = Visibility.Hidden;
                 }
 
                 if (currentOrder.IsCompleted == 1)
@@ -164,6 +170,7 @@ namespace Transportation_Management_System
                     // current order is completed, hide both buttons
                     ViewCarrier.Visibility = Visibility.Hidden;
                     CompleteOrder.Visibility = Visibility.Hidden;
+                    OrderProgress.Visibility = Visibility.Hidden;
                 }
             }                
         }
@@ -181,6 +188,6 @@ namespace Transportation_Management_System
             ActivitiesGrid.Visibility = Visibility.Hidden;
             TripGrid.Visibility = Visibility.Hidden;
             OrdersGrid.Visibility = Visibility.Hidden;           
-        }            
+        }
     }
 }

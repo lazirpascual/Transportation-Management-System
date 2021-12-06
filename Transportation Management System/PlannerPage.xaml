@@ -36,7 +36,7 @@
                 <ListView x:Name="TripList" Margin="145,10,21,61"/>
 
             </Grid>
-            <Grid x:Name="OrdersGrid" Visibility="Hidden">
+            <Grid x:Name="OrdersGrid" Visibility="Visible">
                 <Button x:Name="CompleteOrder" Content="Complete Order" HorizontalAlignment="Left" VerticalAlignment="Top" Width="110" Visibility="Hidden" Margin="710,372,0,0" Click="Complete_Order"  Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" />
                 <Button x:Name="ViewCarrier" Content="View Available Carriers" HorizontalAlignment="Left" VerticalAlignment="Top" Width="165" Margin="655,372,0,0" Click="View_Carrier" Visibility="Hidden"  Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" />
                 <CheckBox x:Name="ActiveBox" Content="Active Orders" Background="WhiteSmoke" Margin="146,370,403,27" IsChecked="False" Click="ActiveBox_Click"/>
@@ -56,6 +56,10 @@
                         </GridView>
                     </ListView.View>
                 </ListView>
+                <Grid x:Name="OrderProgress" Visibility="Hidden" >
+                    <ProgressBar Value="2" HorizontalAlignment="Left" Height="20" Margin="555,373,0,0" VerticalAlignment="Top" Width="123" Minimum="0" Maximum="100"/>
+                    <Label HorizontalAlignment="Left" Height="23" Margin="573,375,0,0" Content="Order Progress" VerticalAlignment="Top" Width="120" BorderThickness="0" Padding="0" Background="Transparent"/>
+                </Grid>
             </Grid>
         </Grid>
     </Viewbox>
