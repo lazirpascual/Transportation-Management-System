@@ -1800,7 +1800,7 @@ namespace Transportation_Management_System
         /// 
         /// \return A list with all trips attached to a specific orders
         /// 
-        public List<Order> FilterCompletedOrdersByTime(bool onlyPast2Weeks = false) 
+        public List<Order> FilterCompletedOrdersByTime(bool onlyPast2Weeks) 
         {
             List<Order> orders = new List<Order>();
 
@@ -1830,6 +1830,7 @@ namespace Transportation_Management_System
                                     Order order = new Order();
 
                                     order.ClientName = rdr["ClientName"].ToString();
+                                    order.OrderID = int.Parse(rdr["OrderID"].ToString());
                                     if (DateTime.TryParse(rdr["OrderDate"].ToString(), out DateTime dt)) order.OrderCreationDate = dt;
                                     order.Origin = (City)Enum.Parse(typeof(City), rdr["Origin"].ToString(), true);
                                     order.Destination = (City)Enum.Parse(typeof(City), rdr["Destination"].ToString(), true);
