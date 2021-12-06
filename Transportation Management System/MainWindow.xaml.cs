@@ -25,8 +25,13 @@ namespace Transportation_Management_System
             InitializeComponent();
 
             Route r = new Route();
+            Order order = new Order();
+            order.Origin = City.Windsor;
+            //order.Destination= City.Hamilton;
+            order.Destination= City.Kingston;
+            order.JobType = JobType.LTL;
 
-            var test = r.CalculateDistanceAndTime(City.Windsor, City.Hamilton, JobType.LTL);
+            var test = r.CalculateDistanceAndTime(order);
         }
 
         private void MainWindow_OnMouseDown(object sender, MouseButtonEventArgs e)
