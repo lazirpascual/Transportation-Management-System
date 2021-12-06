@@ -67,7 +67,7 @@ namespace Transportation_Management_System
         /// 
         public static decimal CalculateTotalCostTrips(List<Trip> trips)
         {
-            decimal totalCost = 0.0M;
+            double totalCost = 0.0;
             DAL db = new DAL();
 
             // Iterate through the trips and sum the costs of each
@@ -79,10 +79,10 @@ namespace Transportation_Management_System
                 switch (trip.JobType)
                 {
                     case JobType.FTL:
-                        totalCost =  ((decimal) currentTripCarrier.FTLRate * 1.05) * trip.TotalDistance;
+                        totalCost =  (currentTripCarrier.FTLRate * 1.05) * trip.TotalDistance;
                         break;
                     case JobType.LTL:
-                        totalCost =  ((decimal) currentTripCarrier.LTLRate * 1.08) * trip.TotalDistance;
+                        totalCost =  (currentTripCarrier.LTLRate * 1.08) * trip.TotalDistance;
                         break;
                 }
 
@@ -92,7 +92,7 @@ namespace Transportation_Management_System
                 {
                     case VanType.Reefer:
                         // Percentage on top of the cost if it's a reefer van
-                        totalCost *= (decimal) currentTripCarrier.ReeferCharge;
+                        totalCost *= currentTripCarrier.ReeferCharge;
                         break;
                     // If dryvan, only the regular rates
                     case VanType.DryVan:
@@ -100,7 +100,7 @@ namespace Transportation_Management_System
                 }
             }
 
-            return totalCost;
+            return (decimal) totalCost;
         }
 
         ///
