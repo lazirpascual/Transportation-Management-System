@@ -38,19 +38,20 @@
             <Grid x:Name="OrdersGrid" Visibility="Hidden">
                 <CheckBox x:Name="ActiveBox" Content="Active Orders" Background="WhiteSmoke" Margin="146,370,403,27" IsChecked="False" Click="ActiveBox_Click"/>
                 <CheckBox x:Name="CompletedBox" Content="Completed Orders" Background="WhiteSmoke" Margin="250,370,403,27" IsChecked="False" Click="CompletedBox_Click"/>
-                <ListView x:Name="OrdersList" Margin="145,10,21,61">
+                <ListView x:Name="OrdersList" Margin="145,10,21,61" Height="324" Width="660">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="ID" Width="40" DisplayMemberBinding="{Binding OrderID}" />
                             <GridViewColumn Header="Client Name" Width="90" DisplayMemberBinding="{Binding ClientName}" />
-                            <GridViewColumn Header="Creation" Width="70" DisplayMemberBinding="{Binding OrderCreationDate}" />
+                            <GridViewColumn Header="Accepted Date" Width="70" DisplayMemberBinding="{Binding OrderAcceptedDate}" />
                             <GridViewColumn Header="Origin" Width="80" DisplayMemberBinding="{Binding Origin}" />
                             <GridViewColumn Header="Destination" Width="70" DisplayMemberBinding="{Binding Destination}" />
                             <GridViewColumn Header="Job Type" Width="55" DisplayMemberBinding="{Binding JobType}" />
                             <GridViewColumn Header="Van Type" Width="55" DisplayMemberBinding="{Binding VanType}" />
                             <GridViewColumn Header="Qty" Width="40" DisplayMemberBinding="{Binding Quantity}" />
                             <GridViewColumn Header="Status" Width="50" DisplayMemberBinding="{Binding IsCompleted}" />
-                            <GridViewColumn Header="Completion" Width="70" DisplayMemberBinding="{Binding OrderCompletedDate}" />
+                            <GridViewColumn Header="Creation Date" Width="70" DisplayMemberBinding="{Binding OrderCreationDate}" />
+                            <GridViewColumn Header="Completion" Width="70" DisplayMemberBinding="{Binding OrderCompletionDate}" />
                         </GridView>
                     </ListView.View>
                 </ListView>
