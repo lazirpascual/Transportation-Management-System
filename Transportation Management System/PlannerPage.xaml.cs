@@ -31,11 +31,20 @@ namespace Transportation_Management_System
             App.Current.MainWindow.Visibility = Visibility.Visible;
         }
 
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            Orders_Click(sender, e);
+        }
+
         private void Invoices_Click(object sender, RoutedEventArgs e)
         {
             ResetStatus();
             ReportsGrid.Visibility = Visibility.Visible;
             Invoices.Background = Brushes.LightSkyBlue;
+
+            AllInvoices.IsChecked = true;
+
+            Refresh_Invoices();
         }
 
         private void Activities_Click(object sender, RoutedEventArgs e)
@@ -45,40 +54,20 @@ namespace Transportation_Management_System
             Activities.Background = Brushes.LightSkyBlue;
         }
 
-        private void Report_Click(object sender, RoutedEventArgs e)
-        {
-            ResetStatus();
-            ReportsGrid.Visibility = Visibility.Visible;
-            GenerateReport.Background = Brushes.LightSkyBlue;
-
-            DAL db = new DAL();
-            Buyer buyer = new Buyer();
-
-            var orders = db.GetInvoiceGeneratedOrders();
-            var invoices = new List<Invoice>();
-            foreach (var order in orders)
-            {
-                invoices.Add(buyer.CreateInvoice(order));
-            }
-            ReportList.ItemsSource = invoices;
-        }
 
         private void Orders_Click(object sender, RoutedEventArgs e)
         {
             ResetStatus();            
 
-
-            ActiveBox.IsChecked = false;
-            CompletedBox.IsChecked = false;
-
+            AllBox.IsChecked = true;
 
             Orders.Background = Brushes.LightSkyBlue;
             OrdersGrid.Visibility = Visibility.Visible;
-            List<Order> orderList = new List<Order>();
-            orderList = planner.FetchOrders(2);
-            OrdersList.ItemsSource = orderList;
-            
+
+            Refresh_Orders();
         }
+
+        
 
         private void AllInvoices_Click(object sender, RoutedEventArgs e)
         {
@@ -91,25 +80,32 @@ namespace Transportation_Management_System
         }
 
 
+        private void Report_Click(object sender, RoutedEventArgs e)
+        {
+            ResetStatus();
+            ReportsGrid.Visibility = Visibility.Visible;
+            GenerateReport.Background = Brushes.LightSkyBlue;
+            AllInvoices.IsChecked = true;
+
+            Refresh_Invoices();
+        }
+
         private void Refresh_Invoices()
         {
             List<Invoice> invoicesList = new List<Invoice>();
 
             if(AllInvoices.IsChecked == true)
             {
-                    // past invoice is also checked, get all invoices
-                    invoicesList = planner.GenerateSummaryReport(true);           
+                // past invoice is also checked, get all invoices
+                invoicesList = planner.GenerateSummaryReport(true);           
                
             }
-            else
+            else if (PastInvoice.IsChecked == true)
             {
-                // All invoices box is not checked
-                if (PastInvoice.IsChecked == true)
-                {
-                    // completed box is checked, fetch only completed orders
-                    invoicesList = planner.GenerateSummaryReport(false);
-                }
+                // completed box is checked, fetch only completed orders
+                invoicesList = planner.GenerateSummaryReport(false);
             }
+
             ReportList.ItemsSource = invoicesList;           
         }           
         
@@ -118,42 +114,32 @@ namespace Transportation_Management_System
         {
             var orderList = new List<Order>();
 
-            if (ActiveBox.IsChecked == true)
+            if(AllBox.IsChecked == true)
             {
-                // active box is checked
-                if (CompletedBox.IsChecked == true)
-                {
-                    // completed box is also checked, get all orders
-                    orderList = planner.FetchOrders(2);
-                    ViewCarrier.Visibility = Visibility.Hidden;
-                    CompleteOrder.Visibility = Visibility.Hidden;
-                    OrderProgress.Visibility = Visibility.Hidden;
-                }
-                else
-                {
-                    // completed box is not checked, fetch only the active orders
-                    orderList = planner.FetchOrders(0);
-                }
+                // Get all orders
+                orderList = planner.FetchOrders(2);
             }
-            else
+            else if (ActiveBox.IsChecked == true)
             {
-                // active box is not checked
-                if (CompletedBox.IsChecked == true)
-                {
-                    // completed box is checked, fetch only completed orders
-                    orderList = planner.FetchOrders(1);
-                }
-                else
-                {
-                    // completed box is not checked, fetch all orders
-                    orderList = planner.FetchOrders(2);
-                }
+                // Get active orders
+                orderList = planner.FetchOrders(0);
+            }
+            else if(CompletedBox.IsChecked == true)
+            {
+                // completed box is checked, fetch only completed orders
+                orderList = planner.FetchOrders(1);
+                
                 ViewCarrier.Visibility = Visibility.Hidden;
                 CompleteOrder.Visibility = Visibility.Hidden;
                 OrderProgress.Visibility = Visibility.Hidden;
             }
 
             OrdersList.ItemsSource = orderList;
+        }
+
+        private void AllBox_Click(object sender, RoutedEventArgs e)
+        {
+            Refresh_Orders();
         }
 
         private void ActiveBox_Click(object sender, RoutedEventArgs e)
@@ -248,8 +234,12 @@ namespace Transportation_Management_System
             ReportsGrid.Visibility = Visibility.Hidden;
             ActivitiesGrid.Visibility = Visibility.Hidden;
             OrdersGrid.Visibility = Visibility.Hidden;
-            
+
+            ActiveBox.IsChecked = false;
+            CompletedBox.IsChecked = false;
+            AllInvoices.IsChecked = false;
+            PastInvoice.IsChecked = false;
         }
-              
+
     }
 }
