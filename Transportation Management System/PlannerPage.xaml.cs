@@ -50,7 +50,7 @@ namespace Transportation_Management_System
         {
             resetStatus();
             TripGrid.Visibility = Visibility.Visible;
-            Trip.Background = Brushes.LightSkyBlue;
+            TripManagement.Background = Brushes.LightSkyBlue;
         }
 
         private void Orders_Click(object sender, RoutedEventArgs e)
@@ -180,7 +180,7 @@ namespace Transportation_Management_System
             Invoices.Background = Brushes.WhiteSmoke;
             Activities.Background = Brushes.WhiteSmoke;
             Orders.Background = Brushes.WhiteSmoke;
-            Trip.Background = Brushes.WhiteSmoke;
+            TripManagement.Background = Brushes.WhiteSmoke;
 
             // Hide all grids
             ReportsGrid.Visibility = Visibility.Hidden;

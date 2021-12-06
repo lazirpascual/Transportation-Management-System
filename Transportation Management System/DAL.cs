@@ -1577,10 +1577,6 @@ namespace Transportation_Management_System
                                 trip.DestinationCity= (City)Enum.Parse(typeof(City), rdr["DestinationCity"].ToString(), true);
                                 trip.TotalDistance = double.Parse(rdr["TotalDistance"].ToString());
                                 trip.TotalTime = double.Parse(rdr["TotalTime"].ToString());
-                                trip.HoursDriven = double.Parse(rdr["HoursDriven"].ToString());
-                                trip.HoursUnloading= double.Parse(rdr["HoursUnloading"].ToString());
-                                trip.HoursLoading = double.Parse(rdr["HoursLoading"].ToString());
-
                                 trips.Add(trip);
 
                             }

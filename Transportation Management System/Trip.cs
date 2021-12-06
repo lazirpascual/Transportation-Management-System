@@ -52,9 +52,6 @@ namespace Transportation_Management_System
         /// The total number of days needed for the trip
         public double TotalTime { get; set; }
 
-        /// The total distance between the two cities
-        public int TotalDistance { get; set; }
-
         public JobType JobType { get; set; }
 
 
