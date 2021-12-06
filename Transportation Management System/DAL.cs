@@ -1665,7 +1665,7 @@ namespace Transportation_Management_System
                                 trip.CarrierID = int.Parse(rdr["CarrierID"].ToString());
                                 trip.OriginCity= (City)Enum.Parse(typeof(City), rdr["OriginCity"].ToString(), true);
                                 trip.DestinationCity= (City)Enum.Parse(typeof(City), rdr["DestinationCity"].ToString(), true);
-                                trip.TotalDistance = double.Parse(rdr["TotalDistance"].ToString());
+                                trip.TotalDistance = int.Parse(rdr["TotalDistance"].ToString());
                                 trip.TotalTime = double.Parse(rdr["TotalTime"].ToString());
                                 trips.Add(trip);
 

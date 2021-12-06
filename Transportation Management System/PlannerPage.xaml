@@ -20,28 +20,38 @@
                 </Border.Background>
                 <Image Source="logo_white.png" Margin="10,10,667,281" RenderTransformOrigin="0.765,0.717"/>
             </Border>
-            <Button x:Name ="Invoices" Content="Invoices" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="0,209,0,0" Click="Invoices_Click"/>
-            <Button x:Name ="Activities" Content="Activities" Background="WhiteSmoke" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="0,261,0,0" Click="Activities_Click"/>
-            <Button x:Name ="TripManagement" Content="Trip Management" Background="WhiteSmoke" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="0,312,0,0" Click="Trip_Click"/>
-            <Button x:Name ="Orders" Content="Orders" Background="WhiteSmoke" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="0,363,0,0" Click="Orders_Click"/>
-            <Grid x:Name="ReportsGrid" Visibility="Hidden">
-                <ListView x:Name="ReportList" Margin="145,10,21,61"/>
+            <Button x:Name ="Invoices" Content="Invoices" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,210,0,0" Click="Invoices_Click"/>
+            <Button x:Name ="Activities" Content="Activities" Background="WhiteSmoke" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,261,0,0" Click="Activities_Click"/>
+            <Button x:Name ="GenerateReport" Content="Generate Report" Background="WhiteSmoke" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,312,0,0" Click="Report_Click"/>
+            <Button x:Name ="Orders" Content="Orders" Background="WhiteSmoke" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,363,0,0" Click="Orders_Click"/>
 
+            <Grid x:Name="ReportsGrid" Visibility="Visible">
+                <ListView x:Name="ReportList" Margin="212,38,26,57" SelectionMode="Single" SelectionChanged="Selection_Changed" HorizontalAlignment="Center" VerticalAlignment="Center" Height="324" Width="608">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Order ID" Width="60" DisplayMemberBinding="{Binding OrderID}" />
+                            <GridViewColumn Header="Client Name" Width="100" DisplayMemberBinding="{Binding ClientName}" />
+                            <GridViewColumn Header="Origin" Width="80" DisplayMemberBinding="{Binding Origin}" />
+                            <GridViewColumn Header="Destination" Width="90" DisplayMemberBinding="{Binding Destination}" />
+                            <GridViewColumn Header="Distance" Width="90" DisplayMemberBinding="{Binding TotalKM}" />
+                            <GridViewColumn Header="Days Taken" Width="90" DisplayMemberBinding="{Binding Days}" />
+                            <GridViewColumn Header="Total" Width="70" DisplayMemberBinding="{Binding TotalAmount}" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
             </Grid>
+
             <Grid x:Name="ActivitiesGrid" Visibility="Hidden">
                 <ListView x:Name="ActivitiesList" Margin="145,10,21,61"/>
 
             </Grid>
-            <Grid x:Name="TripGrid" Visibility="Hidden">
-                <ListView x:Name="TripList" Margin="145,10,21,61"/>
 
-            </Grid>
             <Grid x:Name="OrdersGrid" Visibility="Hidden">
                 <Button x:Name="CompleteOrder" Content="Complete Order" HorizontalAlignment="Left" VerticalAlignment="Top" Width="135" Visibility="Hidden" Margin="635,372,0,0"/>
                 <Button x:Name="ViewCarrier" Content="View Available Carriers" HorizontalAlignment="Left" VerticalAlignment="Top" Width="135" Margin="635,372,0,0" Click="View_Carrier" Visibility="Hidden"/>
                 <CheckBox x:Name="ActiveBox" Content="Active Orders" Background="WhiteSmoke" Margin="146,370,403,27" IsChecked="False" Click="ActiveBox_Click"/>
                 <CheckBox x:Name="CompletedBox" Content="Completed Orders" Background="WhiteSmoke" Margin="250,370,403,27" IsChecked="False" Click="CompletedBox_Click"/>
-                <ListView x:Name="OrdersList" Margin="145,10,21,61" SelectionMode="Single" SelectionChanged="Selection_Changed">
+                <ListView x:Name="OrdersList" Margin="145,10,21,61" SelectionMode="Single" SelectionChanged="Selection_Changed" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Client ID" Width="50" DisplayMemberBinding="{Binding OrderID}" />

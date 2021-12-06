@@ -39,7 +39,7 @@
                     <PasswordBox x:Name="PasswordText" FontFamily="Verdana" FontWeight="Light" FontSize="15" HorizontalAlignment="Center" Background="WhiteSmoke" BorderThickness="0" Width="185" Height="25"/>
                 </StackPanel>
                 <StackPanel Margin="0,25,45,0">
-                    <Button x:Name="SigninButton" Content="Sign in" Foreground="DarkBlue" IsDefault="True"  FontSize="14" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Right" Width="60" Background="WhiteSmoke" Click="Signin_Button_Click"/>
+                    <Button x:Name="SigninButton" Content="Sign in" Foreground="DarkBlue" IsDefault="True"  FontSize="14" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Right" Width="67" Background="WhiteSmoke" Click="Signin_Button_Click" Height="25"/>
                 </StackPanel>
             </StackPanel>
         </Grid>

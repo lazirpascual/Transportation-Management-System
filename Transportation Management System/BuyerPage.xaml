@@ -20,11 +20,10 @@
                 </Border.Background>
                 <Image Source="logo_white.png" Margin="10,10,667,281"/>
             </Border>
-            <Button x:Name ="Invoice" Content="Invoices" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="0,209,0,0" Click="Invoice_Click"/>
-            <Button x:Name ="Carriers" Content="Carriers" Background="WhiteSmoke" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="0,261,0,0" Click="Carriers_Click"/>
-            <Button x:Name ="Orders" Content="Orders" Background="WhiteSmoke" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="0,312,0,0" Click="Orders_Click"/>
-            <Button x:Name ="Clients" Content="Clients" Background="WhiteSmoke" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="0,363,0,0" Click="Clients_Click"/>
-            <Button x:Name ="MarketPlace" Content="MarketPlace" Background="WhiteSmoke" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="0,158,0,0" Click="MarketPlace_Click"/>
+            <Button x:Name ="Invoice" Content="Invoices" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="11,261,0,0" Click="Invoice_Click"/>
+            <Button x:Name ="Orders" Content="Orders" Background="WhiteSmoke" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,312,0,0" Click="Orders_Click"/>
+            <Button x:Name ="Clients" Content="Clients" Background="WhiteSmoke" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,363,0,0" Click="Clients_Click"/>
+            <Button x:Name ="MarketPlace" Content="MarketPlace" Background="WhiteSmoke" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,210,0,0" Click="MarketPlace_Click"/>
             <Grid x:Name="ClientsGrid" Visibility="Visible">
                 <CheckBox x:Name="CActiveBox" Content="Active Clients" Background="WhiteSmoke" Margin="146,370,403,27" IsChecked="False" Click="CActiveBox_Click"/>
                 <ListView x:Name="ClientsList" Margin="145,10,21,61">

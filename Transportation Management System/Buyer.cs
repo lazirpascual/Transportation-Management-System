@@ -42,8 +42,6 @@ namespace Transportation_Management_System
         public Order GenerateOrder(Contract contract) 
         {
             // Create an order object
-
-
             Order order = new Order(contract.ClientName, DateTime.Now, contract.Origin, contract.Destination, contract.JobType, contract.Quantity, contract.VanType);
 
             // Check if Client exists, If it doesn't exists, create it
@@ -116,6 +114,7 @@ namespace Transportation_Management_System
         ///
         /// \param orderObj  - <b>Order</b> - An Order object with all its information
         /// 
+        /// \return An invoice object
         public Invoice CreateInvoice(Order orderObj)
         {
             Invoice invoice = new Invoice();
@@ -126,29 +125,44 @@ namespace Transportation_Management_System
             List<Trip> trips = db.FilterTripsByOrderId(orderID);
 
             double hours = 0.0;
+            int distance = 0;
+
+            try
+            {
+                hours = trips[0].TotalTime;
+                distance = trips[0].TotalDistance;
+            }
+            catch(System.ArgumentOutOfRangeException)
+            {
+                string e = $"Trip for order #{orderObj.OrderID} not found";
+                Logger.Log(e, LogLevel.Error);
+                throw new ArgumentNullException(e);
+            }
+
+            
             TimeSpan timeInDays = TimeSpan.FromHours(hours);
             double days = timeInDays.TotalDays;
+
             
-            int quantity = orderObj.Quantity;
+            
             decimal totalCost = Trip.CalculateTotalCostTrips(trips);
-           
             string clientName = orderObj.ClientName;
-            string origin = (orderObj.Origin).ToString();
-            string destination = (orderObj.Destination).ToString();
+            string origin = orderObj.Origin.ToString();
+            string destination = orderObj.Destination.ToString();
             
 
             invoice.OrderID = orderID;
-            invoice.PalletQuantity = quantity;
             invoice.TotalAmount = totalCost;
             invoice.ClientName = clientName;
             invoice.Origin = (City)Enum.Parse(typeof(City), origin, true);
             invoice.Destination= (City)Enum.Parse(typeof(City), destination, true);
             invoice.Days = days;
+            invoice.TotalKM = distance;
 
             return invoice;
-
-
         }
+
+
 
         public void SaveInvoice(Invoice invoice)
         {
