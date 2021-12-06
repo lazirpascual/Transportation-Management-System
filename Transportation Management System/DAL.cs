@@ -255,8 +255,8 @@ namespace Transportation_Management_System
         /// 
         public void CreateUser(User usr)
         {
-            string sql = "INSERT INTO Users (FirstName, LastName, Username, PasswordHash, Email, IsActive, UserType) " +
-                "VALUES (@FirstName, @LastName, @Username, @Password, @Email, @IsActive, @UserType)";
+            string sql = "INSERT INTO Users (FirstName, LastName, Username, PasswordHash, Email, UserType) " +
+                "VALUES (@FirstName, @LastName, @Username, @Password, @Email, @UserType)";
 
            
             try
@@ -273,7 +273,7 @@ namespace Transportation_Management_System
                         cmd.Parameters.AddWithValue("@Username", usr.Username);
                         cmd.Parameters.AddWithValue("@Password", Helper.HashPass(usr.Password));
                         cmd.Parameters.AddWithValue("@Email", usr.Email);
-                        cmd.Parameters.AddWithValue("@IsActive", usr.IsActive);
+                        cmd.Parameters.AddWithValue("@IsActive", 1);
                         cmd.Parameters.AddWithValue("@UserType", (int) usr.UserType);
 
                         // Execute the insertion and check the number of rows affected
