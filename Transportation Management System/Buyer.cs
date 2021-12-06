@@ -98,6 +98,10 @@ namespace Transportation_Management_System
             {
                 orderList = db.GetCompletedOrders();
             }
+            else if (orderStatus==2)
+            {
+                orderList = db.GetInvoiceGeneratedOrders();
+            }
             else
             {
                 orderList = db.GetAllOrders();
@@ -117,12 +121,16 @@ namespace Transportation_Management_System
             Invoice invoice = new Invoice();
 
             long orderID = orderObj.OrderID;
+
+            DAL db = new DAL();
+            List<Trip> trips = db.FilterTripsByOrderId(orderID);
+
             double hours = 0.0;
             TimeSpan timeInDays = TimeSpan.FromHours(hours);
             double days = timeInDays.TotalDays;
             
             int quantity = orderObj.Quantity;
-            double totalCost = 0.0;
+            decimal totalCost = Trip.CalculateTotalCostTrips(trips);
            
             string clientName = orderObj.ClientName;
             string origin = (orderObj.Origin).ToString();
@@ -130,7 +138,15 @@ namespace Transportation_Management_System
             Random randNum = new Random();
             int invoiceNum = randNum.Next(0, 1000);
 
-            string invoiceText = String.Format("Sales Invoice\nInvoice Number: {0}\n\nOrder Number: {1}\nClient: {2}\nOrigin City: {3}\nDestination City: {4}\nDays taken: {5}\n\n\nTotal: {6}\n", invoiceNum, clientName, origin, destination, days, totalCost);
+            string invoiceText = String.Format("====Sales Invoice====\n" + 
+                                                "Invoice Number: {0}\n\n" +
+                                                "Order Number: {1}\n" +
+                                                "Client: {2}\n" +
+                                                "Origin City: {3}\n" +
+                                                "Destination City: {4}\n" +
+                                                "Days taken: {5}\n\n\n" +
+                                                "Total: ${6}\n", invoiceNum, clientName, origin, destination, days, totalCost.ToString("C0"));
+
             string invoiceDirectory = Directory.GetCurrentDirectory();
             string invoiceName = invoiceDirectory + "\\"+clientName+"-" + orderID + ".txt";
             try

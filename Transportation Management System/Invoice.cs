@@ -26,7 +26,7 @@ namespace Transportation_Management_System
         public string ClientName { set; get; }
 
         /// The total amount of the Invoice
-        public double TotalAmount { set; get; }
+        public decimal TotalAmount { set; get; }
 
         /// The quantity of pallets in the order that generates the Invoice
         public int PalletQuantity { set; get; }

@@ -36,10 +36,10 @@ namespace Transportation_Management_System
         /// The trip ID for the Trip
         public long TripID { get; set; }
         /// The order ID for the Trip
-        public int OrderID { get; set; }
+        public long OrderID { get; set; }
 
         /// The carrier ID for the Trip
-        public int CarrierID { get; set; }
+        public long CarrierID { get; set; }
         /// The starting city for the transport
         public City OriginCity { get; set; }
 
@@ -62,17 +62,48 @@ namespace Transportation_Management_System
         public double HoursLoading { get; set; }
 
         ///
-        /// \brief This method will calculate the route for the trip, based on origin, destination and jobtype
+        /// \brief This method will calculate the total cost for all trips
         ///
-        /// \param originCity  - <b>int</b> - Where the delivery will start from.
-        /// \param destinationCity  - <b>int</b> - Where the delivery needs to reach.
-        /// \param jobType  - <b>int</b> - Full truck load or less than truck load
+        /// \param trips  - <b>List<Trip></b> - List of trips.
         /// 
-        /// \return void
+        /// \return Total cost for the order
         /// 
-        public void CalculateTrip()
+        public static decimal CalculateTotalCostTrips(List<Trip> trips)
         {
+            decimal totalCost = 0.0M;
+            DAL db = new DAL();
 
+            // Iterate through the trips and sum the costs of each
+            foreach(var trip in trips)
+            {
+                Carrier currentTripCarrier = db.FilterCarriersByID(trip.CarrierID);
+
+                // Calculate the final price based on the carrier rates and OSHT charge
+                switch (trip.JobType)
+                {
+                    case JobType.FTL:
+                        totalCost =  ((decimal) currentTripCarrier.FTLRate * 1.05) * trip.TotalDistance;
+                        break;
+                    case JobType.LTL:
+                        totalCost =  ((decimal) currentTripCarrier.LTLRate * 1.08) * trip.TotalDistance;
+                        break;
+                }
+
+
+                // Calculate the Reefer charge
+                switch(trip.VanType)
+                {
+                    case VanType.Reefer:
+                        // Percentage on top of the cost if it's a reefer van
+                        totalCost *= (decimal) currentTripCarrier.ReeferCharge;
+                        break;
+                    // If dryvan, only the regular rates
+                    case VanType.DryVan:
+                        break;
+                }
+            }
+
+            return totalCost;
         }
 
         ///
