@@ -23,9 +23,6 @@ namespace Transportation_Management_System
         public MainWindow()
         {
             InitializeComponent();
-
-            Route r = new Route();
-            var test = r.CalculateDistanceAndTime(City.Windsor, City.Hamilton, JobType.FTL);
         }
 
         private void MainWindow_OnMouseDown(object sender, MouseButtonEventArgs e)

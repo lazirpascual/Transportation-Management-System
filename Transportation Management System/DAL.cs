@@ -1444,7 +1444,7 @@ namespace Transportation_Management_System
         /// 
         public void CreateTrip(Order order, Carrier carrierToSelect)
         {
-            string sql = "INSERT INTO Trips (OrderID, CarrierID, OriginCity, DestinationCity) VALUE (@OrderID, @CarrierID, @OriginCity, @DestinationCity)";
+            string sql = "INSERT INTO Trips (OrderID, CarrierID, OriginCity, DestinationCity, JobType) VALUE (@OrderID, @CarrierID, @OriginCity, @DestinationCity, @JobType)";
 
             try
             {
@@ -1459,6 +1459,7 @@ namespace Transportation_Management_System
                         cmd.Parameters.AddWithValue("@CarrierID", carrierToSelect.CarrierID);
                         cmd.Parameters.AddWithValue("@OriginCity", order.Origin);
                         cmd.Parameters.AddWithValue("@DestinationCity", order.Destination);
+                        cmd.Parameters.AddWithValue("@JobType", order.JobType);
 
                         cmd.ExecuteNonQuery();
                     }
@@ -1626,7 +1627,7 @@ namespace Transportation_Management_System
             }
             catch(Exception e)
             {
-                /////////////////////////// TODO
+                Logger.Log(e.Message, LogLevel.Error);
                 throw;
             }
             

@@ -126,12 +126,10 @@ namespace Transportation_Management_System
             List<Invoice> invoices = new List<Invoice>();
             foreach (var inv in orders)
             {
-
                 invoices.Add(buyer.CreateInvoice(inv));
             }
 
             return invoices;
-
         }
     }
 

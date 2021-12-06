@@ -52,14 +52,12 @@ namespace Transportation_Management_System
         /// The total number of days needed for the trip
         public double TotalTime { get; set; }
 
-        /// The total number of hours spent driving
-        public double HoursDriven { get; set; }
+        /// The total distance between the two cities
+        public int TotalDistance { get; set; }
 
-        /// The total number of hours spent unloading the truck
-        public double HoursUnloading { get; set; }
+        public JobType JobType { get; set; }
 
-        /// The total number of hours spent loading the truck
-        public double HoursLoading { get; set; }
+
 
         ///
         /// \brief This method will calculate the route for the trip, based on origin, destination and jobtype
