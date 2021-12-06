@@ -144,22 +144,40 @@ namespace Transportation_Management_System
             Refresh_Orders();
         }
 
+        private void Simulate_OrderStatus()
+        {
+            Order currentOrder = (Order)OrdersList.SelectedItem;
+
+            DateTime expectedDeliveryDate = currentOrder.OrderCreationDate.AddHours(planner.GetTotalTime(currentOrder));
+
+
+            TimeSpan TotalTimeSpan = expectedDeliveryDate - currentOrder.OrderCreationDate;
+            TimeSpan TimePassed = DateTime.Now - currentOrder.OrderCreationDate;
+
+            double result = TimePassed.TotalHours * 100 / TotalTimeSpan.TotalHours;
+            if(result > 100)
+            {
+                result = 100;
+            }
+        }
+
         private void Selection_Changed(object sender, RoutedEventArgs e)
         {
             // order selection has changed
             Order currentOrder = (Order)OrdersList.SelectedItem;
             if (currentOrder != null)
             {
-                if (planner.CarrierAssigned(currentOrder) == true)
+                if (planner.CarrierAssigned(currentOrder) == true && currentOrder.IsCompleted == 0)
                 {
                     // carrier has already been assigned, display complete order button
+                    Simulate_OrderStatus();
                     CompleteOrder.Visibility = Visibility.Visible;
                     OrderProgress.Visibility = Visibility.Visible;
                     ViewCarrier.Visibility = Visibility.Hidden;
                 }
                 else
                 {
-                    // carrier has already been assigned, display view carrier button
+                    // carrier has not been assigned, display view carrier button
                     ViewCarrier.Visibility = Visibility.Visible;
                     CompleteOrder.Visibility = Visibility.Hidden;
                     OrderProgress.Visibility = Visibility.Hidden;
@@ -171,7 +189,7 @@ namespace Transportation_Management_System
                     ViewCarrier.Visibility = Visibility.Hidden;
                     CompleteOrder.Visibility = Visibility.Hidden;
                     OrderProgress.Visibility = Visibility.Hidden;
-                }
+                }              
             }                
         }
 

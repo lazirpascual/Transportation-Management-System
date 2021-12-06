@@ -53,10 +53,9 @@ namespace Transportation_Management_System
         public DateTime OrderCompletionDate { get; set; }
 
 
-        public Order(string clientName, DateTime creationTime, City origin, City destination, JobType jobType, int quantity, VanType vanType)
+        public Order(string clientName, City origin, City destination, JobType jobType, int quantity, VanType vanType)
         {
             ClientName = clientName;
-            OrderCreationDate = creationTime;
             Origin = origin;
             Destination = destination;
             JobType = jobType;

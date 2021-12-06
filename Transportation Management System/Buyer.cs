@@ -44,7 +44,7 @@ namespace Transportation_Management_System
             // Create an order object
 
 
-            Order order = new Order(contract.ClientName, DateTime.Now, contract.Origin, contract.Destination, contract.JobType, contract.Quantity, contract.VanType);
+            Order order = new Order(contract.ClientName, contract.Origin, contract.Destination, contract.JobType, contract.Quantity, contract.VanType);
 
             // Check if Client exists, If it doesn't exists, create it
             DAL db = new DAL();

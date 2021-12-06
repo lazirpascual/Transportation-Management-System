@@ -304,8 +304,8 @@ namespace Transportation_Management_System
         /// 
         public void CreateOrder(Order order) 
         {
-            string sql = "INSERT INTO Orders (ClientID, OrderDate, Origin, Destination, JobType, Quantity, VanType) " +
-                "VALUES (@ClientID, @OrderDate, @Origin, @Destination, @JobType, @Quantity, @VanType)";
+            string sql = "INSERT INTO Orders (ClientID, Origin, Destination, JobType, Quantity, VanType) " +
+                "VALUES (@ClientID, @Origin, @Destination, @JobType, @Quantity, @VanType)";
 
 
             try
@@ -325,7 +325,6 @@ namespace Transportation_Management_System
                     {
                         // Populate all arguments in the insert
                         cmd.Parameters.AddWithValue("@ClientID", client.ClientID);
-                        cmd.Parameters.AddWithValue("@OrderDate", order.OrderCreationDate.ToString("yyyy-MM-dd H:mm:ss"));
                         cmd.Parameters.AddWithValue("@Origin", order.Origin.ToString());
                         cmd.Parameters.AddWithValue("@Destination", order.Destination.ToString());
                         cmd.Parameters.AddWithValue("@JobType", order.JobType);
@@ -355,6 +354,39 @@ namespace Transportation_Management_System
             }
         }
 
+
+
+
+
+        ///
+        /// \brief he User table
+        ///
+        /// \param usr  - <b>User</b> - An User object with all their information
+        /// 
+        public void StartOrder(Order currentOrder)
+        {
+            string sql = "UPDATE Orders SET OrderDate=@OrderDate WHERE OrderID=@OrderID";
+
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(this.ToString()))
+                {
+                    conn.Open();
+
+                    using (MySqlCommand cmd = new MySqlCommand(sql, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@OrderID", currentOrder.OrderID);
+                        cmd.Parameters.AddWithValue("@OrderDate", DateTime.Now.ToString("MM-dd-yyyy HH-mm-ss"));
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Logger.Log(e.Message, LogLevel.Error);
+                throw;
+            }
+        }
 
 
         ///
@@ -1681,6 +1713,50 @@ namespace Transportation_Management_System
             }
 
             return trips;
+        }
+
+
+
+
+        ///
+        /// \brief Fetches the total time of a trip
+        ///
+        /// \param currentOrder  - <b>Order</b> - Order to get the total time for
+        /// 
+        /// \return Returns Double
+        /// 
+        public double GetTotalTimeFromTrip(Order currentOrder)
+        {
+            double totalTime = 0;
+            string qSQL = "SELECT TotalTime FROM Trips WHERE OrderID=@OrderID";
+
+            try
+            {
+                string conString = this.ToString();
+                using (MySqlConnection conn = new MySqlConnection(conString))
+                {
+                    conn.Open();
+                    using (MySqlCommand cmd = new MySqlCommand(qSQL, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@OrderID", currentOrder.OrderID);
+                        MySqlDataReader rdr = cmd.ExecuteReader();
+                        if (rdr.HasRows)
+                        {
+                            while (rdr.Read())
+                            {
+                                totalTime = double.Parse(rdr["TotalTime"].ToString());
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Logger.Log(e.Message, LogLevel.Error);
+                throw;
+            }
+
+            return totalTime;
         }
 
 
