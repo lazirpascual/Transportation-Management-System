@@ -1272,8 +1272,36 @@ namespace Transportation_Management_System
         ///
         /// \brief Determine whether an order has been assigned to a carrier or not
         ///
-        /// \param order  - <b>Order</b> - The order to be completed
+        /// \param order  - <b>Order</b> - selected order
         ///
+        public bool IsCarriedAssigned(Order currentOrder)
+        {
+            bool isCarrierAssigned = false;
+            try
+            {
+                string conString = this.ToString();
+                using (MySqlConnection con = new MySqlConnection(conString))
+                {
+                    MySqlCommand cmd = new MySqlCommand("SELECT Trips.OrderID FROM Trips" +
+                         " INNER JOIN Orders ON Orders.OrderID = Trips.OrderID" +
+                         " WHERE Trips.OrderID = @OrderID", con);
+
+                    cmd.Parameters.AddWithValue("@OrderID", currentOrder.OrderID);
+                    MySqlDataReader rdr = cmd.ExecuteReader();
+
+                    if (rdr.HasRows)
+                    {
+                        isCarrierAssigned = true;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Logger.Log(e.Message, LogLevel.Error);
+                throw new ArgumentException($"Unable to fetch all orders. {e.Message}");
+            }
+            return isCarrierAssigned;
+        }
 
 
         ///
