@@ -179,5 +179,11 @@ namespace Transportation_Management_System
 
             return clientList;
         }
+
+        public bool InvoiceGeneration(Order order)
+        {
+            DAL db = new DAL();
+            return db.IsInvoiceGenerated(order);
+        }
     }
 }

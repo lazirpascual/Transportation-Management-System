@@ -38,9 +38,10 @@
 
             </Grid>
             <Grid x:Name="OrdersGrid" Visibility="Visible">
+                <Button x:Name ="GenerateInvoice" Content="Generate Invoice" FontSize="16" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="28" Margin="651,373,0,0"/>
                 <CheckBox x:Name="ActiveBox" Content="Active Orders" Background="WhiteSmoke" Margin="146,370,403,27" IsChecked="False" Click="ActiveBox_Click"/>
                 <CheckBox x:Name="CompletedBox" Content="Completed Orders" Background="WhiteSmoke" Margin="250,370,403,27" IsChecked="False" Click="CompletedBox_Click"/>
-                <ListView x:Name="OrdersList" Margin="145,10,10,61">
+                <ListView x:Name="OrdersList" Margin="145,10,10,61" SelectionMode="Single" SelectionChanged="OrdersList_SelectionChanged">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="OrderID" Width="50" DisplayMemberBinding="{Binding OrderID}" />
@@ -53,8 +54,8 @@
                             <GridViewColumn Header="Qty" Width="30" DisplayMemberBinding="{Binding Quantity}" />
                             <GridViewColumn Header="Status" Width="40" DisplayMemberBinding="{Binding IsCompleted}" />
                             <GridViewColumn Header="Completion" Width="70" DisplayMemberBinding="{Binding OrderCompletedDate}" />
-                    </GridView>
-                        
+                        </GridView>
+
                     </ListView.View>
                 </ListView>
             </Grid>
@@ -88,7 +89,7 @@
 
             <ListView x:Name="InvoicesList" Margin="145,10,21,61" Visibility="Hidden"/>
             <ListView x:Name="CarriersList" Margin="145,10,21,61" Visibility="Hidden"/>
-            
+
         </Grid>
     </Viewbox>
 </Window>

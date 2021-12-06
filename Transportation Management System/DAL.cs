@@ -1308,6 +1308,41 @@ namespace Transportation_Management_System
 
 
         ///
+        /// \brief Determine whether an order has an invoice generated for it or not
+        ///
+        /// \param order  - <b>Order</b> - selected order
+        ///
+        public bool IsInvoiceGenerated(Order order)
+        {
+            bool isInvoiceGenerated = false;
+            try
+            {
+                string conString = this.ToString();
+                using (MySqlConnection con = new MySqlConnection(conString))
+                {
+                    MySqlCommand cmd = new MySqlCommand("SELECT OrderID from Orders WHERE OrderID=@OrderID", con);
+
+                    con.Open();
+
+                    cmd.Parameters.AddWithValue("@OrderID", order.OrderID);
+                    MySqlDataReader rdr = cmd.ExecuteReader();
+
+                    if (rdr.HasRows)
+                    {
+                        isInvoiceGenerated = true;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Logger.Log(e.Message, LogLevel.Error);
+                throw new ArgumentException($"Unable to fetch all orders. {e.Message}");
+            }
+
+            return isInvoiceGenerated;
+        }
+
+        ///
         /// \brief Return a list of all active customers in our system
         /// 
         /// \return A list of all active customers
