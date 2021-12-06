@@ -7,8 +7,7 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen" 
         Closing="Window_Closing"
-        Title="Administrator" Height="450" Width="800"
-        ResizeMode="NoResize">
+        Title="Administrator" Height="450" Width="800">
     <Viewbox>
         <Grid>
             <Border RenderTransformOrigin="0.5,0.5" Height="419" Width="792" Margin="0,0,3,0">
@@ -34,10 +33,10 @@
                 <Label Name="LogLabel" Content="LogFile Configuration" FontWeight="Bold" HorizontalAlignment="Left" Margin="157,165,0,0" VerticalAlignment="Top" Width="225"/>
                 <TextBox Name="LogPath" HorizontalAlignment="Left" Height="23" Margin="246,209,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="473"/>
                 <Label Name ="LogPathLabel" Content="Log Path" HorizontalAlignment="Left" Margin="157,206,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.528,-0.41"/>
-                <Button Name="SelectPath" Content="Select Path" HorizontalAlignment="Left" Margin="246,246,0,0" VerticalAlignment="Top" Width="75" Click="SelectPath_Click"/>
-                <Button Name="IPUpdate" Content="Update" HorizontalAlignment="Left" Margin="398,67,0,0" VerticalAlignment="Top" Width="75"/>
-                <Button Name="PortUpdate" Content="Update" HorizontalAlignment="Left" Margin="398,110,0,0" VerticalAlignment="Top" Width="75"/>
-                <Button Name="PathUpdate" Content="Update" HorizontalAlignment="Left" Margin="326,246,0,0" VerticalAlignment="Top" Width="75" Click="PathUpdate_Click"/>
+                <Button Name="SelectPath" Content="Select Path" HorizontalAlignment="Left" Margin="246,246,0,0" VerticalAlignment="Top" Width="75" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Click="SelectPath_Click"/>
+                <Button Name="IPUpdate" Content="Update" HorizontalAlignment="Left" Margin="398,67,0,0" VerticalAlignment="Top" Width="75" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed"/>
+                <Button Name="PortUpdate" Content="Update" HorizontalAlignment="Left" Margin="398,110,0,0" VerticalAlignment="Top" Width="75" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed"/>
+                <Button Name="PathUpdate" Content="Update" HorizontalAlignment="Left" Margin="326,246,0,0" VerticalAlignment="Top" Width="75" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Click="PathUpdate_Click"/>
             </Grid>
             <Grid x:Name="DatabaseButtons" Visibility="Hidden">
                 <Button x:Name ="CarrierData" FontSize="16" Content="Carriers" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="146,312,0,0" Click="CarrierData_Click"/>
@@ -58,10 +57,10 @@
                 <Label Name="FTLRateLabel" Content="FTLRate" HorizontalAlignment="Left" Margin="358,288,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.032,0.428" Width="82"/>
                 <Label Name="LTLRateLabel" Content="LTLRate" HorizontalAlignment="Left" Margin="358,320,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.032,0.428" Width="82"/>
                 <Label Name="ReeferChargeLabel" Content="ReeferCharge" HorizontalAlignment="Left" Margin="146,320,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.032,0.428" Width="82"/>
-                <Button Name="AddCarrier" Content="Add" HorizontalAlignment="Left" Margin="684,376,0,0" VerticalAlignment="Top" Width="75" Click="AddCarrier_Click"/>
-                <Button Name="UpdateCarrier" Content="Update" HorizontalAlignment="Left" Margin="246,376,0,0" VerticalAlignment="Top" Width="75" Click="UpdateCarrier_Click"/>
-                <Button Name="Clear" Content="Clear Fields" HorizontalAlignment="Left" Margin="160,376,0,0" VerticalAlignment="Top" Width="75" Click="ClearButton_Click"/>
-                <Button Name="DeleteCarrier" Content="Delete" HorizontalAlignment="Left" Margin="595,376,0,0" VerticalAlignment="Top" Width="75" Click="DeleteCarrier_Click"/>
+                <Button Name="AddCarrier" Content="Add" HorizontalAlignment="Left" Margin="684,376,0,0" VerticalAlignment="Top" Width="75" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Click="AddCarrier_Click"/>
+                <Button Name="UpdateCarrier" Content="Update" HorizontalAlignment="Left" Margin="246,376,0,0" VerticalAlignment="Top" Width="75" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Click="UpdateCarrier_Click"/>
+                <Button Name="Clear" Content="Clear Fields" HorizontalAlignment="Left" Margin="160,376,0,0" VerticalAlignment="Top" Width="75" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Click="ClearButton_Click"/>
+                <Button Name="DeleteCarrier" Content="Delete" HorizontalAlignment="Left" Margin="595,376,0,0" VerticalAlignment="Top" Width="75" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Click="DeleteCarrier_Click"/>
                 <ListView x:Name="CarrierDatabaseList" Margin="146,6,255,172" SelectionMode="Single" SelectionChanged="CarriersFieldsHander">
                     <ListView.View>
                         <GridView>
@@ -93,8 +92,8 @@
                 <Label Content="Time" Margin="144,340,551,0" VerticalAlignment="Top"/>
                 <Label Content="West" Margin="401,265,294,0" VerticalAlignment="Top"/>
                 <Label Content="East" Margin="401,304,294,0" VerticalAlignment="Top"/>
-                <Button Name="UpdateRoute" Content="Update" HorizontalAlignment="Left" Margin="673,379,0,0" VerticalAlignment="Top" Width="75" Click="UpdateRoute_Click"/>
-                <Button Name="ClearRoute" Content="Clear Fields" HorizontalAlignment="Left" Margin="673,343,0,0" VerticalAlignment="Top" Width="75" Click="ClearRoute_Click"/>
+                <Button Name="UpdateRoute" Content="Update" HorizontalAlignment="Left" Margin="664,379,0,0" VerticalAlignment="Top" Width="84" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Click="UpdateRoute_Click"/>
+                <Button Name="ClearRoute" Content="Clear Fields" HorizontalAlignment="Left" Margin="664,343,0,0" VerticalAlignment="Top" Width="84" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Click="ClearRoute_Click"/>
                 <ListView x:Name="RouteDatabase" Margin="144,4,36,172"  SelectionMode="Single" PreviewMouseLeftButtonUp="RouteDatabase_PreviewMouseLeftButtonUp">
                     <ListView.View>
                         <GridView>
@@ -107,14 +106,14 @@
                     </ListView.View>
                 </ListView>
             </Grid>
-            <Grid x:Name="BackupGrid" Visibility="Visible">
+            <Grid x:Name="BackupGrid" Visibility="Hidden">
                 <Label x:Name="BackupConfig" Content="Backup Configuration" FontWeight="Bold" HorizontalAlignment="Left" Margin="177,36,0,0" VerticalAlignment="Top"/>
                 <Label x:Name="LastBackup" Content="Last Backup Processed:" HorizontalAlignment="Left" Margin="178,194,0,0" VerticalAlignment="Top"/>
                 <Label x:Name="BackupDate" Content="12-04-2021 10:30" HorizontalAlignment="Left" Margin="310,194,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.608,0.627"/>
                 <Label x:Name="PathLabel" Content="Backup Path" HorizontalAlignment="Left" Margin="177,98,0,0" VerticalAlignment="Top"/>
                 <TextBox x:Name="BackupPath" HorizontalAlignment="Left" Height="23" Margin="257,98,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="477"/>
-                <Button x:Name="BackupSelect" Content="Select Path" HorizontalAlignment="Left" Margin="257,136,0,0" VerticalAlignment="Top" Width="75" Click="BackupSelect_Click"/>
-                <Button x:Name="ProcessBackup" Content="Backup" HorizontalAlignment="Left" Margin="337,136,0,0" VerticalAlignment="Top" Width="75" Click="ProcessBackup_Click"/>
+                <Button x:Name="BackupSelect" Content="Select Path" HorizontalAlignment="Left" Margin="257,136,0,0" VerticalAlignment="Top" Width="75" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Click="BackupSelect_Click"/>
+                <Button x:Name="ProcessBackup" Content="Backup" HorizontalAlignment="Left" Margin="337,136,0,0" VerticalAlignment="Top" Width="75" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Click="ProcessBackup_Click"/>
             </Grid>
         </Grid>
     </Viewbox>
