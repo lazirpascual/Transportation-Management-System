@@ -157,5 +157,27 @@ namespace Transportation_Management_System
 
 
         }
+
+        ///
+        /// \brief Used to display a list of clients
+        ///
+        /// \param activeStatus  - <b>int</b> - status of the client
+        /// 
+        public List<Client> FetchClients(int activeStatus)
+        {
+            List<Client> clientList;
+            DAL db = new DAL();
+            
+            if (activeStatus==0)
+            {
+                clientList = db.GetActiveClients();
+            }
+            else
+            {
+                clientList = db.GetClients();
+            }
+
+            return clientList;
+        }
     }
 }
