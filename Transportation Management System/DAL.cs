@@ -424,8 +424,9 @@ namespace Transportation_Management_System
                     writer.Write(invoiceText);
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                Logger.Log(e.Message, LogLevel.Error);
                 throw;
             }
 
