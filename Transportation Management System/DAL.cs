@@ -106,7 +106,7 @@ namespace Transportation_Management_System
         /// 
         public override string ToString()
         {
-            return $"server={Server};user={User};database={DatabaseName};port={Port};password={Password}";
+            return $"server={Server};user={User};database={DatabaseName};port={Port};password={Password}; convert zero datetime=True";
         }
 
 
