@@ -107,33 +107,6 @@ namespace Transportation_Management_System
             return (decimal) totalCost;
         }
 
-        ///
-        /// \brief This method will calculate the total distance that the transport will travel
-        ///
-        /// \param originCity  - <b>int</b> - Where the delivery will start from.
-        /// \param destinationCity  - <b>int</b> - Where the delivery needs to reach.
-        /// 
-        /// \return totalDistance - <b>int</b> - Total distance in kms
-        /// 
-        //public double CalculateDistance()
-        //{
-
-        //}
-
-        ///
-        /// \brief This method will calculate the total time that the transport will take
-        ///
-        /// \param hoursLoading  - <b>double</b> - Number of hours needed to load the truck
-        /// \param hoursUnloading  - <b>double</b> - Total number of hours needed to unload the truck
-        /// \param hoursDriven - <b>double</b> - Total number of hours spent driving
-        /// 
-        /// 
-        /// \return totalTime - <b>double</b> - Total time needed for the transportation
-        ///
-        //public double CalculateTime()
-        //{
-
-        //}
 
 
         ///
