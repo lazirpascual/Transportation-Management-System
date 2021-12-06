@@ -56,6 +56,12 @@ namespace Transportation_Management_System
         private void Orders_Click(object sender, RoutedEventArgs e)
         {
             resetStatus();            
+
+
+            ActiveBox.IsChecked = false;
+            CompletedBox.IsChecked = false;
+
+
             Orders.Background = Brushes.LightSkyBlue;
             OrdersGrid.Visibility = Visibility.Visible;
             List<Order> orderList = new List<Order>();

@@ -19,15 +19,17 @@ namespace Transportation_Management_System
     /// </summary>
     public partial class CarrierSelection : Window
     {
+        Order currentOrder;
         public CarrierSelection()
         {
             InitializeComponent();
         }
 
-        public CarrierSelection(List<CarrierCity> carriers, Order currentOrder)
+        public CarrierSelection(List<CarrierCity> carriers, Order order)
         {
             InitializeComponent();
-            if (currentOrder.JobType == 0)
+            currentOrder = order;
+            if (order.JobType == 0)
             {
                 CreateCarrierFTL(carriers);
             }
@@ -39,11 +41,25 @@ namespace Transportation_Management_System
 
         private void SelectCarrier_Click(object sender, RoutedEventArgs e)
         {
+            Planner planner = new Planner();
+            var currentCarrier = CarrierList.SelectedItem;
+            if (currentCarrier.GetType().ToString() == "FTL")
+            {
+                FTL FTLCarrier = (FTL)CarrierList.SelectedItem;
+                planner.AddTrip(currentOrder, FTLCarrier.CarrierID);
+            }
+            else
+            {
+                LTL LTLCarrier = (LTL)CarrierList.SelectedItem;
+                planner.AddTrip(currentOrder, LTLCarrier.CarrierID);
+            }
+            
             Close();
         }
 
         private class LTL
         {
+            public long CarrierID { get; set; }
             public string Name { get; set; }
             public City DepotCity { get; set; }
             public int LTLAval { get; set; }
@@ -52,6 +68,7 @@ namespace Transportation_Management_System
 
         private class FTL
         {
+            public long CarrierID { get; set; }
             public string Name { get; set; }
             public City DepotCity { get; set; }
             public int FTLAval { get; set; }
@@ -86,7 +103,7 @@ namespace Transportation_Management_System
 
             foreach (var carrier in carriers)
             {
-                CarrierList.Items.Add(new LTL{ Name = carrier.Carrier.Name, DepotCity = carrier.DepotCity, LTLAval = carrier.LTLAval, LTLRate = carrier.Carrier.LTLRate });
+                CarrierList.Items.Add(new LTL{ CarrierID = carrier.Carrier.CarrierID, Name = carrier.Carrier.Name, DepotCity = carrier.DepotCity, LTLAval = carrier.LTLAval, LTLRate = carrier.Carrier.LTLRate });
             }
         }
 
@@ -122,7 +139,7 @@ namespace Transportation_Management_System
 
             foreach (var carrier in carriers)
             {
-                CarrierList.Items.Add(new FTL { Name = carrier.Carrier.Name, DepotCity = carrier.DepotCity, FTLAval = carrier.FTLAval, FTLRate = carrier.Carrier.FTLRate, ReeferCharge = carrier.Carrier.ReeferCharge });
+                CarrierList.Items.Add(new FTL { CarrierID = carrier.Carrier.CarrierID, Name = carrier.Carrier.Name, DepotCity = carrier.DepotCity, FTLAval = carrier.FTLAval, FTLRate = carrier.Carrier.FTLRate, ReeferCharge = carrier.Carrier.ReeferCharge });
             }
         }
     }
