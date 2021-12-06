@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.IO;
-//using System.Drawing;
+using System.Configuration;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
 
@@ -144,7 +144,8 @@ namespace Transportation_Management_System
         private void ConfigurationVisible()
         {
             GeneralGrid.Visibility = Visibility.Visible;
-            Configuration.Background = Brushes.LightSkyBlue; 
+            Configuration.Background = Brushes.LightSkyBlue;
+            GetDatabaseInfo();
             string logPath = Logger.GetCurrentLogDirectory();
             LogPath.Text = logPath;
         }
@@ -363,7 +364,7 @@ namespace Transportation_Management_System
             // Inform the user if the operation fails
             catch (ArgumentException exc)
             {
-                System.Windows.MessageBox.Show(exc.Message);
+                System.Windows.MessageBox.Show(exc.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             catch (Exception)
             {
@@ -480,6 +481,7 @@ namespace Transportation_Management_System
             CarrierGrid.Visibility = Visibility.Hidden;
             RouteGrid.Visibility = Visibility.Hidden;
             BackupGrid.Visibility = Visibility.Hidden;
+            RatesGrid.Visibility = Visibility.Hidden;
 
             // Reset all buttons background
             Backup.Background = Brushes.WhiteSmoke;
@@ -563,20 +565,43 @@ namespace Transportation_Management_System
         }
 
         
-        private void IPUpdate_Click(object sender, RoutedEventArgs e)
+        private void DatabaseUpdate_Click(object sender, RoutedEventArgs e)
         {
-            string field = "Server";
-            string newData = IPBox.Text;
+            string fieldServer = "Server";
+            string fieldPort = "Port";
+            string fieldUser = "User";
+            string fieldPassword = "Password";
+            string fieldDatabase = "DatabaseName";
+            string newServer;
+            string newPort;
+            string newUser;
+            string newPassword;
+            string newDatabase;
 
             DAL db = new DAL();
+
             try
             {
-                db.UpdateDatabaseConnectionString(field, newData);
-                System.Windows.MessageBox.Show("IPAddress successfully updated");
+                // Get the carrier information from the form
+                newServer = ServerBox.Text;
+                newPort = PortBox.Text;
+                newUser = UserBox.Text;
+                newPassword = PasswordBox.Password;
+                newDatabase = DatabaseBox.Text;
+
+                // Insert the information to the config file
+                db.UpdateDatabaseConnectionString(fieldServer, newServer);
+                db.UpdateDatabaseConnectionString(fieldPort, newPort);
+                db.UpdateDatabaseConnectionString(fieldUser, newUser);
+                db.UpdateDatabaseConnectionString(fieldPassword, newPassword);
+                db.UpdateDatabaseConnectionString(fieldDatabase, newDatabase);
+                System.Windows.MessageBox.Show("Database Information successfully updated", "Database Updated", MessageBoxButton.OK, MessageBoxImage.Information);
             }
+
             catch (Exception)
             {
-                System.Windows.MessageBox.Show("Something went wrong. Please try again.");
+                System.Windows.MessageBox.Show("Please, make sure that the fields were filled appropriately.", "Attention", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
             }
         }
 
@@ -589,11 +614,11 @@ namespace Transportation_Management_System
             try
             {
                 db.UpdateDatabaseConnectionString(field, newData);
-                System.Windows.MessageBox.Show("Port successfully updated");
+                System.Windows.MessageBox.Show("Port successfully updated", "Database Updated", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception)
             {
-                System.Windows.MessageBox.Show("Something went wrong. Please try again.");
+                System.Windows.MessageBox.Show("Something went wrong. Please try again.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -667,6 +692,119 @@ namespace Transportation_Management_System
             {
                 System.Windows.MessageBox.Show("Backup was not processed. Please try again.", "Backup Falied", MessageBoxButton.OK, MessageBoxImage.Error);
             }            
-        }      
+        }
+
+        private void RatesFeesData_Click(object sender, RoutedEventArgs e)
+        {
+            ResetStatus();
+            RatesGrid.Visibility = Visibility.Visible;
+            Database.Background = Brushes.LightSkyBlue;
+            
+            /*List<OSHTRates> ratesList = new List<OSTHRates>();
+            DAL db = new DAL();
+            ratesList = db.GetOSHTRates();
+            RatesDatabase.ItemsSource = ratesList;*/
+        }
+
+        private void UpdateRate_Click(object sender, RoutedEventArgs e)
+        {
+            double FTLValue;
+            double LTLValue;
+
+            //OHTBRate rate = null;
+
+            DAL db = new DAL();
+
+            try
+            {
+                // Get the rate information from the form
+                FTLValue = double.Parse(NewFTLRate.Text);
+                LTLValue = double.Parse(NewLTLRate.Text);
+
+                // create a rate object with the values
+                //rate = new Route(FTLValue, LTLValue);
+
+            }
+            catch (Exception)
+            {
+                System.Windows.MessageBox.Show("Please, make sure that the fields were filled appropriately.", "Attention", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            // Update the Rate List
+            try
+            {
+                //db.UpdateOSHTRates(rate);
+
+                // Empty the rate list
+                //RatesDatabase.ItemsSource = new List<OSHTRates>();
+
+                // Reload the updated route list 
+                //List<OSHTRates> ratesList = new List<OSTHRates>();
+                //ratesList = db.GetOSHTRates();
+                //RatesDatabase.ItemsSource = ratesList;
+                
+
+            }
+            // Inform the user if the operation fails
+            catch (ArgumentException exc)
+            {
+                System.Windows.MessageBox.Show(exc.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (Exception)
+            {
+                System.Windows.MessageBox.Show("Something went wrong. Please try again.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+        }
+
+        private void GetDatabaseInfo()
+        {
+            // Populate the fileds in the admin config page
+            string server = ConfigurationManager.AppSettings.Get("Server");
+            string port = ConfigurationManager.AppSettings.Get("Port");
+            string user = ConfigurationManager.AppSettings.Get("User");
+            string password = ConfigurationManager.AppSettings.Get("Password");
+            string database = ConfigurationManager.AppSettings.Get("DatabaseName");
+
+            ServerBox.Text = server;
+            PortBox.Text = port;
+            UserBox.Text = user;
+            PasswordBox.Password = password;
+            DatabaseBox.Text = database;
+
+        }
+
+        private void UserCreation_Click(object sender, RoutedEventArgs e)
+        {
+            string firstName;
+            string lastName;
+            string username;
+            string password;
+            string email;
+            UserRole type;
+            string newType = UserType.Text;
+            
+           
+            try
+            {
+                firstName = FirstName.Text;
+                lastName = LastName.Text; 
+                username = Username.Text;
+                password = UserPassword.Password;
+                email = Email.Text;
+                type = (UserRole)Enum.Parse(typeof(UserRole), newType, true);
+
+                User user = new User(firstName, lastName, username, password, email, type);
+
+                //save it to the database
+            }
+            catch (Exception)
+            {
+                System.Windows.MessageBox.Show("Please, make sure that the fields were filled appropriately.", "Attention", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
+        }
+                
     }
 }
