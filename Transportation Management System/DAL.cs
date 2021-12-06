@@ -998,6 +998,7 @@ namespace Transportation_Management_System
                                 Client client = new Client();
                                 client.ClientID = int.Parse(rdr["ClientID"].ToString());
                                 client.ClientName = rdr["ClientName"].ToString();
+                                client.IsActive = int.Parse(rdr["IsActive"].ToString());
                                 clientsList.Add(client);
                             }
                         }
@@ -1263,7 +1264,7 @@ namespace Transportation_Management_System
                 string conString = this.ToString();
                 using (MySqlConnection con = new MySqlConnection(conString))
                 {
-                    MySqlCommand cmd = new MySqlCommand("SELECT ClientName From Clients WHERE IsActive=1", con);
+                    MySqlCommand cmd = new MySqlCommand("SELECT * From Clients WHERE IsActive=1", con);
                     con.Open();
                     MySqlDataReader rdr = cmd.ExecuteReader();
 
@@ -1273,6 +1274,8 @@ namespace Transportation_Management_System
                         {
                             Client newClient = new Client();
                             newClient.ClientName = rdr["ClientName"].ToString();
+                            newClient.ClientID = int.Parse(rdr["ClientID"].ToString());
+                            newClient.IsActive = int.Parse(rdr["IsActive"].ToString());
                             clients.Add(newClient);
                         }
                     }
