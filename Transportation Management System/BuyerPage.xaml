@@ -34,6 +34,7 @@
                 <ListView x:Name="OrdersList" Margin="145,10,10,61">
                     <ListView.View>
                         <GridView>
+                            <GridViewColumn Header="OrderID" Width="50" DisplayMemberBinding="{Binding OrderID}" />
                             <GridViewColumn Header="Client Name" Width="100" DisplayMemberBinding="{Binding ClientName}" />
                             <GridViewColumn Header="Creation" Width="70" DisplayMemberBinding="{Binding OrderCreationDate}" />
                             <GridViewColumn Header="Origin" Width="80" DisplayMemberBinding="{Binding Origin}" />
