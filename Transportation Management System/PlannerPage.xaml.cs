@@ -88,13 +88,13 @@ namespace Transportation_Management_System
             if(AllInvoices.IsChecked == true)
             {
                 // past invoice is also checked, get all invoices
-                invoicesList = planner.GenerateSummaryReport(true);           
+                invoicesList = planner.GenerateSummaryReport(false);           
                
             }
             else if (PastInvoice.IsChecked == true)
             {
                 // completed box is checked, fetch only completed orders
-                invoicesList = planner.GenerateSummaryReport(false);
+                invoicesList = planner.GenerateSummaryReport(true);
             }
 
             ReportList.ItemsSource = invoicesList;           

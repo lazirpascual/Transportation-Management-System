@@ -90,6 +90,19 @@ namespace Transportation_Management_System
             ResetStatus();
             UserCreation.Background = Brushes.LightSkyBlue;
             CreateUserGrid.Visibility = Visibility.Visible;
+            ClearCreateUserFields();
+        }
+
+        private void ClearCreateUserFields()
+        {
+            AdminRadio.IsChecked = false;
+            PlannerRadio.IsChecked = false;
+            BuyerRadio.IsChecked = false;
+            FirstName.Text = "";
+            LastName.Text = "";
+            Username.Text = "";
+            UserPassword.Password = "";
+            Email.Text = "";
         }
 
         private void RatesFeesData_Click(object sender, RoutedEventArgs e)
@@ -542,9 +555,6 @@ namespace Transportation_Management_System
             Configuration.Background = Brushes.WhiteSmoke;
             UserCreation.Background = Brushes.WhiteSmoke;
 
-            AdminRadio.IsChecked = false;
-            PlannerRadio.IsChecked = false;
-            BuyerRadio.IsChecked = false;
         }
 
 
@@ -885,7 +895,9 @@ namespace Transportation_Management_System
                 {
                     System.Windows.MessageBox.Show("User successfully added to the system.", "Attention", MessageBoxButton.OK, MessageBoxImage.Information);
 
-                    Logger.Log($"{username} was successfully created as a {type}.", LogLevel.Information);
+                    Logger.Log($"\"{username}\" was successfully created as a {type}.", LogLevel.Information);
+                    
+                    ClearCreateUserFields();
                 }
                 
 
