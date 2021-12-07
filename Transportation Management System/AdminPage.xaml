@@ -64,7 +64,7 @@
                 <Label x:Name="PortLabel_Copy2" Content="DatabaseName" HorizontalAlignment="Left" Margin="169,186,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.528,-0.41"/>
                 <TextBox x:Name="DatabaseBox" HorizontalAlignment="Left" Height="23" Margin="265,189,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="194"/>
             </Grid>
-            <Grid x:Name="DatabaseButtons" Visibility="Visible">
+            <Grid x:Name="DatabaseButtons" Visibility="Hidden">
                 <Button x:Name ="CarrierData" FontSize="16" Content="Carriers" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="146,312,0,0" Click="CarrierData_Click"/>
                 <Button x:Name ="RouteData" FontSize="16" Content="Routes" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="146,363,0,0" Click="RouteData_Click"/>
                 <Button x:Name ="RatesFeesData" FontSize="16" Content="Rates" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="146,261,0,0" Click="RatesFeesData_Click"/>
@@ -109,19 +109,19 @@
                 </ListView>
             </Grid>
             <Grid x:Name="RouteGrid" Visibility="Hidden">
-                <TextBox x:Name="RouteDestination" HorizontalAlignment="Left" Height="23" Margin="233,266,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                <TextBox x:Name="Distance" HorizontalAlignment="Left" Height="23" Margin="233,306,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                <TextBox x:Name="Time" HorizontalAlignment="Left" Height="23" Margin="233,345,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                <TextBox x:Name="West" HorizontalAlignment="Left" Height="23" Margin="476,266,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                <TextBox x:Name="East" HorizontalAlignment="Left" Height="23" Margin="476,306,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                <Label Content="Destination" Margin="146,265,549,0" VerticalAlignment="Top"/>
-                <Label Content="Distance" Margin="144,302,551,0" VerticalAlignment="Top"/>
-                <Label Content="Time" Margin="144,340,551,0" VerticalAlignment="Top"/>
-                <Label Content="West" Margin="401,265,294,0" VerticalAlignment="Top"/>
-                <Label Content="East" Margin="401,304,294,0" VerticalAlignment="Top"/>
+                <TextBox x:Name="RouteDestination" IsReadOnly="True" IsEnabled="False" HorizontalAlignment="Left" Height="23" Margin="254,267,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <TextBox x:Name="Distance" HorizontalAlignment="Left" Height="23" Margin="254,307,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <TextBox x:Name="Time" HorizontalAlignment="Left" Height="23" Margin="254,346,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <TextBox x:Name="West" IsReadOnly="True" IsEnabled="False" HorizontalAlignment="Left" Height="23" Margin="497,267,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <TextBox x:Name="East" IsReadOnly="True" IsEnabled="False" HorizontalAlignment="Left" Height="23" Margin="497,307,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <Label Content="Destination" Margin="167,266,528,0" VerticalAlignment="Top"/>
+                <Label Content="Distance" Margin="165,303,530,0" VerticalAlignment="Top"/>
+                <Label Content="Time" Margin="165,341,530,0" VerticalAlignment="Top"/>
+                <Label Content="West" Margin="422,266,273,0" VerticalAlignment="Top"/>
+                <Label Content="East" Margin="422,305,273,0" VerticalAlignment="Top"/>
                 <Button x:Name="UpdateRoute" Content="Update" HorizontalAlignment="Left" Margin="664,379,0,0" VerticalAlignment="Top" Width="84" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Click="UpdateRoute_Click"/>
                 <Button x:Name="ClearRoute" Content="Clear Fields" HorizontalAlignment="Left" Margin="664,343,0,0" VerticalAlignment="Top" Width="87" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Click="ClearRoute_Click"/>
-                <ListView x:Name="RouteDatabase" Margin="144,4,36,172"  SelectionMode="Single" PreviewMouseLeftButtonUp="RouteDatabase_PreviewMouseLeftButtonUp">
+                <ListView x:Name="RouteDatabase" Margin="160,10,20,166"  SelectionMode="Single" PreviewMouseLeftButtonUp="RouteDatabase_PreviewMouseLeftButtonUp">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Destination" Width="160" DisplayMemberBinding="{Binding Destination}" />
@@ -133,7 +133,7 @@
                     </ListView.View>
                 </ListView>
             </Grid>
-            <Grid x:Name="RatesGrid" Visibility="Visible">
+            <Grid x:Name="RatesGrid" Visibility="Hidden">
                 <TextBox Margin="146,10,20,10" MaxWidth="630" MaxHeight="390" IsReadOnly="True" Background="GhostWhite"/>
                 <TextBox x:Name="NewFTLRate" HorizontalAlignment="Left" Height="23" Margin="352,63,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
                 <TextBox x:Name="NewLTLRate" HorizontalAlignment="Left" Height="23" Margin="352,122,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
@@ -142,7 +142,7 @@
                 <Button Name="UpdateFTL" Content="Update" HorizontalAlignment="Left" Margin="508,63,0,0" VerticalAlignment="Top" Width="84" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Click="UpdateRate_Click"/>
                 <Button x:Name="UpdateLTL" Content="Update" HorizontalAlignment="Left" Margin="508,122,0,0" VerticalAlignment="Top" Width="84" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Click="UpdateRate_Click"/>
             </Grid>
-            <Grid x:Name="BackupGrid" Visibility="Hidden">
+            <Grid x:Name="BackupGrid" Visibility="Visible">
                 <TextBox Margin="146,10,20,10" MaxWidth="630" MaxHeight="390" IsReadOnly="True" Background="GhostWhite"/>
                 <Label x:Name="BackupConfig" Content="Backup Configuration" FontWeight="Bold" HorizontalAlignment="Left" Margin="177,36,0,0" VerticalAlignment="Top"/>
                 <Label x:Name="LastBackup" Content="Last Backup Processed:" HorizontalAlignment="Left" Margin="178,194,0,0" VerticalAlignment="Top"/>
