@@ -33,7 +33,6 @@ namespace Transportation_Management_System
             App.Current.MainWindow.Visibility = Visibility.Visible;
         }
 
-
         private void MarketPlace_Click(object sender, RoutedEventArgs e)
         {
             ResetStatus();
@@ -49,8 +48,6 @@ namespace Transportation_Management_System
             List<Order> orderList = buyer.GetOrders(1);
             InvoiceList.ItemsSource = orderList;
         }
-
-
 
         private void Orders_Click(object sender, RoutedEventArgs e)
         {
