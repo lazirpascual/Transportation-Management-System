@@ -9,7 +9,7 @@
         Title="MainWindow" Height="450" Width="380"
         AllowsTransparency="True" Background="Transparent"
         WindowStyle="None" ResizeMode="NoResize"
-        MouseDown="MainWindow_OnMouseDown" WindowStartupLocation="CenterScreen">
+        MouseDown="MainWindow_OnMouseDown" WindowStartupLocation="CenterScreen" Icon="/favicon.png">
     <Grid>
         <Grid RenderTransformOrigin="0.539,0.309">
             <Grid.RowDefinitions>

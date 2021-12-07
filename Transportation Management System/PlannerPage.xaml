@@ -7,7 +7,8 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen" 
         Closing="Window_Closing"
-        Title="Planner" Height="434" Width="799">
+        Title="Planner" Height="434" Width="799"
+        Icon="/favicon.png">
     <Viewbox>
         <Grid>
             <Border RenderTransformOrigin="0.5,0.5" Height="419">
@@ -39,11 +40,6 @@
                         </GridView>
                     </ListView.View>
                 </ListView>
-            </Grid>
-
-            <Grid x:Name="ActivitiesGrid" Visibility="Hidden">
-                <ListView x:Name="ActivitiesList" Margin="145,10,21,61"/>
-
             </Grid>
 
             <Grid x:Name="OrdersGrid" Visibility="Hidden">
