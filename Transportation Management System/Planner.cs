@@ -1,4 +1,16 @@
-﻿using System;
+﻿
+/* -- FILEHEADER COMMENT --
+    FILE		:	Planner.cs
+    PROJECT		:	Transportation Management System
+    PROGRAMMER	:  * Ana De Oliveira
+                   * Icaro Ryan Oliveira Souza
+                   * Lazir Pascual
+                   * Rohullah Noory
+    DATE		:	2021-12-07
+    DESCRIPTION	:	This file contains the source for the Planner class.
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,6 +31,7 @@ namespace Transportation_Management_System
     ///
     class Planner : User
     {
+
         ///
         /// \brief This method calls a query to to the orders database to fetch all active, compeleted, or all orders from the buyer. 
         /// 
@@ -53,7 +66,7 @@ namespace Transportation_Management_System
         ///
         /// \brief Determine whether an order has been assigned to a carrier or not
         ///
-        /// \param order  - <b>Order</b> - selected order
+        /// \param currentOrder  - <b>Order</b> - selected order
         ///
         /// \return Returns true if carrier has been assigned, else false
         /// 
@@ -79,6 +92,7 @@ namespace Transportation_Management_System
         {
             DAL db = new DAL();
             Trip trip = new Trip();
+            TripManager tm = new TripManager();
             db.StartOrder(currentOrder);
             trip.CarrierID = carrierID;
             trip.OrderID = currentOrder.OrderID;
@@ -86,7 +100,7 @@ namespace Transportation_Management_System
             trip.DestinationCity = currentOrder.Destination;
             trip.JobType = currentOrder.JobType;
             trip.VanType = currentOrder.VanType;
-            trip.CalculateDistanceAndTime();
+            tm.CalculateDistanceAndTime(trip);
             db.CreateTrip(trip);
         }
 
@@ -108,7 +122,7 @@ namespace Transportation_Management_System
         ///
         /// \brief Used to get the total time of a trip based on an order
         /// 
-        /// \return Returns double
+        /// \return totalTime -  double
         /// 
         public double GetTotalTime(Order order)
         {
@@ -120,9 +134,12 @@ namespace Transportation_Management_System
 
 
         ///
-        /// \brief Used to confirm and finalize an order. Completed orders are marked for follow up from the buyer.
+        /// \brief Used to get all carriers with the specified origin city and job type.
         /// 
-        /// \return Returns void
+        /// \param originCity - <b>string</b> - origin city of the carrier.
+        /// \param jobType - <b>JobType</b> - job type of the carrier.
+        /// 
+        /// \return List of CarrierCity objects
         /// 
         public List<CarrierCity> GetCarriers(string originCity, JobType jobType)
         {

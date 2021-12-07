@@ -1,4 +1,16 @@
-﻿using System;
+﻿
+/* -- FILEHEADER COMMENT --
+    FILE		:	Logger.cs
+    PROJECT		:	Transportation Management System
+    PROGRAMMER	:  * Ana De Oliveira
+                   * Icaro Ryan Oliveira Souza
+                   * Lazir Pascual
+                   * Rohullah Noory
+    DATE		:	2021-12-07
+    DESCRIPTION	:	This file contains the source for the Logger class.
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +22,9 @@ using System.IO;
 
 namespace Transportation_Management_System
 {
+    /// <summary>
+    /// Enum to convert LogLevel into log titles.
+    /// </summary>
     public enum LogLevel
     {
         Trace,
@@ -36,13 +51,9 @@ namespace Transportation_Management_System
 
         private static bool isSetup = false;
 
-        /*  -- Method Header Comment
-	    Name	:	Setup
-	    Purpose :	Set up the LogClass if it hasn't been setup already
-	    Inputs	:	string message, LogLevel level
-	    Outputs	:	Nothing
-	    Returns	:	Nothing
-        */
+        /// 
+        /// \brief Set up the LogClass if it hasn't been setup already
+        /// 
         private static void Setup()
         {
             string fileName = string.Empty;
@@ -82,14 +93,12 @@ namespace Transportation_Management_System
             isSetup = true;
         }
 
-        /*  -- Method Header Comment
-	    Name	:	Log
-	    Purpose :	Check if the logger is set up, if not, set it up.
-                    Call the writing function
-	    Inputs	:	string message, LogLevel level
-	    Outputs	:	Nothing
-	    Returns	:	Nothing
-        */
+        ///
+        /// \brief Check if the logger is set up, if not, set it up. Call the writing function
+        /// 
+        /// \param message - <b>string</b> - message for the log 
+        /// \param level - <b>LogLevel</b> - log level
+        /// 
         public static void Log(string message, LogLevel level)
         {
             if (!isSetup) Setup();
@@ -97,14 +106,14 @@ namespace Transportation_Management_System
         }
 
 
-        /*  -- Method Header Comment
-	    Name	:	ChangeLogDirectory
-	    Purpose :	Change the directory of the log file
-            Code inspired by https://www.c-sharpcorner.com/blogs/how-to-change-appconfig-data
-	    Inputs	:	string message
-	    Outputs	:	Nothing
-	    Returns	:	Nothing
-        */
+        ///
+        /// \brief Change the directory of the log file
+        /// Code inspired by https://www.c-sharpcorner.com/blogs/how-to-change-appconfig-data
+        /// 
+        /// \param newDirectory - <b>string</b> - new directory for the log file.
+        /// \param level - <b>LogLevel</b> - log level
+        /// 
+        /// \return int
         public static int ChangeLogDirectory(string newDirectory)
         {
             string oldDirectory = ConfigurationManager.AppSettings.Get("LogDirectory");
@@ -155,15 +164,12 @@ namespace Transportation_Management_System
             }
         }
 
-
-        /*  -- Method Header Comment
-	    Name	:	UpdateLogFileInNewDirectory
-	    Purpose :	Move the log file to the new directory
-	    Inputs	:	string oldDirectory
-                    string newDirectory
-	    Outputs	:	Nothing
-	    Returns	:	Nothing
-        */
+        ///
+        /// \brief Move the log file to the new directory
+        /// 
+        /// \param oldDirectory - <b>string</b> - old directory for the log file.
+        /// \param newDirectory - <b>string</b> - new directory for the log file.
+        /// 
         public static void UpdateLogFileInNewDirectory(string oldDirectory, string newDirectory)
         {
             string logFileName = ConfigurationManager.AppSettings.Get("LogFileName");
@@ -197,14 +203,11 @@ namespace Transportation_Management_System
             }
         }
 
-
-        /*  -- Method Header Comment
-	    Name	:	GetCurrentLogDirectory
-	    Purpose :	Get the current directory of the log
-	    Inputs	:	Nothing
-	    Outputs	:	Nothing
-	    Returns	:	LogDirectory
-        */
+        ///
+        /// \brief Get the current directory of the log
+        ///
+        /// \return The current log directory as a string
+        ///
         public static string GetCurrentLogDirectory()
         {
             string dict = ConfigurationManager.AppSettings.Get("LogDirectory");
@@ -222,23 +225,21 @@ namespace Transportation_Management_System
             return String.Format($"{dict}\\{logFileName}"); ;
         }
 
-
-        // https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.traceoptions?redirectedfrom=MSDN&view=net-6.0
-        /*  -- Nested Class Header Comment
-        Name	:	CustomTraceListener
-        Purpose :  To write the logs
-        */
+        ///
+        /// \brief This nested class is used to write the logs
+        /// https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.traceoptions?redirectedfrom=MSDN&view=net-6.0
+        ///
+        /// \return The current log directory as a string
+        ///
         public class CustomTraceListener : TextWriterTraceListener
         {
             public CustomTraceListener(string file) : base(file) { }
 
-            /*  -- Method Header Comment
-	        Name	:	WriteLine
-	        Purpose :	Write line to file
-	        Inputs	:	string message
-	        Outputs	:	Nothing
-	        Returns	:	Nothing
-            */
+            ///
+            /// \brief Used to write line to file
+            /// 
+            /// \param message - <b>string</b> - string to write
+            ///
             public override void WriteLine(string message)
             {
                 string logDirectory = ConfigurationManager.AppSettings.Get("LogDirectory");

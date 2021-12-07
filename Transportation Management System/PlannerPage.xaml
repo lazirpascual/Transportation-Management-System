@@ -9,6 +9,11 @@
         Closing="Window_Closing"
         Title="Planner" Height="434" Width="799"
         Icon="/favicon.png">
+
+    <Window.Resources>
+        <local:StatusConverter x:Key="StatusConverter"/>
+        <local:DateConverter x:Key="DateConverter"/>
+    </Window.Resources>
     <Viewbox>
         <Grid>
             <Border RenderTransformOrigin="0.5,0.5" Height="419">
@@ -53,23 +58,23 @@
                 <ListView x:Name="OrdersList" Margin="156,23,10,72" SelectionMode="Single" SelectionChanged="Selection_Changed" HorizontalAlignment="Center" VerticalAlignment="Center" Height="324" Width="657">
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="Order ID" Width="50" DisplayMemberBinding="{Binding OrderID}" />
-                            <GridViewColumn Header="Client Name" Width="90" DisplayMemberBinding="{Binding ClientName}" />
+                            <GridViewColumn Header="Order ID" Width="50" DisplayMemberBinding="{Binding OrderID}"/>
+                            <GridViewColumn Header="Client Name" Width="95" DisplayMemberBinding="{Binding ClientName}" />
                             <GridViewColumn Header="Origin" Width="80" DisplayMemberBinding="{Binding Origin}" />
                             <GridViewColumn Header="Destination" Width="90" DisplayMemberBinding="{Binding Destination}" />
                             <GridViewColumn Header="Job Type" Width="60" DisplayMemberBinding="{Binding JobType}" />
                             <GridViewColumn Header="Van Type" Width="60" DisplayMemberBinding="{Binding VanType}" />
                             <GridViewColumn Header="Quantity" Width="50" DisplayMemberBinding="{Binding Quantity}" />
-                            <GridViewColumn Header="Status" Width="50" DisplayMemberBinding="{Binding IsCompleted}" />
-                            <GridViewColumn Header="Creation Date" Width="90" DisplayMemberBinding="{Binding OrderCreationDate}" />
-                            <GridViewColumn Header="Completion Date" Width="70" DisplayMemberBinding="{Binding OrderCompletionDate}" />
+                            <GridViewColumn Header="Status" Width="70" DisplayMemberBinding="{Binding IsCompleted, Converter={StaticResource StatusConverter}}" />
+                            <GridViewColumn Header="Creation Date" Width="70" DisplayMemberBinding="{Binding OrderCreationDate, Converter={StaticResource DateConverter}}" />
+                            <GridViewColumn Header="Completion Date" Width="70" DisplayMemberBinding="{Binding OrderCompletionDate, Converter={StaticResource DateConverter}}" />
                         </GridView>
                     </ListView.View>
                 </ListView>
                 <Grid x:Name="OrderProgress" Visibility="Hidden" >
                     <ProgressBar x:Name="OrderProgressBar" HorizontalAlignment="Left" Height="20" Margin="644,375,0,0" VerticalAlignment="Top" Width="123" Minimum="0" Maximum="100"/>
-                    <Label x:Name="HoursLabel" Height="23" Width="120" BorderThickness="0" Padding="0" Background="Transparent"  HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0, 0, 59, 42"/>
-                    <Label Height="23" Margin="660,375,43,21" Content="Order Progress" Width="120" BorderThickness="0" Padding="0" Background="Transparent"/>
+                    <Label x:Name="HoursLabel" Height="23" Width="120" BorderThickness="0" Padding="0" Background="Transparent"  HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0, 0, 57, 42"/>
+                    <Label Height="23" Margin="660,375,30,21" Content="Order Progress" Width="120" BorderThickness="0" Padding="0" Background="Transparent"/>
                 </Grid>
             </Grid>
         </Grid>
