@@ -41,9 +41,7 @@ namespace Transportation_Management_System
             ResetStatus();
             ReportsGrid.Visibility = Visibility.Visible;
             Invoices.Background = Brushes.LightSkyBlue;
-
             AllInvoices.IsChecked = true;
-
             Refresh_Invoices();
         }
 
@@ -54,14 +52,11 @@ namespace Transportation_Management_System
             ResetStatus();            
 
             AllBox.IsChecked = true;
-
             Orders.Background = Brushes.LightSkyBlue;
             OrdersGrid.Visibility = Visibility.Visible;
-
             Refresh_Orders();
         }
-
-        
+                
 
         private void AllInvoices_Click(object sender, RoutedEventArgs e)
         {

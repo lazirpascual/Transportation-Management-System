@@ -10,25 +10,25 @@
         Title="Administrator" Height="434" Width="797">
     <Viewbox>
         <Grid>
-          <Border RenderTransformOrigin="0.5,0.5" Height="419">
-           <Border.Background>
-                        <LinearGradientBrush>
-                            <GradientStop Color="LightBlue" Offset="0.0"/>
-                            <GradientStop Color="Navy" Offset="1.8"/>
-                        </LinearGradientBrush>
-                    </Border.Background>
-                    <Image Source="logo_white.png" Margin="10,10,667,281"/>
-                </Border>
-                <Grid>
+            <Border RenderTransformOrigin="0.5,0.5" Height="419">
+                <Border.Background>
+                    <LinearGradientBrush>
+                        <GradientStop Color="LightBlue" Offset="0.0"/>
+                        <GradientStop Color="Navy" Offset="1.8"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+                <Image Source="logo_white.png" Margin="10,10,667,281"/>
+            </Border>
+            <Grid>
                 <Button x:Name ="UserCreation" Content="Create User" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,157,0,0" Click="CreateUser_Click"/>
                 <Button x:Name ="Backup" Content="Backup" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,209,0,0" Click="Backup_Click"/>
                 <Button x:Name ="LogFiles" Content="Log File" Background="WhiteSmoke" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,261,0,0" Click="LogFiles_Click"/>
                 <Button x:Name ="Database" Content="Database" Background="WhiteSmoke" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,312,0,0" Click="Database_Click"/>
                 <Button x:Name ="Configuration" Content="General Config" Background="WhiteSmoke" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,363,0,0" Click="Configuration_Click"/>
-                <TextBox x:Name="AdminLog" Margin="146,10,20,10" MaxWidth="620" MaxHeight="390" Visibility="Visible" AcceptsReturn="False" IsReadOnly="True" TextWrapping="Wrap" Background="GhostWhite" VerticalScrollBarVisibility="Auto"/>
-
+                <TextBox x:Name="AdminLog" Margin="146,10,20,10" Visibility="Hidden" MaxWidth="620" MaxHeight="390" AcceptsReturn="False" IsReadOnly="True" TextWrapping="Wrap" Background="GhostWhite" VerticalScrollBarVisibility="Auto"/>
             </Grid>
             <Grid x:Name="CreateUserGrid" Visibility="Hidden">
+                <TextBox Margin="146,10,20,10" MaxWidth="630" MaxHeight="390" IsReadOnly="True" Background="GhostWhite"/>
                 <Label Content="Create New User" FontWeight="Bold" HorizontalAlignment="Left" Margin="182,37,0,0" VerticalAlignment="Top"/>
                 <Label Content="First Name" HorizontalAlignment="Left" Margin="182,88,0,0" VerticalAlignment="Top"/>
                 <Label Content="Last Name" HorizontalAlignment="Left" Margin="182,126,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.441,1.673"/>
@@ -45,23 +45,24 @@
                 <TextBox x:Name="UserType" HorizontalAlignment="Left" Height="23" Margin="265,280,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
             </Grid>
             <Grid x:Name="GeneralGrid" Visibility="Hidden">
-                <TextBox Name="ServerBox" HorizontalAlignment="Left" Height="23" Margin="246,53,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="450"/>
-                <TextBox Name="PortBox" HorizontalAlignment="Left" Height="23" Margin="246,87,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="194"/>
-                <Label Name="DatabaseConfig" Content="Database Configuration" FontWeight="Bold" HorizontalAlignment="Left" Margin="157,22,0,0" VerticalAlignment="Top" Width="225"/>
-                <Label Name="IPLabel" Content="Server" HorizontalAlignment="Left" Margin="157,50,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.528,-0.41"/>
-                <Label Name="PortLabel" Content="Port Number" HorizontalAlignment="Left" Margin="157,84,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.528,-0.41"/>
-                <Label Name="LogLabel" Content="LogFile Configuration" FontWeight="Bold" HorizontalAlignment="Left" Margin="157,291,0,0" VerticalAlignment="Top" Width="225"/>
-                <TextBox Name="LogPath" HorizontalAlignment="Left" Height="23" Margin="246,335,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="473"/>
-                <Label Name ="LogPathLabel" Content="Log Path" HorizontalAlignment="Left" Margin="157,332,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.528,-0.41"/>
-                <Button Name="SelectPath" Content="Select Path" HorizontalAlignment="Left" Margin="246,374,0,0" VerticalAlignment="Top" Width="75" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Click="SelectPath_Click"/>
-                <Button Name="DatabaseUpdate" Content="Update" HorizontalAlignment="Left" Margin="365,235,0,0" VerticalAlignment="Top" Width="75" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Click="DatabaseUpdate_Click"/>
-                <Button Name="PathUpdate" Content="Update" HorizontalAlignment="Left" Margin="326,374,0,0" VerticalAlignment="Top" Width="75" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Click="PathUpdate_Click"/>
-                <Label x:Name="PortLabel_Copy" Content="Password" HorizontalAlignment="Left" Margin="157,153,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.528,-0.41"/>
-                <TextBox x:Name="UserBox" HorizontalAlignment="Left" Height="23" Margin="246,122,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="194"/>
-                <Label x:Name="PortLabel_Copy1" Content="User" HorizontalAlignment="Left" Margin="157,119,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.528,-0.41"/>
-                <PasswordBox x:Name="PasswordBox" HorizontalAlignment="Left" Height="23" Margin="246,156,0,0" VerticalAlignment="Top" Width="194"/>
-                <Label x:Name="PortLabel_Copy2" Content="DatabaseName" HorizontalAlignment="Left" Margin="157,186,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.528,-0.41"/>
-                <TextBox x:Name="DatabaseBox" HorizontalAlignment="Left" Height="23" Margin="246,189,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="194"/>
+                <TextBox Margin="146,10,20,10" MaxWidth="630" MaxHeight="390" IsReadOnly="True" Background="GhostWhite"/>
+                <TextBox x:Name="ServerBox" HorizontalAlignment="Left" Height="23" Margin="265,53,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="450"/>
+                <TextBox x:Name="PortBox" HorizontalAlignment="Left" Height="23" Margin="265,87,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="194"/>
+                <Label x:Name="DatabaseConfig" Content="Database Configuration" FontWeight="Bold" HorizontalAlignment="Left" Margin="176,19,0,0" VerticalAlignment="Top" Width="225"/>
+                <Label x:Name="IPLabel" Content="Server" HorizontalAlignment="Left" Margin="170,53,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.528,-0.41"/>
+                <Label x:Name="PortLabel" Content="Port Number" HorizontalAlignment="Left" Margin="169,84,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.528,-0.41"/>
+                <Label x:Name="LogLabel" Content="LogFile Configuration" FontWeight="Bold" HorizontalAlignment="Left" Margin="176,286,0,0" VerticalAlignment="Top" Width="225"/>
+                <TextBox x:Name="LogPath" HorizontalAlignment="Left" Height="23" Margin="266,326,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="473"/>
+                <Label x:Name ="LogPathLabel" Content="Log Path" HorizontalAlignment="Left" Margin="177,326,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.528,-0.41"/>
+                <Button x:Name="SelectPath" Content="Select Path" HorizontalAlignment="Left" Margin="266,368,0,0" VerticalAlignment="Top" Width="75" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Click="SelectPath_Click"/>
+                <Button x:Name="DatabaseUpdate" Content="Update" HorizontalAlignment="Left" Margin="265,235,0,0" VerticalAlignment="Top" Width="75" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Click="DatabaseUpdate_Click"/>
+                <Button x:Name="PathUpdate" Content="Update" HorizontalAlignment="Left" Margin="346,368,0,0" VerticalAlignment="Top" Width="75" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Click="PathUpdate_Click"/>
+                <Label x:Name="PortLabel_Copy" Content="Password" HorizontalAlignment="Left" Margin="169,153,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.528,-0.41"/>
+                <TextBox x:Name="UserBox" HorizontalAlignment="Left" Height="23" Margin="265,122,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="194"/>
+                <Label x:Name="PortLabel_Copy1" Content="User" HorizontalAlignment="Left" Margin="169,119,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.528,-0.41"/>
+                <PasswordBox x:Name="PasswordBox" HorizontalAlignment="Left" Height="23" Margin="265,156,0,0" VerticalAlignment="Top" Width="194"/>
+                <Label x:Name="PortLabel_Copy2" Content="DatabaseName" HorizontalAlignment="Left" Margin="169,186,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.528,-0.41"/>
+                <TextBox x:Name="DatabaseBox" HorizontalAlignment="Left" Height="23" Margin="265,189,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="194"/>
             </Grid>
             <Grid x:Name="DatabaseButtons" Visibility="Hidden">
                 <Button x:Name ="CarrierData" FontSize="16" Content="Carriers" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="146,312,0,0" Click="CarrierData_Click"/>
@@ -69,25 +70,25 @@
                 <Button x:Name ="RatesFeesData" FontSize="16" Content="Rates" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="146,261,0,0" Click="RatesFeesData_Click"/>
             </Grid>
             <Grid x:Name="CarrierGrid" Visibility="Hidden">
-                <TextBox x:Name="CarrierName" HorizontalAlignment="Left" Height="23" Margin="228,289,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                <TextBox x:Name="Departure" HorizontalAlignment="Left" Height="23" Margin="650,257,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                <TextBox x:Name="FTLAval" HorizontalAlignment="Left" Height="23" Margin="650,289,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                <TextBox x:Name="LTLAval" HorizontalAlignment="Left" Height="23" Margin="650,322,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                <TextBox x:Name="FTLRate" HorizontalAlignment="Left" Height="23" Margin="420,289,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                <TextBox x:Name="LTLRate" HorizontalAlignment="Left" Height="23" Margin="420,322,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                <TextBox x:Name="Reefer" HorizontalAlignment="Left" Height="23" Margin="228,322,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                <Label x:Name="NameLabel" Content="Name" HorizontalAlignment="Left" Margin="146,286,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.032,0.428" Width="82"/>
-                <Label x:Name="DepartureLabel" Content="Departure" HorizontalAlignment="Left" Margin="576,254,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.032,0.428" Width="82"/>
-                <Label x:Name="FTLAvalLabel" Content="FTLAval" HorizontalAlignment="Left" Margin="576,289,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.032,0.428" Width="82"/>
-                <Label x:Name="LTLAvalLabel" Content="LTLAval" HorizontalAlignment="Left" Margin="576,322,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.032,0.428" Width="82"/>
-                <Label x:Name="FTLRateLabel" Content="FTLRate" HorizontalAlignment="Left" Margin="358,288,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.032,0.428" Width="82"/>
-                <Label x:Name="LTLRateLabel" Content="LTLRate" HorizontalAlignment="Left" Margin="358,320,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.032,0.428" Width="82"/>
-                <Label x:Name="ReeferChargeLabel" Content="ReeferCharge" HorizontalAlignment="Left" Margin="146,320,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.032,0.428" Width="82"/>
-                <Button x:Name="AddCarrier" Content="Add" HorizontalAlignment="Left" Margin="684,376,0,0" VerticalAlignment="Top" Width="75" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Click="AddCarrier_Click"/>
-                <Button x:Name="UpdateCarrier" Content="Update" HorizontalAlignment="Left" Margin="246,376,0,0" VerticalAlignment="Top" Width="75" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Click="UpdateCarrier_Click"/>
-                <Button x:Name="Clear" Content="Clear Fields" HorizontalAlignment="Left" Margin="160,376,0,0" VerticalAlignment="Top" Width="80" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Click="ClearButton_Click"/>
-                <Button x:Name="DeleteCarrier" Content="Delete" HorizontalAlignment="Left" Margin="595,376,0,0" VerticalAlignment="Top" Width="75" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Click="DeleteCarrier_Click"/>
-                <ListView x:Name="CarrierDatabaseList" Margin="146,6,255,172" SelectionMode="Single" SelectionChanged="CarriersFieldsHander">
+                <TextBox x:Name="CarrierName" HorizontalAlignment="Left" Height="23" Margin="257,290,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <TextBox x:Name="Departure" HorizontalAlignment="Left" Height="23" Margin="687,255,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <TextBox x:Name="FTLAval" HorizontalAlignment="Left" Height="23" Margin="687,287,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <TextBox x:Name="LTLAval" HorizontalAlignment="Left" Height="23" Margin="687,320,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <TextBox x:Name="FTLRate" HorizontalAlignment="Left" Height="23" Margin="449,290,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <TextBox x:Name="LTLRate" HorizontalAlignment="Left" Height="23" Margin="449,323,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <TextBox x:Name="Reefer" HorizontalAlignment="Left" Height="23" Margin="257,323,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <Label x:Name="NameLabel" Content="Name" HorizontalAlignment="Left" Margin="175,287,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.032,0.428" Width="82"/>
+                <Label x:Name="DepartureLabel" Content="Departure" HorizontalAlignment="Left" Margin="613,252,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.032,0.428" Width="82"/>
+                <Label x:Name="FTLAvalLabel" Content="FTLAval" HorizontalAlignment="Left" Margin="613,287,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.032,0.428" Width="82"/>
+                <Label x:Name="LTLAvalLabel" Content="LTLAval" HorizontalAlignment="Left" Margin="613,320,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.032,0.428" Width="82"/>
+                <Label x:Name="FTLRateLabel" Content="FTLRate" HorizontalAlignment="Left" Margin="387,289,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.032,0.428" Width="82"/>
+                <Label x:Name="LTLRateLabel" Content="LTLRate" HorizontalAlignment="Left" Margin="387,321,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.032,0.428" Width="82"/>
+                <Label x:Name="ReeferChargeLabel" Content="ReeferCharge" HorizontalAlignment="Left" Margin="175,321,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.032,0.428" Width="82"/>
+                <Button x:Name="AddCarrier" Content="Add" HorizontalAlignment="Left" Margin="732,376,0,0" VerticalAlignment="Top" Width="75" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Click="AddCarrier_Click"/>
+                <Button x:Name="UpdateCarrier" Content="Update" HorizontalAlignment="Left" Margin="269,376,0,0" VerticalAlignment="Top" Width="75" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Click="UpdateCarrier_Click"/>
+                <Button x:Name="Clear" Content="Clear Fields" HorizontalAlignment="Left" Margin="183,376,0,0" VerticalAlignment="Top" Width="80" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Click="ClearButton_Click"/>
+                <Button x:Name="DeleteCarrier" Content="Delete" HorizontalAlignment="Left" Margin="643,376,0,0" VerticalAlignment="Top" Width="75" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Click="DeleteCarrier_Click"/>
+                <ListView x:Name="CarrierDatabaseList" Margin="175,6,262,172" SelectionMode="Single" SelectionChanged="CarriersFieldsHander">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Name" Width="160" DisplayMemberBinding="{Binding Name}" />
@@ -97,7 +98,7 @@
                         </GridView>
                     </ListView.View>
                 </ListView>
-                <ListView x:Name="CityDatabase" Margin="548,6,25,172" SelectionMode="Single" SelectionChanged="CarriersFieldsHander">
+                <ListView x:Name="CityDatabase" Margin="563,6,10,172" SelectionMode="Single" SelectionChanged="CarriersFieldsHander">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Departure City" Width="92" DisplayMemberBinding="{Binding DepotCity}" />
@@ -148,6 +149,7 @@
                 </ListView>
             </Grid>
             <Grid x:Name="BackupGrid" Visibility="Hidden">
+                <TextBox Margin="146,10,20,10" MaxWidth="630" MaxHeight="390" IsReadOnly="True" Background="GhostWhite"/>
                 <Label x:Name="BackupConfig" Content="Backup Configuration" FontWeight="Bold" HorizontalAlignment="Left" Margin="177,36,0,0" VerticalAlignment="Top"/>
                 <Label x:Name="LastBackup" Content="Last Backup Processed:" HorizontalAlignment="Left" Margin="178,194,0,0" VerticalAlignment="Top"/>
                 <Label x:Name="BackupDate" Content="12-04-2021 10:30" HorizontalAlignment="Left" Margin="310,194,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.608,0.627"/>

@@ -38,14 +38,9 @@
             </Grid>
 
             <Grid x:Name="OrdersGrid" Visibility="Hidden">
-
                 <RadioButton x:Name="AllBox" Content="All Orders" Background="WhiteSmoke" Margin="145,370,581,27" IsChecked="False" Click="AllBox_Click" />
                 <RadioButton x:Name="ActiveBox" Content="Active Orders" Background="WhiteSmoke" Margin="222,370,475,27" IsChecked="False" Click="ActiveBox_Click"/>
                 <RadioButton x:Name="CompletedBox" Content="Completed Orders" Background="WhiteSmoke" Margin="328,370,325,27" IsChecked="False" Click="CompletedBox_Click"/>
-
-
-
-
                 <ListView x:Name="OrdersList" Margin="145,10,21,61">
                     <ListView.View>
                         <GridView>

@@ -120,12 +120,13 @@ namespace Transportation_Management_System
                 path = dialog.SelectedPath;
             }
 
-            LogPath.Text = path;
+            LogPath.Text = path;           
 
         }
 
         private void UpdatePath()
         {
+            string oldLogPath = Logger.GetCurrentLogDirectory();
             string newPath = LogPath.Text;
 
             bool result = admin.ChangeLogDirectory(newPath);
@@ -133,6 +134,7 @@ namespace Transportation_Management_System
             if (result == true)
             {
                 System.Windows.MessageBox.Show("Logfile path was successfully updated", "LogFile Path", MessageBoxButton.OK, MessageBoxImage.Information);
+                Logger.Log($"Log directory was moved from \"{oldLogPath}\" to \"{newPath}\"", LogLevel.Information);
             }
             else
             {
@@ -265,6 +267,7 @@ namespace Transportation_Management_System
                     newLTL = int.Parse(LTLAval.Text);
 
                     carrierCity = new CarrierCity(carrier, newCity, newFTL, newLTL);
+                                        
                 }
             }
             catch (Exception)
@@ -283,6 +286,8 @@ namespace Transportation_Management_System
                     CityDatabase.ItemsSource = new List<CarrierCity>();
 
                     System.Windows.MessageBox.Show($"{carrier.Name} updated successfully", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                    Logger.Log($"{carrier.Name} information was updated.", LogLevel.Information);
                 }
                 // Show details about the city if carrier and city is selected
                 else if (CarrierDatabaseList.SelectedItems.Count == 1 && CityDatabase.SelectedItems.Count == 1)
@@ -295,6 +300,8 @@ namespace Transportation_Management_System
                     CityDatabase.ItemsSource = carriersList;
 
                     System.Windows.MessageBox.Show($"{carrierCity.DepotCity} updated successfully", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                    Logger.Log($"{carrier.Name} depot City was updated to {carrierCity.DepotCity}", LogLevel.Information);
                 }
 
                 PopulateCarrierList(sender, e);
@@ -334,6 +341,8 @@ namespace Transportation_Management_System
                         CityDatabase.ItemsSource = new List<CarrierCity>();
 
                         System.Windows.MessageBox.Show($"{carrier.Name} deleted successfully", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                        Logger.Log($"{carrier.Name} was deleted from the database.", LogLevel.Information);
                     }
                 }
                 // If a city and the carrier is selected
@@ -353,6 +362,8 @@ namespace Transportation_Management_System
 
 
                         System.Windows.MessageBox.Show($"{carrierCity.DepotCity} deleted successfully", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                        Logger.Log($"{carrier.Name} depot City {carrierCity.DepotCity} was deleted from the database.", LogLevel.Information);
                     }
 
                 }
@@ -429,6 +440,8 @@ namespace Transportation_Management_System
                     CityDatabase.ItemsSource = carriersList;
 
                     System.Windows.MessageBox.Show($"New carrier depot city {newCarrierCity.DepotCity} created successfully", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                    Logger.Log($"{carrierName} depot city {newCarrierCity.DepotCity} was successfully inserted to the database.", LogLevel.Information);
                 }
                 // If it's a new carrier, create the carrier and the city
                 else
@@ -440,6 +453,8 @@ namespace Transportation_Management_System
                     CityDatabase.ItemsSource = new List<CarrierCity>();
 
                     System.Windows.MessageBox.Show($"New carrier {newCarrier.Name} created successfully", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                    Logger.Log($"New carrier {carrierName} was successfully inserted to the database.", LogLevel.Information);
                 }
 
             }
@@ -483,7 +498,7 @@ namespace Transportation_Management_System
             RouteGrid.Visibility = Visibility.Hidden;
             BackupGrid.Visibility = Visibility.Hidden;
             RatesGrid.Visibility = Visibility.Hidden;
-
+           
             // Reset all buttons background
             Backup.Background = Brushes.WhiteSmoke;
             LogFiles.Background = Brushes.WhiteSmoke;
@@ -504,7 +519,7 @@ namespace Transportation_Management_System
             string west;
             string east;
             
-            Route route = null;
+            Route route;
             
             DAL db = new DAL();
 
@@ -543,6 +558,8 @@ namespace Transportation_Management_System
                     RouteDatabase.ItemsSource = routeList;
 
                     System.Windows.MessageBox.Show($"Route to {route.Destination} updated successfully", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                    Logger.Log($"{route.Destination} was successfully inserted to the database.", LogLevel.Information);
                 }
 
             }
@@ -598,6 +615,8 @@ namespace Transportation_Management_System
                 db.UpdateDatabaseConnectionString(fieldPassword, newPassword);
                 db.UpdateDatabaseConnectionString(fieldDatabase, newDatabase);
                 System.Windows.MessageBox.Show("Database Information successfully updated", "Database Updated", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                Logger.Log($" Database setting information was successfully updated.", LogLevel.Information);
             }
 
             catch (Exception)
@@ -606,24 +625,6 @@ namespace Transportation_Management_System
                 return;
             }
         }
-
-        private void PortUpdate_Click(object sender, RoutedEventArgs e)
-        {
-            string field = "Port";
-            string newData = PortBox.Text;
-
-            DAL db = new DAL();
-            try
-            {
-                db.UpdateDatabaseConnectionString(field, newData);
-                System.Windows.MessageBox.Show("Port successfully updated", "Database Updated", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-            catch (Exception)
-            {
-                System.Windows.MessageBox.Show("Something went wrong. Please try again.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-
         
         private void RouteDatabase_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
@@ -684,15 +685,17 @@ namespace Transportation_Management_System
                 db.BackupDatabase(backupPath);
                 System.Windows.MessageBox.Show("The backup was succesfully processed!", "Backup Processed", MessageBoxButton.OK, MessageBoxImage.Information);
                 BackupDate.Content = DateTime.Now.ToString("MM-dd-yyyy HH:mm");
+
+                Logger.Log($"New backup file successfully created at {backupPath}.", LogLevel.Information);
             }
             // If not successful, inform the user
             catch(ArgumentNullException)
             {
-                System.Windows.MessageBox.Show("Please check the Backup path and try again", "Backup Falied", MessageBoxButton.OK, MessageBoxImage.Error);
+                System.Windows.MessageBox.Show("Please check the Backup path and try again", "Backup Failed", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             catch(Exception)
             {
-                System.Windows.MessageBox.Show("Backup was not processed. Please try again.", "Backup Falied", MessageBoxButton.OK, MessageBoxImage.Error);
+                System.Windows.MessageBox.Show("Backup was not processed. Please try again.", "Backup Failed", MessageBoxButton.OK, MessageBoxImage.Error);
             }            
         }
 
@@ -724,7 +727,7 @@ namespace Transportation_Management_System
                 LTLValue = double.Parse(NewLTLRate.Text);
 
                 // create a rate object with the values
-                //rate = new Route(FTLValue, LTLValue);
+                //rate = new Rate(FTLValue, LTLValue);
 
             }
             catch (Exception)
@@ -744,7 +747,8 @@ namespace Transportation_Management_System
                 //List<OSHTRates> ratesList = new List<OSTHRates>();
                 //ratesList = db.GetOSHTRates();
                 //RatesDatabase.ItemsSource = ratesList;
-                
+
+                Logger.Log($" FTL and LTL values were successfully updated.", LogLevel.Information);
 
             }
             // Inform the user if the operation fails
@@ -799,6 +803,8 @@ namespace Transportation_Management_System
                 if(admin.CreateAUser(user)==true)
                 {
                     System.Windows.MessageBox.Show("User successfully added to the system.", "Attention", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                    Logger.Log($"{username} was successfully created as a {type}.", LogLevel.Information);
                 }
                 
 
@@ -818,5 +824,6 @@ namespace Transportation_Management_System
             UserCreation.Background = Brushes.LightSkyBlue;
             CreateUserGrid.Visibility = Visibility.Visible;
         }
+               
     }
 }
