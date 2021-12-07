@@ -18,6 +18,7 @@ namespace Transportation_Management_System
         public InvoiceInformation()
         {
             InitializeComponent();
+            
         }
 
         public InvoiceInformation(Invoice invoice)

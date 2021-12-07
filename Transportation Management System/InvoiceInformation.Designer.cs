@@ -82,7 +82,7 @@ namespace Transportation_Management_System
             // 
             // saveButton
             // 
-            this.saveButton.Location = new System.Drawing.Point(628, 443);
+            this.saveButton.Location = new System.Drawing.Point(375, 443);
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(103, 41);
             this.saveButton.TabIndex = 6;
@@ -96,7 +96,7 @@ namespace Transportation_Management_System
             this.label1.Font = new System.Drawing.Font("Elephant", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(28, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(436, 22);
+            this.label1.Size = new System.Drawing.Size(360, 18);
             this.label1.TabIndex = 7;
             this.label1.Text = "Omnicorp Shipping Handling and Transportation";
             // 
@@ -110,7 +110,7 @@ namespace Transportation_Management_System
             // 
             // cancelButton
             // 
-            this.cancelButton.Location = new System.Drawing.Point(769, 443);
+            this.cancelButton.Location = new System.Drawing.Point(484, 443);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(103, 41);
             this.cancelButton.TabIndex = 9;
@@ -120,7 +120,7 @@ namespace Transportation_Management_System
             // 
             // InvoiceInformation
             // 
-            this.ClientSize = new System.Drawing.Size(922, 496);
+            this.ClientSize = new System.Drawing.Size(597, 495);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.totalDistance);
             this.Controls.Add(this.label1);
@@ -130,7 +130,11 @@ namespace Transportation_Management_System
             this.Controls.Add(this.totalAmount);
             this.Controls.Add(this.clientName);
             this.Controls.Add(this.order);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
             this.Name = "InvoiceInformation";
+            this.ShowIcon = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Invoice Information";
             this.ResumeLayout(false);
             this.PerformLayout();
