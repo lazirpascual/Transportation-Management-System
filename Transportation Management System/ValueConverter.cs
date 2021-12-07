@@ -14,6 +14,14 @@ using System.Windows.Data;
 
 namespace Transportation_Management_System
 {
+    ///
+    /// \class StatusConverter
+    ///
+    /// \brief The purpose of this class is to convert the status of an Order, from 0-1 to Active-Completed and vice versa.
+    /// This is used when displaying the status value, where it is binded to a GridViewColumn to make the convertion.
+    ///
+    /// \author <i>Team Blank</i>
+    ///
     public class StatusConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter,
@@ -49,6 +57,14 @@ namespace Transportation_Management_System
         }
     }
 
+    ///
+    /// \class DateConverter
+    ///
+    /// \brief The purpose of this class is to convert the date of an Order, from the default null value to N/A and vice versa.
+    /// This is used when displaying the date value, where it is binded to a GridViewColumn to make the convertion.
+    ///
+    /// \author <i>Team Blank</i>
+    ///
     public class DateConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter,
@@ -78,6 +94,14 @@ namespace Transportation_Management_System
         }
     }
 
+    ///
+    /// \class QuantityConverter
+    ///
+    /// \brief The purpose of this class is to convert the quantity of an Order, from 0 to N/A and vice versa.
+    /// This is used when displaying the quantity value, where it is binded to a GridViewColumn to make the convertion.
+    ///
+    /// \author <i>Team Blank</i>
+    ///
     public class QuantityConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter,
@@ -105,6 +129,14 @@ namespace Transportation_Management_System
         }
     }
 
+    ///
+    /// \class DirectionConverter
+    ///
+    /// \brief The purpose of this class is to convert the direction of a Route, from a null value to END and vice versa.
+    /// This is used when displaying the direction, where it is binded to a GridViewColumn to make the convertion.
+    ///
+    /// \author <i>Team Blank</i>
+    ///
     public class DirectionConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter,
@@ -132,6 +164,14 @@ namespace Transportation_Management_System
         }
     }
 
+    ///
+    /// \class TimeConverter
+    ///
+    /// \brief The purpose of this class is to convert the total time of a Route, from 0 to N/A and vice versa.
+    /// This is used when displaying the time, where it is binded to a GridViewColumn to make the convertion.
+    ///
+    /// \author <i>Team Blank</i>
+    ///
     public class TimeConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter,
