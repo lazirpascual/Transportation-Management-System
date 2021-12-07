@@ -29,12 +29,13 @@ namespace Transportation_Management_System
         {
             InitializeComponent();
             currentOrder = order;
-            if (order.JobType == 0)
+            if (order.JobType == JobType.FTL)
             {
                 CreateCarrierFTL(carriers);
             }
             else
             {
+                /// Update the remaining quantity
                 CreateCarrierLTL(carriers);
             }
         }
@@ -43,24 +44,44 @@ namespace Transportation_Management_System
         {
             if (CarrierList.SelectedItem == null)
             {
-                MessageBox.Show("Please select a carrier!");
+                MessageBox.Show("Please select a carrier!", "Invalid Carrier", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             else
             {
                 Planner planner = new Planner();
+
+                // Add carrier to order
                 var currentCarrier = CarrierList.SelectedItem;
                 if (currentCarrier is FTL)
                 {
                     FTL FTLCarrier = (FTL)CarrierList.SelectedItem;
                     planner.SelectOrderCarrier(currentOrder, FTLCarrier.CarrierID);
+
                 }
                 else
                 {
                     LTL LTLCarrier = (LTL)CarrierList.SelectedItem;
                     planner.SelectOrderCarrier(currentOrder, LTLCarrier.CarrierID);
+
+                    // If current carrier does not have enough availability for the order, select another carrier to fullfill the rest
+                    currentOrder.Quantity -= LTLCarrier.LTLAval;
+
+                    if (currentOrder.Quantity > 0)
+                    {
+                        /// Update the remaining quantity
+                    }
                 }
-                DialogResult = true;
-                Close();
+
+                // Remove from list
+                CarrierList.Items.Remove(currentCarrier);
+
+                // If multiple trips were selected if needed
+                if (currentOrder.Quantity <= 0)
+                {
+                    DialogResult = true;
+                    Close();
+                }
+                
             }     
         }
 
