@@ -25,7 +25,7 @@ namespace Transportation_Management_System
     public partial class AdminPage : Window
     {
         private readonly Admin admin = new Admin();
-        
+
         public AdminPage()
         {
             InitializeComponent();
@@ -65,6 +65,20 @@ namespace Transportation_Management_System
             ResetStatus();
             Backup.Background = Brushes.LightSkyBlue;
             BackupGrid.Visibility = Visibility.Visible;
+        }
+
+        private void CreateUser_Click(object sender, RoutedEventArgs e)
+        {
+            ResetStatus();
+            UserCreation.Background = Brushes.LightSkyBlue;
+            CreateUserGrid.Visibility = Visibility.Visible;
+        }
+
+        private void RatesFeesData_Click(object sender, RoutedEventArgs e)
+        {
+            ResetStatus();
+            Database.Background = Brushes.LightSkyBlue;
+            RatesGrid.Visibility = Visibility.Visible;
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -120,7 +134,7 @@ namespace Transportation_Management_System
                 path = dialog.SelectedPath;
             }
 
-            LogPath.Text = path;           
+            LogPath.Text = path;
 
         }
 
@@ -142,7 +156,7 @@ namespace Transportation_Management_System
             }
         }
 
-             
+
         private void ConfigurationVisible()
         {
             GeneralGrid.Visibility = Visibility.Visible;
@@ -182,8 +196,8 @@ namespace Transportation_Management_System
                 DeleteCarrier.Visibility = Visibility.Visible;
 
                 Carrier selectedCarrier = (Carrier)CarrierDatabaseList.SelectedItem;
-                    
-                
+
+
                 if (selectedCarrier != null)
                 {
                     try
@@ -224,7 +238,7 @@ namespace Transportation_Management_System
                 }
 
             }
-            
+
         }
 
         private void UpdateCarrier_Click(object sender, RoutedEventArgs e)
@@ -267,7 +281,7 @@ namespace Transportation_Management_System
                     newLTL = int.Parse(LTLAval.Text);
 
                     carrierCity = new CarrierCity(carrier, newCity, newFTL, newLTL);
-                                        
+
                 }
             }
             catch (Exception)
@@ -294,7 +308,7 @@ namespace Transportation_Management_System
                 {
 
                     carrierCity.Carrier.CarrierID = admin.FetchCarrierID(carrier.Name);
-                    admin.UpdateCity(carrierCity, ((CarrierCity) CityDatabase.SelectedItem).DepotCity);
+                    admin.UpdateCity(carrierCity, ((CarrierCity)CityDatabase.SelectedItem).DepotCity);
 
 
                     // Update the cities list
@@ -351,7 +365,7 @@ namespace Transportation_Management_System
                 {
                     carrier.CarrierID = admin.FetchCarrierID(carrier.Name);
 
-                    CarrierCity carrierCity = (CarrierCity) CityDatabase.SelectedItem;
+                    CarrierCity carrierCity = (CarrierCity)CityDatabase.SelectedItem;
                     carrierCity.Carrier = carrier;
 
                     var result = System.Windows.MessageBox.Show($"Are you sure you want to delete the carrier city {carrierCity.DepotCity}?", "Are you sure?", MessageBoxButton.YesNo, MessageBoxImage.Question);
@@ -368,7 +382,7 @@ namespace Transportation_Management_System
                     }
 
                 }
-                else if(CarrierDatabaseList.SelectedItems.Count == 0 && CityDatabase.SelectedItems.Count == 0)
+                else if (CarrierDatabaseList.SelectedItems.Count == 0 && CityDatabase.SelectedItems.Count == 0)
                 {
                     System.Windows.MessageBox.Show("Select the Carrier or the City you would like to delete", "No option selected", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
@@ -381,7 +395,7 @@ namespace Transportation_Management_System
             catch (Exception)
             {
                 System.Windows.MessageBox.Show("Something went wrong. Please try again.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }            
+            }
         }
 
         private void AddCarrier_Click(object sender, RoutedEventArgs e)
@@ -412,7 +426,7 @@ namespace Transportation_Management_System
                 // create a carrier object with the values
                 newCarrier = new Carrier(carrierName, _FTLRate, _LTLRate, reefer);
                 newCarrier.CarrierID = admin.FetchCarrierID(newCarrier.Name);
-                
+
                 // Get the city and rates information
                 newDestination = Departure.Text;
                 newCity = (City)Enum.Parse(typeof(City), newDestination, true);
@@ -431,7 +445,7 @@ namespace Transportation_Management_System
             try
             {
                 // If carrier exist, create city for that carrier (-1 if it doesnt exist)
-                if(admin.FetchCarrierID(carrierName) != -1)
+                if (admin.FetchCarrierID(carrierName) != -1)
                 {
                     admin.CarrierCity(newCarrierCity, 1);
 
@@ -498,7 +512,7 @@ namespace Transportation_Management_System
             RouteGrid.Visibility = Visibility.Hidden;
             BackupGrid.Visibility = Visibility.Hidden;
             RatesGrid.Visibility = Visibility.Hidden;
-           
+
             // Reset all buttons background
             Backup.Background = Brushes.WhiteSmoke;
             LogFiles.Background = Brushes.WhiteSmoke;
@@ -507,7 +521,7 @@ namespace Transportation_Management_System
             UserCreation.Background = Brushes.WhiteSmoke;
         }
 
-       
+
         private void UpdateRoute_Click(object sender, RoutedEventArgs e)
         {
             string destination;
@@ -518,12 +532,12 @@ namespace Transportation_Management_System
             double time;
             string west;
             string east;
-            
 
-            
+
+
             Route route = null;
 
-            
+
 
             try
             {
@@ -539,7 +553,7 @@ namespace Transportation_Management_System
 
                 // create a route object with the values
                 route = new Route(newDestination, distance, time, newWest, newEast);
-                              
+
             }
             catch (Exception)
             {
@@ -585,7 +599,7 @@ namespace Transportation_Management_System
             East.Text = "";
         }
 
-        
+
         private void DatabaseUpdate_Click(object sender, RoutedEventArgs e)
         {
             string fieldServer = "Server";
@@ -625,7 +639,7 @@ namespace Transportation_Management_System
                 return;
             }
         }
-        
+
 
         private void PortUpdate_Click(object sender, RoutedEventArgs e)
         {
@@ -702,77 +716,80 @@ namespace Transportation_Management_System
                 Logger.Log($"New backup file successfully created at {backupPath}.", LogLevel.Information);
             }
             // If not successful, inform the user
-            catch(ArgumentNullException)
+            catch (ArgumentNullException)
             {
                 System.Windows.MessageBox.Show("Please check the Backup path and try again", "Backup Failed", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            catch(Exception)
+            catch (Exception)
             {
                 System.Windows.MessageBox.Show("Backup was not processed. Please try again.", "Backup Failed", MessageBoxButton.OK, MessageBoxImage.Error);
-            }            
+            }
         }
 
-        private void RatesFeesData_Click(object sender, RoutedEventArgs e)
-        {
-            ResetStatus();
-            RatesGrid.Visibility = Visibility.Visible;
-            Database.Background = Brushes.LightSkyBlue;
-            
-            /*List<OSHTRates> ratesList = new List<OSTHRates>();
-
-            ratesList = db.GetOSHTRates();
-            RatesDatabase.ItemsSource = ratesList;*/
-        }
 
         private void UpdateRate_Click(object sender, RoutedEventArgs e)
         {
             double FTLValue;
             double LTLValue;
 
-            //OHTBRate rate = null;
+            RateType type;
 
-            try
+            string caller = ((sender as System.Windows.Controls.Button).Name);
+
+            if (caller == "UpdateFTL")
             {
-                // Get the rate information from the form
-                FTLValue = double.Parse(NewFTLRate.Text);
-                LTLValue = double.Parse(NewLTLRate.Text);
+                try
+                {
+                    FTLValue = double.Parse(NewFTLRate.Text);
 
-                // create a rate object with the values
-                //rate = new Rate(FTLValue, LTLValue);
-
+                    if (FTLValue <= 0)
+                    {
+                        System.Windows.MessageBox.Show("FTL value must be greater than 0 to be updated", "Invalid Input", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
+                    else
+                    {
+                        type = RateType.FTL;
+                        admin.UpdateRate(FTLValue, type);
+                        System.Windows.MessageBox.Show("FTL value was successfully updated", "FTL Updated", MessageBoxButton.OK, MessageBoxImage.Information);
+                        Logger.Log($" FTL value was successfully updated to {FTLValue}.", LogLevel.Information);
+                    }
+                }
+                catch
+                {
+                    System.Windows.MessageBox.Show("Please, make sure that the fields were filled appropriately.", "Attention", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
             }
-            catch (Exception)
-            {
-                System.Windows.MessageBox.Show("Please, make sure that the fields were filled appropriately.", "Attention", MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
-            }
-            // Update the Rate List
-            try
-            {
-                //db.UpdateOSHTRates(rate);
 
-                // Empty the rate list
-                //RatesDatabase.ItemsSource = new List<OSHTRates>();
-
-                // Reload the updated route list 
-                //List<OSHTRates> ratesList = new List<OSTHRates>();
-                //ratesList = db.GetOSHTRates();
-                //RatesDatabase.ItemsSource = ratesList;
-
-                Logger.Log($" FTL and LTL values were successfully updated.", LogLevel.Information);
-
-            }
-            // Inform the user if the operation fails
-            catch (ArgumentException exc)
+            if (caller == "UpdateLTL")
             {
-                System.Windows.MessageBox.Show(exc.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            catch (Exception)
-            {
-                System.Windows.MessageBox.Show("Something went wrong. Please try again.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                try
+                {
+                    LTLValue = double.Parse(NewLTLRate.Text);
+
+                    if (LTLValue <= 0)
+                    {
+                        System.Windows.MessageBox.Show("FTL value must be greater than 0 to be updated", "Invalid Input", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
+                    else
+                    {
+                        type = RateType.LTL;
+                        admin.UpdateRate(LTLValue, type);
+                        System.Windows.MessageBox.Show("LTL value was successfully updated", "LTL Updated", MessageBoxButton.OK, MessageBoxImage.Information);
+                        Logger.Log($" FTL value was successfully updated to {LTLValue}.", LogLevel.Information);
+                    }
+                }
+                catch
+                {
+                    System.Windows.MessageBox.Show("Please, make sure that the fields were filled appropriately.", "Attention", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
             }
 
         }
+        
 
         private void GetDatabaseInfo()
         {
@@ -827,14 +844,6 @@ namespace Transportation_Management_System
                 return;
             }
 
-        }
-
-        private void CreateUser_Click(object sender, RoutedEventArgs e)
-        {
-            ResetStatus();
-            UserCreation.Background = Brushes.LightSkyBlue;
-            CreateUserGrid.Visibility = Visibility.Visible;
-        }
-               
+        }        
     }
 }

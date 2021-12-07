@@ -1784,16 +1784,41 @@ namespace Transportation_Management_System
         }
 
 
+        public void UpdateOSHTRate(double newRate, RateType rateType)
+        {
+            string sql = "UPDATE Rates SET Rate=@Rate WHERE Name='OSHT' AND RateType=@rateType";
 
-        ///
-        /// \brief Used to create a trip using trip object
-        ///
-        /// \param trip  - <b>Trip</b> - Order to select the invoic
-        /// \param carrierToSelect  - <b>Carrier</b> - trip object
-        /// 
-        /// \return Returns void
-        /// 
-        public void CreateTrip(Trip trip)
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(this.ToString()))
+                {
+                    conn.Open();
+
+                    using (MySqlCommand cmd = new MySqlCommand(sql, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@RateType", rateType);
+                        cmd.Parameters.AddWithValue("@Rate", newRate);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Logger.Log(e.Message, LogLevel.Error);
+                throw;
+            }
+        }
+
+
+            ///
+            /// \brief Used to create a trip using trip object
+            ///
+            /// \param trip  - <b>Trip</b> - Order to select the invoic
+            /// \param carrierToSelect  - <b>Carrier</b> - trip object
+            /// 
+            /// \return Returns void
+            /// 
+            public void CreateTrip(Trip trip)
         {
             string sql = "INSERT INTO Trips (OrderID, CarrierID, OriginCity, DestinationCity, JobType, VanType, TotalDistance, TotalTime) VALUE (@OrderID, @CarrierID, @OriginCity, @DestinationCity, @JobType, @VanType, @TotalDistance, @TotalTime)";
 

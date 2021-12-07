@@ -28,5 +28,11 @@ namespace Transportation_Management_System
         /// A dictionary with the rate type and value
         public Dictionary<RateType, double> RateValuePair { get; set; }
 
+        public Rate() { }
+
+        public Rate(RateType newType, double newValue)
+        {
+            RateValuePair.Add(newType, newValue);
+        }
     }
 }

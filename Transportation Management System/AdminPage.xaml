@@ -64,7 +64,7 @@
                 <Label x:Name="PortLabel_Copy2" Content="DatabaseName" HorizontalAlignment="Left" Margin="169,186,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.528,-0.41"/>
                 <TextBox x:Name="DatabaseBox" HorizontalAlignment="Left" Height="23" Margin="265,189,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="194"/>
             </Grid>
-            <Grid x:Name="DatabaseButtons" Visibility="Hidden">
+            <Grid x:Name="DatabaseButtons" Visibility="Visible">
                 <Button x:Name ="CarrierData" FontSize="16" Content="Carriers" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="146,312,0,0" Click="CarrierData_Click"/>
                 <Button x:Name ="RouteData" FontSize="16" Content="Routes" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="146,363,0,0" Click="RouteData_Click"/>
                 <Button x:Name ="RatesFeesData" FontSize="16" Content="Rates" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="146,261,0,0" Click="RatesFeesData_Click"/>
@@ -133,20 +133,14 @@
                     </ListView.View>
                 </ListView>
             </Grid>
-            <Grid x:Name="RatesGrid" Visibility="Hidden">
-                <TextBox x:Name="NewFTLRate" HorizontalAlignment="Left" Height="23" Margin="270,63,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                <TextBox x:Name="NewLTLRate" HorizontalAlignment="Left" Height="23" Margin="270,122,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                <Label Content="FTL Rate" Margin="165,63,530,0" VerticalAlignment="Top"/>
-                <Label Content="LTL Rate" Margin="165,122,530,0" VerticalAlignment="Top"/>
-                <Button Name="UpdateRate" Content="Update" HorizontalAlignment="Left" Margin="306,245,0,0" VerticalAlignment="Top" Width="84" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Click="UpdateRate_Click"/>
-                <ListView x:Name="RatesDatabase" Margin="432,25,31,151"  SelectionMode="Single" PreviewMouseLeftButtonUp="RouteDatabase_PreviewMouseLeftButtonUp">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn Header="Type" Width="160" DisplayMemberBinding="{Binding Type}" />
-                            <GridViewColumn Header="Value" Width="160" DisplayMemberBinding="{Binding Value}" />
-                        </GridView>
-                    </ListView.View>
-                </ListView>
+            <Grid x:Name="RatesGrid" Visibility="Visible">
+                <TextBox Margin="146,10,20,10" MaxWidth="630" MaxHeight="390" IsReadOnly="True" Background="GhostWhite"/>
+                <TextBox x:Name="NewFTLRate" HorizontalAlignment="Left" Height="23" Margin="352,63,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <TextBox x:Name="NewLTLRate" HorizontalAlignment="Left" Height="23" Margin="352,122,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <Label Content="FTL Rate" Margin="222,63,473,0" VerticalAlignment="Top"/>
+                <Label Content="LTL Rate" Margin="222,122,473,0" VerticalAlignment="Top"/>
+                <Button Name="UpdateFTL" Content="Update" HorizontalAlignment="Left" Margin="508,63,0,0" VerticalAlignment="Top" Width="84" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Click="UpdateRate_Click"/>
+                <Button x:Name="UpdateLTL" Content="Update" HorizontalAlignment="Left" Margin="508,122,0,0" VerticalAlignment="Top" Width="84" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Click="UpdateRate_Click"/>
             </Grid>
             <Grid x:Name="BackupGrid" Visibility="Hidden">
                 <TextBox Margin="146,10,20,10" MaxWidth="630" MaxHeight="390" IsReadOnly="True" Background="GhostWhite"/>
