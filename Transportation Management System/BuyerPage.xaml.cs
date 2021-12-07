@@ -33,10 +33,6 @@ namespace Transportation_Management_System
             App.Current.MainWindow.Visibility = Visibility.Visible;
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            MarketPlace_Click(sender, e);
-        }
 
         private void MarketPlace_Click(object sender, RoutedEventArgs e)
         {
