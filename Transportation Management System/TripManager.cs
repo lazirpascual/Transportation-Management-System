@@ -1,5 +1,4 @@
-﻿
-/* -- FILEHEADER COMMENT --
+﻿/* -- FILEHEADER COMMENT --
     FILE		:	TripManager.cs
     PROJECT		:	Transportation Management System
     PROGRAMMER	:  * Ana De Oliveira
@@ -10,33 +9,31 @@
     DESCRIPTION	:	This file contains the source for the TripManager class.
 */
 
-
 using System;
 using System.Collections.Generic;
 
 namespace Transportation_Management_System
 {
-    /// 
+    ///
     /// \class TripManager
-    /// 
+    ///
     /// \brief The purpose of this class is to perform the calculations for the trip
     ///
-    /// This class will perform the calculations related to the trips such as 
-    /// 
+    /// This class will perform the calculations related to the trips such as
+    ///
     ///
     ///
     /// \author <i>Team Blank</i>
     ///
     public class TripManager
     {
-
         ///
         /// \brief This method will calculate the total cost for all trips
         ///
         /// \param trips  - <b>List<Trip></b> - List of trips.
-        /// 
+        ///
         /// \return Total cost for the order
-        /// 
+        ///
         public static decimal CalculateTotalCostTrips(List<Trip> trips)
         {
             double totalCost = 0.0;
@@ -57,14 +54,15 @@ namespace Transportation_Management_System
                         OSHTRate = 1 + OSHTRates.RateValuePair[RateType.FTL];
                         totalCost = (currentTripCarrier.FTLRate * OSHTRate) * trip.TotalDistance;
                         break;
+
                     case JobType.LTL:
                         OSHTRate = 1 + OSHTRates.RateValuePair[RateType.LTL];
                         totalCost = (currentTripCarrier.LTLRate * 1.08) * trip.TotalDistance;
                         break;
+
                     default:
                         throw new ArgumentException("Trip must contain a job type");
                 }
-
 
                 // Calculate the Reefer charge
                 switch (trip.VanType)
@@ -76,6 +74,7 @@ namespace Transportation_Management_System
                     // If dryvan, only the regular rates
                     case VanType.DryVan:
                         break;
+
                     default:
                         throw new ArgumentException("Trip must contain a job type");
                 }
@@ -84,15 +83,13 @@ namespace Transportation_Management_System
             return (decimal)totalCost;
         }
 
-
-
         ///
         /// \brief Used to calculate the total distance and time between two cities based on the routes table
         ///
         /// \param order  - <b>Order</b> - Order to calculate the distance
-        /// 
+        ///
         /// \return A keyValuePair with the distance and time between those two cities
-        /// 
+        ///
         public void CalculateDistanceAndTime(Trip trip)
         {
             City origin = trip.OriginCity;
@@ -141,7 +138,6 @@ namespace Transportation_Management_System
                     partialTotalTime += 2;
                 }
 
-
                 // Add total time driven to total time worked
                 partialTotalTime += partialDrivingTime;
 
@@ -172,7 +168,6 @@ namespace Transportation_Management_System
                         // New Day, new hours
                         dailyTotalTime = 0;
                         dailyDrivingTime = 0;
-
                     }
                     // The driver operated more than 12 hours
                     else if (dailyTotalTime >= 12)
@@ -192,15 +187,13 @@ namespace Transportation_Management_System
                         // New Day, new hours
                         dailyTotalTime = 0;
                         dailyDrivingTime = 0;
-
                     }
-                    // If the total time is greater than 8, but the driver hasn't driven the total 8 
+                    // If the total time is greater than 8, but the driver hasn't driven the total 8
                     // neither worked a total of 12 hours, just keep going to the next city
                     else
                     {
                         totalTime += partialTotalTime;
                     }
-
                 }
                 // If everything is under the limits, just keep going
                 else
@@ -216,18 +209,23 @@ namespace Transportation_Management_System
                 if (origin < destination)
                 {
                     curr = curr.EastPtr;
-                    if (curr != null) lastCity = curr.West;
+                    if (curr != null)
+                    {
+                        lastCity = curr.West;
+                    }
                 }
                 // Goint west
                 else if (destination < origin)
                 {
                     curr = curr.WestPtr;
-                    if (curr != null) lastCity = curr.East;
+                    if (curr != null)
+                    {
+                        lastCity = curr.East;
+                    }
                 }
 
                 // Keep going until we're not at the end of the line and past the destination city
             } while (curr != null && lastCity != destination);
-
 
             // Populate fields
             trip.TotalTime = totalTime;

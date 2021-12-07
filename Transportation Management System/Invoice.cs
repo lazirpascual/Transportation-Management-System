@@ -1,5 +1,4 @@
-﻿
-/* -- FILEHEADER COMMENT --
+﻿/* -- FILEHEADER COMMENT --
     FILE		:	Invoice.cs
     PROJECT		:	Transportation Management System
     PROGRAMMER	:  * Ana De Oliveira
@@ -10,23 +9,17 @@
     DESCRIPTION	:	This file contains the source for the Invoice class.
 */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace Transportation_Management_System
 {
-    /// 
+    ///
     /// \class Invoice
-    /// 
+    ///
     /// \brief The purpose of this class is to model an Invoice.
     ///
     /// This class will demonstrate the attributes of an Invoice Class. An invoice
     /// is generated after the completion of a delivery and it is calculated based on the total
-    /// mileage, amount of pallets and rate per hour/km. 
-    /// 
+    /// mileage, amount of pallets and rate per hour/km.
+    ///
     /// \author <i>Team Blank</i>
     ///
     public class Invoice
@@ -53,6 +46,6 @@ namespace Transportation_Management_System
         public int TotalKM { set; get; }
 
         /// The number of days taken to complete the order
-        public double Days { set; get; } 
+        public double Days { set; get; }
     }
 }

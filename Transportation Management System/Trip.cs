@@ -1,5 +1,4 @@
-﻿
-/* -- FILEHEADER COMMENT --
+﻿/* -- FILEHEADER COMMENT --
     FILE		:	Trip.cs
     PROJECT		:	Transportation Management System
     PROGRAMMER	:  * Ana De Oliveira
@@ -9,12 +8,6 @@
     DATE		:	2021-12-07
     DESCRIPTION	:	This file contains the source for the Trip class.
 */
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Transportation_Management_System
 {
@@ -34,14 +27,14 @@ namespace Transportation_Management_System
         Ottawa,
     }
 
-    /// 
+    ///
     /// \class Trip
-    /// 
+    ///
     /// \brief The purpose of this class is to model the trip required for the order
     ///
     /// This class will demonstrate the attributes and behaviours of the Trip. It will calculate the total
     /// distance and the total time required for the trip.
-    /// 
+    ///
     ///
     ///
     /// \author <i>Team Blank</i>
@@ -74,6 +67,5 @@ namespace Transportation_Management_System
 
         /// The VanType for the trip
         public VanType VanType { get; set; }
-
     }
 }

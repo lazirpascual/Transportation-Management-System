@@ -1,5 +1,4 @@
-﻿
-/* -- FILEHEADER COMMENT --
+﻿/* -- FILEHEADER COMMENT --
     FILE		:	User.cs
     PROJECT		:	Transportation Management System
     PROGRAMMER	:  * Ana De Oliveira
@@ -9,12 +8,6 @@
     DATE		:	2021-12-07
     DESCRIPTION	:	This file contains the source for the User class.
 */
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Transportation_Management_System
 {
@@ -27,9 +20,10 @@ namespace Transportation_Management_System
         Planner,
         Admin
     }
-    /// 
+
+    ///
     /// \class User
-    /// 
+    ///
     /// \brief The purpose of this class is to represent the role of a user
     ///
     /// This class represents the role of a user when they login to the TMS application.
@@ -50,7 +44,7 @@ namespace Transportation_Management_System
 
         /// used to represent the password of the user
         public string Password { get; set; }
-        
+
         /// used to represent the email of the user
         public string Email { get; set; }
 
@@ -62,7 +56,7 @@ namespace Transportation_Management_System
 
         ///
         /// \brief This User class constructor is used to initialize properties of User class.
-        /// 
+        ///
         public User(string firstName, string lastName, string username, string password, string email, UserRole userType)
         {
             FirstName = firstName;
@@ -76,7 +70,8 @@ namespace Transportation_Management_System
 
         ///
         /// \brief Empty User class constructor, used to access the class.
-        /// 
-        public User() { }
+        ///
+        public User()
+        { }
     }
 }

@@ -1,7 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Transportation_Management_System;
 
 namespace UnitTestProject1
@@ -14,7 +11,7 @@ namespace UnitTestProject1
     {
         [TestMethod]
         public void GetContracts_FunctionalTest()
-        {           
+        {
             Contract firstContract = new Contract();
             firstContract.ClientName = "Space J";
             firstContract.Destination = City.Toronto;

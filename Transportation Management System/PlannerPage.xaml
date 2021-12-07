@@ -5,32 +5,32 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Transportation_Management_System"
         mc:Ignorable="d"
-        WindowStartupLocation="CenterScreen" 
+        WindowStartupLocation="CenterScreen"
         Closing="Window_Closing"
         Title="Planner" Height="434" Width="799"
         Icon="/favicon.png">
 
     <Window.Resources>
-        <local:StatusConverter x:Key="StatusConverter"/>
-        <local:DateConverter x:Key="DateConverter"/>
+        <local:StatusConverter x:Key="StatusConverter" />
+        <local:DateConverter x:Key="DateConverter" />
     </Window.Resources>
     <Viewbox>
         <Grid>
             <Border RenderTransformOrigin="0.5,0.5" Height="419">
                 <Border.Background>
                     <LinearGradientBrush>
-                        <GradientStop Color="LightBlue" Offset="0.0"/>
-                        <GradientStop Color="Navy" Offset="1.8"/>
+                        <GradientStop Color="LightBlue" Offset="0.0" />
+                        <GradientStop Color="Navy" Offset="1.8" />
                     </LinearGradientBrush>
                 </Border.Background>
-                <Image Source="logo_white.png" Margin="10,10,667,281"/>
+                <Image Source="logo_white.png" Margin="10,10,667,281" />
             </Border>
-            <Button x:Name ="Invoices" Content="Invoices" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,312,0,0" Click="Invoices_Click"/>
-            <Button x:Name ="Orders" Content="Orders" Background="WhiteSmoke" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,363,0,0" Click="Orders_Click"/>
+            <Button x:Name ="Invoices" Content="Invoices" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,312,0,0" Click="Invoices_Click" />
+            <Button x:Name ="Orders" Content="Orders" Background="WhiteSmoke" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,363,0,0" Click="Orders_Click" />
             <Grid x:Name="ReportsGrid" Visibility="Hidden">
 
-                <RadioButton x:Name="AllInvoices" Content="All Invoices" HorizontalAlignment="Left" Margin="170,361,0,0" VerticalAlignment="Top" Click="AllInvoices_Click"/>
-                <RadioButton x:Name="PastInvoice" Content="Past 2 weeks" HorizontalAlignment="Left" Margin="253,361,0,0" VerticalAlignment="Top" Click="PastInvoices_Click"/>
+                <RadioButton x:Name="AllInvoices" Content="All Invoices" HorizontalAlignment="Left" Margin="170,361,0,0" VerticalAlignment="Top" Click="AllInvoices_Click" />
+                <RadioButton x:Name="PastInvoice" Content="Past 2 weeks" HorizontalAlignment="Left" Margin="253,361,0,0" VerticalAlignment="Top" Click="PastInvoices_Click" />
 
                 <ListView x:Name="ReportList" Margin="145,10,21,61" SelectionMode="Single" SelectionChanged="Selection_Changed" HorizontalAlignment="Center" VerticalAlignment="Center" Height="324" Width="608">
                     <ListView.View>
@@ -51,14 +51,14 @@
                 <Button x:Name="CompleteOrder" Content="Complete Order" HorizontalAlignment="Left" VerticalAlignment="Top" Width="110" Visibility="Hidden" Margin="700,372,0,0" Click="Complete_Order"  Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" />
                 <Button x:Name="ViewCarrier" Content="View Available Carriers" HorizontalAlignment="Left" VerticalAlignment="Top" Width="165" Margin="645,372,0,0" Click="View_Carrier" Visibility="Hidden"  Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" />
 
-                <RadioButton x:Name="AllBox" Content="All Orders" Background="WhiteSmoke" Margin="156,368,590,29" IsChecked="False" Click="AllBox_Click"/>
-                <RadioButton x:Name="ActiveBox" Content="Active Orders" Background="WhiteSmoke" Margin="238,368,488,29" IsChecked="False" Click="ActiveBox_Click"/>
-                <RadioButton x:Name="CompletedBox" Content="Completed Orders" Background="WhiteSmoke" Margin="340,368,357,29" IsChecked="False" Click="CompletedBox_Click"/>
+                <RadioButton x:Name="AllBox" Content="All Orders" Background="WhiteSmoke" Margin="156,368,590,29" IsChecked="False" Click="AllBox_Click" />
+                <RadioButton x:Name="ActiveBox" Content="Active Orders" Background="WhiteSmoke" Margin="238,368,488,29" IsChecked="False" Click="ActiveBox_Click" />
+                <RadioButton x:Name="CompletedBox" Content="Completed Orders" Background="WhiteSmoke" Margin="340,368,357,29" IsChecked="False" Click="CompletedBox_Click" />
 
                 <ListView x:Name="OrdersList" Margin="156,23,10,72" SelectionMode="Single" SelectionChanged="Selection_Changed" HorizontalAlignment="Center" VerticalAlignment="Center" Height="324" Width="657">
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="Order ID" Width="50" DisplayMemberBinding="{Binding OrderID}"/>
+                            <GridViewColumn Header="Order ID" Width="50" DisplayMemberBinding="{Binding OrderID}" />
                             <GridViewColumn Header="Client Name" Width="95" DisplayMemberBinding="{Binding ClientName}" />
                             <GridViewColumn Header="Origin" Width="80" DisplayMemberBinding="{Binding Origin}" />
                             <GridViewColumn Header="Destination" Width="90" DisplayMemberBinding="{Binding Destination}" />
@@ -71,10 +71,10 @@
                         </GridView>
                     </ListView.View>
                 </ListView>
-                <Grid x:Name="OrderProgress" Visibility="Hidden" >
-                    <ProgressBar x:Name="OrderProgressBar" HorizontalAlignment="Left" Height="20" Margin="644,375,0,0" VerticalAlignment="Top" Width="123" Minimum="0" Maximum="100"/>
-                    <Label x:Name="HoursLabel" Height="23" Width="120" BorderThickness="0" Padding="0" Background="Transparent"  HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0, 0, 57, 42"/>
-                    <Label Height="23" Margin="660,375,30,21" Content="Order Progress" Width="120" BorderThickness="0" Padding="0" Background="Transparent"/>
+                <Grid x:Name="OrderProgress" Visibility="Hidden">
+                    <ProgressBar x:Name="OrderProgressBar" HorizontalAlignment="Left" Height="20" Margin="644,375,0,0" VerticalAlignment="Top" Width="123" Minimum="0" Maximum="100" />
+                    <Label x:Name="HoursLabel" Height="23" Width="120" BorderThickness="0" Padding="0" Background="Transparent"  HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0, 0, 57, 42" />
+                    <Label Height="23" Margin="660,375,30,21" Content="Order Progress" Width="120" BorderThickness="0" Padding="0" Background="Transparent" />
                 </Grid>
             </Grid>
         </Grid>
