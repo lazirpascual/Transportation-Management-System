@@ -20,6 +20,8 @@ namespace Transportation_Management_System
     public partial class CarrierSelection : Window
     {
         Order currentOrder;
+        List<string> carriers = new List<string>();
+
         public CarrierSelection()
         {
             InitializeComponent();
@@ -35,7 +37,8 @@ namespace Transportation_Management_System
             }
             else
             {
-                /// Update the remaining quantity
+                OrderQuantity.Content = $"Remaining Quantity from Order: {currentOrder.Quantity}";
+                // Update the remaining quantity
                 CreateCarrierLTL(carriers);
             }
         }
@@ -56,13 +59,13 @@ namespace Transportation_Management_System
                 {
                     FTL FTLCarrier = (FTL)CarrierList.SelectedItem;
                     planner.SelectOrderCarrier(currentOrder, FTLCarrier.CarrierID);
-
+                    carriers.Add(FTLCarrier.Name);
                 }
                 else
-                {
+                {                   
                     LTL LTLCarrier = (LTL)CarrierList.SelectedItem;
                     planner.SelectOrderCarrier(currentOrder, LTLCarrier.CarrierID);
-
+                    carriers.Add(LTLCarrier.Name);
 
                     // If current carrier does not have enough availability for the order, select another carrier to fullfill the rest
                     if (LTLCarrier.LTLAval < currentOrder.Quantity)
@@ -86,24 +89,32 @@ namespace Transportation_Management_System
                     {
                         currentOrder.Quantity -= LTLCarrier.LTLAval;
                     }
-                    
-                    
+                                        
                     // Update remaining quantity if still have left
                     if (currentOrder.Quantity > 0)
                     {
                         // Update the remaining quantity
                         OrderQuantity.Content = $"Remaining Quantity from Order: {currentOrder.Quantity}";                      
                     }
-                }
-                
+                }                
 
                 // If multiple trips were selected if needed
                 if (currentOrder.Quantity <= 0)
                 {
                     DialogResult = true;
                     Close();
-                }
-                
+
+                    StringBuilder msg = new StringBuilder();
+                    msg.AppendLine($"Order #{currentOrder.OrderID} has been processed!");
+                    msg.AppendLine($"Client Name: {currentOrder.ClientName}");
+                    msg.AppendLine($"Order Creation Date: {DateTime.Now}");
+                    msg.AppendLine($"Carrier(s) Selected: ");
+                    foreach (var carrier in carriers)
+                    {
+                        msg.AppendLine($"    {carrier}");
+                    }
+                    MessageBox.Show(msg.ToString(),"Order Processed", MessageBoxButton.OK, MessageBoxImage.Information);
+                }           
             }     
         }
 

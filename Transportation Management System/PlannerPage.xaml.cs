@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.ComponentModel;
+
 
 namespace Transportation_Management_System
 {
@@ -26,6 +28,8 @@ namespace Transportation_Management_System
             InitializeComponent();
 
             OrdersPage();
+            CollectionView viewOrder = (CollectionView)CollectionViewSource.GetDefaultView(OrdersList.ItemsSource);
+            viewOrder.SortDescriptions.Add(new SortDescription("OrderID", ListSortDirection.Ascending));
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -152,9 +156,10 @@ namespace Transportation_Management_System
             if (selectCarrier.ShowDialog() == true)
             {
                 CompleteOrder.Visibility = Visibility.Hidden;
-                OrderProgress.Visibility = Visibility.Hidden;
+                OrderProgress.Visibility = Visibility.Visible;
                 ViewCarrier.Visibility = Visibility.Hidden;
                 Refresh_Orders();
+                OrdersList.SelectedItem = (object)currentOrder;               
             }
         }
 
@@ -165,6 +170,11 @@ namespace Transportation_Management_System
             CompleteOrder.Visibility = Visibility.Hidden;
             OrderProgress.Visibility = Visibility.Hidden;
             Refresh_Orders();
+            StringBuilder msg = new StringBuilder();
+            msg.AppendLine($"Order Complete! \nOrder #{currentOrder.OrderID} has arrived to its destination!");
+            msg.AppendLine($"Client Name: {currentOrder.ClientName}");
+            msg.AppendLine($"Order Completion Date: {DateTime.Now}");
+            MessageBox.Show(msg.ToString(), "Order Complete", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void Simulate_OrderStatus()
@@ -186,8 +196,6 @@ namespace Transportation_Management_System
             {
                 OrderProgress.Visibility = Visibility.Visible;
                 CompleteOrder.Visibility = Visibility.Hidden;
-
-
                 TimeSpan TimeRemaining = expectedDeliveryDate - DateTime.Now;
                 HoursLabel.Content = $"Time Left: {(int)TimeRemaining.TotalHours} hrs, {TimeRemaining.Minutes} m";
             }

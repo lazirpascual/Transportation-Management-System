@@ -53,7 +53,7 @@
                 <ListView x:Name="OrdersList" Margin="156,23,10,72" SelectionMode="Single" SelectionChanged="Selection_Changed" HorizontalAlignment="Center" VerticalAlignment="Center" Height="324" Width="657">
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="Order ID" Width="50" DisplayMemberBinding="{Binding OrderID}" />
+                            <GridViewColumn Header="Order ID" Width="50" DisplayMemberBinding="{Binding OrderID}"/>
                             <GridViewColumn Header="Client Name" Width="90" DisplayMemberBinding="{Binding ClientName}" />
                             <GridViewColumn Header="Origin" Width="80" DisplayMemberBinding="{Binding Origin}" />
                             <GridViewColumn Header="Destination" Width="90" DisplayMemberBinding="{Binding Destination}" />
