@@ -189,7 +189,7 @@ namespace Transportation_Management_System
 
 
                 TimeSpan TimeRemaining = expectedDeliveryDate - DateTime.Now;
-                HoursLabel.Content = $"Time Left: {(int)TimeRemaining.TotalHours} hrs, {TimeRemaining.Minutes} mins";
+                HoursLabel.Content = $"Time Left: {(int)TimeRemaining.TotalHours} hrs, {TimeRemaining.Minutes} m";
             }
 
             OrderProgressBar.Value = result;
@@ -243,7 +243,7 @@ namespace Transportation_Management_System
             PastInvoice.IsChecked = false;
 
             CompleteOrder.Visibility = Visibility.Hidden;
-
+            OrderProgress.Visibility = Visibility.Hidden;
         }
 
     }
