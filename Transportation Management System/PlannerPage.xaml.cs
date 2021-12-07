@@ -152,7 +152,7 @@ namespace Transportation_Management_System
             if (selectCarrier.ShowDialog() == true)
             {
                 CompleteOrder.Visibility = Visibility.Hidden;
-                OrderProgress.Visibility = Visibility.Visible;
+                OrderProgress.Visibility = Visibility.Hidden;
                 ViewCarrier.Visibility = Visibility.Hidden;
                 Refresh_Orders();
             }

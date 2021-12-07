@@ -91,7 +91,8 @@ namespace Transportation_Management_System
                     // Update remaining quantity if still have left
                     if (currentOrder.Quantity > 0)
                     {
-                        /// Update the remaining quantity
+                        // Update the remaining quantity
+                        OrderQuantity.Content = $"Remaining Quantity from Order: {currentOrder.Quantity}";                      
                     }
                 }
                 
