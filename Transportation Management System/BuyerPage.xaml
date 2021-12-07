@@ -7,22 +7,22 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Closing="Window_Closing"
-        Title="Buyer" Height="414" Width="799"
+        Title="Buyer" Height="430" Width="800"
         Icon="/favicon.png">
 
     <Window.Resources>
         <local:StatusConverter x:Key="StatusConverter" />
         <local:DateConverter x:Key="DateConverter" />
     </Window.Resources>
+    <Window.Background>
+        <LinearGradientBrush EndPoint="1,1" StartPoint="0,0">
+            <GradientStop Color="LightBlue" Offset="0.0" />
+            <GradientStop Color="Navy" Offset="1.8"/>
+        </LinearGradientBrush>
+    </Window.Background>
     <Viewbox>
         <Grid>
             <Border RenderTransformOrigin="0.5,0.5" Height="419">
-                <Border.Background>
-                    <LinearGradientBrush>
-                        <GradientStop Color="LightBlue" Offset="0.0" />
-                        <GradientStop Color="Navy" Offset="1.8" />
-                    </LinearGradientBrush>
-                </Border.Background>
                 <Image Source="logo_white.png" Margin="-20,10,697,281" />
             </Border>
             <Button x:Name ="Invoice" Content="Invoices" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,261,0,0" Click="Invoice_Click" />
@@ -83,7 +83,7 @@
                 </ListView>
             </Grid>
             <Grid x:Name="MarketPlaceGrid" Visibility="Visible">
-                <Button x:Name="AcceptClient" Content="Accept" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="771,374,0,0" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Click="AcceptClient_Click" />
+                <Button x:Name="AcceptClient" Content="Accept" HorizontalAlignment="Left" VerticalAlignment="Top" Width="80" Margin="766,374,0,0" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Click="AcceptClient_Click" Height="25" />
                 <ListView x:Name="ContractsList" Margin="189,10,37,61" SelectionMode="Single" Height="324" Width="657">
 
                     <ListView.View>

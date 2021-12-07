@@ -7,22 +7,22 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Closing="Window_Closing"
-        Title="Planner" Height="434" Width="799"
+        Title="Planner" Height="430" Width="800"
         Icon="/favicon.png">
 
     <Window.Resources>
         <local:StatusConverter x:Key="StatusConverter" />
         <local:DateConverter x:Key="DateConverter" />
     </Window.Resources>
+    <Window.Background>
+        <LinearGradientBrush EndPoint="1,1" StartPoint="0,0">
+            <GradientStop Color="LightBlue" Offset="0.0" />
+            <GradientStop Color="Navy" Offset="1.8"/>
+        </LinearGradientBrush>
+    </Window.Background>
     <Viewbox>
         <Grid>
             <Border RenderTransformOrigin="0.5,0.5" Height="419">
-                <Border.Background>
-                    <LinearGradientBrush>
-                        <GradientStop Color="LightBlue" Offset="0.0" />
-                        <GradientStop Color="Navy" Offset="1.8" />
-                    </LinearGradientBrush>
-                </Border.Background>
                 <Image Source="logo_white.png" Margin="10,10,667,281" />
             </Border>
             <Button x:Name ="Invoices" Content="Invoices" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,312,0,0" Click="Invoices_Click" />
