@@ -1,4 +1,16 @@
-﻿using System;
+﻿
+/* -- FILEHEADER COMMENT --
+    FILE		:	User.cs
+    PROJECT		:	Transportation Management System
+    PROGRAMMER	:  * Ana De Oliveira
+                   * Icaro Ryan Oliveira Souza
+                   * Lazir Pascual
+                   * Rohullah Noory
+    DATE		:	2021-12-07
+    DESCRIPTION	:	This file contains the source for the User class.
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,6 +18,9 @@ using System.Threading.Tasks;
 
 namespace Transportation_Management_System
 {
+    /// <summary>
+    /// Enum to represent user types as a number.
+    /// </summary>
     public enum UserRole
     {
         Buyer,
@@ -43,9 +58,11 @@ namespace Transportation_Management_System
         public bool IsActive { get; set; }
 
         /// used to represent type or role of a user
-        public UserRole UserType { get; set; }   
+        public UserRole UserType { get; set; }
 
-
+        ///
+        /// \brief This User class constructor is used to initialize properties of User class.
+        /// 
         public User(string firstName, string lastName, string username, string password, string email, UserRole userType)
         {
             FirstName = firstName;
@@ -57,6 +74,9 @@ namespace Transportation_Management_System
             UserType = userType;
         }
 
+        ///
+        /// \brief Empty User class constructor, used to access the class.
+        /// 
         public User() { }
     }
 }

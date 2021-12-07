@@ -115,6 +115,7 @@ namespace Transportation_Management_System
         /// \brief Inserts a new invoice in the Invoice table
         ///
         /// \param orderObj  - <b>Order</b> - An Order object with all its information
+        /// \return invoice -   <b>Invoice</b>  -   An Invoice object with all its information
         /// 
         /// \return An invoice object
         public Invoice CreateInvoice(Order orderObj)
@@ -135,30 +136,30 @@ namespace Transportation_Management_System
                 hours = trips[0].TotalTime;
                 distance = trips[0].TotalDistance;
             }
-            catch(System.ArgumentOutOfRangeException)
+            catch (System.ArgumentOutOfRangeException)
             {
                 string e = $"Trip for order #{orderObj.OrderID} not found";
                 Logger.Log(e, LogLevel.Error);
                 throw new ArgumentNullException(e);
             }
 
-            
+
             TimeSpan timeInDays = TimeSpan.FromHours(hours);
             double days = timeInDays.TotalDays;
 
-            
-            
-            decimal totalCost = Trip.CalculateTotalCostTrips(trips);
+
+
+            decimal totalCost = TripManager.CalculateTotalCostTrips(trips);
             string clientName = orderObj.ClientName;
             string origin = orderObj.Origin.ToString();
             string destination = orderObj.Destination.ToString();
-            
+
 
             invoice.OrderID = orderID;
             invoice.TotalAmount = Math.Round(totalCost, 2);
             invoice.ClientName = clientName;
             invoice.Origin = (City)Enum.Parse(typeof(City), origin, true);
-            invoice.Destination= (City)Enum.Parse(typeof(City), destination, true);
+            invoice.Destination = (City)Enum.Parse(typeof(City), destination, true);
             invoice.Days = Math.Round(days, 1);
             invoice.TotalKM = distance;
 

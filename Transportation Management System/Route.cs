@@ -1,4 +1,16 @@
-﻿using System;
+﻿
+/* -- FILEHEADER COMMENT --
+    FILE		:	Route.cs
+    PROJECT		:	Transportation Management System
+    PROGRAMMER	:  * Ana De Oliveira
+                   * Icaro Ryan Oliveira Souza
+                   * Lazir Pascual
+                   * Rohullah Noory
+    DATE		:	2021-12-07
+    DESCRIPTION	:	This file contains the source for the Route class.
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,9 +41,14 @@ namespace Transportation_Management_System
         // "Pointer" to the city on East
         public Route EastPtr { set; get; }
 
-
+        ///
+        /// \brief This overloaded Rate class constructor is used to access a Route class with empty attributes.
+        /// 
         public Route() { }
 
+        ///
+        /// \brief This Rate class constructor is used to initialize Route class properties.
+        /// 
         public Route(City newDestination, int newDistance, double newTime, City newWest, City newEast)
         {
             Destination = newDestination;

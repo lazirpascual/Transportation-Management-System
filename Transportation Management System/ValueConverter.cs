@@ -1,4 +1,16 @@
-﻿using System;
+﻿
+/* -- FILEHEADER COMMENT --
+    FILE		:	ValueConverter.cs
+    PROJECT		:	Transportation Management System
+    PROGRAMMER	:  * Ana De Oliveira
+                   * Icaro Ryan Oliveira Souza
+                   * Lazir Pascual
+                   * Rohullah Noory
+    DATE		:	2021-12-07
+    DESCRIPTION	:	This file contains the source for the StatusConverter class.
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

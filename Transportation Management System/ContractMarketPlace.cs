@@ -1,9 +1,20 @@
-﻿using System;
+﻿
+/* -- FILEHEADER COMMENT --
+    FILE		:	ContractMarketPlace.cs
+    PROJECT		:	Transportation Management System
+    PROGRAMMER	:  * Ana De Oliveira
+                   * Icaro Ryan Oliveira Souza
+                   * Lazir Pascual
+                   * Rohullah Noory
+    DATE		:	2021-12-07
+    DESCRIPTION	:	This file contains the source for the ContractMarketPlace class.
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-//using MySql.Data;
 using System.Data.SqlClient;
 using System.Data;
 using MySql.Data.MySqlClient;
@@ -13,9 +24,7 @@ namespace Transportation_Management_System
     /// 
     /// \class ContractMarketPlace
     /// 
-    /// \brief The purpose of this class is to manage all the communication with the Contract Market Place
-    ///
-    /// This class can be used to fetch all the active contracts in the ContractMarketPlace database
+    /// \brief The purpose of this class is to manage all the communication with the Contract Market Place.
     ///
     /// \author <i>Team Blank</i>
     ///
@@ -24,7 +33,7 @@ namespace Transportation_Management_System
         /// The ContractMarketPlace database IP
         public string CMPServer { get; set; }
 
-        /// The name of the ContractMarketPlace databse
+        /// The name of the ContractMarketPlace database
         public string DBName { get; set; }
 
         /// The username to connect to the ContractMarketPlace database
@@ -39,7 +48,7 @@ namespace Transportation_Management_System
 
 
         ///
-        /// \brief Construct the ContractMarketPlace object by setting the database connection information
+        /// \brief Construct the ContractMarketPlace object by setting the database connection information.
         /// 
         public ContractMarketPlace()
         {
@@ -51,11 +60,10 @@ namespace Transportation_Management_System
         }
 
 
-
         ///
-        /// \brief Returns the string connection for the database
+        /// \brief Returns the string connection for the database.
         /// 
-        /// \return String representation of the databse connection info
+        /// \return String representation of the database connection info.
         /// 
         public override string ToString()
         {

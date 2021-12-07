@@ -123,7 +123,6 @@
     </Compile>
     <Compile Include="Logger.cs" />
     <Compile Include="Order.cs" />
-    <Compile Include="OrderManager.cs" />
     <Compile Include="Buyer.cs" />
     <Compile Include="Client.cs" />
     <Compile Include="Rate.cs" />
@@ -132,6 +131,7 @@
     <Compile Include="Route.cs" />
     <Compile Include="Trip.cs" />
     <Compile Include="Admin.cs" />
+    <Compile Include="TripManager.cs" />
     <Compile Include="User.cs" />
     <Compile Include="ValueConverter.cs" />
     <Page Include="AdminPage.xaml">
