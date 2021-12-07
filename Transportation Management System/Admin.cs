@@ -26,17 +26,25 @@ namespace Transportation_Management_System
         private string LogDirectory { get; set; }
         private string LogFile { get; set; }
 
+        private DAL db = new DAL();
+
         ///
-        /// \brief This method is called to view the current log files
+        /// \brief This constructor is used to initialize the log file name and directory
         /// 
         /// 
-        /// \return Returns list of current log files
         ///        
         public Admin()
         {
             LogFile = "tms.log";
             LogDirectory = Directory.GetCurrentDirectory();
         }
+
+        ///
+        /// \brief This method is called to view the current log files
+        /// 
+        /// 
+        /// \return Returns list of current log files
+        ///  
         public string ViewLogFiles()
         {
             string logDict = Logger.GetCurrentLogDirectory();
@@ -67,7 +75,71 @@ namespace Transportation_Management_System
                 return false;
             }
         }
-       
+
+        ///
+        /// \brief This method is called in order to update the rate/fee for the TMS application
+        /// 
+        /// \param rate  - <b>string</b> - value of the rate
+        /// 
+        /// \return Returns result of the query after we perform the update rate command
+        /// 
+        public int FetchCarrierID(string name)
+        {
+            int ID = db.GetCarrierIdByName(name);
+            return ID;
+        }
+
+
+        ///
+        /// \brief This method is called in order to update the rate/fee for the TMS application
+        /// 
+        /// \param rate  - <b>string</b> - value of the rate
+        /// 
+        /// \return Returns result of the query after we perform the update rate command
+        /// 
+        public void UpdateCity(CarrierCity cCity, City oldCity)
+        {
+            db.UpdateCarrierCity(cCity, oldCity);
+
+
+        }
+
+        public List<CarrierCity> GetCitiesByCarrier(string carrierName)
+        {
+            List<CarrierCity> carrierCities = db.FilterCitiesByCarrier(carrierName);
+            return carrierCities;
+        }
+
+        public void CarrierDeletion(Carrier carrier)
+        {
+            db.DeleteCarrier(carrier);
+        }
+
+        public long CarrierCreation(Carrier carrier)
+        {
+            return db.CreateCarrier(carrier);
+        }
+
+        public void CarrierCity(CarrierCity carrierCity, int CR)
+        {
+            if(CR==0)
+            {
+                db.RemoveCarrierCity(carrierCity);
+            }
+            else
+            {
+                db.CreateCarrierCity(carrierCity);
+            }
+            
+        }
+
+
+        public List<Carrier> FetchCarriers()
+        {
+            List<Carrier> carriers = db.GetAllCarriers();
+            return carriers;
+        }
+
 
         ///
         /// \brief This method is called in order to update the rate/fee for the TMS application
@@ -89,10 +161,10 @@ namespace Transportation_Management_System
         /// 
         /// \return Returns result of the query after we perform the update carrier command
         /// 
-        public string UpdateCarrierInfo(string newInfo)
+        public void UpdateCarrierInfo(Carrier newCarrier)
         {
 
-            return "";
+            db.UpdateCarrier(newCarrier);
         }
 
         ///
@@ -102,22 +174,33 @@ namespace Transportation_Management_System
         /// 
         /// \return Returns string
         /// 
-        public string UpdateRoute(string newRoute)
+        public void UpdateRouteAD(Route newRoute)
         {
 
-            return "";
+            db.UpdateRoute(newRoute);
         }
 
+
+        public List<Route> GetRoutesAD()
+        {
+            return db.GetRoutes();
+        }
+
+
+        public void UpdateDatabaseConString(string fieldToChange, string newData)
+        {
+            db.UpdateDatabaseConnectionString(fieldToChange, newData);
+        }
         ///
         /// \brief This method is called to create a backup for the TMS application
         /// 
         /// 
         /// \return Returns TRUE if backup is successful, else FALSE
         /// 
-        public string CreateBackup()
+        public void Backup(string backUpFilePath)
         {
+            db.BackupDatabase(backUpFilePath);
 
-            return "";
         }
 
         ///

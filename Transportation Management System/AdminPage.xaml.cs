@@ -100,8 +100,7 @@ namespace Transportation_Management_System
             RouteGrid.Visibility = Visibility.Visible;
 
             List<Route> routeList = new List<Route>();
-            DAL db = new DAL();
-            routeList = db.GetRoutes();
+            routeList = admin.GetRoutesAD();
             RouteDatabase.ItemsSource = routeList;
         }
 
@@ -189,9 +188,9 @@ namespace Transportation_Management_System
                         string caller = (sender as System.Windows.Controls.ListView).Name;
                         if (caller == "CarrierDatabaseList")
                         {
-                            DAL db = new DAL();
 
-                            List<CarrierCity> carriersList = db.FilterCitiesByCarrier(selectedCarrier.Name);
+
+                            List<CarrierCity> carriersList = admin.GetCitiesByCarrier(selectedCarrier.Name);
                             CityDatabase.ItemsSource = carriersList;
 
                         }
@@ -241,7 +240,7 @@ namespace Transportation_Management_System
             Carrier carrier = null;
             CarrierCity carrierCity = null;
 
-            DAL db = new DAL();
+
 
             try
             {
@@ -253,7 +252,7 @@ namespace Transportation_Management_System
 
                 // create a carrier object with the values
                 carrier = new Carrier(carrierName, _FTLRate, _LTLRate, reefer);
-                carrier.CarrierID = db.GetCarrierIdByName(carrier.Name);
+                carrier.CarrierID = admin.FetchCarrierID(carrier.Name);
 
                 if (CarrierDatabaseList.SelectedItems.Count == 1 && CityDatabase.SelectedItems.Count == 1)
                 {
@@ -277,7 +276,7 @@ namespace Transportation_Management_System
             {
                 if (CarrierDatabaseList.SelectedItems.Count == 1 && CityDatabase.SelectedItems.Count == 0)
                 {
-                    db.UpdateCarrier(carrier);
+                    admin.UpdateCarrierInfo(carrier);
 
                     // Empty Cities list
                     CityDatabase.ItemsSource = new List<CarrierCity>();
@@ -287,11 +286,11 @@ namespace Transportation_Management_System
                 // Show details about the city if carrier and city is selected
                 else if (CarrierDatabaseList.SelectedItems.Count == 1 && CityDatabase.SelectedItems.Count == 1)
                 {
-                    carrierCity.Carrier.CarrierID = db.GetCarrierIdByName(carrier.Name);
-                    db.UpdateCarrierCity(carrierCity, ((CarrierCity) CityDatabase.SelectedItem).DepotCity);
+                    carrierCity.Carrier.CarrierID = admin.FetchCarrierID(carrier.Name);
+                    admin.UpdateCity(carrierCity, ((CarrierCity) CityDatabase.SelectedItem).DepotCity);
 
                     // Update the cities list
-                    List<CarrierCity> carriersList = db.FilterCitiesByCarrier(carrier.Name);
+                    List<CarrierCity> carriersList = admin.GetCitiesByCarrier(carrier.Name);
                     CityDatabase.ItemsSource = carriersList;
 
                     System.Windows.MessageBox.Show($"{carrierCity.DepotCity} updated successfully", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -315,7 +314,6 @@ namespace Transportation_Management_System
         private void DeleteCarrier_Click(object sender, RoutedEventArgs e)
         {
 
-            DAL db = new DAL();
 
             try
             {
@@ -326,7 +324,7 @@ namespace Transportation_Management_System
                     var result = System.Windows.MessageBox.Show($"Are you sure you want to delete the carrier {carrier.Name}?", "Are you sure?", MessageBoxButton.YesNo, MessageBoxImage.Question);
                     if (result == MessageBoxResult.Yes)
                     {
-                        db.DeleteCarrier(carrier);
+                        admin.CarrierDeletion(carrier);
 
 
                         PopulateCarrierList(sender, e);
@@ -339,7 +337,7 @@ namespace Transportation_Management_System
                 // If a city and the carrier is selected
                 else if (CarrierDatabaseList.SelectedItems.Count == 1 && CityDatabase.SelectedItems.Count == 1)
                 {
-                    carrier.CarrierID = db.GetCarrierIdByName(carrier.Name);
+                    carrier.CarrierID = admin.FetchCarrierID(carrier.Name);
 
                     CarrierCity carrierCity = (CarrierCity) CityDatabase.SelectedItem;
                     carrierCity.Carrier = carrier;
@@ -347,7 +345,7 @@ namespace Transportation_Management_System
                     var result = System.Windows.MessageBox.Show($"Are you sure you want to delete the carrier city {carrierCity.DepotCity}?", "Are you sure?", MessageBoxButton.YesNo, MessageBoxImage.Question);
                     if (result == MessageBoxResult.Yes)
                     {
-                        db.RemoveCarrierCity(carrierCity);
+                        admin.CarrierCity(carrierCity, 0);
 
                         PopulateCarrierCitiesList(sender, e);
 
@@ -388,7 +386,6 @@ namespace Transportation_Management_System
             Carrier newCarrier = null;
             CarrierCity newCarrierCity = null;
 
-            DAL db = new DAL();
 
             try
             {
@@ -400,7 +397,7 @@ namespace Transportation_Management_System
 
                 // create a carrier object with the values
                 newCarrier = new Carrier(carrierName, _FTLRate, _LTLRate, reefer);
-                newCarrier.CarrierID = db.GetCarrierIdByName(newCarrier.Name);
+                newCarrier.CarrierID = admin.FetchCarrierID(newCarrier.Name);
                 
                 // Get the city and rates information
                 newDestination = Departure.Text;
@@ -420,12 +417,12 @@ namespace Transportation_Management_System
             try
             {
                 // If carrier exist, create city for that carrier (-1 if it doesnt exist)
-                if(db.GetCarrierIdByName(carrierName) != -1)
+                if(admin.FetchCarrierID(carrierName) != -1)
                 {
-                    db.CreateCarrierCity(newCarrierCity);
+                    admin.CarrierCity(newCarrierCity, 1);
 
                     // Update the cities list
-                    List<CarrierCity> carriersList = db.FilterCitiesByCarrier(newCarrier.Name);
+                    List<CarrierCity> carriersList = admin.GetCitiesByCarrier(newCarrier.Name);
                     CityDatabase.ItemsSource = carriersList;
 
                     System.Windows.MessageBox.Show($"New carrier depot city {newCarrierCity.DepotCity} created successfully", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -433,8 +430,8 @@ namespace Transportation_Management_System
                 // If it's a new carrier, create the carrier and the city
                 else
                 {
-                    newCarrier.CarrierID = db.CreateCarrier(newCarrier);
-                    db.CreateCarrierCity(newCarrierCity);
+                    newCarrier.CarrierID = admin.CarrierCreation(newCarrier);
+                    admin.CarrierCity(newCarrierCity, 1);
 
                     PopulateCarrierList(sender, e);
                     CityDatabase.ItemsSource = new List<CarrierCity>();
@@ -456,19 +453,19 @@ namespace Transportation_Management_System
 
         private void PopulateCarrierList(object sender, RoutedEventArgs e)
         {
-            DAL db = new DAL();
-            List<Carrier> carriersList = db.GetAllCarriers();
+
+            List<Carrier> carriersList = admin.FetchCarriers();
             CarrierDatabaseList.ItemsSource = carriersList;
         }
 
 
         private void PopulateCarrierCitiesList(object sender, RoutedEventArgs e)
         {
-            DAL db = new DAL();
+
 
             Carrier selectedCarrier = (Carrier)CarrierDatabaseList.SelectedItem;
 
-            List<CarrierCity> carriersList = db.FilterCitiesByCarrier(selectedCarrier.Name);
+            List<CarrierCity> carriersList = admin.GetCitiesByCarrier(selectedCarrier.Name);
             CityDatabase.ItemsSource = carriersList;
         }
 
@@ -506,7 +503,6 @@ namespace Transportation_Management_System
             
             Route route = null;
             
-            DAL db = new DAL();
 
             try
             {
@@ -535,11 +531,11 @@ namespace Transportation_Management_System
                 var result = System.Windows.MessageBox.Show($"Are you sure you want to update the route to {route.Destination}?", "Are you sure?", MessageBoxButton.YesNo, MessageBoxImage.Question);
                 if (result == MessageBoxResult.Yes)
                 {
-                    db.UpdateRoute(route);
+                    admin.UpdateRouteAD(route);
 
                     // Reload the updated route list 
                     List<Route> routeList = new List<Route>();
-                    routeList = db.GetRoutes();
+                    routeList = admin.GetRoutesAD();
                     RouteDatabase.ItemsSource = routeList;
 
                     System.Windows.MessageBox.Show($"Route to {route.Destination} updated successfully", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -580,8 +576,6 @@ namespace Transportation_Management_System
             string newPassword;
             string newDatabase;
 
-            DAL db = new DAL();
-
             try
             {
                 // Get the carrier information from the form
@@ -592,11 +586,11 @@ namespace Transportation_Management_System
                 newDatabase = DatabaseBox.Text;
 
                 // Insert the information to the config file
-                db.UpdateDatabaseConnectionString(fieldServer, newServer);
-                db.UpdateDatabaseConnectionString(fieldPort, newPort);
-                db.UpdateDatabaseConnectionString(fieldUser, newUser);
-                db.UpdateDatabaseConnectionString(fieldPassword, newPassword);
-                db.UpdateDatabaseConnectionString(fieldDatabase, newDatabase);
+                admin.UpdateDatabaseConString(fieldServer, newServer);
+                admin.UpdateDatabaseConString(fieldPort, newPort);
+                admin.UpdateDatabaseConString(fieldUser, newUser);
+                admin.UpdateDatabaseConString(fieldPassword, newPassword);
+                admin.UpdateDatabaseConString(fieldDatabase, newDatabase);
                 System.Windows.MessageBox.Show("Database Information successfully updated", "Database Updated", MessageBoxButton.OK, MessageBoxImage.Information);
             }
 
@@ -611,11 +605,9 @@ namespace Transportation_Management_System
         {
             string field = "Port";
             string newData = PortBox.Text;
-
-            DAL db = new DAL();
             try
             {
-                db.UpdateDatabaseConnectionString(field, newData);
+                admin.UpdateDatabaseConString(field, newData);
                 System.Windows.MessageBox.Show("Port successfully updated", "Database Updated", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception)
@@ -672,8 +664,6 @@ namespace Transportation_Management_System
 
         private void ProcessBackup_Click(object sender, RoutedEventArgs e)
         {
-            //Set up the database object 
-            DAL db = new DAL();
 
             // Get the current path for processing the backup
             string backupPath = BackupPath.Text;
@@ -681,7 +671,7 @@ namespace Transportation_Management_System
             try
             {
                 // Process the backup
-                db.BackupDatabase(backupPath);
+                admin.Backup(backupPath);
                 System.Windows.MessageBox.Show("The backup was succesfully processed!", "Backup Processed", MessageBoxButton.OK, MessageBoxImage.Information);
                 BackupDate.Content = DateTime.Now.ToString("MM-dd-yyyy HH:mm");
             }
@@ -703,7 +693,7 @@ namespace Transportation_Management_System
             Database.Background = Brushes.LightSkyBlue;
             
             /*List<OSHTRates> ratesList = new List<OSTHRates>();
-            DAL db = new DAL();
+
             ratesList = db.GetOSHTRates();
             RatesDatabase.ItemsSource = ratesList;*/
         }
@@ -714,8 +704,6 @@ namespace Transportation_Management_System
             double LTLValue;
 
             //OHTBRate rate = null;
-
-            DAL db = new DAL();
 
             try
             {
