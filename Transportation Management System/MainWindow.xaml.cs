@@ -1,4 +1,16 @@
-﻿using System;
+﻿
+/* -- FILEHEADER COMMENT --
+    FILE		:	Logger.cs
+    PROJECT		:	Transportation Management System
+    PROGRAMMER	:  * Ana De Oliveira
+                   * Icaro Ryan Oliveira Souza
+                   * Lazir Pascual
+                   * Rohullah Noory
+    DATE		:	2021-12-07
+    DESCRIPTION	:	This file contains the source for the MainWindow UI.
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,11 +32,23 @@ namespace Transportation_Management_System
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        ///
+        /// \brief This constructor is used to initialize the main window UI.
+        /// 
         public MainWindow()
         {
             InitializeComponent();
         }
 
+        ///
+        /// \brief Event handler for when user presses and drags on screen.
+        /// 
+        /// \param sender  - <b>object</b> - object that invoked the event handler.
+        /// \param e  - <b>RoutedEventArgs</b> - base class used to pass data to event handler.
+        /// 
+        /// \return None - void
+        /// 
         private void MainWindow_OnMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
@@ -33,11 +57,27 @@ namespace Transportation_Management_System
             }
         }
 
+        ///
+        /// \brief Event handler for when Button is clicked.
+        /// 
+        /// \param sender  - <b>object</b> - object that invoked the event handler.
+        /// \param e  - <b>RoutedEventArgs</b> - base class used to pass data to event handler.
+        /// 
+        /// \return None - void
+        /// 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }
 
+        ///
+        /// \brief Event handler for when Signin button is clicked.
+        /// 
+        /// \param sender  - <b>object</b> - object that invoked the event handler.
+        /// \param e  - <b>RoutedEventArgs</b> - base class used to pass data to event handler.
+        /// 
+        /// \return None - void
+        /// 
         private void Signin_Button_Click(object sender, RoutedEventArgs e)
         {
             string loginResult = CheckLogin();
@@ -64,6 +104,13 @@ namespace Transportation_Management_System
             }
         }
 
+
+        ///
+        /// \brief Used to check the user log in information
+        /// 
+        /// 
+        /// \return user type based on user.
+        /// 
         private string CheckLogin()
         {
             DAL auth = new DAL();

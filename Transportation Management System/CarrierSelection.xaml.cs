@@ -1,4 +1,17 @@
-﻿using System;
+﻿
+/* -- FILEHEADER COMMENT --
+    FILE		:	CarrierSelection.xaml.cs
+    PROJECT		:	Transportation Management System
+    PROGRAMMER	:  * Ana De Oliveira
+                   * Icaro Ryan Oliveira Souza
+                   * Lazir Pascual
+                   * Rohullah Noory
+    DATE		:	2021-12-07
+    DESCRIPTION	:	This file contains the source for the carrier selection user interface in Planner accounts.
+                    It allows a Planner to view available carriers and select carriers for an order.
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,14 +32,25 @@ namespace Transportation_Management_System
     /// </summary>
     public partial class CarrierSelection : Window
     {
-        Order currentOrder;
-        List<string> carriers = new List<string>();
+        // Order object
+        private readonly Order currentOrder;
+        // list of carriers
+        private readonly List<string> carriers = new List<string>();
 
+        ///
+        /// \brief This constructor is used to initialize the visibility status of components within the carrier selection UI.
+        /// 
         public CarrierSelection()
         {
             InitializeComponent();
         }
 
+        ///
+        /// \brief This overloaded constructor is used to initialize the visibility status of components within the carrier selection UI.
+        /// 
+        /// \param carriers - <b>List<CarrierCity></b> - list of carrier city objects.
+        /// \param order - <b>Order</b> - Order object with its functionalities. 
+        /// 
         public CarrierSelection(List<CarrierCity> carriers, Order order)
         {
             InitializeComponent();
@@ -43,6 +67,14 @@ namespace Transportation_Management_System
             }
         }
 
+        ///
+        /// \brief Event handler for when SelectCarrier button is clicked.
+        /// 
+        /// \param sender  - <b>object</b> - object that invoked the event handler.
+        /// \param e  - <b>RoutedEventArgs</b> - base class used to pass data to event handler.
+        /// 
+        /// \return None - void
+        /// 
         private void SelectCarrier_Click(object sender, RoutedEventArgs e)
         {
             if (CarrierList.SelectedItem == null)
@@ -121,6 +153,13 @@ namespace Transportation_Management_System
             }     
         }
 
+
+        /// 
+        /// \brief The purpose of this private class is to hold and model all attributes of the carrier with LTL avalability.
+        /// 
+        ///
+        /// \author <i>Team Blank</i>
+        ///
         private class LTL
         {
             public int CarrierID { get; set; }
@@ -130,6 +169,12 @@ namespace Transportation_Management_System
             public double LTLRate { get; set; }
         }
 
+        /// 
+        /// \brief The purpose of this private class is to hold and model all attributes of the carrier with FTL avalability.
+        /// 
+        ///
+        /// \author <i>Team Blank</i>
+        ///
         private class FTL
         {
             public int CarrierID { get; set; }
@@ -140,6 +185,13 @@ namespace Transportation_Management_System
             public double ReeferCharge { get; set; }
         }
 
+        ///
+        /// \brief Used to create columns for orders that are of type LTL.
+        /// 
+        /// \param carriers  - <b>List<CarrierCity></b> - object that invoked the event handler.
+        /// 
+        /// \return None - void
+        /// 
         private void CreateCarrierLTL(List<CarrierCity> carriers)
         {
             var gridView = new GridView();
@@ -171,6 +223,13 @@ namespace Transportation_Management_System
             }
         }
 
+        ///
+        /// \brief Used to create columns for orders that are of type FTL.
+        /// 
+        /// \param carriers  - <b>List<CarrierCity></b> - object that invoked the event handler.
+        /// 
+        /// \return None - void
+        /// 
         private void CreateCarrierFTL(List<CarrierCity> carriers)
         {
             var gridView = new GridView();

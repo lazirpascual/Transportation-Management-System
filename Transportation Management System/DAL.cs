@@ -1,4 +1,16 @@
-﻿using System;
+﻿
+/* -- FILEHEADER COMMENT --
+    FILE		:	DAL.cs
+    PROJECT		:	Transportation Management System
+    PROGRAMMER	:  * Ana De Oliveira
+                   * Icaro Ryan Oliveira Souza
+                   * Lazir Pascual
+                   * Rohullah Noory
+    DATE		:	2021-12-07
+    DESCRIPTION	:	This file contains the source for the DAL class.
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,11 +36,16 @@ namespace Transportation_Management_System
     ///
     public class DAL
     {
-        private string Server { get; set; }         /// Host of the database
-        private string User { get; set; }           /// Username to connect to the database
-        private string Port { get; set; }           /// Port to connect to the database
-        private string Password { get; set; }       /// Port to connect to the database
-        private string DatabaseName { get; set; }   /// Name of the database
+        /// Host of the database
+        private string Server { get; set; }
+        /// Username to connect to the database
+        private string User { get; set; }
+        /// Port to connect to the database
+        private string Port { get; set; }
+        /// Port to connect to the database
+        private string Password { get; set; }
+        /// Name of the database
+        private string DatabaseName { get; set; }   
 
         ///
         /// \brief Contruct the DataAccessLayer object by setting the database connection information
