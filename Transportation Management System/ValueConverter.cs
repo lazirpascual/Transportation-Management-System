@@ -67,12 +67,15 @@ namespace Transportation_Management_System
     ///
     public class DateConverter : IValueConverter
     {
+        private static readonly DateTime dateTime = new DateTime(DateTime.MinValue.ToOADate());
         public object Convert(object value, Type targetType, object parameter,
                 System.Globalization.CultureInfo culture)
         {
+            const string date = DateTime.MinValue.ToString();
             switch (value.ToString())
             {
-                case "1/1/0001 12:00:00 AM":
+                //case "1/1/0001 12:00:00 AM":
+                case date:
                     return "N/A";
 
                 default:
