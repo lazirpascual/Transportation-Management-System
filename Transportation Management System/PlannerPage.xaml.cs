@@ -123,6 +123,7 @@ namespace Transportation_Management_System
             }
 
             OrdersList.ItemsSource = orderList;
+      
         }
 
         private void AllBox_Click(object sender, RoutedEventArgs e)
