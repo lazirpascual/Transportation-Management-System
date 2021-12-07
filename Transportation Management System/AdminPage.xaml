@@ -20,14 +20,14 @@
                 <Image Source="logo_white.png" Margin="10,0,667,291"/>
             </Border>
             <Grid>
-                <Button x:Name ="UserCreation" Content="Create User" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,157,0,0" Click="UserCreation_Click"/>
+                <Button x:Name ="UserCreation" Content="Create User" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,157,0,0" Click="CreateUser_Click"/>
                 <Button x:Name ="Backup" Content="Backup" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,209,0,0" Click="Backup_Click"/>
                 <Button x:Name ="LogFiles" Content="Log File" Background="WhiteSmoke" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,261,0,0" Click="LogFiles_Click"/>
                 <Button x:Name ="Database" Content="Database" Background="WhiteSmoke" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,312,0,0" Click="Database_Click"/>
                 <Button x:Name ="Configuration" Content="General Config" Background="WhiteSmoke" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,363,0,0" Click="Configuration_Click"/>
            <TextBox x:Name="AdminLog" Margin="146,10,20,10" MaxWidth="620" MaxHeight="390" Visibility="Visible" AcceptsReturn="False" IsReadOnly="True" TextWrapping="Wrap" Background="GhostWhite" VerticalScrollBarVisibility="Auto"/>
             </Grid>
-            <Grid>
+            <Grid x:Name="CreateUserGrid" Visibility="Hidden">
                 <Label Content="Create New User" FontWeight="Bold" HorizontalAlignment="Left" Margin="182,37,0,0" VerticalAlignment="Top"/>
                 <Label Content="First Name" HorizontalAlignment="Left" Margin="182,88,0,0" VerticalAlignment="Top"/>
                 <Label Content="Last Name" HorizontalAlignment="Left" Margin="182,126,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.441,1.673"/>

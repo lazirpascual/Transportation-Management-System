@@ -253,12 +253,12 @@ namespace Transportation_Management_System
         ///
         /// \param usr  - <b>User</b> - An User object with all their information
         /// 
-        public void CreateUser(User usr)
+        public bool CreateUser(User usr)
         {
             string sql = "INSERT INTO Users (FirstName, LastName, Username, PasswordHash, Email, IsActive, UserType) " +
                 "VALUES (@FirstName, @LastName, @Username, @Password, @Email, @IsActive, @UserType)";
 
-           
+            bool userCreated = false;
             try
             {
                 using (MySqlConnection conn = new MySqlConnection(this.ToString()))
@@ -279,6 +279,7 @@ namespace Transportation_Management_System
                         // Execute the insertion and check the number of rows affected
                         // An exception will be thrown if the column is repeated
                         cmd.ExecuteNonQuery();
+                        userCreated = true;
                     }
                 }
             }
@@ -292,7 +293,7 @@ namespace Transportation_Management_System
                 Logger.Log(e.Message, LogLevel.Error);
                 throw;
             }
-
+            return userCreated;
         }
 
 

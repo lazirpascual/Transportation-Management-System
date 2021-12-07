@@ -36,7 +36,7 @@ namespace Transportation_Management_System
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            Orders_Click(sender, e);
+            MarketPlace_Click(sender, e);
         }
 
         private void MarketPlace_Click(object sender, RoutedEventArgs e)
