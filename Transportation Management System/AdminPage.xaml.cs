@@ -41,10 +41,18 @@ namespace Transportation_Management_System
 
             string logFileName = admin.ViewLogFiles();
 
-            if (logFileName != null)
+            try
             {
-                AdminLog.Text = File.ReadAllText(logFileName);
+                if (logFileName != null)
+                {
+                    AdminLog.Text = File.ReadAllText(logFileName);
+                }
             }
+            catch (Exception)
+            {
+                System.Windows.MessageBox.Show("Could not access log file. Please try again later.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            
         }
 
         private void Configuration_Click(object sender, RoutedEventArgs e)
