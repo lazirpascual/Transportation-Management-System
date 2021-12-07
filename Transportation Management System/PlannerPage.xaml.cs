@@ -151,7 +151,7 @@ namespace Transportation_Management_System
             CarrierSelection selectCarrier = new CarrierSelection(carrierCity, currentOrder);
             if (selectCarrier.ShowDialog() == true)
             {
-                CompleteOrder.Visibility = Visibility.Visible;
+                CompleteOrder.Visibility = Visibility.Hidden;
                 OrderProgress.Visibility = Visibility.Visible;
                 ViewCarrier.Visibility = Visibility.Hidden;
                 Refresh_Orders();
