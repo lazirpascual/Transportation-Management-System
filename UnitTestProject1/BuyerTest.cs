@@ -1,8 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Threading;
 using Transportation_Management_System;
 
 namespace UnitTestProject1
@@ -29,19 +26,16 @@ namespace UnitTestProject1
         [TestMethod]
         public void CreateOrder_ExceptionTest()
         {
-
         }
 
         [TestMethod]
         public void GetActiveCustomers_FunctionalTest()
         {
-
         }
 
         [TestMethod]
         public void GetActiveCustomers_ExceptionTest()
         {
-
         }
     }
 }

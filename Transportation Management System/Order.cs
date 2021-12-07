@@ -1,25 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿/* -- FILEHEADER COMMENT --
+    FILE		:	Order.cs
+    PROJECT		:	Transportation Management System
+    PROGRAMMER	:  * Ana De Oliveira
+                   * Icaro Ryan Oliveira Souza
+                   * Lazir Pascual
+                   * Rohullah Noory
+    DATE		:	2021-12-07
+    DESCRIPTION	:	This file contains the source for the Order class.
+*/
+
+using System;
 
 namespace Transportation_Management_System
 {
-    /// 
+    ///
     /// \class Order
-    /// 
-    /// \brief The purpose of this class is to model the Order class
+    ///
+    /// \brief The purpose of this class is to model an Order.
     ///
     /// This class will demonstrate the attributes members and methods of an Order Class. An order
     /// is generated based on the client demand and after receiving all the detail information of the trip and
-    /// quantity to be delivered. The class will contain properties for each of the data members. 
-    /// 
+    /// quantity to be delivered. The class will contain properties for each of the data members.
+    ///
     /// \author <i>Team Blank</i>
     ///
     public class Order
     {
-        /// The identifier number of the order 
+        /// The identifier number of the order
         public int OrderID { get; set; }
 
         /// The client related the order
@@ -28,7 +35,7 @@ namespace Transportation_Management_System
         /// The date when the order was created from the marketplace
         public DateTime OrderCreationDate { get; set; }
 
-        /// The date when the order was 
+        /// The date when the order was
         public DateTime OrderAcceptedDate { get; set; }
 
         /// The origin of the order's trip
@@ -55,7 +62,9 @@ namespace Transportation_Management_System
         /// The date when the order was completed
         public DateTime OrderCompletionDate { get; set; }
 
-
+        ///
+        /// \brief This Order class constructor is used to initialize the properties of the order.
+        ///
         public Order(string clientName, City origin, City destination, JobType jobType, int quantity, VanType vanType)
         {
             ClientName = clientName;
@@ -68,35 +77,10 @@ namespace Transportation_Management_System
             InvoiceGenerated = 0;
         }
 
-        public Order() {}
-
-
         ///
-        /// \brief SetClient defines a client number for a new client registered in the system
-        /// 
-        /// \param clientName  - <b>string</b> - to link a client to a specified order 
-        /// 
-        /// \return Client 
+        /// \brief This Order class constructor is used to initialize the properties of the order with empty values.
         ///
-        //public Client SetClient(string clientName)
-        //{
-
-        //}
-
-        ///
-        /// \brief Determine the trip of the order based on the origin and destination
-        /// 
-        /// \param destination  - <b>string</b> - the final point of the delivery trip
-        /// \param origin - <b>string</b> - the starting point of the delivery trip
-        /// 
-        /// \return void
-        ///
-        //public bool CreateTrip(string destination, string origin)
-        //{
-
-        //}
-
+        public Order()
+        { }
     }
-
-
 }

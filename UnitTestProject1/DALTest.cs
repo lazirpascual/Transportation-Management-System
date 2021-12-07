@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using Transportation_Management_System;
 using System.Collections.Generic;
+using Transportation_Management_System;
 
 namespace UnitTestProject1
 {
@@ -43,10 +43,7 @@ namespace UnitTestProject1
             // Insert another user with the same username
             usr = new User("babaFirstName", "babaLastName", "jiji123", "pass", "email@gmail.com", UserRole.Buyer);
             Assert.ThrowsException<ArgumentException>(() => db.CreateUser(usr));
-
         }
-
-
 
         // Test if a new client is successfully created
         [TestMethod]
@@ -72,10 +69,9 @@ namespace UnitTestProject1
 
             // Insert the same client again with the same username
             Assert.ThrowsException<ArgumentException>(() => db.CreateClient(client));
-
         }
 
-        // Test if correct client is returned based on the name filter criteria 
+        // Test if correct client is returned based on the name filter criteria
         [TestMethod]
         public void FilterClientByNameNormal()
         {
@@ -87,12 +83,10 @@ namespace UnitTestProject1
                 db.CreateClient(client);
             }
             // Ignore exceptions if the client already exists
-            catch {}
-            
+            catch { }
 
             Assert.IsNotNull(db.FilterClientByName("ExistentGuy"));
         }
-
 
         // Test if null is returned when an inexistent client is found
         [TestMethod]
@@ -101,7 +95,6 @@ namespace UnitTestProject1
             DAL db = new DAL();
             Assert.IsNull(db.FilterClientByName("InexistentGuy"));
         }
-
 
         // Test if an order is inserted in the database
         [TestMethod]
@@ -112,11 +105,10 @@ namespace UnitTestProject1
             List<Contract> contracts = CMP.GetContracts();
             Contract contract = contracts[0];
 
-            // Generate order 
+            // Generate order
             City origin = (City)Enum.Parse(typeof(City), contract.Origin.ToString(), true);
             City destination = (City)Enum.Parse(typeof(City), contract.Destination.ToString(), true);
             Order order = new Order(contract.ClientName, origin, destination, contract.JobType, contract.Quantity, contract.VanType);
-
 
             DAL db = new DAL();
 
@@ -142,11 +134,10 @@ namespace UnitTestProject1
             List<Contract> contracts = CMP.GetContracts();
             Contract contract = contracts[0];
 
-            // Generate order 
+            // Generate order
             City origin = (City)Enum.Parse(typeof(City), contract.Origin.ToString(), true);
             City destination = (City)Enum.Parse(typeof(City), contract.Destination.ToString(), true);
             Order order = new Order("NonExistentBuddy", origin, destination, contract.JobType, contract.Quantity, contract.VanType);
-
 
             DAL db = new DAL();
 

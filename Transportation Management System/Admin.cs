@@ -1,19 +1,22 @@
-﻿using System;
+﻿/* -- FILEHEADER COMMENT --
+    FILE		:	Admin.cs
+    PROJECT		:	Transportation Management System
+    PROGRAMMER	:  * Ana De Oliveira
+                   * Icaro Ryan Oliveira Souza
+                   * Lazir Pascual
+                   * Rohullah Noory
+    DATE		:	2021-12-07
+    DESCRIPTION	:	This file contains the source for the Admin class which inherits from User class.
+
+*/
+
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
-using Microsoft.Win32;
-using System.Data;
-using System.Diagnostics;
-using System.Configuration;
 
 namespace Transportation_Management_System
 {
-    /// 
+    ///
     /// \class Admin
-    /// 
+    ///
     /// \brief The purpose of this class is to represent the Admin User
     ///
     /// This class represents the role of an Admin User, which represents a User who has IT experience
@@ -21,45 +24,30 @@ namespace Transportation_Management_System
     ///
     /// \author <i>Team Blank</i>
     ///
-    class Admin : User
+    internal class Admin : User
     {
-        private string LogDirectory { get; set; }
-        private string LogFile { get; set; }
-
-        private DAL db = new DAL();
-
-        ///
-        /// \brief This constructor is used to initialize the log file name and directory
-        /// 
-        /// 
-        ///        
-        public Admin()
-        {
-            LogFile = "tms.log";
-            LogDirectory = Directory.GetCurrentDirectory();
-        }
+        // object to access the database
+        private readonly DAL db = new DAL();
 
         ///
         /// \brief This method is called to view the current log files
-        /// 
-        /// 
-        /// \return Returns list of current log files
-        ///  
+        ///
+        ///
+        /// \return list of current log files
+        ///
         public string ViewLogFiles()
         {
-                              
             return Logger.GetCurrentLogDirectory();
-                        
         }
 
         ///
-        /// \brief This method is called in order to change the directory 
+        /// \brief This method is called in order to change the directory
         /// of where the log files are currently being written.
-        /// 
+        ///
         /// \param newDirectory  - <b>string</b> - path to the new directory
-        /// 
-        /// \return Returns void
-        /// 
+        ///
+        /// \return true - if log directory was successfully changed, false - if unsuccessful
+        ///
         public bool ChangeLogDirectory(string newDirectory)
         {
             int result = Logger.ChangeLogDirectory(newDirectory);
@@ -75,52 +63,79 @@ namespace Transportation_Management_System
         }
 
         ///
-        /// \brief This method is called in order to update the rate/fee for the TMS application
-        /// 
-        /// \param rate  - <b>string</b> - value of the rate
-        /// 
-        /// \return Returns result of the query after we perform the update rate command
-        /// 
+        /// \brief This method is called in order to get the carrier ID of a specific carrier
+        ///
+        /// \param name  - <b>string</b> - name of the carrier
+        ///
+        /// \return the ID of the carrier
+        ///
         public int FetchCarrierID(string name)
         {
             int ID = db.GetCarrierIdByName(name);
             return ID;
         }
 
-
         ///
-        /// \brief This method is called in order to update the rate/fee for the TMS application
-        /// 
-        /// \param rate  - <b>string</b> - value of the rate
-        /// 
-        /// \return Returns result of the query after we perform the update rate command
-        /// 
+        /// \brief This method is called in order to update the depot city of a carrier
+        ///
+        /// \param cCity  - <b>CarrierCity</b> - CarrierCity object with all it's properties
+        /// \param oldCity  - <b>City</b> - value of the previous depot city of the carrier
+        ///
+        /// \return None - void
+        ///
         public void UpdateCity(CarrierCity cCity, City oldCity)
         {
             db.UpdateCarrierCity(cCity, oldCity);
-
-
         }
 
+        ///
+        /// \brief This method is called in order to get a list of depot cities of a carrier.
+        ///
+        /// \param carrierName  - <b>string</b> - name of carrier.
+        ///
+        /// \return carrierCities - <b>List<CarrierCity></b> - list of depot cities of the carrier.
+        ///
         public List<CarrierCity> GetCitiesByCarrier(string carrierName)
         {
             List<CarrierCity> carrierCities = db.FilterCitiesByCarrier(carrierName);
             return carrierCities;
         }
 
+        ///
+        /// \brief This method is called in order to delete a specific carrier from the TMS database.
+        ///
+        /// \param carrier  - <b>Carrier</b> - Carrier object with all it's properties.
+        ///
+        /// \return None - void
+        ///
         public void CarrierDeletion(Carrier carrier)
         {
             db.DeleteCarrier(carrier);
         }
 
+        ///
+        /// \brief This method is called in order to create a new carrier in the TMS database.
+        ///
+        /// \param carrier  - <b>Carrier</b> - Carrier object with all it's properties.
+        ///
+        /// \return ID - <b>long</b> - the ID of the new carrier
+        ///
         public long CarrierCreation(Carrier carrier)
         {
             return db.CreateCarrier(carrier);
         }
 
+        ///
+        /// \brief This method is called in order to remove or create a carrier city.
+        ///
+        /// \param carrierCity  - <b>CarrierCity</b> - CarrierCity object with all it's properties.
+        /// \param CR  - <b>int</b> - integer value to indicate creation or deletion.
+        ///
+        /// \return None - void
+        ///
         public void CarrierCity(CarrierCity carrierCity, int CR)
         {
-            if(CR==0)
+            if (CR == 0)
             {
                 db.RemoveCarrierCity(carrierCity);
             }
@@ -128,96 +143,119 @@ namespace Transportation_Management_System
             {
                 db.CreateCarrierCity(carrierCity);
             }
-            
         }
 
-
+        ///
+        /// \brief This method is called in order to get a list of all carrier in the TMS.
+        ///
+        /// \param None
+        ///
+        /// \return carriers - <b>List<Carrier></b> - list of all carriers.
+        ///
         public List<Carrier> FetchCarriers()
         {
             List<Carrier> carriers = db.GetAllCarriers();
             return carriers;
         }
 
-
         ///
-        /// \brief This method is called in order to update the rate/fee for the TMS application
-        /// 
-        /// \param rate  - <b>string</b> - value of the rate
-        /// 
-        /// \return Returns result of the query after we perform the update rate command
-        /// 
-        public string UpdateRate(string rate)
+        /// \brief This method is called in order to get the rates from the TMS database.
+        ///
+        /// \param None
+        ///
+        /// \return OSHTRates - <b>Rate</b> - rate from the database.
+        ///
+        public Rate FetchOSHTRates()
         {
-
-            return "";
+            return db.GetOSHTRates();
         }
 
         ///
-        /// \brief This method is called in order to update the carrier information
-        /// 
-        /// \param newInfo  - <b>string</b> - updated information
-        /// 
-        /// \return Returns result of the query after we perform the update carrier command
-        /// 
+        /// \brief Update an existing carrier's attributes.
+        ///
+        /// \param newCarrier  - <b>Carrier</b> - The new carrier information to be used in the update
+        ///
+        /// \return None - void
+        ///
         public void UpdateCarrierInfo(Carrier newCarrier)
         {
-
             db.UpdateCarrier(newCarrier);
         }
 
         ///
-        /// \brief This method is called in order to update the the current route
-        /// 
-        /// \param newInfo  - <b>string</b> - updated route
-        /// 
-        /// \return Returns string
-        /// 
+        /// \brief Update an existing route's attributes
+        ///
+        /// \param newRoute  - <b>Route</b> - The new route information to be used in the update.
+        ///
+        /// \return None - void
+        ///
         public void UpdateRouteAD(Route newRoute)
         {
-
             db.UpdateRoute(newRoute);
         }
 
-
+        ///
+        /// \brief Used to get a list of the routes form the TMS database.
+        ///
+        /// \param None
+        ///
+        /// \return A list of routes.
+        ///
         public List<Route> GetRoutesAD()
         {
             return db.GetRoutes();
         }
 
-
+        ///
+        /// \brief Used to modify the database connection string.
+        ///
+        /// \param fieldToChange  - <b>string</b> - name of field to change.
+        /// \param newData  - <b>string</b> - new value of the field.
+        ///
+        /// \return None - void
+        ///
         public void UpdateDatabaseConString(string fieldToChange, string newData)
         {
             db.UpdateDatabaseConnectionString(fieldToChange, newData);
         }
+
         ///
-        /// \brief This method is called to create a backup for the TMS application
-        /// 
-        /// 
-        /// \return Returns TRUE if backup is successful, else FALSE
-        /// 
+        /// \brief This method is called to create a backup for the TMS application.
+        ///
+        /// \param backUpFilePath - <b>string</b> - file path of the backup.
+        ///
+        /// \return None - void
+        ///
         public void Backup(string backUpFilePath)
         {
             db.BackupDatabase(backUpFilePath);
-
         }
 
         ///
         /// \brief This method is called to create a user for the TMS application
-        /// 
-        /// 
-        /// \return Returns TRUE if backup is successful, else FALSE
-        /// 
+        ///
+        /// \param user - <b>User</b> - file path of the backup.
+        ///
+        /// \return true - if user is created successfully, false - if unsuccessful.
+        ///
         public bool CreateAUser(User user)
         {
-            DAL db = new DAL();
             bool userCreated = false;
-            if(db.CreateUser(user)==true)
+            if (db.CreateUser(user) == true)
             {
                 userCreated = true;
             }
             return userCreated;
         }
 
+        ///
+        /// \brief This method is called to update the rate in the TMS database.
+        ///
+        /// \param rate - <b>double</b> - new rate.
+        /// \param type - <b>RateType</b> - rate type.
+        ///
+        /// \return None - void
+        ///
         public void UpdateRate(double rate, RateType type)
         {
             db.UpdateOSHTRate(rate, type);

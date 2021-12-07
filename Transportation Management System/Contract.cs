@@ -1,56 +1,59 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data.SqlClient;
-using System.Data;
-using MySql.Data.MySqlClient;
+﻿/* -- FILEHEADER COMMENT --
+    FILE		:	Contract.cs
+    PROJECT		:	Transportation Management System
+    PROGRAMMER	:  * Ana De Oliveira
+                   * Icaro Ryan Oliveira Souza
+                   * Lazir Pascual
+                   * Rohullah Noory
+    DATE		:	2021-12-07
+    DESCRIPTION	:	This file contains the source for the Contract class.
+*/
 
 namespace Transportation_Management_System
 {
+    ///
+    ///  Enum to convert JobType from int to actual job type (FTL/LTL).
+    ///
     public enum JobType
     {
         FTL,
         LTL
     }
+
+    ///
+    ///  Enum to convert VanType from int to actual van type (DryVan/Reefer).
+    ///
     public enum VanType
     {
         DryVan,
         Reefer
     }
-    /// 
-    /// \class Contract
-    /// 
-    /// \brief The purpose of this class is to model the contract class
+
     ///
-    /// This class will demonstrate the attributes of a Contract Class. A contract is generated
-    /// based on the client demand and after receiving all the detail information of the trip and
-    /// quantity to be delivered. The class will contain properties for each of the data members. 
+    /// \class Contract
+    ///
+    /// \brief The purpose of this class is to model a contract fetched from the marketplace.
     ///
     /// \author <i>Team Blank</i>
     ///
     public class Contract
     {
-        /// Gets and Sets the contract's Client Name
+        /// Name of the client
         public string ClientName { get; set; }
 
-        /// Gets and Sets the contract's JobType
+        /// JobType mentioned in the contract
         public JobType JobType { get; set; }
 
-        /// Gets and Sets the contract's Quantity
+        /// Quantity of product in contract
         public int Quantity { get; set; }
 
-        /// Gets and Sets the contract's Origin
+        /// Origin city of the contract
         public City Origin { get; set; }
 
-        /// Gets and Sets the contract's Destination
-        public City Destination { get; set; } 
+        /// Destination city of the contract
+        public City Destination { get; set; }
 
-        /// Gets and Sets the contract's VanType
+        /// VanType needed for the contract
         public VanType VanType { get; set; }
-
-
-        // Create a Contract Constructor
     }
 }

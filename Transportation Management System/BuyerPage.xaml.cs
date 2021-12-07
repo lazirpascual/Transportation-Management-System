@@ -1,17 +1,23 @@
-﻿using System;
+﻿/* -- FILEHEADER COMMENT --
+    FILE		:	BuyerPage.xaml.cs
+    PROJECT		:	Transportation Management System
+    PROGRAMMER	:  * Ana De Oliveira
+                   * Icaro Ryan Oliveira Souza
+                   * Lazir Pascual
+                   * Rohullah Noory
+    DATE		:	2021-12-07
+    DESCRIPTION	:	This file contains the source for the Buyer user's user interface when they log in.
+                    It allows a buyer to perform all their functionalities such as; accepting an order,
+                    generating invoice for completed orders, viewing the list of clients etc.
+*/
+
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using System.ComponentModel;
 
 namespace Transportation_Management_System
 {
@@ -20,26 +26,56 @@ namespace Transportation_Management_System
     /// </summary>
     public partial class BuyerPage : Window
     {
+        // list of contacts
         private List<Contract> contractList;
+
+        // Buyer object to access the Buyer class.
         private readonly Buyer buyer = new Buyer();
 
+        ///
+        /// \brief This constructor is used to initialize the visibility status of components within the Buyer UI.
+        ///
         public BuyerPage()
         {
             InitializeComponent();
             MarketPlace_Page();
         }
 
+        ///
+        /// \brief Event handler for when window is closed.
+        ///
+        /// \param sender  - <b>object</b> - object that invoked the event handler.
+        /// \param e  - <b>System.ComponentModel.CancelEventArgs</b> - base class used to pass data to cancelable event.
+        ///
+        /// \return None - void
+        ///
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             App.Current.MainWindow.Visibility = Visibility.Visible;
         }
 
+        ///
+        /// \brief Event handler for when MarketPlace button is clicked.
+        ///
+        /// \param sender  - <b>object</b> - object that invoked the event handler.
+        /// \param e  - <b>RoutedEventArgs</b> - base class used to pass data to event handler.
+        ///
+        /// \return None - void
+        ///
         private void MarketPlace_Click(object sender, RoutedEventArgs e)
         {
             ResetStatus();
             MarketPlace_Page();
         }
-        
+
+        ///
+        /// \brief Event handler for when Invoice button is clicked.
+        ///
+        /// \param sender  - <b>object</b> - object that invoked the event handler.
+        /// \param e  - <b>RoutedEventArgs</b> - base class used to pass data to event handler.
+        ///
+        /// \return None - void
+        ///
         private void Invoice_Click(object sender, RoutedEventArgs e)
         {
             ResetStatus();
@@ -53,6 +89,14 @@ namespace Transportation_Management_System
             viewInvoice.SortDescriptions.Add(new SortDescription("OrderCompletionDate", ListSortDirection.Ascending));
         }
 
+        ///
+        /// \brief Event handler for when Orders button is clicked.
+        ///
+        /// \param sender  - <b>object</b> - object that invoked the event handler.
+        /// \param e  - <b>RoutedEventArgs</b> - base class used to pass data to event handler.
+        ///
+        /// \return None - void
+        ///
         private void Orders_Click(object sender, RoutedEventArgs e)
         {
             ResetStatus();
@@ -63,9 +107,16 @@ namespace Transportation_Management_System
             OrdersGrid.Visibility = Visibility.Visible;
 
             Refresh_Orders();
-
         }
 
+        ///
+        /// \brief Event handler for when Clients button is clicked.
+        ///
+        /// \param sender  - <b>object</b> - object that invoked the event handler.
+        /// \param e  - <b>RoutedEventArgs</b> - base class used to pass data to event handler.
+        ///
+        /// \return None - void
+        ///
         private void Clients_Click(object sender, RoutedEventArgs e)
         {
             ResetStatus();
@@ -76,6 +127,11 @@ namespace Transportation_Management_System
             ClientsList.ItemsSource = clientList;
         }
 
+        ///
+        /// \brief Used to manage the visibility status of the marketplace screen.
+        ///
+        /// \return None - void
+        ///
         private void MarketPlace_Page()
         {
             ResetStatus();
@@ -87,9 +143,14 @@ namespace Transportation_Management_System
             MarketPlace.Background = Brushes.LightSkyBlue;
         }
 
+        ///
+        /// \brief Used to manage the display of order list based on radio button selection.
+        ///
+        /// \return None - void
+        ///
         private void Refresh_Orders()
         {
-            var orderList = new List<Order>();
+            List<Order> orderList = new List<Order>();
 
             if (AllBox.IsChecked == true)
             {
@@ -112,21 +173,50 @@ namespace Transportation_Management_System
             viewOrder.SortDescriptions.Add(new SortDescription("OrderID", ListSortDirection.Ascending));
         }
 
+        ///
+        /// \brief Event handler for when AllBox radio button is clicked.
+        ///
+        /// \param sender  - <b>object</b> - object that invoked the event handler.
+        /// \param e  - <b>RoutedEventArgs</b> - base class used to pass data to event handler.
+        ///
+        /// \return None - void
+        ///
         private void AllBox_Click(object sender, RoutedEventArgs e)
         {
             Refresh_Orders();
         }
 
+        ///
+        /// \brief Event handler for when ActiveBox radio button is clicked.
+        ///
+        /// \param sender  - <b>object</b> - object that invoked the event handler.
+        /// \param e  - <b>RoutedEventArgs</b> - base class used to pass data to event handler.
+        ///
+        /// \return None - void
+        ///
         private void ActiveBox_Click(object sender, RoutedEventArgs e)
         {
             Refresh_Orders();
         }
 
+        ///
+        /// \brief Event handler for when CompletedBox radio button is clicked.
+        ///
+        /// \param sender  - <b>object</b> - object that invoked the event handler.
+        /// \param e  - <b>RoutedEventArgs</b> - base class used to pass data to event handler.
+        ///
+        /// \return None - void
+        ///
         private void CompletedBox_Click(object sender, RoutedEventArgs e)
         {
             Refresh_Orders();
         }
 
+        ///
+        /// \brief Used to reset the reset the UI and hide all elements.
+        ///
+        /// \return None - void
+        ///
         private void ResetStatus()
         {
             // Hide all modules
@@ -148,15 +238,23 @@ namespace Transportation_Management_System
             CompletedBox.IsChecked = false;
         }
 
+        ///
+        /// \brief Event handler for when AcceptClient radio button is clicked.
+        ///
+        /// \param sender  - <b>object</b> - object that invoked the event handler.
+        /// \param e  - <b>RoutedEventArgs</b> - base class used to pass data to event handler.
+        ///
+        /// \return None - void
+        ///
         private void AcceptClient_Click(object sender, RoutedEventArgs e)
         {
             // Get the current contract list shown in the table
-            var currentList = ContractsList.ItemsSource.Cast<Contract>().ToList();
+            List<Contract> currentList = ContractsList.ItemsSource.Cast<Contract>().ToList();
 
             Buyer buyer = new Buyer();
 
             // Get all the contracts selected and generate order for them and remove from the list
-            foreach (var contract in ContractsList.SelectedItems)
+            foreach (object contract in ContractsList.SelectedItems)
             {
                 buyer.GenerateOrder((Contract)contract);
                 currentList.Remove((Contract)contract);
@@ -166,23 +264,14 @@ namespace Transportation_Management_System
             ContractsList.ItemsSource = currentList;
         }
 
-
-        //private void OrdersList_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        //{
-        //    Order currentOrder = (Order)OrdersList.SelectedItem;
-        //    if (currentOrder != null)
-        //    {
-        //        if (buyer.InvoiceGeneration(currentOrder) == false)
-        //        {
-        //            GenerateInvoice.Visibility = Visibility.Visible;                  
-        //        }
-        //        else
-        //        {
-        //            GenerateInvoice.Visibility = Visibility.Hidden;
-        //        }
-        //    }
-        //}
-
+        ///
+        /// \brief Event handler for when an invoice is selected.
+        ///
+        /// \param sender  - <b>object</b> - object that invoked the event handler.
+        /// \param e  - <b>RoutedEventArgs</b> - base class used to pass data to event handler.
+        ///
+        /// \return None - void
+        ///
         private void InvoiceList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (InvoiceList.SelectedItem != null)
@@ -191,6 +280,14 @@ namespace Transportation_Management_System
             }         
         }
 
+        ///
+        /// \brief Event handler for when GenerateInvoice button is clicked.
+        ///
+        /// \param sender  - <b>object</b> - object that invoked the event handler.
+        /// \param e  - <b>RoutedEventArgs</b> - base class used to pass data to event handler.
+        ///
+        /// \return None - void
+        ///
         private void GenerateInvoice_Click(object sender, RoutedEventArgs e)
         {
             Order selectedInvoice = (Order)InvoiceList.SelectedItem;
@@ -198,7 +295,7 @@ namespace Transportation_Management_System
 
             DAL db = new DAL();
             // If invoice doesn't exist, create one
-            if(!db.IsExistentInvoice(invoice.OrderID))
+            if (!db.IsExistentInvoice(invoice.OrderID))
             {
                 db.CreateInvoice(invoice);
             }
@@ -206,6 +303,5 @@ namespace Transportation_Management_System
             InvoiceInformation inv = new InvoiceInformation(invoice);
             inv.ShowDialog();
         }
-
     }
 }

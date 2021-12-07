@@ -1,20 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿/* -- FILEHEADER COMMENT --
+    FILE		:	Invoice.cs
+    PROJECT		:	Transportation Management System
+    PROGRAMMER	:  * Ana De Oliveira
+                   * Icaro Ryan Oliveira Souza
+                   * Lazir Pascual
+                   * Rohullah Noory
+    DATE		:	2021-12-07
+    DESCRIPTION	:	This file contains the source for the Invoice class.
+*/
 
 namespace Transportation_Management_System
 {
-    /// 
-    /// \class Invoice
-    /// 
-    /// \brief The purpose of this class is to model the invoice class
     ///
-    /// This class will demonstrate the attributes members of an Invoice Class. An invoice
+    /// \class Invoice
+    ///
+    /// \brief The purpose of this class is to model an Invoice.
+    ///
+    /// This class will demonstrate the attributes of an Invoice Class. An invoice
     /// is generated after the completion of a delivery and it is calculated based on the total
-    /// mileage, amount of pallets and rate per hour/km. 
-    /// 
+    /// mileage, amount of pallets and rate per hour/km.
+    ///
     /// \author <i>Team Blank</i>
     ///
     public class Invoice
@@ -34,15 +39,13 @@ namespace Transportation_Management_System
         /// The origin city of the order
         public City Origin { set; get; }
 
-        /// The origin city of the order
+        /// The destination city of the order
         public City Destination { set; get; }
 
-        /// The total mileage of the trip that relates to the order's Invoice
+        /// The total distance between origin city to destination
         public int TotalKM { set; get; }
 
-        /// The total hours of the trip that relates to the order's Invoice
-        public double Days { set; get; } 
-
-
+        /// The number of days taken to complete the order
+        public double Days { set; get; }
     }
 }

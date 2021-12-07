@@ -1,21 +1,26 @@
-﻿using System;
+﻿/* -- FILEHEADER COMMENT --
+    FILE		:	AdminPage.xaml.cs
+    PROJECT		:	Transportation Management System
+    PROGRAMMER	:  * Ana De Oliveira
+                   * Icaro Ryan Oliveira Souza
+                   * Lazir Pascual
+                   * Rohullah Noory
+    DATE		:	2021-12-07
+    DESCRIPTION	:	This file contains the source for the Admin user's user interface when they log in.
+                    It allows an admin to perform all their functionalities such as; create new user, update database tables,
+                    change the log directory etc.
+
+*/
+
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Configuration;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using System.IO;
-using System.Configuration;
-using System.Windows.Forms;
-using System.Text.RegularExpressions;
-
 
 namespace Transportation_Management_System
 {
@@ -24,8 +29,12 @@ namespace Transportation_Management_System
     /// </summary>
     public partial class AdminPage : Window
     {
+        // Admin object with all it's properties.
         private readonly Admin admin = new Admin();
 
+        ///
+        /// \brief This constructor is used to initialize the visibility status of components within the admin UI.
+        ///
         public AdminPage()
         {
             InitializeComponent();
@@ -33,6 +42,14 @@ namespace Transportation_Management_System
             ConfigurationVisible();
         }
 
+        ///
+        /// \brief Event handler for when Log Files tab is clicked.
+        ///
+        /// \param sender  - <b>object</b> - object that invoked the event handler.
+        /// \param e  - <b>RoutedEventArgs</b> - base class used to pass data to event handler.
+        ///
+        /// \return None - void
+        ///
         private void LogFiles_Click(object sender, RoutedEventArgs e)
         {
             ResetStatus();
@@ -65,12 +82,28 @@ namespace Transportation_Management_System
             }
         }
 
+        ///
+        /// \brief Event handler for when Configuration tab is clicked.
+        ///
+        /// \param sender  - <b>object</b> - object that invoked the event handler.
+        /// \param e  - <b>RoutedEventArgs</b> - base class used to pass data to event handler.
+        ///
+        /// \return None - void
+        ///
         private void Configuration_Click(object sender, RoutedEventArgs e)
         {
             ResetStatus();
             ConfigurationVisible();
         }
 
+        ///
+        /// \brief Event handler for when Database tab is clicked.
+        ///
+        /// \param sender  - <b>object</b> - object that invoked the event handler.
+        /// \param e  - <b>RoutedEventArgs</b> - base class used to pass data to event handler.
+        ///
+        /// \return None - void
+        ///
         private void Database_Click(object sender, RoutedEventArgs e)
         {
             ResetStatus();
@@ -78,6 +111,14 @@ namespace Transportation_Management_System
             DatabaseButtons.Visibility = Visibility.Visible;
         }
 
+        ///
+        /// \brief Event handler for when Backup tab is clicked.
+        ///
+        /// \param sender  - <b>object</b> - object that invoked the event handler.
+        /// \param e  - <b>RoutedEventArgs</b> - base class used to pass data to event handler.
+        ///
+        /// \return None - void
+        ///
         private void Backup_Click(object sender, RoutedEventArgs e)
         {
             ResetStatus();
@@ -85,6 +126,14 @@ namespace Transportation_Management_System
             BackupGrid.Visibility = Visibility.Visible;
         }
 
+        ///
+        /// \brief Event handler for when CreateUser tab is clicked.
+        ///
+        /// \param sender  - <b>object</b> - object that invoked the event handler.
+        /// \param e  - <b>RoutedEventArgs</b> - base class used to pass data to event handler.
+        ///
+        /// \return None - void
+        ///
         private void CreateUser_Click(object sender, RoutedEventArgs e)
         {
             ResetStatus();
@@ -93,6 +142,12 @@ namespace Transportation_Management_System
             ClearCreateUserFields();
         }
 
+        ///
+        /// \brief Used to clear the fields in Create User screen.
+        ///
+        ///
+        /// \return None - void
+        ///
         private void ClearCreateUserFields()
         {
             AdminRadio.IsChecked = false;
@@ -105,32 +160,71 @@ namespace Transportation_Management_System
             Email.Text = "";
         }
 
+        ///
+        /// \brief Event handler for when Rates button is clicked in Database tab.
+        ///
+        /// \param sender  - <b>object</b> - object that invoked the event handler.
+        /// \param e  - <b>RoutedEventArgs</b> - base class used to pass data to event handler.
+        ///
+        /// \return None - void
+        ///
         private void RatesFeesData_Click(object sender, RoutedEventArgs e)
         {
             ResetStatus();
             Database.Background = Brushes.LightSkyBlue;
             RatesGrid.Visibility = Visibility.Visible;
-            DAL dal = new DAL();
-            var oshRates = dal.GetOSHTRates();
+            Rate oshRates = admin.FetchOSHTRates();
             NewFTLRate.Text = oshRates.RateValuePair[RateType.FTL].ToString();
             NewLTLRate.Text = oshRates.RateValuePair[RateType.LTL].ToString();
         }
 
+        ///
+        /// \brief Event handler for when window is closed.
+        ///
+        /// \param sender  - <b>object</b> - object that invoked the event handler.
+        /// \param e  - <b>System.ComponentModel.CancelEventArgs</b> - base class used to pass data to cancelable event.
+        ///
+        /// \return None - void
+        ///
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             App.Current.MainWindow.Visibility = Visibility.Visible;
         }
 
+        ///
+        /// \brief Event handler for when SelectPath button is clicked.
+        ///
+        /// \param sender  - <b>object</b> - object that invoked the event handler.
+        /// \param e  - <b>RoutedEventArgs</b> - base class used to pass data to event handler.
+        ///
+        /// \return None - void
+        ///
         private void SelectPath_Click(object sender, RoutedEventArgs e)
         {
             ChangeLogDirectory();
         }
 
+        ///
+        /// \brief Event handler for when PathUpdate button is clicked.
+        ///
+        /// \param sender  - <b>object</b> - object that invoked the event handler.
+        /// \param e  - <b>RoutedEventArgs</b> - base class used to pass data to event handler.
+        ///
+        /// \return None - void
+        ///
         private void PathUpdate_Click(object sender, RoutedEventArgs e)
         {
             UpdatePath();
         }
 
+        ///
+        /// \brief Event handler for when CarrierData button is clicked.
+        ///
+        /// \param sender  - <b>object</b> - object that invoked the event handler.
+        /// \param e  - <b>RoutedEventArgs</b> - base class used to pass data to event handler.
+        ///
+        /// \return None - void
+        ///
         private void CarrierData_Click(object sender, RoutedEventArgs e)
         {
             ResetStatus();
@@ -141,19 +235,32 @@ namespace Transportation_Management_System
             PopulateCarrierList(sender, e);
         }
 
+        ///
+        /// \brief Event handler for when RouteData button is clicked.
+        ///
+        /// \param sender  - <b>object</b> - object that invoked the event handler.
+        /// \param e  - <b>RoutedEventArgs</b> - base class used to pass data to event handler.
+        ///
+        /// \return None - void
+        ///
         private void RouteData_Click(object sender, RoutedEventArgs e)
         {
             ResetStatus();
             Database.Background = Brushes.LightSkyBlue;
             RouteGrid.Visibility = Visibility.Visible;
 
-
-            List<Route> routeList = new List<Route>();
-            routeList = admin.GetRoutesAD();
+            List<Route> routeList = admin.GetRoutesAD();
 
             RouteDatabase.ItemsSource = routeList;
         }
 
+        ///
+        /// \brief Used to change the directory of the log file.
+        ///
+        /// \param None
+        ///
+        /// \return None - void
+        ///
         private void ChangeLogDirectory()
         {
             FolderBrowserDialog dialog = new FolderBrowserDialog();
@@ -170,9 +277,15 @@ namespace Transportation_Management_System
             }
 
             LogPath.Text = path;
-
         }
 
+        ///
+        /// \brief Used to update the log directory path.
+        ///
+        /// \param None
+        ///
+        /// \return None - void
+        ///
         private void UpdatePath()
         {
             string oldLogPath = Logger.GetCurrentLogDirectory();
@@ -191,7 +304,13 @@ namespace Transportation_Management_System
             }
         }
 
-
+        ///
+        /// \brief Used to set the visibility status of the Configuration tab.
+        ///
+        /// \param None
+        ///
+        /// \return None - void
+        ///
         private void ConfigurationVisible()
         {
             GeneralGrid.Visibility = Visibility.Visible;
@@ -201,6 +320,14 @@ namespace Transportation_Management_System
             LogPath.Text = logPath;
         }
 
+        ///
+        /// \brief Event handler for when ClearButton button is clicked.
+        ///
+        /// \param sender  - <b>object</b> - object that invoked the event handler.
+        /// \param e  - <b>RoutedEventArgs</b> - base class used to pass data to event handler.
+        ///
+        /// \return None - void
+        ///
         private void ClearButton_Click(object sender, RoutedEventArgs e)
         {
             CarrierName.Text = "";
@@ -212,7 +339,14 @@ namespace Transportation_Management_System
             Reefer.Text = "";
         }
 
-
+        ///
+        /// \brief Event handler for populating the carriers screen.
+        ///
+        /// \param sender  - <b>object</b> - object that invoked the event handler.
+        /// \param e  - <b>RoutedEventArgs</b> - base class used to pass data to event handler.
+        ///
+        /// \return None - void
+        ///
         private void CarriersFieldsHander(object sender, RoutedEventArgs e)
         {
             ClearButton_Click(sender, e);
@@ -232,7 +366,6 @@ namespace Transportation_Management_System
 
                 Carrier selectedCarrier = (Carrier)CarrierDatabaseList.SelectedItem;
 
-
                 if (selectedCarrier != null)
                 {
                     try
@@ -240,11 +373,8 @@ namespace Transportation_Management_System
                         string caller = (sender as System.Windows.Controls.ListView).Name;
                         if (caller == "CarrierDatabaseList")
                         {
-
-
                             List<CarrierCity> carriersList = admin.GetCitiesByCarrier(selectedCarrier.Name);
                             CityDatabase.ItemsSource = carriersList;
-
                         }
                     }
                     catch (Exception) { }
@@ -271,11 +401,17 @@ namespace Transportation_Management_System
                 {
                     CityDatabase.ItemsSource = new List<CarrierCity>();
                 }
-
             }
-
         }
 
+        ///
+        /// \brief Event handler for when UpdateCarrier button is clicked.
+        ///
+        /// \param sender  - <b>object</b> - object that invoked the event handler.
+        /// \param e  - <b>RoutedEventArgs</b> - base class used to pass data to event handler.
+        ///
+        /// \return None - void
+        ///
         private void UpdateCarrier_Click(object sender, RoutedEventArgs e)
         {
             string carrierName;
@@ -288,11 +424,8 @@ namespace Transportation_Management_System
             int newFTL;
             int newLTL;
 
-
             Carrier carrier;
             CarrierCity carrierCity = null;
-
-
 
             try
             {
@@ -308,7 +441,6 @@ namespace Transportation_Management_System
 
                 if (CarrierDatabaseList.SelectedItems.Count == 1 && CityDatabase.SelectedItems.Count == 1)
                 {
-
                     // Get the city and rates information
                     newDestination = Departure.Text;
                     newCity = (City)Enum.Parse(typeof(City), newDestination, true);
@@ -316,7 +448,6 @@ namespace Transportation_Management_System
                     newLTL = int.Parse(LTLAval.Text);
 
                     carrierCity = new CarrierCity(carrier, newCity, newFTL, newLTL);
-
                 }
             }
             catch (Exception)
@@ -341,10 +472,8 @@ namespace Transportation_Management_System
                 // Show details about the city if carrier and city is selected
                 else if (CarrierDatabaseList.SelectedItems.Count == 1 && CityDatabase.SelectedItems.Count == 1)
                 {
-
                     carrierCity.Carrier.CarrierID = admin.FetchCarrierID(carrier.Name);
                     admin.UpdateCity(carrierCity, ((CarrierCity)CityDatabase.SelectedItem).DepotCity);
-
 
                     // Update the cities list
                     List<CarrierCity> carriersList = admin.GetCitiesByCarrier(carrier.Name);
@@ -354,9 +483,7 @@ namespace Transportation_Management_System
 
                     Logger.Log($"{carrier.Name} depot City was updated to {carrierCity.DepotCity}", LogLevel.Information);
                 }
-
                 PopulateCarrierList(sender, e);
-
             }
             // Inform the user if the operation fails
             catch (ArgumentException exc)
@@ -369,22 +496,26 @@ namespace Transportation_Management_System
             }
         }
 
-
+        ///
+        /// \brief Event handler for when DeleteCarrier button is clicked.
+        ///
+        /// \param sender  - <b>object</b> - object that invoked the event handler.
+        /// \param e  - <b>RoutedEventArgs</b> - base class used to pass data to event handler.
+        ///
+        /// \return None - void
+        ///
         private void DeleteCarrier_Click(object sender, RoutedEventArgs e)
         {
-
-
             try
             {
                 Carrier carrier = (Carrier)CarrierDatabaseList.SelectedItem;
                 // If only a carrier is selected
                 if (CarrierDatabaseList.SelectedItems.Count == 1 && CityDatabase.SelectedItems.Count == 0)
                 {
-                    var result = System.Windows.MessageBox.Show($"Are you sure you want to delete the carrier {carrier.Name}?", "Are you sure?", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    MessageBoxResult result = System.Windows.MessageBox.Show($"Are you sure you want to delete the carrier {carrier.Name}?", "Are you sure?", MessageBoxButton.YesNo, MessageBoxImage.Question);
                     if (result == MessageBoxResult.Yes)
                     {
                         admin.CarrierDeletion(carrier);
-
 
                         PopulateCarrierList(sender, e);
 
@@ -403,19 +534,17 @@ namespace Transportation_Management_System
                     CarrierCity carrierCity = (CarrierCity)CityDatabase.SelectedItem;
                     carrierCity.Carrier = carrier;
 
-                    var result = System.Windows.MessageBox.Show($"Are you sure you want to delete the carrier city {carrierCity.DepotCity}?", "Are you sure?", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    MessageBoxResult result = System.Windows.MessageBox.Show($"Are you sure you want to delete the carrier city {carrierCity.DepotCity}?", "Are you sure?", MessageBoxButton.YesNo, MessageBoxImage.Question);
                     if (result == MessageBoxResult.Yes)
                     {
                         admin.CarrierCity(carrierCity, 0);
 
                         PopulateCarrierCitiesList(sender, e);
 
-
                         System.Windows.MessageBox.Show($"{carrierCity.DepotCity} deleted successfully", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
 
                         Logger.Log($"{carrier.Name} depot City {carrierCity.DepotCity} was deleted from the database.", LogLevel.Information);
                     }
-
                 }
                 else if (CarrierDatabaseList.SelectedItems.Count == 0 && CityDatabase.SelectedItems.Count == 0)
                 {
@@ -433,9 +562,16 @@ namespace Transportation_Management_System
             }
         }
 
+        ///
+        /// \brief Event handler for when AddCarrier button is clicked.
+        ///
+        /// \param sender  - <b>object</b> - object that invoked the event handler.
+        /// \param e  - <b>RoutedEventArgs</b> - base class used to pass data to event handler.
+        ///
+        /// \return None - void
+        ///
         private void AddCarrier_Click(object sender, RoutedEventArgs e)
         {
-
             string carrierName;
             double _FTLRate;
             double _LTLRate;
@@ -448,7 +584,6 @@ namespace Transportation_Management_System
 
             Carrier newCarrier;
             CarrierCity newCarrierCity; ;
-
 
             try
             {
@@ -470,7 +605,6 @@ namespace Transportation_Management_System
 
                 newCarrierCity = new CarrierCity(newCarrier, newCity, newFTL, newLTL);
             }
-
             catch (Exception)
             {
                 System.Windows.MessageBox.Show("Please, make sure that the fields were filled appropriately.", "Attention", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -505,7 +639,6 @@ namespace Transportation_Management_System
 
                     Logger.Log($"New carrier {carrierName} was successfully inserted to the database.", LogLevel.Information);
                 }
-
             }
             // Inform the user if the operation fails
             catch (ArgumentException exc)
@@ -518,24 +651,41 @@ namespace Transportation_Management_System
             }
         }
 
+        ///
+        /// \brief Event handler for populating the carrier list.
+        ///
+        /// \param sender  - <b>object</b> - object that invoked the event handler.
+        /// \param e  - <b>RoutedEventArgs</b> - base class used to pass data to event handler.
+        ///
+        /// \return None - void
+        ///
         private void PopulateCarrierList(object sender, RoutedEventArgs e)
         {
-
             List<Carrier> carriersList = admin.FetchCarriers();
             CarrierDatabaseList.ItemsSource = carriersList;
         }
 
-
+        ///
+        /// \brief Event handler for populating carrier cities list.
+        ///
+        /// \param sender  - <b>object</b> - object that invoked the event handler.
+        /// \param e  - <b>RoutedEventArgs</b> - base class used to pass data to event handler.
+        ///
+        /// \return None - void
+        ///
         private void PopulateCarrierCitiesList(object sender, RoutedEventArgs e)
         {
-
-
             Carrier selectedCarrier = (Carrier)CarrierDatabaseList.SelectedItem;
 
             List<CarrierCity> carriersList = admin.GetCitiesByCarrier(selectedCarrier.Name);
             CityDatabase.ItemsSource = carriersList;
         }
 
+        ///
+        /// \brief Used to reset the reset the UI and hide all elements.
+        ///
+        /// \return None - void
+        ///
         private void ResetStatus()
         {
             // Hide all grids
@@ -554,10 +704,16 @@ namespace Transportation_Management_System
             Database.Background = Brushes.WhiteSmoke;
             Configuration.Background = Brushes.WhiteSmoke;
             UserCreation.Background = Brushes.WhiteSmoke;
-
         }
 
-
+        ///
+        /// \brief Event handler for when UpdateRoute button is clicked.
+        ///
+        /// \param sender  - <b>object</b> - object that invoked the event handler.
+        /// \param e  - <b>RoutedEventArgs</b> - base class used to pass data to event handler.
+        ///
+        /// \return None - void
+        ///
         private void UpdateRoute_Click(object sender, RoutedEventArgs e)
         {
             string destination;
@@ -569,7 +725,7 @@ namespace Transportation_Management_System
             string west;
             string east;
 
-            Route route = null;
+            Route route;
 
             try
             {
@@ -585,7 +741,6 @@ namespace Transportation_Management_System
 
                 // create a route object with the values
                 route = new Route(newDestination, distance, time, newWest, newEast);
-
             }
             catch (Exception)
             {
@@ -595,12 +750,12 @@ namespace Transportation_Management_System
             // Update the Route List
             try
             {
-                var result = System.Windows.MessageBox.Show($"Are you sure you want to update the route to {route.Destination}?", "Are you sure?", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                MessageBoxResult result = System.Windows.MessageBox.Show($"Are you sure you want to update the route to {route.Destination}?", "Are you sure?", MessageBoxButton.YesNo, MessageBoxImage.Question);
                 if (result == MessageBoxResult.Yes)
                 {
                     admin.UpdateRouteAD(route);
 
-                    // Reload the updated route list 
+                    // Reload the updated route list
                     List<Route> routeList = new List<Route>();
                     routeList = admin.GetRoutesAD();
                     RouteDatabase.ItemsSource = routeList;
@@ -609,7 +764,6 @@ namespace Transportation_Management_System
 
                     Logger.Log($"{route.Destination} was successfully inserted to the database.", LogLevel.Information);
                 }
-
             }
             // Inform the user if the operation fails
             catch (ArgumentException exc)
@@ -622,6 +776,14 @@ namespace Transportation_Management_System
             }
         }
 
+        ///
+        /// \brief Event handler for when ClearRoute button is clicked.
+        ///
+        /// \param sender  - <b>object</b> - object that invoked the event handler.
+        /// \param e  - <b>RoutedEventArgs</b> - base class used to pass data to event handler.
+        ///
+        /// \return None - void
+        ///
         private void ClearRoute_Click(object sender, RoutedEventArgs e)
         {
             RouteDestination.Text = "";
@@ -631,7 +793,14 @@ namespace Transportation_Management_System
             East.Text = "";
         }
 
-
+        ///
+        /// \brief Event handler for when DatabaseUpdate button is clicked.
+        ///
+        /// \param sender  - <b>object</b> - object that invoked the event handler.
+        /// \param e  - <b>RoutedEventArgs</b> - base class used to pass data to event handler.
+        ///
+        /// \return None - void
+        ///
         private void DatabaseUpdate_Click(object sender, RoutedEventArgs e)
         {
             string fieldServer = "Server";
@@ -664,7 +833,6 @@ namespace Transportation_Management_System
 
                 Logger.Log($" Database setting information was successfully updated.", LogLevel.Information);
             }
-
             catch (Exception)
             {
                 System.Windows.MessageBox.Show("Please, make sure that the fields were filled appropriately.", "Attention", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -672,7 +840,14 @@ namespace Transportation_Management_System
             }
         }
 
-
+        ///
+        /// \brief Event handler for when PortUpdate button is clicked.
+        ///
+        /// \param sender  - <b>object</b> - object that invoked the event handler.
+        /// \param e  - <b>RoutedEventArgs</b> - base class used to pass data to event handler.
+        ///
+        /// \return None - void
+        ///
         private void PortUpdate_Click(object sender, RoutedEventArgs e)
         {
             string field = "Port";
@@ -687,6 +862,7 @@ namespace Transportation_Management_System
                 System.Windows.MessageBox.Show("Something went wrong. Please try again.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
         private void RouteDatabase_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             ClearButton_Click(sender, e);
@@ -709,10 +885,17 @@ namespace Transportation_Management_System
                 Time.Text = selectedRoute.Time.ToString();
                 West.Text = selectedRoute.West.ToString();
                 East.Text = selectedRoute.East.ToString();
-
             }
         }
 
+        ///
+        /// \brief Event handler for when BackupSelect button is clicked.
+        ///
+        /// \param sender  - <b>object</b> - object that invoked the event handler.
+        /// \param e  - <b>RoutedEventArgs</b> - base class used to pass data to event handler.
+        ///
+        /// \return None - void
+        ///
         private void BackupSelect_Click(object sender, RoutedEventArgs e)
         {
             FolderBrowserDialog dialog = new FolderBrowserDialog();
@@ -728,13 +911,20 @@ namespace Transportation_Management_System
             {
                 path = dialog.SelectedPath;
             }
-            // Show the selected path in the textbox          
+            // Show the selected path in the textbox
             BackupPath.Text = path;
         }
 
+        ///
+        /// \brief Event handler for when ProcessBackup button is clicked.
+        ///
+        /// \param sender  - <b>object</b> - object that invoked the event handler.
+        /// \param e  - <b>RoutedEventArgs</b> - base class used to pass data to event handler.
+        ///
+        /// \return None - void
+        ///
         private void ProcessBackup_Click(object sender, RoutedEventArgs e)
         {
-
             // Get the current path for processing the backup
             string backupPath = BackupPath.Text;
 
@@ -758,7 +948,14 @@ namespace Transportation_Management_System
             }
         }
 
-
+        ///
+        /// \brief Event handler for when UpdateRate button is clicked.
+        ///
+        /// \param sender  - <b>object</b> - object that invoked the event handler.
+        /// \param e  - <b>RoutedEventArgs</b> - base class used to pass data to event handler.
+        ///
+        /// \return None - void
+        ///
         private void UpdateRate_Click(object sender, RoutedEventArgs e)
         {
             double FTLValue;
@@ -819,10 +1016,13 @@ namespace Transportation_Management_System
                     return;
                 }
             }
-
         }
-        
 
+        ///
+        /// \brief Used to get the database information using the configuration manager class.
+        ///
+        /// \return None - void
+        ///
         private void GetDatabaseInfo()
         {
             // Populate the fileds in the admin config page
@@ -837,9 +1037,16 @@ namespace Transportation_Management_System
             UserBox.Text = user;
             PasswordBox.Password = password;
             DatabaseBox.Text = database;
-
         }
 
+        ///
+        /// \brief Event handler for when UserCreation button is clicked.
+        ///
+        /// \param sender  - <b>object</b> - object that invoked the event handler.
+        /// \param e  - <b>RoutedEventArgs</b> - base class used to pass data to event handler.
+        ///
+        /// \return None - void
+        ///
         private void UserCreation_Click(object sender, RoutedEventArgs e)
         {
             string firstName;
@@ -848,19 +1055,19 @@ namespace Transportation_Management_System
             string password;
             string email;
             UserRole type;
-                       
+
             try
             {
                 // Check if the select box is selected
-                if(AdminRadio.IsChecked == true)
+                if (AdminRadio.IsChecked == true)
                 {
                     type = UserRole.Admin;
                 }
-                else if(PlannerRadio.IsChecked == true)
+                else if (PlannerRadio.IsChecked == true)
                 {
                     type = UserRole.Planner;
                 }
-                else if(BuyerRadio.IsChecked == true)
+                else if (BuyerRadio.IsChecked == true)
                 {
                     type = UserRole.Buyer;
                 }
@@ -871,13 +1078,13 @@ namespace Transportation_Management_System
                 }
 
                 firstName = FirstName.Text;
-                lastName = LastName.Text; 
+                lastName = LastName.Text;
                 username = Username.Text;
                 password = UserPassword.Password;
                 email = Email.Text;
 
                 // Check if all fields has been filled
-                if(string.IsNullOrEmpty(firstName) || string.IsNullOrEmpty(lastName) || string.IsNullOrEmpty(username) ||
+                if (string.IsNullOrEmpty(firstName) || string.IsNullOrEmpty(lastName) || string.IsNullOrEmpty(username) ||
                     string.IsNullOrEmpty(password) || string.IsNullOrEmpty(email))
                 {
                     throw new Exception();
@@ -885,21 +1092,20 @@ namespace Transportation_Management_System
 
                 // Check if the user exists
                 DAL db = new DAL();
-                if(db.CheckUsername(username))
+                if (db.CheckUsername(username))
                 {
                     throw new ArgumentException($"User \"{username}\" already exists.");
                 }
 
                 User user = new User(firstName, lastName, username, password, email, type);
-                if(admin.CreateAUser(user)==true)
+                if (admin.CreateAUser(user) == true)
                 {
                     System.Windows.MessageBox.Show("User successfully added to the system.", "Attention", MessageBoxButton.OK, MessageBoxImage.Information);
 
                     Logger.Log($"\"{username}\" was successfully created as a {type}.", LogLevel.Information);
-                    
+
                     ClearCreateUserFields();
                 }
-                
 
                 //save it to the database
             }
@@ -907,14 +1113,12 @@ namespace Transportation_Management_System
             {
                 System.Windows.MessageBox.Show(ex.Message, "Duplicate user", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
-
             }
             catch (Exception)
             {
                 System.Windows.MessageBox.Show("Please, make sure that the fields were filled appropriately.", "Attention", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
-
-        }        
+        }
     }
 }
