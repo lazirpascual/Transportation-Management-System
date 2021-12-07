@@ -38,7 +38,7 @@ namespace Transportation_Management_System
         public City Destination { set; get; }
 
         /// The total mileage of the trip that relates to the order's Invoice
-        public double TotalKM { set; get; }
+        public int TotalKM { set; get; }
 
         /// The total hours of the trip that relates to the order's Invoice
         public double Days { set; get; } 

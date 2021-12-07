@@ -71,9 +71,8 @@ namespace Transportation_Management_System
             ClientsGrid.Visibility = Visibility.Visible;
             Clients.Background = Brushes.LightSkyBlue;
 
-            List<Client> clientList = buyer.FetchClients(25);
+            List<Client> clientList = buyer.FetchClients(1);
             ClientsList.ItemsSource = clientList;
-            CActiveBox.IsChecked = false;
         }
 
         private void MarketPlace_Page()
@@ -164,22 +163,6 @@ namespace Transportation_Management_System
             ContractsList.ItemsSource = currentList;
         }
 
-        private void CActiveBox_Click(object sender, RoutedEventArgs e)
-        {
-            List<Client> clientList;
-
-            if (CActiveBox.IsChecked == true)
-            {
-                // active box is checked
-                clientList = buyer.FetchClients(0);
-            }
-            else
-            {
-                clientList = buyer.FetchClients(1);
-            }
-
-            ClientsList.ItemsSource = clientList;
-        }
 
         //private void OrdersList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         //{
@@ -206,6 +189,14 @@ namespace Transportation_Management_System
         {
             Order selectedInvoice = (Order)InvoiceList.SelectedItem;
             Invoice invoice = buyer.CreateInvoice(selectedInvoice);
+
+            DAL db = new DAL();
+            // If invoice doesn't exist, create one
+            if(!db.IsExistentInvoice(invoice.OrderID))
+            {
+                db.CreateInvoice(invoice);
+            }
+
             InvoiceInformation inv = new InvoiceInformation(invoice);
             inv.ShowDialog();
         }

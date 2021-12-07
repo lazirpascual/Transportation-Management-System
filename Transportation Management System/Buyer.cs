@@ -202,11 +202,13 @@ namespace Transportation_Management_System
             List<Client> clientList;
             DAL db = new DAL();
             
-            if (activeStatus==0)
+            // Only active clients
+            if (activeStatus == 0)
             {
                 clientList = db.GetActiveClients();
             }
-            else
+            // All clients
+            else 
             {
                 clientList = db.GetClients();
             }

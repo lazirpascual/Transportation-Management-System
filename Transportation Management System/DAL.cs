@@ -363,9 +363,9 @@ namespace Transportation_Management_System
 
 
         ///
-        /// \brief he User table
+        /// \brief Set the order start date (carrier selected)
         ///
-        /// \param usr  - <b>User</b> - An User object with all their information
+        /// \param currentOrder  - <b>Order</b> - A order object
         /// 
         public void StartOrder(Order currentOrder)
         {
@@ -432,32 +432,77 @@ namespace Transportation_Management_System
         }
 
 
-
         ///
-        /// \brief Inserts a new invoice in the Invoice table
+        /// \brief Inserts a new invoice in the invoice table
         ///
-        /// \param orderObj  - <b>Order</b> - An Order object with all its information
+        /// \param invoice  - <b>Invoice</b> - An invoice with all its information
         /// 
-        public void CreateInvoice(Order orderObj) 
+        public void CreateInvoice(Invoice invoice)
         {
-            Trip tripObj = new Trip();
-            long orderID = orderObj.OrderID;
-            double totalCost = 0.0;
-            double days = tripObj.TotalTime;
-            string clientName = orderObj.ClientName;
-            string origin = (orderObj.Origin).ToString();
-            string destination = (orderObj.Destination).ToString();
-            Random randNum = new Random();
-            int invoiceNum = randNum.Next(0, 100);
+            string sql = "INSERT INTO Invoices VALUES (@OrderID, @ClientName, @Origin, @Destination, @TotalAmount, @TotalDistance, @TotalDays)";
 
-            string invoiceText = String.Format("Sales Invoice\nInvoice Number: {0}\n\nOrder Number: {1}\nClient: {2}\nOrigin City: {3}\nDestination City: {4}\nDays taken: {5}\n\n\nTotal: {6}\n", invoiceNum, orderID, clientName, origin, destination, days, totalCost);
-            string invoiceDirectory = Directory.GetCurrentDirectory();
-            string invoiceName = invoiceDirectory +"\\Invoice"+ invoiceNum + ".txt";
             try
             {
-                using(StreamWriter writer = new StreamWriter(invoiceName))
+                using (MySqlConnection conn = new MySqlConnection(this.ToString()))
                 {
-                    writer.Write(invoiceText);
+                    conn.Open();
+
+                    using (MySqlCommand cmd = new MySqlCommand(sql, conn))
+                    {
+                        // Populate all arguments in the insert
+                        cmd.Parameters.AddWithValue("@OrderID", invoice.OrderID);
+                        cmd.Parameters.AddWithValue("@ClientName", invoice.ClientName);
+                        cmd.Parameters.AddWithValue("@Origin", invoice.Origin);
+                        cmd.Parameters.AddWithValue("@Destination", invoice.Destination);
+                        cmd.Parameters.AddWithValue("@TotalAmount", invoice.TotalAmount);
+                        cmd.Parameters.AddWithValue("@TotalDistance", invoice.TotalKM);
+                        cmd.Parameters.AddWithValue("@TotalDays", invoice.Days);
+
+                        // Execute the insertion and check the number of rows affected
+                        // An exception will be thrown if the column is repeated
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (MySql.Data.MySqlClient.MySqlException e)
+            {
+                Logger.Log(e.Message, LogLevel.Error);
+                throw new ArgumentException($"Invoice for order #\"{invoice.OrderID}\" already exists.");
+            }
+            catch (Exception e)
+            {
+                Logger.Log(e.Message, LogLevel.Error);
+                throw;
+            }
+        }
+
+
+        ///
+        /// \brief Update an existing route's attributes
+        ///
+        /// \param newRoute  - <b>Route</b> - The new route information to be used in the update
+        /// 
+        public bool IsExistentInvoice(long orderID)
+        {
+            bool isExistent = false;
+
+            string qSQL = "SELECT * FROM Invoices WHERE OrderID=@OrderId";
+            try
+            {
+                string connectionString = this.ToString();
+                using (MySqlConnection conn = new MySqlConnection(connectionString))
+                {
+                    conn.Open();
+                    using (MySqlCommand cmd = new MySqlCommand(qSQL, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@OrderId", orderID);
+
+                        MySqlDataReader rdr = cmd.ExecuteReader();
+                        if (rdr.HasRows)
+                        {
+                            isExistent = true;
+                        }
+                    }
                 }
             }
             catch (Exception e)
@@ -465,7 +510,7 @@ namespace Transportation_Management_System
                 Logger.Log(e.Message, LogLevel.Error);
                 throw;
             }
-
+            return isExistent;
         }
 
 
@@ -505,6 +550,11 @@ namespace Transportation_Management_System
         }
 
 
+        ///
+        /// \brief Returns the routs table
+        ///
+        /// \return A list of routs
+        /// 
         public List<Route> GetRoutes()
         {
             List<Route> routeList= new List<Route>();
