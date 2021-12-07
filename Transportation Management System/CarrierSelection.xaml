@@ -9,6 +9,7 @@
         Title="Carrier Selection" Height="400" Width="420">
     <Grid>
         <ListView x:Name="CarrierList" ></ListView>
-        <Button x:Name="SelectCarrier" Content="Select Carrier" Margin="312,322,10,18" Click="SelectCarrier_Click" />
+        <Label x:Name="OrderQuantity" Margin="32,307,162,18" RenderTransformOrigin="0.354,0.786" ></Label>
+        <Button x:Name="SelectCarrier" Content="Select Carrier" Margin="282,312,22,28" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Click="SelectCarrier_Click" />
     </Grid>
 </Window>

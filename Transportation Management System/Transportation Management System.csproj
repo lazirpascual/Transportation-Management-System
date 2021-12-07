@@ -134,6 +134,7 @@
     <Compile Include="Trip.cs" />
     <Compile Include="Admin.cs" />
     <Compile Include="User.cs" />
+    <Compile Include="ValueConverter.cs" />
     <Page Include="AdminPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

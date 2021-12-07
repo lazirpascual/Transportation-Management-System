@@ -54,12 +54,11 @@ namespace Transportation_Management_System
             if (saveFile.ShowDialog()==DialogResult.OK)
             {
                 File.WriteAllText(saveFile.FileName, invoiceText);
+                this.Close();
+                string success = "File saved successfully.";
+                string title = "File Saved";
+                MessageBox.Show(success, title, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            this.Close();
-            string success = "File saved successfully.";
-            string title = "File Saved";
-            MessageBox.Show(success, title, MessageBoxButtons.OK, MessageBoxIcon.Information);
-
         }
 
         private void cancelButton_Click(object sender, EventArgs e)

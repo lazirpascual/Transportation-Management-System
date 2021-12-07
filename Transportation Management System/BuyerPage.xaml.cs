@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.ComponentModel;
 
 namespace Transportation_Management_System
 {
@@ -33,7 +34,6 @@ namespace Transportation_Management_System
             App.Current.MainWindow.Visibility = Visibility.Visible;
         }
 
-
         private void MarketPlace_Click(object sender, RoutedEventArgs e)
         {
             ResetStatus();
@@ -48,9 +48,10 @@ namespace Transportation_Management_System
 
             List<Order> orderList = buyer.GetOrders(1);
             InvoiceList.ItemsSource = orderList;
+            // sort invoice by order completion date
+            CollectionView viewInvoice = (CollectionView)CollectionViewSource.GetDefaultView(InvoiceList.ItemsSource);
+            viewInvoice.SortDescriptions.Add(new SortDescription("OrderCompletionDate", ListSortDirection.Ascending));
         }
-
-
 
         private void Orders_Click(object sender, RoutedEventArgs e)
         {
@@ -107,6 +108,8 @@ namespace Transportation_Management_System
             }
 
             OrdersList.ItemsSource = orderList;
+            CollectionView viewOrder = (CollectionView)CollectionViewSource.GetDefaultView(OrdersList.ItemsSource);
+            viewOrder.SortDescriptions.Add(new SortDescription("OrderID", ListSortDirection.Ascending));
         }
 
         private void AllBox_Click(object sender, RoutedEventArgs e)
