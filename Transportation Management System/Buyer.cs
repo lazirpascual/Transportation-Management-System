@@ -123,8 +123,8 @@ namespace Transportation_Management_System
             db.UpdateInvoiceGenerated(orderID);
             List<Trip> trips = db.FilterTripsByOrderId(orderID);
 
-            double hours = 0.0;
-            int distance = 0;
+            double hours;
+            int distance;
 
             try
             {
@@ -151,7 +151,7 @@ namespace Transportation_Management_System
             
 
             invoice.OrderID = orderID;
-            invoice.TotalAmount = totalCost;
+            invoice.TotalAmount = Math.Round(totalCost, 2);
             invoice.ClientName = clientName;
             invoice.Origin = (City)Enum.Parse(typeof(City), origin, true);
             invoice.Destination= (City)Enum.Parse(typeof(City), destination, true);

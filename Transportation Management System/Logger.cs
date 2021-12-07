@@ -137,6 +137,10 @@ namespace Transportation_Management_System
 
                 
                 UpdateLogFileInNewDirectory(oldDirectory, newDirectory);
+
+                // If logger not set up, do it
+                if (!isSetup) Setup();
+
                 return 0;
             }
             catch(Exception e)
@@ -149,9 +153,6 @@ namespace Transportation_Management_System
                 ConfigurationManager.RefreshSection("appSettings");
                 return 1;
             }
-
-            // If logger not set up, do it
-            if (!isSetup) Setup();
         }
 
 

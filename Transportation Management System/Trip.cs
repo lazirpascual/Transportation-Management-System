@@ -74,25 +74,32 @@ namespace Transportation_Management_System
             double totalCost = 0.0;
             DAL db = new DAL();
 
+            Rate OSHTRates = db.GetOSHTRates();
+
             // Iterate through the trips and sum the costs of each
-            foreach(var trip in trips)
+            foreach (Trip trip in trips)
             {
                 Carrier currentTripCarrier = db.FilterCarriersByID(trip.CarrierID);
+                double OSHTRate;
 
                 // Calculate the final price based on the carrier rates and OSHT charge
                 switch (trip.JobType)
                 {
                     case JobType.FTL:
-                        totalCost =  (currentTripCarrier.FTLRate * 1.05) * trip.TotalDistance;
+                        OSHTRate = 1 + OSHTRates.RateValuePair[RateType.FTL];
+                        totalCost = (currentTripCarrier.FTLRate * OSHTRate) * trip.TotalDistance;
                         break;
                     case JobType.LTL:
-                        totalCost =  (currentTripCarrier.LTLRate * 1.08) * trip.TotalDistance;
+                        OSHTRate = 1 + OSHTRates.RateValuePair[RateType.LTL];
+                        totalCost = (currentTripCarrier.LTLRate * 1.08) * trip.TotalDistance;
                         break;
+                    default:
+                        throw new ArgumentException("Trip must contain a job type");
                 }
 
 
                 // Calculate the Reefer charge
-                switch(trip.VanType)
+                switch (trip.VanType)
                 {
                     case VanType.Reefer:
                         // Percentage on top of the cost if it's a reefer van
@@ -101,6 +108,8 @@ namespace Transportation_Management_System
                     // If dryvan, only the regular rates
                     case VanType.DryVan:
                         break;
+                    default:
+                        throw new ArgumentException("Trip must contain a job type");
                 }
             }
 
