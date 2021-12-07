@@ -219,5 +219,10 @@ namespace Transportation_Management_System
             }
             return userCreated;
         }
+
+        public void UpdateRate(double rate, RateType type)
+        {
+            db.UpdateOSHTRate(rate, type);
+        }
     }
 }
