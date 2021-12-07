@@ -10,8 +10,16 @@
         Title="Administrator" Height="434" Width="797">
     <Viewbox>
         <Grid>
-
-            <Grid>
+          <Border RenderTransformOrigin="0.5,0.5" Height="419">
+           <Border.Background>
+                        <LinearGradientBrush>
+                            <GradientStop Color="LightBlue" Offset="0.0"/>
+                            <GradientStop Color="Navy" Offset="1.8"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <Image Source="logo_white.png" Margin="10,10,667,281"/>
+                </Border>
+                <Grid>
                 <Button x:Name ="UserCreation" Content="Create User" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,157,0,0" Click="CreateUser_Click"/>
                 <Button x:Name ="Backup" Content="Backup" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,209,0,0" Click="Backup_Click"/>
                 <Button x:Name ="LogFiles" Content="Log File" Background="WhiteSmoke" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,261,0,0" Click="LogFiles_Click"/>

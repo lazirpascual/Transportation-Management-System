@@ -785,8 +785,7 @@ namespace Transportation_Management_System
             string email;
             UserRole type;
             string newType = UserType.Text;
-            
-           
+                       
             try
             {
                 firstName = FirstName.Text;
