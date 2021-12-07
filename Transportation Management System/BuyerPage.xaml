@@ -17,7 +17,7 @@
                         <GradientStop Color="Navy" Offset="1.8"/>
                     </LinearGradientBrush>
                 </Border.Background>
-                <Image Source="logo_white.png" Margin="10,10,667,281"/>
+                <Image Source="logo_white.png" Margin="-20,10,697,281"/>
             </Border>
             <Button x:Name ="Invoice" Content="Invoices" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,261,0,0" Click="Invoice_Click"/>
             <Button x:Name ="Orders" Content="Orders" Background="WhiteSmoke" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,312,0,0" Click="Orders_Click"/>
@@ -25,7 +25,7 @@
             <Button x:Name ="MarketPlace" Content="MarketPlace" Background="WhiteSmoke" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,210,0,0" Click="MarketPlace_Click"/>
             <Grid x:Name="ClientsGrid" Visibility="Hidden">
                 <CheckBox x:Name="CActiveBox" Content="Active Clients" Background="WhiteSmoke" Margin="146,370,403,27" IsChecked="False" Click="CActiveBox_Click"/>
-                <ListView x:Name="ClientsList" Margin="146,10,47,61">
+                <ListView x:Name="ClientsList" Margin="146,10,47,61" Height="324" Width="657">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Client Name" Width="100" DisplayMemberBinding="{Binding ClientName}" />
@@ -40,7 +40,7 @@
                 <RadioButton x:Name="AllBox" Content="All Orders" Background="WhiteSmoke" Margin="145,370,581,27" IsChecked="False" Click="AllBox_Click" />
                 <RadioButton x:Name="ActiveBox" Content="Active Orders" Background="WhiteSmoke" Margin="222,370,475,27" IsChecked="False" Click="ActiveBox_Click"/>
                 <RadioButton x:Name="CompletedBox" Content="Completed Orders" Background="WhiteSmoke" Margin="328,370,325,27" IsChecked="False" Click="CompletedBox_Click"/>
-                <ListView x:Name="OrdersList" Margin="145,10,21,61">
+                <ListView x:Name="OrdersList" Margin="145,10,21,61" Height="324" Width="657">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="ID" Width="40" DisplayMemberBinding="{Binding OrderID}" />
@@ -63,7 +63,7 @@
             </Grid>
             <Grid x:Name="InvoicesGrid" Visibility="Hidden">
                 <Button x:Name ="GenerateInvoice" Content="Generate Invoice" FontSize="16" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="28" Margin="651,373,0,0" Click="GenerateInvoice_Click"/>
-                <ListView x:Name="InvoiceList" Margin="147,10,24,61" SelectionMode="Single" SelectionChanged="InvoiceList_SelectionChanged">
+                <ListView x:Name="InvoiceList" Margin="147,10,24,61" SelectionMode="Single" SelectionChanged="InvoiceList_SelectionChanged" Height="324" Width="657">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="OrderID" Width="50" DisplayMemberBinding="{Binding OrderID}" />
@@ -81,7 +81,7 @@
             </Grid>
             <Grid x:Name="MarketPlaceGrid" Visibility="Hidden">
                 <Button x:Name="AcceptClient" Content="Accept" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="696,373,0,0" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Click="AcceptClient_Click"/>
-                <ListView x:Name="ContractsList" Margin="189,10,37,61" SelectionMode="Single">
+                <ListView x:Name="ContractsList" Margin="189,10,37,61" SelectionMode="Single" Height="324" Width="657">
                     <ListView.View>
                         <GridView x:Name="ContractsListGrid">
                             <GridViewColumn Header="Client Name" Width="120" DisplayMemberBinding="{Binding ClientName}" />
