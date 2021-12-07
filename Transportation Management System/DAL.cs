@@ -450,7 +450,7 @@ namespace Transportation_Management_System
             Random randNum = new Random();
             int invoiceNum = randNum.Next(0, 100);
 
-            string invoiceText = String.Format("Sales Invoice\nInvoice Number: {0}\n\nOrder Number: {1}\nClient: {2}\nOrigin City: {3}\nDestination City: {4}\nDays taken: {5}\n\n\nTotal: {6}\n", invoiceNum, clientName, origin, destination, days, totalCost);
+            string invoiceText = String.Format("Sales Invoice\nInvoice Number: {0}\n\nOrder Number: {1}\nClient: {2}\nOrigin City: {3}\nDestination City: {4}\nDays taken: {5}\n\n\nTotal: {6}\n", invoiceNum, orderID, clientName, origin, destination, days, totalCost);
             string invoiceDirectory = Directory.GetCurrentDirectory();
             string invoiceName = invoiceDirectory +"\\Invoice"+ invoiceNum + ".txt";
             try
@@ -522,13 +522,14 @@ namespace Transportation_Management_System
                         {
                             while (rdr.Read())
                             {
-                                Route route = new Route();
+                                Route route = new Route
+                                {
+                                    // Set default values
+                                    West = City.Null,
+                                    East = City.Null,
+                                    Destination = (City)Int32.Parse(rdr["Destination"].ToString())
+                                };
 
-                                // Set default values
-                                route.West = City.Null;
-                                route.East = City.Null;
-
-                                route.Destination = (City)Int32.Parse(rdr["Destination"].ToString());
                                 if (int.TryParse(rdr["Distance"].ToString(), out int d)) route.Distance = d;
                                 if (double.TryParse(rdr["Time"].ToString(), out double t)) route.Time = t;
                                 if (Int32.TryParse(rdr["West"].ToString(), out int w)) route.West = (City) w;
@@ -647,7 +648,7 @@ namespace Transportation_Management_System
             catch (MySqlException e)
             {
                 Logger.Log(e.Message, LogLevel.Error);
-                throw new ArgumentException($"Carrier Depot city \"{carrierCity.DepotCity.ToString()}\" already exists.");
+                throw new ArgumentException($"Carrier Depot city \"{carrierCity.DepotCity}\" already exists.");
             }
             catch (Exception e)
             {
@@ -767,12 +768,14 @@ namespace Transportation_Management_System
                         {
                             while (rdr.Read())
                             {
-                                carr = new Carrier();
-                                carr.CarrierID = int.Parse(rdr["CarrierID"].ToString());
-                                carr.Name = rdr["CarrierName"].ToString();
-                                carr.FTLRate = double.Parse(rdr["FTLRate"].ToString());
-                                carr.LTLRate = double.Parse(rdr["LTLRate"].ToString());
-                                carr.ReeferCharge = double.Parse(rdr["reefCharge"].ToString());
+                                carr = new Carrier
+                                {
+                                    CarrierID = int.Parse(rdr["CarrierID"].ToString()),
+                                    Name = rdr["CarrierName"].ToString(),
+                                    FTLRate = double.Parse(rdr["FTLRate"].ToString()),
+                                    LTLRate = double.Parse(rdr["LTLRate"].ToString()),
+                                    ReeferCharge = double.Parse(rdr["reefCharge"].ToString())
+                                };
                             }
                         }
                     }
@@ -965,18 +968,22 @@ namespace Transportation_Management_System
                         {
                             while (rdr.Read())
                             {
-                                Carrier carr = new Carrier();
-                                carr.CarrierID = int.Parse(rdr["CarrierID"].ToString());
-                                carr.Name = rdr["CarrierName"].ToString();
-                                carr.FTLRate = double.Parse(rdr["FTLRate"].ToString());
-                                carr.LTLRate = double.Parse(rdr["LTLRate"].ToString());
-                                carr.ReeferCharge = double.Parse(rdr["reefCharge"].ToString());
+                                Carrier carr = new Carrier
+                                {
+                                    CarrierID = int.Parse(rdr["CarrierID"].ToString()),
+                                    Name = rdr["CarrierName"].ToString(),
+                                    FTLRate = double.Parse(rdr["FTLRate"].ToString()),
+                                    LTLRate = double.Parse(rdr["LTLRate"].ToString()),
+                                    ReeferCharge = double.Parse(rdr["reefCharge"].ToString())
+                                };
 
-                                CarrierCity carrCity = new CarrierCity();
-                                carrCity.Carrier = carr;
-                                carrCity.DepotCity = (City)Enum.Parse(typeof(City), rdr["DepotCity"].ToString(), true);
-                                carrCity.FTLAval = int.Parse(rdr["FTLAval"].ToString());
-                                carrCity.LTLAval = int.Parse(rdr["LTLAval"].ToString());
+                                CarrierCity carrCity = new CarrierCity
+                                {
+                                    Carrier = carr,
+                                    DepotCity = (City)Enum.Parse(typeof(City), rdr["DepotCity"].ToString(), true),
+                                    FTLAval = int.Parse(rdr["FTLAval"].ToString()),
+                                    LTLAval = int.Parse(rdr["LTLAval"].ToString())
+                                };
 
                                 carrierCities.Add(carrCity);
                             }
@@ -1070,19 +1077,23 @@ namespace Transportation_Management_System
                             while (rdr.Read())
                             {
                                 // Getting the carrier of that city
-                                Carrier carr = new Carrier();
-                                carr.CarrierID = int.Parse(rdr["CarrierID"].ToString());
-                                carr.Name = rdr["CarrierName"].ToString();
-                                carr.FTLRate = double.Parse(rdr["FTLRate"].ToString());
-                                carr.LTLRate = double.Parse(rdr["LTLRate"].ToString());
-                                carr.ReeferCharge = double.Parse(rdr["reefCharge"].ToString());
+                                Carrier carr = new Carrier
+                                {
+                                    CarrierID = int.Parse(rdr["CarrierID"].ToString()),
+                                    Name = rdr["CarrierName"].ToString(),
+                                    FTLRate = double.Parse(rdr["FTLRate"].ToString()),
+                                    LTLRate = double.Parse(rdr["LTLRate"].ToString()),
+                                    ReeferCharge = double.Parse(rdr["reefCharge"].ToString())
+                                };
 
 
-                                CarrierCity carrCity = new CarrierCity();
-                                carrCity.Carrier = carr;
-                                carrCity.DepotCity = (City)Enum.Parse(typeof(City), rdr["DepotCity"].ToString(), true);
-                                carrCity.FTLAval = int.Parse(rdr["FTLAval"].ToString());
-                                carrCity.LTLAval = int.Parse(rdr["LTLAval"].ToString());
+                                CarrierCity carrCity = new CarrierCity
+                                {
+                                    Carrier = carr,
+                                    DepotCity = (City)Enum.Parse(typeof(City), rdr["DepotCity"].ToString(), true),
+                                    FTLAval = int.Parse(rdr["FTLAval"].ToString()),
+                                    LTLAval = int.Parse(rdr["LTLAval"].ToString())
+                                };
 
 
                                 carrierCities.Add(carrCity);
@@ -1122,14 +1133,16 @@ namespace Transportation_Management_System
                         {
                             while (rdr.Read())
                             {
-                                User user = new User();
-                                user.FirstName = rdr["FirstName"].ToString();
-                                user.LastName = rdr["LastName"].ToString();
-                                user.Username = rdr["Username"].ToString();
-                                user.Password = rdr["PasswordHash"].ToString();
-                                user.Email = rdr["Email"].ToString();
-                                user.IsActive = Boolean.Parse(rdr["IsActive"].ToString());
-                                user.UserType = (UserRole)int.Parse(rdr["UserType"].ToString());
+                                User user = new User
+                                {
+                                    FirstName = rdr["FirstName"].ToString(),
+                                    LastName = rdr["LastName"].ToString(),
+                                    Username = rdr["Username"].ToString(),
+                                    Password = rdr["PasswordHash"].ToString(),
+                                    Email = rdr["Email"].ToString(),
+                                    IsActive = bool.Parse(rdr["IsActive"].ToString()),
+                                    UserType = (UserRole)int.Parse(rdr["UserType"].ToString())
+                                };
                                 usersList.Add(user);
                             }
                         }
@@ -1167,10 +1180,12 @@ namespace Transportation_Management_System
                         {
                             while (rdr.Read())
                             {
-                                Client client = new Client();
-                                client.ClientID = int.Parse(rdr["ClientID"].ToString());
-                                client.ClientName = rdr["ClientName"].ToString();
-                                client.IsActive = int.Parse(rdr["IsActive"].ToString());
+                                Client client = new Client
+                                {
+                                    ClientID = int.Parse(rdr["ClientID"].ToString()),
+                                    ClientName = rdr["ClientName"].ToString(),
+                                    IsActive = int.Parse(rdr["IsActive"].ToString())
+                                };
                                 clientsList.Add(client);
                             }
                         }
@@ -1216,9 +1231,11 @@ namespace Transportation_Management_System
                         {
                             while (rdr.Read())
                             {
-                                client = new Client();
-                                client.ClientID = int.Parse(rdr["ClientID"].ToString());
-                                client.ClientName = rdr["ClientName"].ToString();
+                                client = new Client
+                                {
+                                    ClientID = int.Parse(rdr["ClientID"].ToString()),
+                                    ClientName = rdr["ClientName"].ToString()
+                                };
                             }
                         }
                     }
@@ -1257,18 +1274,32 @@ namespace Transportation_Management_System
                     {
                         while (rdr.Read())
                         {
-                            Order newOrder = new Order();
-                            newOrder.OrderID = int.Parse(rdr["OrderID"].ToString());
-                            newOrder.ClientName = rdr["ClientName"].ToString();
-                            if (DateTime.TryParse(rdr["OrderDate"].ToString(), out DateTime dt)) newOrder.OrderCreationDate = dt;
+                            Order newOrder = new Order
+                            {
+                                OrderID = int.Parse(rdr["OrderID"].ToString()),
+                                ClientName = rdr["ClientName"].ToString()
+                            };
+                            if (DateTime.TryParse(rdr["OrderDate"].ToString(), out DateTime dt))
+                            {
+                                newOrder.OrderCreationDate = dt;
+                            }
+
                             newOrder.Origin = (City)Enum.Parse(typeof(City), rdr["Origin"].ToString(), true);
                             newOrder.Destination = (City)Enum.Parse(typeof(City), rdr["Destination"].ToString(), true);
                             newOrder.JobType = (JobType)int.Parse(rdr["JobType"].ToString());
                             newOrder.VanType = (VanType)int.Parse(rdr["VanType"].ToString());
                             newOrder.Quantity = int.Parse(rdr["Quantity"].ToString());
                             newOrder.IsCompleted = int.Parse(rdr["IsCompleted"].ToString());
-                            if (DateTime.TryParse(rdr["OrderCreationDate"].ToString(), out DateTime dt2)) newOrder.OrderAcceptedDate = dt2;
-                            if (DateTime.TryParse(rdr["OrderCompletedDate"].ToString(), out DateTime dt3)) newOrder.OrderCompletionDate = dt3;
+                            if (DateTime.TryParse(rdr["OrderCreationDate"].ToString(), out DateTime dt2))
+                            {
+                                newOrder.OrderAcceptedDate = dt2;
+                            }
+
+                            if (DateTime.TryParse(rdr["OrderCompletedDate"].ToString(), out DateTime dt3))
+                            {
+                                newOrder.OrderCompletionDate = dt3;
+                            }
+
                             orders.Add(newOrder);
                         }
                     }
@@ -1307,18 +1338,32 @@ namespace Transportation_Management_System
                     {
                         while (rdr.Read())
                         {
-                            Order newOrder = new Order();
-                            newOrder.OrderID = int.Parse(rdr["OrderID"].ToString());
-                            newOrder.ClientName = rdr["ClientName"].ToString();
-                            if (DateTime.TryParse(rdr["OrderDate"].ToString(), out DateTime dt)) newOrder.OrderCreationDate = dt;
+                            Order newOrder = new Order
+                            {
+                                OrderID = int.Parse(rdr["OrderID"].ToString()),
+                                ClientName = rdr["ClientName"].ToString()
+                            };
+                            if (DateTime.TryParse(rdr["OrderDate"].ToString(), out DateTime dt))
+                            {
+                                newOrder.OrderCreationDate = dt;
+                            }
+
                             newOrder.Origin = (City)Enum.Parse(typeof(City), rdr["Origin"].ToString(), true);
                             newOrder.Destination = (City)Enum.Parse(typeof(City), rdr["Destination"].ToString(), true);
                             newOrder.JobType = (JobType)int.Parse(rdr["JobType"].ToString());
                             newOrder.VanType = (VanType)int.Parse(rdr["VanType"].ToString());
                             newOrder.Quantity = int.Parse(rdr["Quantity"].ToString());
                             newOrder.IsCompleted = int.Parse(rdr["IsCompleted"].ToString());
-                            if (DateTime.TryParse(rdr["OrderCreationDate"].ToString(), out DateTime dt2)) newOrder.OrderAcceptedDate = dt2;
-                            if (DateTime.TryParse(rdr["OrderCompletedDate"].ToString(), out DateTime dt3)) newOrder.OrderCompletionDate = dt3;
+                            if (DateTime.TryParse(rdr["OrderCreationDate"].ToString(), out DateTime dt2))
+                            {
+                                newOrder.OrderAcceptedDate = dt2;
+                            }
+
+                            if (DateTime.TryParse(rdr["OrderCompletedDate"].ToString(), out DateTime dt3))
+                            {
+                                newOrder.OrderCompletionDate = dt3;
+                            }
+
                             orders.Add(newOrder);
                         }
                     }
@@ -1356,9 +1401,11 @@ namespace Transportation_Management_System
                     {
                         while (rdr.Read())
                         {
-                            Order newOrder = new Order();
-                            newOrder.OrderID = int.Parse(rdr["OrderID"].ToString());
-                            newOrder.ClientName = rdr["ClientName"].ToString();
+                            Order newOrder = new Order
+                            {
+                                OrderID = int.Parse(rdr["OrderID"].ToString()),
+                                ClientName = rdr["ClientName"].ToString()
+                            };
                             if (DateTime.TryParse(rdr["OrderCreationDate"].ToString(), out DateTime dt)) newOrder.OrderAcceptedDate = dt;
                             newOrder.Origin = (City)Enum.Parse(typeof(City), rdr["Origin"].ToString(), true);
                             newOrder.Destination = (City)Enum.Parse(typeof(City), rdr["Destination"].ToString(), true);
@@ -1405,18 +1452,32 @@ namespace Transportation_Management_System
                     {
                         while (rdr.Read())
                         {
-                            Order newOrder = new Order();
-                            newOrder.OrderID = int.Parse(rdr["OrderID"].ToString());
-                            newOrder.ClientName = rdr["ClientName"].ToString();
-                            if(DateTime.TryParse(rdr["OrderDate"].ToString(), out DateTime dt)) newOrder.OrderCreationDate = dt;
+                            Order newOrder = new Order
+                            {
+                                OrderID = int.Parse(rdr["OrderID"].ToString()),
+                                ClientName = rdr["ClientName"].ToString()
+                            };
+                            if (DateTime.TryParse(rdr["OrderDate"].ToString(), out DateTime dt))
+                            {
+                                newOrder.OrderCreationDate = dt;
+                            }
+
                             newOrder.Origin = (City)Enum.Parse(typeof(City), rdr["Origin"].ToString(), true);
                             newOrder.Destination = (City)Enum.Parse(typeof(City), rdr["Destination"].ToString(), true);
                             newOrder.JobType = (JobType)int.Parse(rdr["JobType"].ToString());
                             newOrder.VanType = (VanType)int.Parse(rdr["VanType"].ToString());
                             newOrder.Quantity = int.Parse(rdr["Quantity"].ToString());
                             newOrder.IsCompleted = int.Parse(rdr["IsCompleted"].ToString());
-                            if (DateTime.TryParse(rdr["OrderCreationDate"].ToString(), out DateTime dt2)) newOrder.OrderAcceptedDate = dt2;
-                            if (DateTime.TryParse(rdr["OrderCompletedDate"].ToString(), out DateTime dt3)) newOrder.OrderCompletionDate = dt3;
+                            if (DateTime.TryParse(rdr["OrderCreationDate"].ToString(), out DateTime dt2))
+                            {
+                                newOrder.OrderAcceptedDate = dt2;
+                            }
+
+                            if (DateTime.TryParse(rdr["OrderCompletedDate"].ToString(), out DateTime dt3))
+                            {
+                                newOrder.OrderCompletionDate = dt3;
+                            }
+
                             orders.Add(newOrder);
                         }
                     }
@@ -1570,10 +1631,12 @@ namespace Transportation_Management_System
                     {
                         while (rdr.Read())
                         {
-                            Client newClient = new Client();
-                            newClient.ClientName = rdr["ClientName"].ToString();
-                            newClient.ClientID = int.Parse(rdr["ClientID"].ToString());
-                            newClient.IsActive = int.Parse(rdr["IsActive"].ToString());
+                            Client newClient = new Client
+                            {
+                                ClientName = rdr["ClientName"].ToString(),
+                                ClientID = int.Parse(rdr["ClientID"].ToString()),
+                                IsActive = int.Parse(rdr["IsActive"].ToString())
+                            };
                             clients.Add(newClient);
                         }
                     }
@@ -1598,7 +1661,6 @@ namespace Transportation_Management_System
         {
             string qSQL = "SELECT * FROM Carriers WHERE IsActive=1";
             List<Carrier> carriers = new List<Carrier>();
-            Carrier carr = null;
             try
             {
                 string conString = this.ToString();
@@ -1613,13 +1675,15 @@ namespace Transportation_Management_System
                         {
                             while (rdr.Read())
                             {
-                                carr = new Carrier();
-                                carr.CarrierID = int.Parse(rdr["CarrierID"].ToString());
-                                carr.Name = rdr["CarrierName"].ToString();
-                                carr.FTLRate = double.Parse(rdr["FTLRate"].ToString());
-                                carr.LTLRate = double.Parse(rdr["LTLRate"].ToString());
-                                carr.ReeferCharge = double.Parse(rdr["reefCharge"].ToString());
-                                carr.IsActive = Boolean.Parse(rdr["IsActive"].ToString());
+                                Carrier carr = new Carrier
+                                {
+                                    CarrierID = int.Parse(rdr["CarrierID"].ToString()),
+                                    Name = rdr["CarrierName"].ToString(),
+                                    FTLRate = double.Parse(rdr["FTLRate"].ToString()),
+                                    LTLRate = double.Parse(rdr["LTLRate"].ToString()),
+                                    ReeferCharge = double.Parse(rdr["reefCharge"].ToString()),
+                                    IsActive = Boolean.Parse(rdr["IsActive"].ToString())
+                                };
                                 carriers.Add(carr);
                             }
                         }
@@ -1675,12 +1739,56 @@ namespace Transportation_Management_System
         }
 
 
+
+        ///
+        /// \brief Used to get all the OSHT Rates
+        /// 
+        /// \return Returns a Rate object
+        /// 
+        public Rate GetOSHTRates()
+        {
+            Rate OSHTRates = new Rate();
+            string qSQL = "SELECT Rate, RateType FROM Rates WHERE Name='OSHT'";
+
+            try
+            {
+                string conString = this.ToString();
+                using (MySqlConnection conn = new MySqlConnection(conString))
+                {
+                    conn.Open();
+                    using (MySqlCommand cmd = new MySqlCommand(qSQL, conn))
+                    {
+                        MySqlDataReader rdr = cmd.ExecuteReader();
+                        if (rdr.HasRows)
+                        {
+                            while (rdr.Read())
+                            {
+                                RateType rateType = (RateType)int.Parse(rdr["RateType"].ToString());
+                                double rateValue = double.Parse(rdr["Rate"].ToString());
+
+                                OSHTRates.RateValuePair.Add(rateType, rateValue);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Logger.Log(e.Message, LogLevel.Error);
+                throw;
+            }
+
+            return OSHTRates;
+
+        }
+
+
+
         ///
         /// \brief Used to create a trip using trip object
         ///
         /// \param trip  - <b>Trip</b> - Order to select the invoic
         /// \param carrierToSelect  - <b>Carrier</b> - trip object
-        /// 
         /// 
         /// \return Returns void
         /// 
@@ -1744,14 +1852,16 @@ namespace Transportation_Management_System
                         {
                             while (rdr.Read())
                             {
-                                Trip trip = new Trip();
-                                trip.TripID = int.Parse(rdr["TripID"].ToString());
-                                trip.OrderID = int.Parse(rdr["OrderID"].ToString());
-                                trip.CarrierID = int.Parse(rdr["CarrierID"].ToString());
-                                trip.OriginCity= (City)Enum.Parse(typeof(City), rdr["OriginCity"].ToString(), true);
-                                trip.DestinationCity= (City)Enum.Parse(typeof(City), rdr["DestinationCity"].ToString(), true);
-                                trip.TotalDistance = int.Parse(rdr["TotalDistance"].ToString());
-                                trip.TotalTime = double.Parse(rdr["TotalTime"].ToString());
+                                Trip trip = new Trip
+                                {
+                                    TripID = int.Parse(rdr["TripID"].ToString()),
+                                    OrderID = int.Parse(rdr["OrderID"].ToString()),
+                                    CarrierID = int.Parse(rdr["CarrierID"].ToString()),
+                                    OriginCity = (City)Enum.Parse(typeof(City), rdr["OriginCity"].ToString(), true),
+                                    DestinationCity = (City)Enum.Parse(typeof(City), rdr["DestinationCity"].ToString(), true),
+                                    TotalDistance = int.Parse(rdr["TotalDistance"].ToString()),
+                                    TotalTime = double.Parse(rdr["TotalTime"].ToString())
+                                };
                                 trips.Add(trip);
 
                             }
@@ -1848,10 +1958,11 @@ namespace Transportation_Management_System
                             {
                                 while (rdr.Read())
                                 {
-                                    Order order = new Order();
-
-                                    order.ClientName = rdr["ClientName"].ToString();
-                                    order.OrderID = int.Parse(rdr["OrderID"].ToString());
+                                    Order order = new Order
+                                    {
+                                        ClientName = rdr["ClientName"].ToString(),
+                                        OrderID = int.Parse(rdr["OrderID"].ToString())
+                                    };
                                     if (DateTime.TryParse(rdr["OrderDate"].ToString(), out DateTime dt)) order.OrderCreationDate = dt;
                                     order.Origin = (City)Enum.Parse(typeof(City), rdr["Origin"].ToString(), true);
                                     order.Destination = (City)Enum.Parse(typeof(City), rdr["Destination"].ToString(), true);
@@ -1889,7 +2000,7 @@ namespace Transportation_Management_System
         /// 
         public void BackupDatabase(string backUpFilePath)
         {
-            string fileName = $"TMS-DB-Backup-{DateTime.Now.ToString("MM-dd-yyyy HH-mm-ss")}.sql";
+            string fileName = $"TMS-DB-Backup-{DateTime.Now:MM-dd-yyyy HH-mm-ss}.sql";
             if(backUpFilePath == "")
             {
                 throw new ArgumentNullException("Backup file path was not provided. Backup failed.");

@@ -24,12 +24,11 @@ namespace Transportation_Management_System
     /// </summary>
     public partial class AdminPage : Window
     {
-        private Admin admin;
+        private readonly Admin admin = new Admin();
         
         public AdminPage()
         {
             InitializeComponent();
-            admin = new Admin();
             ResetStatus();
             ConfigurationVisible();
         }
@@ -99,9 +98,8 @@ namespace Transportation_Management_System
             Database.Background = Brushes.LightSkyBlue;
             RouteGrid.Visibility = Visibility.Visible;
 
-            List<Route> routeList = new List<Route>();
             DAL db = new DAL();
-            routeList = db.GetRoutes();
+            List<Route> routeList = db.GetRoutes();
             RouteDatabase.ItemsSource = routeList;
         }
 
@@ -238,8 +236,8 @@ namespace Transportation_Management_System
             int newLTL;
 
 
-            Carrier carrier = null;
-            CarrierCity carrierCity = null;
+            Carrier carrier;
+            CarrierCity carrierCity;
 
             DAL db = new DAL();
 
@@ -287,6 +285,8 @@ namespace Transportation_Management_System
                 // Show details about the city if carrier and city is selected
                 else if (CarrierDatabaseList.SelectedItems.Count == 1 && CityDatabase.SelectedItems.Count == 1)
                 {
+                    carrierCity = new CarrierCity();
+
                     carrierCity.Carrier.CarrierID = db.GetCarrierIdByName(carrier.Name);
                     db.UpdateCarrierCity(carrierCity, ((CarrierCity) CityDatabase.SelectedItem).DepotCity);
 
@@ -385,8 +385,8 @@ namespace Transportation_Management_System
             int newFTL;
             int newLTL;
 
-            Carrier newCarrier = null;
-            CarrierCity newCarrierCity = null;
+            Carrier newCarrier;
+            CarrierCity newCarrierCity; ;
 
             DAL db = new DAL();
 
@@ -504,7 +504,7 @@ namespace Transportation_Management_System
             string west;
             string east;
             
-            Route route = null;
+            Route route;
             
             DAL db = new DAL();
 

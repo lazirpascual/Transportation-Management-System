@@ -20,12 +20,11 @@ namespace Transportation_Management_System
     public partial class BuyerPage : Window
     {
         private List<Contract> contractList;
-        private Buyer buyer;
+        private readonly Buyer buyer = new Buyer();
 
         public BuyerPage()
         {
             InitializeComponent();
-            buyer = new Buyer();
             MarketPlace_Page();
         }
 
@@ -51,8 +50,7 @@ namespace Transportation_Management_System
             InvoicesGrid.Visibility = Visibility.Visible;
             Invoice.Background = Brushes.LightSkyBlue;
 
-            List<Order> orderList = new List<Order>();
-            orderList = buyer.GetOrders(1);
+            List<Order> orderList = buyer.GetOrders(1);
             InvoiceList.ItemsSource = orderList;
         }
 
@@ -77,9 +75,7 @@ namespace Transportation_Management_System
             ClientsGrid.Visibility = Visibility.Visible;
             Clients.Background = Brushes.LightSkyBlue;
 
-            List<Client> clientList = new List<Client>();
-
-            clientList = buyer.FetchClients(25);
+            List<Client> clientList = buyer.FetchClients(25);
             ClientsList.ItemsSource = clientList;
             CActiveBox.IsChecked = false;
         }
@@ -174,7 +170,7 @@ namespace Transportation_Management_System
 
         private void CActiveBox_Click(object sender, RoutedEventArgs e)
         {
-            var clientList = new List<Client>();
+            List<Client> clientList;
 
             if (CActiveBox.IsChecked == true)
             {

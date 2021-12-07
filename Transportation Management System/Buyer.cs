@@ -123,8 +123,8 @@ namespace Transportation_Management_System
             db.UpdateInvoiceGenerated(orderID);
             List<Trip> trips = db.FilterTripsByOrderId(orderID);
 
-            double hours = 0.0;
-            int distance = 0;
+            double hours;
+            int distance;
 
             try
             {
