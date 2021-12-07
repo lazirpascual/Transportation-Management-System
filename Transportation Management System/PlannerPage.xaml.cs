@@ -27,9 +27,7 @@ namespace Transportation_Management_System
         {
             InitializeComponent();
 
-            OrdersPage();
-            CollectionView viewOrder = (CollectionView)CollectionViewSource.GetDefaultView(OrdersList.ItemsSource);
-            viewOrder.SortDescriptions.Add(new SortDescription("OrderID", ListSortDirection.Ascending));
+            OrdersPage();        
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -130,7 +128,9 @@ namespace Transportation_Management_System
             }
 
             OrdersList.ItemsSource = orderList;
-      
+            // sort by OrderID
+            CollectionView viewOrder = (CollectionView)CollectionViewSource.GetDefaultView(OrdersList.ItemsSource);
+            viewOrder.SortDescriptions.Add(new SortDescription("OrderID", ListSortDirection.Ascending));
         }
 
         private void AllBox_Click(object sender, RoutedEventArgs e)
@@ -156,10 +156,11 @@ namespace Transportation_Management_System
             if (selectCarrier.ShowDialog() == true)
             {
                 CompleteOrder.Visibility = Visibility.Hidden;
-                OrderProgress.Visibility = Visibility.Visible;
+                OrderProgress.Visibility = Visibility.Hidden;
                 ViewCarrier.Visibility = Visibility.Hidden;
+                int currentIndex = OrdersList.SelectedIndex;
                 Refresh_Orders();
-                OrdersList.SelectedItem = (object)currentOrder;               
+                OrdersList.SelectedItem = OrdersList.Items[currentIndex];    // reselect current order we just processed
             }
         }
 
@@ -170,6 +171,7 @@ namespace Transportation_Management_System
             CompleteOrder.Visibility = Visibility.Hidden;
             OrderProgress.Visibility = Visibility.Hidden;
             Refresh_Orders();
+
             StringBuilder msg = new StringBuilder();
             msg.AppendLine($"Order Complete! \nOrder #{currentOrder.OrderID} has arrived to its destination!");
             msg.AppendLine($"Client Name: {currentOrder.ClientName}");

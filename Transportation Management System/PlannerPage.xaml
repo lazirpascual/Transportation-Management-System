@@ -68,8 +68,8 @@
                 </ListView>
                 <Grid x:Name="OrderProgress" Visibility="Hidden" >
                     <ProgressBar x:Name="OrderProgressBar" HorizontalAlignment="Left" Height="20" Margin="644,375,0,0" VerticalAlignment="Top" Width="123" Minimum="0" Maximum="100"/>
-                    <Label x:Name="HoursLabel" Height="23" Width="120" BorderThickness="0" Padding="0" Background="Transparent"  HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0, 0, 59, 42"/>
-                    <Label Height="23" Margin="660,375,43,21" Content="Order Progress" Width="120" BorderThickness="0" Padding="0" Background="Transparent"/>
+                    <Label x:Name="HoursLabel" Height="23" Width="120" BorderThickness="0" Padding="0" Background="Transparent"  HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0, 0, 57, 42"/>
+                    <Label Height="23" Margin="660,375,30,21" Content="Order Progress" Width="120" BorderThickness="0" Padding="0" Background="Transparent"/>
                 </Grid>
             </Grid>
         </Grid>

@@ -65,7 +65,10 @@ namespace Transportation_Management_System
                 {                   
                     LTL LTLCarrier = (LTL)CarrierList.SelectedItem;
                     planner.SelectOrderCarrier(currentOrder, LTLCarrier.CarrierID);
-                    carriers.Add(LTLCarrier.Name);
+                    if (!carriers.Contains(LTLCarrier.Name))
+                    {
+                        carriers.Add(LTLCarrier.Name);
+                    }               
 
                     // If current carrier does not have enough availability for the order, select another carrier to fullfill the rest
                     if (LTLCarrier.LTLAval < currentOrder.Quantity)
