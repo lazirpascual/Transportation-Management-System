@@ -28,7 +28,7 @@
                 <Button x:Name ="Configuration" Content="General Config" Background="WhiteSmoke" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,363,0,0" Click="Configuration_Click"/>
                 <TextBox x:Name="AdminLog" Margin="146,10,20,10" Visibility="Hidden" MaxWidth="620" MaxHeight="390" AcceptsReturn="False" IsReadOnly="True" TextWrapping="Wrap" Background="GhostWhite" VerticalScrollBarVisibility="Auto"/>
             </Grid>
-            <Grid x:Name="CreateUserGrid" Visibility="Hidden">
+            <Grid x:Name="CreateUserGrid" Visibility="Visible">
                 <TextBox Margin="146,10,20,10" MaxWidth="630" MaxHeight="390" IsReadOnly="True" Background="GhostWhite"/>
                 <Label Content="Create New User" FontWeight="Bold" HorizontalAlignment="Left" Margin="182,37,0,0" VerticalAlignment="Top"/>
                 <Label Content="First Name" HorizontalAlignment="Left" Margin="182,88,0,0" VerticalAlignment="Top"/>
@@ -44,6 +44,8 @@
                 <TextBox x:Name="Email" HorizontalAlignment="Left" Height="23" Margin="265,202,0,0" VerticalAlignment="Top" Width="120"/>
                 <PasswordBox x:Name="UserPassword" HorizontalAlignment="Left" Height="23" Margin="265,241,0,0" VerticalAlignment="Top" Width="120"/>
                 <TextBox x:Name="UserType" HorizontalAlignment="Left" Height="23" Margin="265,280,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                
+
             </Grid>
             <Grid x:Name="GeneralGrid" Visibility="Hidden">
                 <TextBox Margin="146,10,20,10" MaxWidth="630" MaxHeight="390" IsReadOnly="True" Background="GhostWhite"/>

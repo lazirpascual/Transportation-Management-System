@@ -63,7 +63,7 @@
 
             </Grid>
             <Grid x:Name="InvoicesGrid" Visibility="Hidden">
-                <Button x:Name ="GenerateInvoice" Content="Generate Invoice" FontSize="16" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="28" Margin="651,373,0,0" Click="GenerateInvoice_Click"/>
+                <Button x:Name ="GenerateInvoice" Content="Generate Invoice" FontSize="16" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="28" Margin="721,371,0,0" Click="GenerateInvoice_Click"/>
                 <ListView x:Name="InvoiceList" Margin="147,10,24,61" SelectionMode="Single" SelectionChanged="InvoiceList_SelectionChanged">
                     <ListView.View>
                         <GridView>
