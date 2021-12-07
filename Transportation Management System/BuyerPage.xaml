@@ -7,8 +7,7 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen" 
         Closing="Window_Closing"
-        Title="Buyer" Height="414" Width="799"
-        Loaded="Window_Loaded">
+        Title="Buyer" Height="414" Width="799">
     <Viewbox>
         <Grid>
             <Border RenderTransformOrigin="0.5,0.5" Height="419">

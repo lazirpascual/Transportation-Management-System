@@ -24,6 +24,8 @@ namespace Transportation_Management_System
         public PlannerPage()
         {
             InitializeComponent();
+
+            OrdersPage();
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -31,10 +33,6 @@ namespace Transportation_Management_System
             App.Current.MainWindow.Visibility = Visibility.Visible;
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            Orders_Click(sender, e);
-        }
 
         private void Invoices_Click(object sender, RoutedEventArgs e)
         {
@@ -49,7 +47,12 @@ namespace Transportation_Management_System
 
         private void Orders_Click(object sender, RoutedEventArgs e)
         {
-            ResetStatus();            
+            ResetStatus();
+            OrdersPage();
+        }
+
+        private void OrdersPage()
+        {           
 
             AllBox.IsChecked = true;
             Orders.Background = Brushes.LightSkyBlue;
@@ -183,11 +186,13 @@ namespace Transportation_Management_System
             {
                 OrderProgress.Visibility = Visibility.Visible;
                 CompleteOrder.Visibility = Visibility.Hidden;
-            }
-            OrderProgressBar.Value = result;
 
-            TimeSpan TimeRemaining = expectedDeliveryDate - DateTime.Now;
-            HoursLabel.Content = $"Time Left: {(int)TimeRemaining.TotalHours} hrs, {TimeRemaining.Minutes} mins";
+
+                TimeSpan TimeRemaining = expectedDeliveryDate - DateTime.Now;
+                HoursLabel.Content = $"Time Left: {(int)TimeRemaining.TotalHours} hrs, {TimeRemaining.Minutes} mins";
+            }
+
+            OrderProgressBar.Value = result;
         }
 
         private void Selection_Changed(object sender, RoutedEventArgs e)
