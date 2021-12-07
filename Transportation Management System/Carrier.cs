@@ -1,4 +1,16 @@
-﻿using System;
+﻿
+/* -- FILEHEADER COMMENT --
+    FILE		:	Carrier.cs
+    PROJECT		:	Transportation Management System
+    PROGRAMMER	:  * Ana De Oliveira
+                   * Icaro Ryan Oliveira Souza
+                   * Lazir Pascual
+                   * Rohullah Noory
+    DATE		:	2021-12-07
+    DESCRIPTION	:	This file contains the source for the Carrier class.
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,10 +21,9 @@ namespace Transportation_Management_System
     /// 
     /// \class Carrier
     /// 
-    /// \brief The purpose of this class is to hold and model all attributes of the carrier
+    /// \brief The purpose of this class is to hold and model all attributes of the carrier.
     ///
-    /// This class will simply keep the updated attributes of the carrier that are fetched by
-    /// the CarrierManager class methods.
+    /// This class will simply keep the updated attributes of the carrier.
     /// 
     ///
     ///
@@ -35,7 +46,13 @@ namespace Transportation_Management_System
         /// The amount for reefer van type
         public double ReeferCharge { set; get; }
 
+        /// The status of the carrier in the system
+        public bool IsActive { set; get; }
 
+
+        ///
+        /// \brief This Carrier class constructor is used to initialize the properties of the carrier.
+        /// 
         public Carrier(string newName, double newFTL, double newLTL, double newReefer)
         {
             Name = newName;
@@ -44,10 +61,12 @@ namespace Transportation_Management_System
             ReeferCharge = newReefer;
         }
 
+
+        ///
+        /// \brief This overloaded Carrier class constructor is used to access a carrier with empty attributes.
+        /// 
         public Carrier() { }
                 
-
-        public bool IsActive { set; get; }
 
 
     }

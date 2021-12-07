@@ -1,4 +1,17 @@
-﻿using System;
+﻿
+/* -- FILEHEADER COMMENT --
+    FILE		:	Buyer.cs
+    PROJECT		:	Transportation Management System
+    PROGRAMMER	:  * Ana De Oliveira
+                   * Icaro Ryan Oliveira Souza
+                   * Lazir Pascual
+                   * Rohullah Noory
+    DATE		:	2021-12-07
+    DESCRIPTION	:	This file contains the source for the Buyer class which inherits from User class.
+
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -69,19 +82,11 @@ namespace Transportation_Management_System
 
 
         ///
-        /// \brief Return a list of all active customers in our system
+        /// \brief Return a list of active, completed or all orders in our system.
         /// 
-        /// \return A list of all active customers
+        /// \param orderStatus  - <b>int</b> - 0 for active, 1 for completed, 2 for all orders.
         /// 
-        //public List<Customer> GetActiveCustomers() { }
-
-
-        ///
-        /// \brief Return a list of active, completed or all orders in our system
-        /// 
-        /// \param OnlyActives  - <b>bool</b> - 0 for active, 1 for completed, 2 for all orders
-        /// 
-        /// \return A list of all active orders
+        /// \return A list of orders.
         /// 
         public List<Order> GetOrders(int orderStatus) 
         {
@@ -110,7 +115,6 @@ namespace Transportation_Management_System
         /// \brief Inserts a new invoice in the Invoice table
         ///
         /// \param orderObj  - <b>Order</b> - An Order object with all its information
-        /// \return invoice -   <b>Invoice</b>  -   An Invoice object with all its information
         /// 
         /// \return An invoice object
         public Invoice CreateInvoice(Order orderObj)
@@ -161,41 +165,13 @@ namespace Transportation_Management_System
             return invoice;
         }
 
-        //public void SaveInvoice(Invoice invoice)
-        //{
-        //    Random randNum = new Random();
-        //    int invoiceNum = randNum.Next(0, 1000);
-
-        //    string invoiceText = String.Format("====Sales Invoice====\n" +
-        //                                        "Invoice Number: {0}\n\n" +
-        //                                        "Order Number: {1}\n" +
-        //                                        "Client: {2}\n" +
-        //                                        "Origin City: {3}\n" +
-        //                                        "Destination City: {4}\n" +
-        //                                        "Days taken: {5}\n\n\n" +
-        //                                        "Total: {6}\n", invoiceNum, invoice.OrderID, invoice.ClientName, invoice.Origin, invoice.Destination, invoice.Days, invoice.TotalAmount.ToString("C0"));
-
-        //    string invoiceDirectory = Directory.GetCurrentDirectory();
-        //    string invoiceName = invoiceDirectory + "\\" + invoice.ClientName + "-" + invoice.OrderID + ".txt";
-        //    try
-        //    {
-        //        using (StreamWriter writer = new StreamWriter(invoiceName))
-        //        {
-        //            writer.Write(invoiceText);
-        //        }
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        Logger.Log(e.Message, LogLevel.Error);
-        //        throw;
-        //    }
-        //}
-
 
         ///
-        /// \brief Used to display a list of clients
-        ///
-        /// \param activeStatus  - <b>int</b> - status of the client
+        /// \brief Return a list of active, or all clients in the TMS system.
+        /// 
+        /// \param activeStatus  - <b>int</b> - 0 for active, 1 for all orders.
+        /// 
+        /// \return A list of clients.
         /// 
         public List<Client> FetchClients(int activeStatus)
         {
@@ -216,6 +192,14 @@ namespace Transportation_Management_System
             return clientList;
         }
 
+
+        ///
+        /// \brief Used to check if an order has an invoice.
+        /// 
+        /// \param order  - <b>Order</b> - Order object with all it's attributes.
+        /// 
+        /// \return true - if order has an invoice, false - if it does not.
+        /// 
         public bool InvoiceGeneration(Order order)
         {
             DAL db = new DAL();
