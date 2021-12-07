@@ -523,6 +523,10 @@ namespace Transportation_Management_System
             Database.Background = Brushes.WhiteSmoke;
             Configuration.Background = Brushes.WhiteSmoke;
             UserCreation.Background = Brushes.WhiteSmoke;
+
+            AdminRadio.IsChecked = false;
+            PlannerRadio.IsChecked = false;
+            BuyerRadio.IsChecked = false;
         }
 
        
@@ -537,11 +541,7 @@ namespace Transportation_Management_System
             string west;
             string east;
             
-
-            
             Route route = null;
-
-            
 
             try
             {
@@ -817,16 +817,40 @@ namespace Transportation_Management_System
             string password;
             string email;
             UserRole type;
-            string newType = UserType.Text;
                        
             try
             {
+                // Check if the select box is selected
+                if(AdminRadio.IsChecked == true)
+                {
+                    type = UserRole.Admin;
+                }
+                else if(PlannerRadio.IsChecked == true)
+                {
+                    type = UserRole.Planner;
+                }
+                else if(BuyerRadio.IsChecked == true)
+                {
+                    type = UserRole.Buyer;
+                }
+                // No Radio Buttons selected
+                else
+                {
+                    throw new Exception();
+                }
+
                 firstName = FirstName.Text;
                 lastName = LastName.Text; 
                 username = Username.Text;
                 password = UserPassword.Password;
                 email = Email.Text;
-                type = (UserRole)Enum.Parse(typeof(UserRole), newType, true);
+
+                // Check if all fields has been filled
+                if(string.IsNullOrEmpty(firstName) || string.IsNullOrEmpty(lastName) || string.IsNullOrEmpty(username) ||
+                    string.IsNullOrEmpty(password) || string.IsNullOrEmpty(email))
+                {
+                    throw new Exception();
+                }
 
                 // Check if the user exists
                 DAL db = new DAL();

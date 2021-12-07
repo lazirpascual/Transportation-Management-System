@@ -36,15 +36,18 @@
                 <Label Content="Username" HorizontalAlignment="Left" Margin="182,164,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.441,1.673"/>
                 <Label Content="E-mail" HorizontalAlignment="Left" Margin="182,202,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.441,1.673"/>
                 <Label Content="Password" HorizontalAlignment="Left" Margin="182,241,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.441,1.673"/>
-                <Label Content="Type" HorizontalAlignment="Left" Margin="182,280,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.441,1.673"/>
-                <Button Content="Create User" HorizontalAlignment="Left" Margin="298,321,0,0" VerticalAlignment="Top" Background="WhiteSmoke" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" Width="87" Height="23" Click="UserCreation_Click"/>
+                <Label Content="Type" HorizontalAlignment="Left" Margin="182,287,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.441,1.673"/>
+                <Button Content="Create User" HorizontalAlignment="Left" Margin="298,340,0,0" VerticalAlignment="Top" Background="WhiteSmoke" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" Width="87" Height="23" Click="UserCreation_Click"/>
                 <TextBox x:Name="FirstName" HorizontalAlignment="Left" Height="23" Margin="265,88,0,0"  VerticalAlignment="Top" Width="120"/>
                 <TextBox x:Name="LastName" HorizontalAlignment="Left" Height="23" Margin="265,126,0,0" VerticalAlignment="Top" Width="120"/>
                 <TextBox x:Name="Username" HorizontalAlignment="Left" Height="23" Margin="265,164,0,0"  VerticalAlignment="Top" Width="120"/>
                 <TextBox x:Name="Email" HorizontalAlignment="Left" Height="23" Margin="265,202,0,0" VerticalAlignment="Top" Width="120"/>
                 <PasswordBox x:Name="UserPassword" HorizontalAlignment="Left" Height="23" Margin="265,241,0,0" VerticalAlignment="Top" Width="120"/>
-                <TextBox x:Name="UserType" HorizontalAlignment="Left" Height="23" Margin="265,280,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                
+
+                <RadioButton x:Name="AdminRadio" Content="Admin" Background="WhiteSmoke" Margin="265,278,495,126" IsChecked="False" />
+                <RadioButton x:Name="PlannerRadio" Content="Planner" Background="WhiteSmoke" Margin="265,293,495,111" IsChecked="False"/>
+                <RadioButton x:Name="BuyerRadio" Content="Buyer" Background="WhiteSmoke" Margin="265,308,495,96" IsChecked="False"/>
+
 
             </Grid>
             <Grid x:Name="GeneralGrid" Visibility="Hidden">

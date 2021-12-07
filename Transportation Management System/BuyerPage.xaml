@@ -80,8 +80,8 @@
                     </ListView.View>
                 </ListView>
             </Grid>
-            <Grid x:Name="MarketPlaceGrid" Visibility="Hidden">
-                <Button x:Name="AcceptClient" Content="Accept" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="696,373,0,0" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Click="AcceptClient_Click"/>
+            <Grid x:Name="MarketPlaceGrid" Visibility="Visible">
+                <Button x:Name="AcceptClient" Content="Accept" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="754,373,0,0" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Click="AcceptClient_Click"/>
                 <ListView x:Name="ContractsList" Margin="189,10,37,61" SelectionMode="Single">
                     <ListView.View>
                         <GridView x:Name="ContractsListGrid">
