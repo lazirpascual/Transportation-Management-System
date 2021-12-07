@@ -12,6 +12,8 @@
 using System;
 using System.IO;
 using System.Windows.Forms;
+using System.Drawing.Drawing2D;
+using System.Drawing;
 
 namespace Transportation_Management_System
 {
@@ -40,11 +42,23 @@ namespace Transportation_Management_System
             InitializeComponent();
             order.Text = "Order ID: " + invoice.OrderID;
             clientName.Text = "Client Name: " + invoice.ClientName;
-            totalDistance.Text = "Total Distance (Km): " + invoice.TotalKM;
+            totalDistance.Text = "Total Distance: " + invoice.TotalKM + " KMs";
             totalAmount.Text = "Total: " + invoice.TotalAmount.ToString("C0");
             origin.Text = "Origin City: " + invoice.Origin;
             destination.Text = "Destination City: " + invoice.Destination;
             selectedInvoice = invoice;
+        }
+
+        protected override void OnPaintBackground(PaintEventArgs e)
+        {
+            using (LinearGradientBrush brush = new LinearGradientBrush(
+                                                                        this.ClientRectangle,
+                                                                        Color.LightBlue,
+                                                                        ColorTranslator.FromHtml("#7183CA"),
+                                                                        75F))
+            {
+                e.Graphics.FillRectangle(brush, this.ClientRectangle);
+            }
         }
 
         ///
