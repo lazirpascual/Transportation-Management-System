@@ -254,7 +254,6 @@ namespace Transportation_Management_System
             CompleteOrder.Visibility = Visibility.Hidden;
             OrderProgress.Visibility = Visibility.Hidden;
             ViewCarrier.Visibility = Visibility.Hidden;
-        }
-
+        }    
     }
 }

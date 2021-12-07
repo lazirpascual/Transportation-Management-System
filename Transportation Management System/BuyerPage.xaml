@@ -9,6 +9,11 @@
         Closing="Window_Closing"
         Title="Buyer" Height="414" Width="799"
         Icon="/favicon.png">
+
+    <Window.Resources>
+        <local:StatusConverter x:Key="StatusConverter"/>
+        <local:DateConverter x:Key="DateConverter"/>
+    </Window.Resources>
     <Viewbox>
         <Grid>
             <Border RenderTransformOrigin="0.5,0.5" Height="419">
@@ -45,16 +50,16 @@
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="ID" Width="40" DisplayMemberBinding="{Binding OrderID}" />
-                            <GridViewColumn Header="Client Name" Width="90" DisplayMemberBinding="{Binding ClientName}" />
+                            <GridViewColumn Header="Client Name" Width="95" DisplayMemberBinding="{Binding ClientName}" />
                             <GridViewColumn Header="Accepted Date" Width="70" DisplayMemberBinding="{Binding OrderAcceptedDate}" />
                             <GridViewColumn Header="Origin" Width="80" DisplayMemberBinding="{Binding Origin}" />
                             <GridViewColumn Header="Destination" Width="70" DisplayMemberBinding="{Binding Destination}" />
                             <GridViewColumn Header="Job Type" Width="55" DisplayMemberBinding="{Binding JobType}" />
                             <GridViewColumn Header="Van Type" Width="55" DisplayMemberBinding="{Binding VanType}" />
                             <GridViewColumn Header="Qty" Width="40" DisplayMemberBinding="{Binding Quantity}" />
-                            <GridViewColumn Header="Status" Width="50" DisplayMemberBinding="{Binding IsCompleted}" />
-                            <GridViewColumn Header="Creation Date" Width="70" DisplayMemberBinding="{Binding OrderCreationDate}" />
-                            <GridViewColumn Header="Completion" Width="70" DisplayMemberBinding="{Binding OrderCompletionDate}" />
+                            <GridViewColumn Header="Status" Width="70" DisplayMemberBinding="{Binding IsCompleted, Converter={StaticResource StatusConverter}}" />
+                            <GridViewColumn Header="Creation Date" Width="70" DisplayMemberBinding="{Binding OrderCreationDate, Converter={StaticResource DateConverter}}" />
+                            <GridViewColumn Header="Completion" Width="70" DisplayMemberBinding="{Binding OrderCompletionDate, Converter={StaticResource DateConverter}}" />
                         </GridView>
                     </ListView.View>
                 </ListView>
