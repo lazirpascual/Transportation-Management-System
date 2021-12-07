@@ -7,9 +7,15 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Closing="Window_Closing"
-        Title="Administrator" Height="434" Width="797"
+        Title="Administrator" Height="430" Width="800"
         Icon="/favicon.png">
 
+    <Window.Background>
+        <LinearGradientBrush EndPoint="1,1" StartPoint="0,0">
+            <GradientStop Color="LightBlue" Offset="0.0" />
+            <GradientStop Color="Navy" Offset="1.8"/>
+        </LinearGradientBrush>
+    </Window.Background>
     <Window.Resources>
         <local:DirectionConverter x:Key="DirectionConverter"/>
         <local:QuantityConverter x:Key="QuantityConverter"/>
@@ -18,12 +24,6 @@
     <Viewbox>
         <Grid>
             <Border RenderTransformOrigin="0.5,0.5" Height="419">
-                <Border.Background>
-                    <LinearGradientBrush>
-                        <GradientStop Color="LightBlue" Offset="0.0" />
-                        <GradientStop Color="Navy" Offset="1.8" />
-                    </LinearGradientBrush>
-                </Border.Background>
                 <Image Source="logo_white.png" Margin="10,10,667,281" />
             </Border>
             <Grid>
