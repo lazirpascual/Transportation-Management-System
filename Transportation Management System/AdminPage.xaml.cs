@@ -241,7 +241,7 @@ namespace Transportation_Management_System
 
 
             Carrier carrier;
-            CarrierCity carrierCity;
+            CarrierCity carrierCity = null;
 
 
 
