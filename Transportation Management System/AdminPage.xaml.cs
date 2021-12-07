@@ -87,6 +87,10 @@ namespace Transportation_Management_System
             ResetStatus();
             Database.Background = Brushes.LightSkyBlue;
             RatesGrid.Visibility = Visibility.Visible;
+            DAL dal = new DAL();
+            var oshRates = dal.GetOSHTRates();
+            NewFTLRate.Text = oshRates.RateValuePair[RateType.FTL].ToString();
+            NewLTLRate.Text = oshRates.RateValuePair[RateType.LTL].ToString();
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
