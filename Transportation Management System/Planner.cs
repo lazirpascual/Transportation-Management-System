@@ -31,6 +31,7 @@ namespace Transportation_Management_System
     ///
     class Planner : User
     {
+
         ///
         /// \brief This method calls a query to to the orders database to fetch all active, compeleted, or all orders from the buyer. 
         /// 
@@ -91,6 +92,7 @@ namespace Transportation_Management_System
         {
             DAL db = new DAL();
             Trip trip = new Trip();
+            TripManager tm = new TripManager();
             db.StartOrder(currentOrder);
             trip.CarrierID = carrierID;
             trip.OrderID = currentOrder.OrderID;
@@ -98,7 +100,7 @@ namespace Transportation_Management_System
             trip.DestinationCity = currentOrder.Destination;
             trip.JobType = currentOrder.JobType;
             trip.VanType = currentOrder.VanType;
-            trip.CalculateDistanceAndTime();
+            tm.CalculateDistanceAndTime(trip);
             db.CreateTrip(trip);
         }
 
