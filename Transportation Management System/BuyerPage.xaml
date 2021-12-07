@@ -75,7 +75,7 @@
                             <GridViewColumn Header="Job Type" Width="70" DisplayMemberBinding="{Binding JobType}" />
                             <GridViewColumn Header="Van Type" Width="70" DisplayMemberBinding="{Binding VanType}" />
                             <GridViewColumn Header="Qty" Width="30" DisplayMemberBinding="{Binding Quantity}" />
-                            <GridViewColumn Header="Completion Date" Width="70" DisplayMemberBinding="{Binding OrderCompletionDate}" />
+                            <GridViewColumn Header="Completion Date" Width="100" DisplayMemberBinding="{Binding OrderCompletionDate}" />
                         </GridView>
                     </ListView.View>
                 </ListView>
