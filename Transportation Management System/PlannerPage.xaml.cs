@@ -1,5 +1,4 @@
-﻿
-/* -- FILEHEADER COMMENT --
+﻿/* -- FILEHEADER COMMENT --
     FILE		:	PlannerPage.xaml.cs
     PROJECT		:	Transportation Management System
     PROGRAMMER	:  * Ana De Oliveira
@@ -12,19 +11,11 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using System.ComponentModel;
-
+using System.Text;
+using System.Windows;
+using System.Windows.Data;
+using System.Windows.Media;
 
 namespace Transportation_Management_System
 {
@@ -34,26 +25,26 @@ namespace Transportation_Management_System
     public partial class PlannerPage : Window
     {
         //planner object to access Planner class
-        private Planner planner = new Planner();
+        private readonly Planner planner = new Planner();
 
         ///
         /// \brief This constructor is used to initialize the planner page UI.
-        /// 
+        ///
         public PlannerPage()
         {
             InitializeComponent();
 
-            OrdersPage();        
+            OrdersPage();
         }
 
         ///
         /// \brief Event handler for when window is closed.
-        /// 
+        ///
         /// \param sender  - <b>object</b> - object that invoked the event handler.
         /// \param e  - <b>System.ComponentModel.CancelEventArgs</b> - base class used to pass data to cancelable event.
-        /// 
+        ///
         /// \return None - void
-        /// 
+        ///
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             App.Current.MainWindow.Visibility = Visibility.Visible;
@@ -61,12 +52,12 @@ namespace Transportation_Management_System
 
         ///
         /// \brief Event handler for when Invoices button is clicked.
-        /// 
+        ///
         /// \param sender  - <b>object</b> - object that invoked the event handler.
         /// \param e  - <b>RoutedEventArgs</b> - base class used to pass data to event handler.
-        /// 
+        ///
         /// \return None - void
-        /// 
+        ///
         private void Invoices_Click(object sender, RoutedEventArgs e)
         {
             ResetStatus();
@@ -76,15 +67,14 @@ namespace Transportation_Management_System
             Refresh_Invoices();
         }
 
-
         ///
         /// \brief Event handler for when Orders button is clicked.
-        /// 
+        ///
         /// \param sender  - <b>object</b> - object that invoked the event handler.
         /// \param e  - <b>RoutedEventArgs</b> - base class used to pass data to event handler.
-        /// 
+        ///
         /// \return None - void
-        /// 
+        ///
         private void Orders_Click(object sender, RoutedEventArgs e)
         {
             ResetStatus();
@@ -93,12 +83,11 @@ namespace Transportation_Management_System
 
         ///
         /// \brief Used to manage display of Orders page in planner UI.
-        /// 
+        ///
         /// \return None - void
-        /// 
+        ///
         private void OrdersPage()
-        {           
-
+        {
             AllBox.IsChecked = true;
             Orders.Background = Brushes.LightSkyBlue;
             OrdersGrid.Visibility = Visibility.Visible;
@@ -107,12 +96,12 @@ namespace Transportation_Management_System
 
         ///
         /// \brief Event handler for when AllInvoices button is clicked.
-        /// 
+        ///
         /// \param sender  - <b>object</b> - object that invoked the event handler.
         /// \param e  - <b>RoutedEventArgs</b> - base class used to pass data to event handler.
-        /// 
+        ///
         /// \return None - void
-        /// 
+        ///
         private void AllInvoices_Click(object sender, RoutedEventArgs e)
         {
             Refresh_Invoices();
@@ -120,12 +109,12 @@ namespace Transportation_Management_System
 
         ///
         /// \brief Event handler for when PastInvoices button is clicked.
-        /// 
+        ///
         /// \param sender  - <b>object</b> - object that invoked the event handler.
         /// \param e  - <b>RoutedEventArgs</b> - base class used to pass data to event handler.
-        /// 
+        ///
         /// \return None - void
-        /// 
+        ///
         private void PastInvoices_Click(object sender, RoutedEventArgs e)
         {
             Refresh_Invoices();
@@ -133,12 +122,12 @@ namespace Transportation_Management_System
 
         ///
         /// \brief Event handler for when Report button is clicked.
-        /// 
+        ///
         /// \param sender  - <b>object</b> - object that invoked the event handler.
         /// \param e  - <b>RoutedEventArgs</b> - base class used to pass data to event handler.
-        /// 
+        ///
         /// \return None - void
-        /// 
+        ///
         private void Report_Click(object sender, RoutedEventArgs e)
         {
             ResetStatus();
@@ -150,19 +139,18 @@ namespace Transportation_Management_System
 
         ///
         /// \brief Used to populate the invoice list based on selection.
-        /// 
-        /// 
+        ///
+        ///
         /// \return None - void
-        /// 
+        ///
         private void Refresh_Invoices()
         {
             List<Invoice> invoicesList = new List<Invoice>();
 
-            if(AllInvoices.IsChecked == true)
+            if (AllInvoices.IsChecked == true)
             {
                 // past invoice is also checked, get all invoices
-                invoicesList = planner.GenerateSummaryReport(false);           
-               
+                invoicesList = planner.GenerateSummaryReport(false);
             }
             else if (PastInvoice.IsChecked == true)
             {
@@ -170,20 +158,20 @@ namespace Transportation_Management_System
                 invoicesList = planner.GenerateSummaryReport(true);
             }
 
-            ReportList.ItemsSource = invoicesList;           
+            ReportList.ItemsSource = invoicesList;
         }
 
         ///
         /// \brief Used to populate the orders list based on selection.
-        /// 
-        /// 
+        ///
+        ///
         /// \return None - void
-        /// 
+        ///
         private void Refresh_Orders()
         {
-            var orderList = new List<Order>();
+            List<Order> orderList = new List<Order>();
 
-            if(AllBox.IsChecked == true)
+            if (AllBox.IsChecked == true)
             {
                 // Get all orders
                 orderList = planner.FetchOrders(2);
@@ -193,11 +181,11 @@ namespace Transportation_Management_System
                 // Get active orders
                 orderList = planner.FetchOrders(0);
             }
-            else if(CompletedBox.IsChecked == true)
+            else if (CompletedBox.IsChecked == true)
             {
                 // completed box is checked, fetch only completed orders
                 orderList = planner.FetchOrders(1);
-                
+
                 ViewCarrier.Visibility = Visibility.Hidden;
                 CompleteOrder.Visibility = Visibility.Hidden;
                 OrderProgress.Visibility = Visibility.Hidden;
@@ -211,10 +199,10 @@ namespace Transportation_Management_System
 
         ///
         /// \brief Event handler for when AllBox button is clicked.
-        /// 
+        ///
         /// \param sender  - <b>object</b> - object that invoked the event handler.
         /// \param e  - <b>RoutedEventArgs</b> - base class used to pass data to event handler.
-        /// 
+        ///
         /// \return None - void
         ///
         private void AllBox_Click(object sender, RoutedEventArgs e)
@@ -224,10 +212,10 @@ namespace Transportation_Management_System
 
         ///
         /// \brief Event handler for when ActiveBox button is clicked.
-        /// 
+        ///
         /// \param sender  - <b>object</b> - object that invoked the event handler.
         /// \param e  - <b>RoutedEventArgs</b> - base class used to pass data to event handler.
-        /// 
+        ///
         /// \return None - void
         ///
         private void ActiveBox_Click(object sender, RoutedEventArgs e)
@@ -235,13 +223,12 @@ namespace Transportation_Management_System
             Refresh_Orders();
         }
 
-
         ///
         /// \brief Event handler for when CompletedBox button is clicked.
-        /// 
+        ///
         /// \param sender  - <b>object</b> - object that invoked the event handler.
         /// \param e  - <b>RoutedEventArgs</b> - base class used to pass data to event handler.
-        /// 
+        ///
         /// \return None - void
         ///
         private void CompletedBox_Click(object sender, RoutedEventArgs e)
@@ -251,15 +238,15 @@ namespace Transportation_Management_System
 
         ///
         /// \brief Event handler for when view carrier button is clicked.
-        /// 
+        ///
         /// \param sender  - <b>object</b> - object that invoked the event handler.
         /// \param e  - <b>RoutedEventArgs</b> - base class used to pass data to event handler.
-        /// 
+        ///
         /// \return None - void
         ///
         private void View_Carrier(object sender, RoutedEventArgs e)
         {
-            Order currentOrder = (Order) OrdersList.SelectedItem;
+            Order currentOrder = (Order)OrdersList.SelectedItem;
             List<CarrierCity> carrierCity = planner.GetCarriers(currentOrder.Origin.ToString(), currentOrder.JobType);
             CarrierSelection selectCarrier = new CarrierSelection(carrierCity, currentOrder);
             if (selectCarrier.ShowDialog() == true)
@@ -275,10 +262,10 @@ namespace Transportation_Management_System
 
         ///
         /// \brief Event handler for when complete order button is clicked.
-        /// 
+        ///
         /// \param sender  - <b>object</b> - object that invoked the event handler.
         /// \param e  - <b>RoutedEventArgs</b> - base class used to pass data to event handler.
-        /// 
+        ///
         /// \return None - void
         ///
         private void Complete_Order(object sender, RoutedEventArgs e)
@@ -298,10 +285,10 @@ namespace Transportation_Management_System
 
         ///
         /// \brief Event handler for when simulate order status button is clicked.
-        /// 
+        ///
         /// \param sender  - <b>object</b> - object that invoked the event handler.
         /// \param e  - <b>RoutedEventArgs</b> - base class used to pass data to event handler.
-        /// 
+        ///
         /// \return None - void
         ///
         private void Simulate_OrderStatus()
@@ -313,7 +300,7 @@ namespace Transportation_Management_System
             TimeSpan TimePassed = DateTime.Now - currentOrder.OrderCreationDate;
 
             double result = TimePassed.TotalHours * 100 / TotalTimeSpan.TotalHours;
-            if(result >= 100)
+            if (result >= 100)
             {
                 result = 100;
                 CompleteOrder.Visibility = Visibility.Visible;
@@ -332,10 +319,10 @@ namespace Transportation_Management_System
 
         ///
         /// \brief Event handler for when an order is selected in the list.
-        /// 
+        ///
         /// \param sender  - <b>object</b> - object that invoked the event handler.
         /// \param e  - <b>RoutedEventArgs</b> - base class used to pass data to event handler.
-        /// 
+        ///
         /// \return None - void
         ///
         private void Selection_Changed(object sender, RoutedEventArgs e)
@@ -346,7 +333,7 @@ namespace Transportation_Management_System
             {
                 if (planner.CarrierAssigned(currentOrder) == true && currentOrder.IsCompleted == 0)
                 {
-                    // carrier has already been assigned, display complete order button                             
+                    // carrier has already been assigned, display complete order button
                     ViewCarrier.Visibility = Visibility.Hidden;
                     Simulate_OrderStatus();
                 }
@@ -364,13 +351,13 @@ namespace Transportation_Management_System
                     ViewCarrier.Visibility = Visibility.Hidden;
                     CompleteOrder.Visibility = Visibility.Hidden;
                     OrderProgress.Visibility = Visibility.Hidden;
-                }              
-            }                
+                }
+            }
         }
 
         ///
         /// \brief Used to reset the display of the page and hiding visibily of components.
-        /// 
+        ///
         /// \return None - void
         ///
         private void ResetStatus()
@@ -383,7 +370,6 @@ namespace Transportation_Management_System
             ReportsGrid.Visibility = Visibility.Hidden;
             OrdersGrid.Visibility = Visibility.Hidden;
 
-
             ActiveBox.IsChecked = false;
             CompletedBox.IsChecked = false;
             AllInvoices.IsChecked = false;
@@ -392,6 +378,6 @@ namespace Transportation_Management_System
             CompleteOrder.Visibility = Visibility.Hidden;
             OrderProgress.Visibility = Visibility.Hidden;
             ViewCarrier.Visibility = Visibility.Hidden;
-        }    
+        }
     }
 }

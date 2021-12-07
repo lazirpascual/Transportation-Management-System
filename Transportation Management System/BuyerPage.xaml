@@ -5,30 +5,30 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Transportation_Management_System"
         mc:Ignorable="d"
-        WindowStartupLocation="CenterScreen" 
+        WindowStartupLocation="CenterScreen"
         Closing="Window_Closing"
         Title="Buyer" Height="414" Width="799"
         Icon="/favicon.png">
 
     <Window.Resources>
-        <local:StatusConverter x:Key="StatusConverter"/>
-        <local:DateConverter x:Key="DateConverter"/>
+        <local:StatusConverter x:Key="StatusConverter" />
+        <local:DateConverter x:Key="DateConverter" />
     </Window.Resources>
     <Viewbox>
         <Grid>
             <Border RenderTransformOrigin="0.5,0.5" Height="419">
                 <Border.Background>
                     <LinearGradientBrush>
-                        <GradientStop Color="LightBlue" Offset="0.0"/>
-                        <GradientStop Color="Navy" Offset="1.8"/>
+                        <GradientStop Color="LightBlue" Offset="0.0" />
+                        <GradientStop Color="Navy" Offset="1.8" />
                     </LinearGradientBrush>
                 </Border.Background>
-                <Image Source="logo_white.png" Margin="-20,10,697,281"/>
+                <Image Source="logo_white.png" Margin="-20,10,697,281" />
             </Border>
-            <Button x:Name ="Invoice" Content="Invoices" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,261,0,0" Click="Invoice_Click"/>
-            <Button x:Name ="Orders" Content="Orders" Background="WhiteSmoke" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,312,0,0" Click="Orders_Click"/>
-            <Button x:Name ="Clients" Content="Clients" Background="WhiteSmoke" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,363,0,0" Click="Clients_Click"/>
-            <Button x:Name ="MarketPlace" Content="MarketPlace" Background="WhiteSmoke" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,210,0,0" Click="MarketPlace_Click"/>
+            <Button x:Name ="Invoice" Content="Invoices" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,261,0,0" Click="Invoice_Click" />
+            <Button x:Name ="Orders" Content="Orders" Background="WhiteSmoke" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,312,0,0" Click="Orders_Click" />
+            <Button x:Name ="Clients" Content="Clients" Background="WhiteSmoke" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,363,0,0" Click="Clients_Click" />
+            <Button x:Name ="MarketPlace" Content="MarketPlace" Background="WhiteSmoke" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,210,0,0" Click="MarketPlace_Click" />
             <Grid x:Name="ClientsGrid" Visibility="Visible">
                 <ListView x:Name="ClientsList" Margin="146,10,47,61" Height="324" Width="657">
                     <ListView.View>
@@ -42,8 +42,8 @@
 
             <Grid x:Name="OrdersGrid" Visibility="Hidden">
                 <RadioButton x:Name="AllBox" Content="All Orders" Background="WhiteSmoke" Margin="175,370,566,27" IsChecked="False" Click="AllBox_Click" />
-                <RadioButton x:Name="ActiveBox" Content="Active Orders" Background="WhiteSmoke" Margin="266,370,431,27" IsChecked="False" Click="ActiveBox_Click"/>
-                <RadioButton x:Name="CompletedBox" Content="Completed Orders" Background="WhiteSmoke" Margin="373,370,280,27" IsChecked="False" Click="CompletedBox_Click"/>
+                <RadioButton x:Name="ActiveBox" Content="Active Orders" Background="WhiteSmoke" Margin="266,370,431,27" IsChecked="False" Click="ActiveBox_Click" />
+                <RadioButton x:Name="CompletedBox" Content="Completed Orders" Background="WhiteSmoke" Margin="373,370,280,27" IsChecked="False" Click="CompletedBox_Click" />
                 <ListView x:Name="OrdersList" Margin="145,10,21,61" Height="324" Width="657">
                     <ListView.View>
                         <GridView>
@@ -63,10 +63,9 @@
                 </ListView>
             </Grid>
             <Grid x:Name="CarriersGrid">
-
             </Grid>
             <Grid x:Name="InvoicesGrid" Visibility="Hidden">
-                <Button x:Name ="GenerateInvoice" Content="Generate Invoice" FontSize="16" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="28" Margin="724,369,0,0" Click="GenerateInvoice_Click"/>
+                <Button x:Name ="GenerateInvoice" Content="Generate Invoice" FontSize="16" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="28" Margin="724,369,0,0" Click="GenerateInvoice_Click" />
                 <ListView x:Name="InvoiceList" Margin="174,22,38,73" SelectionMode="Single" SelectionChanged="InvoiceList_SelectionChanged" Height="324">
                     <ListView.View>
                         <GridView>
@@ -84,7 +83,7 @@
                 </ListView>
             </Grid>
             <Grid x:Name="MarketPlaceGrid" Visibility="Visible">
-                <Button x:Name="AcceptClient" Content="Accept" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="696,373,0,0" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Click="AcceptClient_Click"/>
+                <Button x:Name="AcceptClient" Content="Accept" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="696,373,0,0" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Click="AcceptClient_Click" />
                 <ListView x:Name="ContractsList" Margin="189,10,37,61" SelectionMode="Single" Height="324" Width="657">
 
                     <ListView.View>

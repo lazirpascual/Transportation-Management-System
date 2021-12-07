@@ -1,5 +1,4 @@
-﻿
-/* -- FILEHEADER COMMENT --
+﻿/* -- FILEHEADER COMMENT --
     FILE		:	DAL.cs
     PROJECT		:	Transportation Management System
     PROGRAMMER	:  * Ana De Oliveira
@@ -10,55 +9,53 @@
     DESCRIPTION	:	This file contains the source for the DAL class.
 */
 
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BC = BCrypt.Net.BCrypt;
-using MySql.Data;
-using MySql.Data.MySqlClient;
-using System.Diagnostics;
 using System.Configuration;
-using System.IO;
+using System.Linq;
+using BC = BCrypt.Net.BCrypt;
 
 namespace Transportation_Management_System
 {
-    /// 
+    ///
     /// \class DAL
-    /// 
+    ///
     /// \brief The purpose of this class is to act as the Data Access Layer for the system
     ///
     /// This class will manage all the communication between the controller to the database.
     /// Therefore, each query or change to the database need to be managed by the DAL class.
-    /// 
+    ///
     /// \author <i>Team Blank</i>
     ///
     public class DAL
     {
         /// Host of the database
         private string Server { get; set; }
+
         /// Username to connect to the database
         private string User { get; set; }
+
         /// Port to connect to the database
         private string Port { get; set; }
+
         /// Port to connect to the database
         private string Password { get; set; }
+
         /// Name of the database
-        private string DatabaseName { get; set; }   
+        private string DatabaseName { get; set; }
 
         ///
         /// \brief Contruct the DataAccessLayer object by setting the database connection information
-        /// 
+        ///
         public DAL()
         {
             PopulateConnectionString();
         }
 
-
         ///
         /// \brief Pupulate the fields for the database connection
-        /// 
+        ///
         private void PopulateConnectionString()
         {
             try
@@ -69,7 +66,7 @@ namespace Transportation_Management_System
                 Password = ConfigurationManager.AppSettings.Get("Password");
                 DatabaseName = ConfigurationManager.AppSettings.Get("DatabaseName");
 
-                if(Server == "" || User == "" || Port == "" || Password == "" || DatabaseName == "")
+                if (Server == "" || User == "" || Port == "" || Password == "" || DatabaseName == "")
                 {
                     throw new Exception("We couldn't retrieve the information about the database. Please check your config file.");
                 }
@@ -79,22 +76,20 @@ namespace Transportation_Management_System
                 Logger.Log(e.Message, LogLevel.Critical);
                 throw;
             }
-            
         }
-
 
         ///
         /// \brief Update the information about the database connection string in the config file
         ///
         /// \param fieldToChange  - <b>string</b> - field to change
         /// \param newData  - <b>string</b> - new information
-        /// 
+        ///
         public void UpdateDatabaseConnectionString(string fieldToChange, string newData)
         {
             List<string> availableFields = new List<string>()
             { "Server" , "User" ,"Port", "Password", "DatabaseName"};
 
-            if(!availableFields.Contains(fieldToChange))
+            if (!availableFields.Contains(fieldToChange))
             {
                 throw new KeyNotFoundException($"Error. We couldn't find any field called {fieldToChange} in the database connection string.");
             }
@@ -102,7 +97,10 @@ namespace Transportation_Management_System
             string oldData = ConfigurationManager.AppSettings.Get(fieldToChange);
 
             // If the directory doesn't change, don't don anything
-            if (oldData == newData) return;
+            if (oldData == newData)
+            {
+                return;
+            }
 
             // Update the config file
             Configuration configuration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
@@ -115,30 +113,28 @@ namespace Transportation_Management_System
             PopulateConnectionString();
         }
 
-
         ///
         /// \brief Returns the string connection for the database
-        /// 
+        ///
         /// \return String representation of the databse connection info
-        /// 
+        ///
         public override string ToString()
         {
             return $"server={Server};user={User};database={DatabaseName};port={Port};password={Password}; convert zero datetime=True";
         }
 
-
         ///
         /// \brief Check if the username exists in the User tables
         ///
         /// \param userName  - <b>string</b> - Username of ther user
-        /// 
+        ///
         /// \return True if it exists, false otherwise
         ///
         public bool CheckUsername(string userName)
         {
             bool existent = false;
 
-            using (MySqlConnection conn = new MySqlConnection(this.ToString()))
+            using (MySqlConnection conn = new MySqlConnection(ToString()))
             {
                 conn.Open();
                 try
@@ -171,14 +167,12 @@ namespace Transportation_Management_System
             return existent;
         }
 
-
-
         ///
         /// \brief Check if the user password is valid
         ///
         /// \param userName  - <b>string</b> - Username to check the password
         /// \param password  - <b>string</b> - Password to be validated
-        /// 
+        ///
         /// \return True if the password is correct, false otherwise
         ///
         public bool CheckUserPassword(string userName, string password)
@@ -186,7 +180,7 @@ namespace Transportation_Management_System
             // Compare Hased password
             bool isValid = false;
 
-            using (MySqlConnection conn = new MySqlConnection(this.ToString()))
+            using (MySqlConnection conn = new MySqlConnection(ToString()))
             {
                 conn.Open();
                 try
@@ -219,22 +213,19 @@ namespace Transportation_Management_System
             return isValid;
         }
 
-
-
         ///
         /// \brief Check if the user belongs to the role specified
         ///
         /// \param type  - <b>string</b> - User role to be validated
         /// \param username  - <b>string</b> - Username to be checked
-        /// 
+        ///
         /// \return True if the user belongs to the specified type/role, false otherwise
         ///
         public string GetUserType(string username)
         {
             string userType = null;
 
-
-            using (MySqlConnection conn = new MySqlConnection(this.ToString()))
+            using (MySqlConnection conn = new MySqlConnection(ToString()))
             {
                 conn.Open();
                 try
@@ -248,7 +239,7 @@ namespace Transportation_Management_System
                     {
                         while (rdr.Read())
                         {
-                            UserRole DbUserType = (UserRole)Int32.Parse(rdr["UserType"].ToString());
+                            UserRole DbUserType = (UserRole)int.Parse(rdr["UserType"].ToString());
                             userType = DbUserType.ToString();
                         }
                     }
@@ -264,12 +255,11 @@ namespace Transportation_Management_System
             return userType;
         }
 
-
         ///
         /// \brief Inserts a new user in the User table
         ///
         /// \param usr  - <b>User</b> - An User object with all their information
-        /// 
+        ///
         public bool CreateUser(User usr)
         {
             string sql = "INSERT INTO Users (FirstName, LastName, Username, PasswordHash, Email, UserType) " +
@@ -278,7 +268,7 @@ namespace Transportation_Management_System
             bool userCreated = false;
             try
             {
-                using (MySqlConnection conn = new MySqlConnection(this.ToString()))
+                using (MySqlConnection conn = new MySqlConnection(ToString()))
                 {
                     conn.Open();
 
@@ -291,7 +281,7 @@ namespace Transportation_Management_System
                         cmd.Parameters.AddWithValue("@Password", Helper.HashPass(usr.Password));
                         cmd.Parameters.AddWithValue("@Email", usr.Email);
                         cmd.Parameters.AddWithValue("@IsActive", 1);
-                        cmd.Parameters.AddWithValue("@UserType", (int) usr.UserType);
+                        cmd.Parameters.AddWithValue("@UserType", (int)usr.UserType);
 
                         // Execute the insertion and check the number of rows affected
                         // An exception will be thrown if the column is repeated
@@ -313,29 +303,26 @@ namespace Transportation_Management_System
             return userCreated;
         }
 
-
-
         ///
         /// \brief Inserts a new order in the Orders table
         ///
         /// \param order  - <b>Order</b> - An Order object to be created with all its information
-        /// 
-        public void CreateOrder(Order order) 
+        ///
+        public void CreateOrder(Order order)
         {
             string sql = "INSERT INTO Orders (ClientID, Origin, Destination, JobType, Quantity, VanType, OrderCreationDate) " +
                 "VALUES (@ClientID, @Origin, @Destination, @JobType, @Quantity, @VanType, @OrderCreationDate)";
-
 
             try
             {
                 // Get the client from the database and raise an error if it doesn't exist
                 Client client;
-                if ((client = this.FilterClientByName(order.ClientName)) == null)
+                if ((client = FilterClientByName(order.ClientName)) == null)
                 {
                     throw new KeyNotFoundException($"Client {order.ClientName} does not exist in the database.");
                 }
 
-                using (MySqlConnection conn = new MySqlConnection(this.ToString()))
+                using (MySqlConnection conn = new MySqlConnection(ToString()))
                 {
                     conn.Open();
 
@@ -375,22 +362,18 @@ namespace Transportation_Management_System
             }
         }
 
-
-
-
-
         ///
         /// \brief Set the order start date (carrier selected)
         ///
         /// \param currentOrder  - <b>Order</b> - A order object
-        /// 
+        ///
         public void StartOrder(Order currentOrder)
         {
             string sql = "UPDATE Orders SET OrderDate=@OrderDate WHERE OrderID=@OrderID";
 
             try
             {
-                using (MySqlConnection conn = new MySqlConnection(this.ToString()))
+                using (MySqlConnection conn = new MySqlConnection(ToString()))
                 {
                     conn.Open();
 
@@ -409,19 +392,18 @@ namespace Transportation_Management_System
             }
         }
 
-
         ///
         /// \brief Inserts a new client in the Client table
         ///
         /// \param client  - <b>Client</b> - A Client object to be created with all their information
-        /// 
-        public void CreateClient(Client client) 
+        ///
+        public void CreateClient(Client client)
         {
             string sql = "INSERT INTO Clients (ClientName) VALUES (@ClientName)";
 
             try
             {
-                using (MySqlConnection conn = new MySqlConnection(this.ToString()))
+                using (MySqlConnection conn = new MySqlConnection(ToString()))
                 {
                     conn.Open();
 
@@ -448,19 +430,18 @@ namespace Transportation_Management_System
             }
         }
 
-
         ///
         /// \brief Inserts a new invoice in the invoice table
         ///
         /// \param invoice  - <b>Invoice</b> - An invoice with all its information
-        /// 
+        ///
         public void CreateInvoice(Invoice invoice)
         {
             string sql = "INSERT INTO Invoices VALUES (@OrderID, @ClientName, @Origin, @Destination, @TotalAmount, @TotalDistance, @TotalDays)";
 
             try
             {
-                using (MySqlConnection conn = new MySqlConnection(this.ToString()))
+                using (MySqlConnection conn = new MySqlConnection(ToString()))
                 {
                     conn.Open();
 
@@ -493,12 +474,11 @@ namespace Transportation_Management_System
             }
         }
 
-
         ///
         /// \brief Update an existing route's attributes
         ///
         /// \param newRoute  - <b>Route</b> - The new route information to be used in the update
-        /// 
+        ///
         public bool IsExistentInvoice(long orderID)
         {
             bool isExistent = false;
@@ -506,7 +486,7 @@ namespace Transportation_Management_System
             string qSQL = "SELECT * FROM Invoices WHERE OrderID=@OrderId";
             try
             {
-                string connectionString = this.ToString();
+                string connectionString = ToString();
                 using (MySqlConnection conn = new MySqlConnection(connectionString))
                 {
                     conn.Open();
@@ -530,19 +510,18 @@ namespace Transportation_Management_System
             return isExistent;
         }
 
-
         ///
         /// \brief Update an existing route's attributes
         ///
         /// \param newRoute  - <b>Route</b> - The new route information to be used in the update
-        /// 
+        ///
         public void UpdateRoute(Route newRoute)
         {
             string sql = "UPDATE Routes SET Distance=@Distance, Time=@Time WHERE Destination=@Destination";
 
             try
             {
-                using (MySqlConnection conn = new MySqlConnection(this.ToString()))
+                using (MySqlConnection conn = new MySqlConnection(ToString()))
                 {
                     conn.Open();
 
@@ -552,7 +531,7 @@ namespace Transportation_Management_System
                         cmd.Parameters.AddWithValue("@Distance", newRoute.Distance);
                         cmd.Parameters.AddWithValue("@Time", newRoute.Time);
                         cmd.Parameters.AddWithValue("@Destination", newRoute.Destination);
-                        
+
                         // Execute the insertion and check the number of rows affected
                         // An exception will be thrown if the column is repeated
                         cmd.ExecuteNonQuery();
@@ -566,19 +545,18 @@ namespace Transportation_Management_System
             }
         }
 
-
         ///
         /// \brief Returns the routs table
         ///
         /// \return A list of routs
-        /// 
+        ///
         public List<Route> GetRoutes()
         {
-            List<Route> routeList= new List<Route>();
+            List<Route> routeList = new List<Route>();
             string qSQL = "SELECT * FROM Routes";
             try
             {
-                string connectionString = this.ToString();
+                string connectionString = ToString();
                 using (MySqlConnection conn = new MySqlConnection(connectionString))
                 {
                     conn.Open();
@@ -594,13 +572,28 @@ namespace Transportation_Management_System
                                     // Set default values
                                     West = City.Null,
                                     East = City.Null,
-                                    Destination = (City)Int32.Parse(rdr["Destination"].ToString())
+                                    Destination = (City)int.Parse(rdr["Destination"].ToString())
                                 };
 
-                                if (int.TryParse(rdr["Distance"].ToString(), out int d)) route.Distance = d;
-                                if (double.TryParse(rdr["Time"].ToString(), out double t)) route.Time = t;
-                                if (Int32.TryParse(rdr["West"].ToString(), out int w)) route.West = (City) w;
-                                if (Int32.TryParse(rdr["East"].ToString(), out int e)) route.East = (City) e;
+                                if (int.TryParse(rdr["Distance"].ToString(), out int d))
+                                {
+                                    route.Distance = d;
+                                }
+
+                                if (double.TryParse(rdr["Time"].ToString(), out double t))
+                                {
+                                    route.Time = t;
+                                }
+
+                                if (int.TryParse(rdr["West"].ToString(), out int w))
+                                {
+                                    route.West = (City)w;
+                                }
+
+                                if (int.TryParse(rdr["East"].ToString(), out int e))
+                                {
+                                    route.East = (City)e;
+                                }
 
                                 routeList.Add(route);
                             }
@@ -609,13 +602,12 @@ namespace Transportation_Management_System
                 }
 
                 // Create the graph
-                foreach (var route in routeList)
+                foreach (Route route in routeList)
                 {
                     // If not found (edges), return null
                     route.WestPtr = routeList.ElementAtOrDefault((int)route.West);
                     route.EastPtr = routeList.ElementAtOrDefault((int)route.East);
                 }
-
             }
             catch (Exception e)
             {
@@ -629,18 +621,16 @@ namespace Transportation_Management_System
         /// \brief Inserts a new carrier in the Carrier table
         ///
         /// \param carrier  - <b>Carrier</b> - An Carrier object with all their information
-        /// 
-        public long CreateCarrier(Carrier carrier) 
+        ///
+        public long CreateCarrier(Carrier carrier)
         {
-
             string sql = "INSERT INTO Carriers (CarrierName, FTLRate, LTLRate, reefCharge) VALUES (@CarrierName, @FTLRate, @LTLRate, @reefCharge)";
 
             long id;
 
-
             try
             {
-                using (MySqlConnection conn = new MySqlConnection(this.ToString()))
+                using (MySqlConnection conn = new MySqlConnection(ToString()))
                 {
                     conn.Open();
 
@@ -674,27 +664,25 @@ namespace Transportation_Management_System
             return id;       // Get the ID of the inserted item
         }
 
-
         ///
         /// \brief Inserts a new carrier in the Carrier table
         ///
         /// \param carrier  - <b>Carrier</b> - An Carrier object with all their information
-        /// 
+        ///
         public void CreateCarrierCity(CarrierCity carrierCity)
         {
             string sql = "INSERT INTO CarrierCity (CarrierID, DepotCity, FTLAval, LTLAval) VALUES (@CarrierID, @DepotCity, @FTLAval, @LTLAval)";
 
             try
             {
-
-                var CarrierCities = this.FilterCitiesByCarrier(carrierCity.Carrier.Name);
+                List<CarrierCity> CarrierCities = FilterCitiesByCarrier(carrierCity.Carrier.Name);
                 // Check if current carrier already contains the new depot city, if so, don't duplicate
                 if ((CarrierCities.FindIndex(_carrierCity => _carrierCity.DepotCity == carrierCity.DepotCity) >= 0))
                 {
                     throw new ArgumentException($"Carrier city {carrierCity.DepotCity} already exists.");
                 }
 
-                using (MySqlConnection conn = new MySqlConnection(this.ToString()))
+                using (MySqlConnection conn = new MySqlConnection(ToString()))
                 {
                     conn.Open();
 
@@ -724,19 +712,18 @@ namespace Transportation_Management_System
             }
         }
 
-
         ///
         /// \brief Update an existing carrier's attributes
         ///
         /// \param newCarrier  - <b>Carrier</b> - The new carrier information to be used in the update
-        /// 
-        public void UpdateCarrier(Carrier newCarrier) 
+        ///
+        public void UpdateCarrier(Carrier newCarrier)
         {
             string sql = "UPDATE Carriers SET CarrierName=@CarrierName, FTLRate=@FTLRate, LTLRate=@LTLRate, ReefCharge=@ReefCharge WHERE CarrierID=@CarrierID";
 
             try
             {
-                using (MySqlConnection conn = new MySqlConnection(this.ToString()))
+                using (MySqlConnection conn = new MySqlConnection(ToString()))
                 {
                     conn.Open();
 
@@ -762,27 +749,25 @@ namespace Transportation_Management_System
             }
         }
 
-
         ///
         /// \brief Update an existing carrier's attributes
         ///
         /// \param newCarrier  - <b>Carrier</b> - The new carrier information to be used in the update
-        /// 
+        ///
         public void UpdateCarrierCity(CarrierCity newCarrierCity, City oldCity)
         {
             string sql = "UPDATE CarrierCity SET DepotCity=@DepotCity, FTLAval=@FTLAval, LTLAval=@LTLAval WHERE CarrierID=@CarrierID AND DepotCity=@OldDepotCity";
 
             try
             {
-                var CarrierCities = this.FilterCitiesByCarrier(newCarrierCity.Carrier.Name);
+                List<CarrierCity> CarrierCities = FilterCitiesByCarrier(newCarrierCity.Carrier.Name);
                 // Check if current carrier already contains the new depot city, if so, don't duplicate
                 if ((CarrierCities.FindIndex(carrierCity => carrierCity.DepotCity == newCarrierCity.DepotCity) >= 0) && oldCity != newCarrierCity.DepotCity)
                 {
                     throw new ArgumentException($"Carrier city {newCarrierCity.DepotCity} already exists.");
                 }
 
-
-                using (MySqlConnection conn = new MySqlConnection(this.ToString()))
+                using (MySqlConnection conn = new MySqlConnection(ToString()))
                 {
                     conn.Open();
 
@@ -808,22 +793,20 @@ namespace Transportation_Management_System
             }
         }
 
-
-
         ///
         /// \brief Get a carrier by its id
         ///
         /// \param carrierId  - <b>int</b> - The id of the carrier to be searched
-        /// 
+        ///
         /// \return The found carrier or null otherwise
-        /// 
-        public Carrier GetCarrier(int carrierId) 
+        ///
+        public Carrier GetCarrier(int carrierId)
         {
             string qSQL = "SELECT * FROM Carriers WHERE CarrierID=@CarrierID";
             Carrier carr = null;
             try
             {
-                string conString = this.ToString();
+                string conString = ToString();
                 using (MySqlConnection conn = new MySqlConnection(conString))
                 {
                     conn.Open();
@@ -856,21 +839,18 @@ namespace Transportation_Management_System
             return carr;
         }
 
-
-
         ///
         /// \brief Deactivate an active carrier by its id
         ///
         /// \param carrier  - <b>Carrier</b> - The new carrier information to be used in the deactivation
-        /// 
-        public void DeactivateCarrier(Carrier carrier) 
+        ///
+        public void DeactivateCarrier(Carrier carrier)
         {
-
             string sql = "UPDATE Carriers SET IsActive=0 WHERE CarrierID=@CarrierID";
 
             try
             {
-                using (MySqlConnection conn = new MySqlConnection(this.ToString()))
+                using (MySqlConnection conn = new MySqlConnection(ToString()))
                 {
                     conn.Open();
 
@@ -892,20 +872,18 @@ namespace Transportation_Management_System
             }
         }
 
-
         ///
         /// \brief Used to update the invoice generated field for a specific order
         ///
         /// \param orderID  - <b>int</b> - The order id of the order to be updated
-        /// 
+        ///
         public void UpdateInvoiceGenerated(long orderID)
         {
-
             string sql = "UPDATE Orders SET InvoiceGenerated=1 WHERE OrderID=@OrderID";
 
             try
             {
-                using (MySqlConnection conn = new MySqlConnection(this.ToString()))
+                using (MySqlConnection conn = new MySqlConnection(ToString()))
                 {
                     conn.Open();
 
@@ -927,20 +905,18 @@ namespace Transportation_Management_System
             }
         }
 
-
         ///
         /// \brief Deactivate an active carrier by its id
         ///
         /// \param carrier  - <b>Carrier</b> - The new carrier information to be used in the deactivation
-        /// 
+        ///
         public void DeleteCarrier(Carrier carrier)
         {
             string sql = "DELETE FROM Carriers WHERE CarrierName=@CarrierName";
 
-
             try
             {
-                using (MySqlConnection conn = new MySqlConnection(this.ToString()))
+                using (MySqlConnection conn = new MySqlConnection(ToString()))
                 {
                     conn.Open();
 
@@ -962,19 +938,18 @@ namespace Transportation_Management_System
             }
         }
 
-
         ///
         /// \brief Remove a city from the carrier
         ///
         /// \param carrierCity  - <b>CarrierCity</b> - The city to be deleted
-        /// 
+        ///
         public void RemoveCarrierCity(CarrierCity carrierCity)
         {
             string sql = "DELETE FROM CarrierCity WHERE CarrierID=@CarrierID AND DepotCity=@DepotCity";
 
             try
             {
-                using (MySqlConnection conn = new MySqlConnection(this.ToString()))
+                using (MySqlConnection conn = new MySqlConnection(ToString()))
                 {
                     conn.Open();
 
@@ -997,15 +972,13 @@ namespace Transportation_Management_System
             }
         }
 
-
-
         ///
         /// \brief Filter carriers by city
         ///
         /// \param city  - <b>string</b> - The city to be filter the carriers
-        /// 
+        ///
         /// \return A list of carriers that belong to the specified city
-        /// 
+        ///
         public List<CarrierCity> FilterCarriersByCity(City city, int jobType)
         {
             List<CarrierCity> carrierCities = new List<CarrierCity>();
@@ -1020,10 +993,10 @@ namespace Transportation_Management_System
                 // job type is LTL
                 qSQL = "SELECT * FROM Carriers INNER JOIN CarrierCity ON CarrierCity.CarrierID = Carriers.CarrierID WHERE DepotCity=@DepotCity AND IsActive=1 AND LTLAval>0";
             }
-        
+
             try
             {
-                string conString = this.ToString();
+                string conString = ToString();
                 using (MySqlConnection conn = new MySqlConnection(conString))
                 {
                     conn.Open();
@@ -1066,23 +1039,21 @@ namespace Transportation_Management_System
             return carrierCities;
         }
 
-
-
         ///
         /// \brief Filter carriers by id
         ///
         /// \param carrierID  - <b>int</b> - The carrier ID
-        /// 
+        ///
         /// \return A carrier Object
-        /// 
+        ///
         public Carrier FilterCarriersByID(long carrierID)
         {
             Carrier carrier = new Carrier();
             string qSQL = "SELECT * FROM Carriers WHERE CarrierID=@CarrierID";
-            
+
             try
             {
-                string conString = this.ToString();
+                string conString = ToString();
                 using (MySqlConnection conn = new MySqlConnection(conString))
                 {
                     conn.Open();
@@ -1111,18 +1082,16 @@ namespace Transportation_Management_System
                 throw;
             }
 
-
             return carrier;
         }
-
 
         ///
         /// \brief Filter cities by carrier
         ///
         /// \param city  - <b>string</b> - The carrier name to be filtered
-        /// 
+        ///
         /// \return A list of carriers that belong to the specified city
-        /// 
+        ///
         public List<CarrierCity> FilterCitiesByCarrier(string carrierName)
         {
             List<CarrierCity> carrierCities = new List<CarrierCity>();
@@ -1130,7 +1099,7 @@ namespace Transportation_Management_System
 
             try
             {
-                string conString = this.ToString();
+                string conString = ToString();
                 using (MySqlConnection conn = new MySqlConnection(conString))
                 {
                     conn.Open();
@@ -1153,7 +1122,6 @@ namespace Transportation_Management_System
                                     ReeferCharge = double.Parse(rdr["reefCharge"].ToString())
                                 };
 
-
                                 CarrierCity carrCity = new CarrierCity
                                 {
                                     Carrier = carr,
@@ -1162,9 +1130,7 @@ namespace Transportation_Management_System
                                     LTLAval = int.Parse(rdr["LTLAval"].ToString())
                                 };
 
-
                                 carrierCities.Add(carrCity);
-
                             }
                         }
                     }
@@ -1180,16 +1146,16 @@ namespace Transportation_Management_System
 
         ///
         /// \brief Returns a list of all users in our system
-        /// 
+        ///
         /// \return A list of all registered uses
-        /// 
-        public List<User> GetUsers() 
+        ///
+        public List<User> GetUsers()
         {
             List<User> usersList = new List<User>();
             string qSQL = "SELECT * FROM Users";
             try
             {
-                string connectionString = this.ToString();
+                string connectionString = ToString();
                 using (MySqlConnection conn = new MySqlConnection(connectionString))
                 {
                     conn.Open();
@@ -1224,19 +1190,18 @@ namespace Transportation_Management_System
             return usersList;
         }
 
-
         ///
         /// \brief Returns a list of all clients in our system
-        /// 
+        ///
         /// \return A list of all clients
-        /// 
+        ///
         public List<Client> GetClients()
         {
             List<Client> clientsList = new List<Client>();
             string qSQL = "SELECT * FROM Clients";
             try
             {
-                string connectionString = this.ToString();
+                string connectionString = ToString();
                 using (MySqlConnection conn = new MySqlConnection(connectionString))
                 {
                     conn.Open();
@@ -1267,23 +1232,21 @@ namespace Transportation_Management_System
             return clientsList;
         }
 
-
-
         ///
         /// \brief Filter clients by Name
         ///
         /// \param name  - <b>string</b> - The name of the client to be searched
-        /// 
+        ///
         /// \return The found client of null if none are found
-        /// 
-        public Client FilterClientByName(string name) 
+        ///
+        public Client FilterClientByName(string name)
         {
             string sql = "SELECT ClientID, ClientName FROM Clients WHERE ClientName=@ClientName";
             Client client = null;
 
             try
             {
-                using (MySqlConnection conn = new MySqlConnection(this.ToString()))
+                using (MySqlConnection conn = new MySqlConnection(ToString()))
                 {
                     conn.Open();
 
@@ -1317,19 +1280,17 @@ namespace Transportation_Management_System
             return client;
         }
 
-
-
         ///
         /// \brief Returns a list of all active orders
-        /// 
+        ///
         /// \return List of all active orders
-        /// 
+        ///
         public List<Order> GetActiveOrders()
         {
             List<Order> orders = new List<Order>();
             try
             {
-                string conString = this.ToString();
+                string conString = ToString();
                 using (MySqlConnection con = new MySqlConnection(conString))
                 {
                     MySqlCommand cmd = new MySqlCommand("SELECT * FROM Orders " +
@@ -1381,19 +1342,17 @@ namespace Transportation_Management_System
             return orders;
         }
 
-
-
         ///
         /// \brief Returns a list of all completed orders
-        /// 
+        ///
         /// \return List of all completed orders
-        /// 
+        ///
         public List<Order> GetCompletedOrders()
         {
             List<Order> orders = new List<Order>();
             try
             {
-                string conString = this.ToString();
+                string conString = ToString();
                 using (MySqlConnection con = new MySqlConnection(conString))
                 {
                     MySqlCommand cmd = new MySqlCommand("SELECT * FROM Orders " +
@@ -1445,18 +1404,17 @@ namespace Transportation_Management_System
             return orders;
         }
 
-
         ///
         /// \brief Returns a list of all completed orders that have an invoice generated for them
-        /// 
+        ///
         /// \return List of all completed orders with invoice
-        /// 
+        ///
         public List<Order> GetInvoiceGeneratedOrders()
         {
             List<Order> orders = new List<Order>();
             try
             {
-                string conString = this.ToString();
+                string conString = ToString();
                 using (MySqlConnection con = new MySqlConnection(conString))
                 {
                     MySqlCommand cmd = new MySqlCommand("SELECT * FROM Orders " +
@@ -1473,7 +1431,11 @@ namespace Transportation_Management_System
                                 OrderID = int.Parse(rdr["OrderID"].ToString()),
                                 ClientName = rdr["ClientName"].ToString()
                             };
-                            if (DateTime.TryParse(rdr["OrderCreationDate"].ToString(), out DateTime dt)) newOrder.OrderAcceptedDate = dt;
+                            if (DateTime.TryParse(rdr["OrderCreationDate"].ToString(), out DateTime dt))
+                            {
+                                newOrder.OrderAcceptedDate = dt;
+                            }
+
                             newOrder.Origin = (City)Enum.Parse(typeof(City), rdr["Origin"].ToString(), true);
                             newOrder.Destination = (City)Enum.Parse(typeof(City), rdr["Destination"].ToString(), true);
                             newOrder.JobType = (JobType)int.Parse(rdr["JobType"].ToString());
@@ -1495,18 +1457,17 @@ namespace Transportation_Management_System
             return orders;
         }
 
-
         ///
         /// \brief Returns a list of all orders
-        /// 
+        ///
         /// \return List of all orders
-        /// 
+        ///
         public List<Order> GetAllOrders()
         {
             List<Order> orders = new List<Order>();
             try
             {
-                string conString = this.ToString();
+                string conString = ToString();
                 using (MySqlConnection con = new MySqlConnection(conString))
                 {
                     MySqlCommand cmd = new MySqlCommand("SELECT * FROM Orders" +
@@ -1559,7 +1520,6 @@ namespace Transportation_Management_System
             return orders;
         }
 
-
         ///
         /// \brief Set an order to completed
         ///
@@ -1571,7 +1531,7 @@ namespace Transportation_Management_System
 
             try
             {
-                using (MySqlConnection conn = new MySqlConnection(this.ToString()))
+                using (MySqlConnection conn = new MySqlConnection(ToString()))
                 {
                     conn.Open();
 
@@ -1585,14 +1545,14 @@ namespace Transportation_Management_System
 
                         // Execute the insertion and check the number of rows affected
                         // An exception will be thrown if the column is repeated
-                        if(cmd.ExecuteNonQuery() == 0)
+                        if (cmd.ExecuteNonQuery() == 0)
                         {
                             throw new ArgumentException("Invalid Order");
                         }
                     }
                 }
             }
-            catch(ArgumentException e)
+            catch (ArgumentException e)
             {
                 Logger.Log(e.Message, LogLevel.Error);
                 throw;
@@ -1604,7 +1564,6 @@ namespace Transportation_Management_System
             }
         }
 
-
         ///
         /// \brief Determine whether an order has been assigned to a carrier or not
         ///
@@ -1615,7 +1574,7 @@ namespace Transportation_Management_System
             bool isCarrierAssigned = false;
             try
             {
-                string conString = this.ToString();
+                string conString = ToString();
                 using (MySqlConnection con = new MySqlConnection(conString))
                 {
                     MySqlCommand cmd = new MySqlCommand("SELECT Trips.OrderID FROM Trips" +
@@ -1641,7 +1600,6 @@ namespace Transportation_Management_System
             return isCarrierAssigned;
         }
 
-
         ///
         /// \brief Determine whether an order has an invoice generated for it or not
         ///
@@ -1652,7 +1610,7 @@ namespace Transportation_Management_System
             bool isInvoiceGenerated = false;
             try
             {
-                string conString = this.ToString();
+                string conString = ToString();
                 using (MySqlConnection con = new MySqlConnection(conString))
                 {
                     MySqlCommand cmd = new MySqlCommand("SELECT OrderID from Orders WHERE OrderID=@OrderID AND InvoiceGenerated=1", con);
@@ -1679,15 +1637,15 @@ namespace Transportation_Management_System
 
         ///
         /// \brief Return a list of all active customers in our system
-        /// 
+        ///
         /// \return A list of all active customers
-        /// 
+        ///
         public List<Client> GetActiveClients()
         {
             List<Client> clients = new List<Client>();
             try
             {
-                string conString = this.ToString();
+                string conString = ToString();
                 using (MySqlConnection con = new MySqlConnection(conString))
                 {
                     MySqlCommand cmd = new MySqlCommand("SELECT * From Clients WHERE IsActive=1", con);
@@ -1718,25 +1676,23 @@ namespace Transportation_Management_System
             return clients;
         }
 
-
         ///
         /// \brief Return a list of all carriers in our system
-        /// 
+        ///
         /// \return A list of all carriers
-        /// 
+        ///
         public List<Carrier> GetAllCarriers()
         {
             string qSQL = "SELECT * FROM Carriers WHERE IsActive=1";
             List<Carrier> carriers = new List<Carrier>();
             try
             {
-                string conString = this.ToString();
+                string conString = ToString();
                 using (MySqlConnection conn = new MySqlConnection(conString))
                 {
                     conn.Open();
                     using (MySqlCommand cmd = new MySqlCommand(qSQL, conn))
                     {
-
                         MySqlDataReader rdr = cmd.ExecuteReader();
                         if (rdr.HasRows)
                         {
@@ -1749,7 +1705,7 @@ namespace Transportation_Management_System
                                     FTLRate = double.Parse(rdr["FTLRate"].ToString()),
                                     LTLRate = double.Parse(rdr["LTLRate"].ToString()),
                                     ReeferCharge = double.Parse(rdr["reefCharge"].ToString()),
-                                    IsActive = Boolean.Parse(rdr["IsActive"].ToString())
+                                    IsActive = bool.Parse(rdr["IsActive"].ToString())
                                 };
                                 carriers.Add(carr);
                             }
@@ -1765,13 +1721,12 @@ namespace Transportation_Management_System
             return carriers;
         }
 
-
         ///
         /// \brief Return carrierID of the carrier
         /// \param carrierName  -   <b>string</b> - name of the carrier
-        /// 
+        ///
         /// \return carrier ID of the carrier
-        /// 
+        ///
         public int GetCarrierIdByName(string carrierName)
         {
             string qSQL = "SELECT CarrierID FROM Carriers WHERE CarrierName=@CarrierName";
@@ -1779,7 +1734,7 @@ namespace Transportation_Management_System
 
             try
             {
-                string conString = this.ToString();
+                string conString = ToString();
                 using (MySqlConnection conn = new MySqlConnection(conString))
                 {
                     conn.Open();
@@ -1805,22 +1760,22 @@ namespace Transportation_Management_System
             return carrierID;
         }
 
-
-
         ///
         /// \brief Used to get all the OSHT Rates
-        /// 
+        ///
         /// \return Returns a Rate object
-        /// 
+        ///
         public Rate GetOSHTRates()
         {
-            Rate OSHTRates = new Rate();
-            OSHTRates.RateValuePair = new Dictionary<RateType, double>();
+            Rate OSHTRates = new Rate
+            {
+                RateValuePair = new Dictionary<RateType, double>()
+            };
             string qSQL = "SELECT Rate, RateType FROM Rates WHERE Name='OSHT'";
 
             try
             {
-                string conString = this.ToString();
+                string conString = ToString();
                 using (MySqlConnection conn = new MySqlConnection(conString))
                 {
                     conn.Open();
@@ -1847,9 +1802,7 @@ namespace Transportation_Management_System
             }
 
             return OSHTRates;
-
         }
-
 
         public void UpdateOSHTRate(double newRate, RateType rateType)
         {
@@ -1857,7 +1810,7 @@ namespace Transportation_Management_System
 
             try
             {
-                using (MySqlConnection conn = new MySqlConnection(this.ToString()))
+                using (MySqlConnection conn = new MySqlConnection(ToString()))
                 {
                     conn.Open();
 
@@ -1876,22 +1829,21 @@ namespace Transportation_Management_System
             }
         }
 
-
-            ///
-            /// \brief Used to create a trip using trip object
-            ///
-            /// \param trip  - <b>Trip</b> - Order to select the invoic
-            /// \param carrierToSelect  - <b>Carrier</b> - trip object
-            /// 
-            /// \return Returns void
-            /// 
-            public void CreateTrip(Trip trip)
+        ///
+        /// \brief Used to create a trip using trip object
+        ///
+        /// \param trip  - <b>Trip</b> - Order to select the invoic
+        /// \param carrierToSelect  - <b>Carrier</b> - trip object
+        ///
+        /// \return Returns void
+        ///
+        public void CreateTrip(Trip trip)
         {
             string sql = "INSERT INTO Trips (OrderID, CarrierID, OriginCity, DestinationCity, JobType, VanType, TotalDistance, TotalTime) VALUE (@OrderID, @CarrierID, @OriginCity, @DestinationCity, @JobType, @VanType, @TotalDistance, @TotalTime)";
 
             try
             {
-                using (MySqlConnection conn = new MySqlConnection(this.ToString()))
+                using (MySqlConnection conn = new MySqlConnection(ToString()))
                 {
                     conn.Open();
 
@@ -1918,14 +1870,13 @@ namespace Transportation_Management_System
             }
         }
 
-
         ///
         /// \brief Returns a list with all trips attached to a specific order
-        /// 
+        ///
         /// \param orderId  - <b>int</b> - If of the order to filter the trip
-        /// 
+        ///
         /// \return A list with all trips attached to a specific orders
-        /// 
+        ///
         public List<Trip> FilterTripsByOrderId(long orderId)
         {
             List<Trip> trips = new List<Trip>();
@@ -1933,7 +1884,7 @@ namespace Transportation_Management_System
 
             try
             {
-                string conString = this.ToString();
+                string conString = ToString();
                 using (MySqlConnection conn = new MySqlConnection(conString))
                 {
                     conn.Open();
@@ -1956,7 +1907,6 @@ namespace Transportation_Management_System
                                     TotalTime = double.Parse(rdr["TotalTime"].ToString())
                                 };
                                 trips.Add(trip);
-
                             }
                         }
                     }
@@ -1971,16 +1921,13 @@ namespace Transportation_Management_System
             return trips;
         }
 
-
-
-
         ///
         /// \brief Fetches the total time of a trip
         ///
         /// \param currentOrder  - <b>Order</b> - Order to get the total time for
-        /// 
+        ///
         /// \return Returns Double
-        /// 
+        ///
         public double GetTotalTimeFromTrip(Order currentOrder)
         {
             double totalTime = 0;
@@ -1988,7 +1935,7 @@ namespace Transportation_Management_System
 
             try
             {
-                string conString = this.ToString();
+                string conString = ToString();
                 using (MySqlConnection conn = new MySqlConnection(conString))
                 {
                     conn.Open();
@@ -2015,16 +1962,14 @@ namespace Transportation_Management_System
             return totalTime;
         }
 
-
-
         ///
         /// \brief Returns a list with all orders filtered by 2 weeks or all time
-        /// 
+        ///
         /// \param orderId  - <b>int</b> - If of the order to filter the trip
-        /// 
+        ///
         /// \return A list with all trips attached to a specific orders
-        /// 
-        public List<Order> FilterCompletedOrdersByTime(bool onlyPast2Weeks) 
+        ///
+        public List<Order> FilterCompletedOrdersByTime(bool onlyPast2Weeks)
         {
             List<Order> orders = new List<Order>();
 
@@ -2039,8 +1984,8 @@ namespace Transportation_Management_System
                 {
                     // Filter all orders from the past 2 weeks
                     string qSQL = "SELECT * FROM Orders INNER JOIN Clients ON Orders.ClientID = Clients.ClientID WHERE IsCompleted=1 AND OrderCompletedDate between date_sub(now(),INTERVAL 2 WEEK) and now()";
-                    
-                    string conString = this.ToString();
+
+                    string conString = ToString();
                     using (MySqlConnection conn = new MySqlConnection(conString))
                     {
                         conn.Open();
@@ -2056,14 +2001,21 @@ namespace Transportation_Management_System
                                         ClientName = rdr["ClientName"].ToString(),
                                         OrderID = int.Parse(rdr["OrderID"].ToString())
                                     };
-                                    if (DateTime.TryParse(rdr["OrderDate"].ToString(), out DateTime dt)) order.OrderCreationDate = dt;
+                                    if (DateTime.TryParse(rdr["OrderDate"].ToString(), out DateTime dt))
+                                    {
+                                        order.OrderCreationDate = dt;
+                                    }
+
                                     order.Origin = (City)Enum.Parse(typeof(City), rdr["Origin"].ToString(), true);
                                     order.Destination = (City)Enum.Parse(typeof(City), rdr["Destination"].ToString(), true);
                                     order.JobType = (JobType)int.Parse(rdr["JobType"].ToString());
                                     order.VanType = (VanType)int.Parse(rdr["VanType"].ToString());
                                     order.Quantity = int.Parse(rdr["Quantity"].ToString());
                                     order.IsCompleted = int.Parse(rdr["IsCompleted"].ToString());
-                                    if (DateTime.TryParse(rdr["OrderCompletedDate"].ToString(), out dt)) order.OrderCompletionDate = dt;
+                                    if (DateTime.TryParse(rdr["OrderCompletedDate"].ToString(), out dt))
+                                    {
+                                        order.OrderCompletionDate = dt;
+                                    }
 
                                     orders.Add(order);
                                 }
@@ -2078,23 +2030,20 @@ namespace Transportation_Management_System
                 throw;
             }
 
-
             return orders;
-            
         }
-
 
         ///
         /// \brief Backup up the entire database to a .sql file
-        /// 
+        ///
         /// \param backUpFilePath  - <b>string</b> - The folder for the database backup
-        /// 
+        ///
         /// https://stackoverflow.com/questions/12311492/backing-up-database-in-mysql-using-c-sharp/12311685
-        /// 
+        ///
         public void BackupDatabase(string backUpFilePath)
         {
             string fileName = $"TMS-DB-Backup-{DateTime.Now:MM-dd-yyyy HH-mm-ss}.sql";
-            if(backUpFilePath == "")
+            if (backUpFilePath == "")
             {
                 throw new ArgumentNullException("Backup file path was not provided. Backup failed.");
             }
@@ -2103,7 +2052,7 @@ namespace Transportation_Management_System
 
             try
             {
-                using (MySqlConnection conn = new MySqlConnection(this.ToString()))
+                using (MySqlConnection conn = new MySqlConnection(ToString()))
                 {
                     using (MySqlCommand cmd = new MySqlCommand())
                     {
@@ -2117,7 +2066,7 @@ namespace Transportation_Management_System
                     }
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Logger.Log(e.Message, LogLevel.Error);
                 throw;

@@ -1,5 +1,4 @@
-﻿
-/* -- FILEHEADER COMMENT --
+﻿/* -- FILEHEADER COMMENT --
     FILE		:	Helper.cs
     PROJECT		:	Transportation Management System
     PROGRAMMER	:  * Ana De Oliveira
@@ -10,35 +9,26 @@
     DESCRIPTION	:	This file contains the source for the Helper class.
 */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data.SqlClient;
-using System.Data;
-using MySql.Data.MySqlClient;
 using BC = BCrypt.Net.BCrypt;
 
 namespace Transportation_Management_System
 {
-    /// 
+    ///
     /// \class Helper
-    /// 
+    ///
     /// \brief The purpose of this class is to store the helper methods to our solution
     ///
-    /// This class can be used to store any helper method that might support a helper functionality 
+    /// This class can be used to store any helper method that might support a helper functionality
     ///
     /// \author <i>Team Blank</i>
     ///
     public static class Helper
     {
-
         ///
         /// \brief Generate a salted hash of the password
         ///
         /// \param password  - <b>string</b> - Password to be hashed
-        /// 
+        ///
         /// \return Hashed password
         ///
         public static string HashPass(string password)
@@ -47,6 +37,5 @@ namespace Transportation_Management_System
 
             return BC.HashPassword(password, mySalt);
         }
-
     }
 }

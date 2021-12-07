@@ -1,5 +1,4 @@
-﻿
-/* -- FILEHEADER COMMENT --
+﻿/* -- FILEHEADER COMMENT --
     FILE		:	Order.cs
     PROJECT		:	Transportation Management System
     PROGRAMMER	:  * Ana De Oliveira
@@ -11,27 +10,23 @@
 */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Transportation_Management_System
 {
-    /// 
+    ///
     /// \class Order
-    /// 
+    ///
     /// \brief The purpose of this class is to model an Order.
     ///
     /// This class will demonstrate the attributes members and methods of an Order Class. An order
     /// is generated based on the client demand and after receiving all the detail information of the trip and
-    /// quantity to be delivered. The class will contain properties for each of the data members. 
-    /// 
+    /// quantity to be delivered. The class will contain properties for each of the data members.
+    ///
     /// \author <i>Team Blank</i>
     ///
     public class Order
     {
-        /// The identifier number of the order 
+        /// The identifier number of the order
         public int OrderID { get; set; }
 
         /// The client related the order
@@ -40,7 +35,7 @@ namespace Transportation_Management_System
         /// The date when the order was created from the marketplace
         public DateTime OrderCreationDate { get; set; }
 
-        /// The date when the order was 
+        /// The date when the order was
         public DateTime OrderAcceptedDate { get; set; }
 
         /// The origin of the order's trip
@@ -69,7 +64,7 @@ namespace Transportation_Management_System
 
         ///
         /// \brief This Order class constructor is used to initialize the properties of the order.
-        /// 
+        ///
         public Order(string clientName, City origin, City destination, JobType jobType, int quantity, VanType vanType)
         {
             ClientName = clientName;
@@ -84,10 +79,8 @@ namespace Transportation_Management_System
 
         ///
         /// \brief This Order class constructor is used to initialize the properties of the order with empty values.
-        /// 
-        public Order() {}
-
+        ///
+        public Order()
+        { }
     }
-
-
 }

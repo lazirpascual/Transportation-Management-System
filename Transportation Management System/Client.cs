@@ -1,5 +1,4 @@
-﻿
-/* -- FILEHEADER COMMENT --
+﻿/* -- FILEHEADER COMMENT --
     FILE		:	Client.cs
     PROJECT		:	Transportation Management System
     PROGRAMMER	:  * Ana De Oliveira
@@ -10,17 +9,11 @@
     DESCRIPTION	:	This file contains the source for the Client class.
 */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace Transportation_Management_System
 {
-    /// 
+    ///
     /// \class Client
-    /// 
+    ///
     /// \brief The purpose of this class is to represent a Client.
     ///
     /// A Client will be specified in the contract, fetched from the contract marketplace
@@ -40,7 +33,7 @@ namespace Transportation_Management_System
 
         ///
         /// \brief This Client class constructor is used to initialize the name property of the client.
-        /// 
+        ///
         public Client(string name)
         {
             ClientName = name;
@@ -48,7 +41,8 @@ namespace Transportation_Management_System
 
         ///
         /// \brief This Client class constructor is used to access a client with empty properties.
-        /// 
-        public Client() { }
+        ///
+        public Client()
+        { }
     }
 }

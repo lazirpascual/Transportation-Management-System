@@ -1,5 +1,4 @@
-﻿
-/* -- FILEHEADER COMMENT --
+﻿/* -- FILEHEADER COMMENT --
     FILE		:	Buyer.cs
     PROJECT		:	Transportation Management System
     PROGRAMMER	:  * Ana De Oliveira
@@ -13,20 +12,16 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
 
 namespace Transportation_Management_System
 {
-    /// 
+    ///
     /// \class Buyer
-    /// 
+    ///
     /// \brief The purpose of this class is to represent the Buyer User
     ///
-    /// This class represents the role of a buyer User, which represents a User 
-    /// who requesting Customer contracts from the Contract Marketplace and generating 
+    /// This class represents the role of a buyer User, which represents a User
+    /// who requesting Customer contracts from the Contract Marketplace and generating
     /// an initial Order or contract
     ///
     /// \author <i>Team Blank</i>
@@ -35,24 +30,23 @@ namespace Transportation_Management_System
     {
         ///
         /// \brief Fetch all contracts from the contract marketplace
-        /// 
+        ///
         /// \return A list of all contracts from the marketplace
-        /// 
-        public List<Contract> FetchContracts() 
+        ///
+        public List<Contract> FetchContracts()
         {
             ContractMarketPlace cmp = new ContractMarketPlace();
             List<Contract> cons = cmp.GetContracts();
             return cons;
         }
 
-
         ///
         /// \brief Create order based on the contract fetched from the marketplace
         ///
         /// \param contract  - <b>Contract</b> - The selected contract for the order to be created
-        /// 
+        ///
         /// \return Order object
-        public Order GenerateOrder(Contract contract) 
+        public Order GenerateOrder(Contract contract)
         {
             // Create an order object
 
@@ -60,7 +54,7 @@ namespace Transportation_Management_System
 
             // Check if Client exists, If it doesn't exists, create it
             DAL db = new DAL();
-            if(db.FilterClientByName(order.ClientName) == null)
+            if (db.FilterClientByName(order.ClientName) == null)
             {
                 Client client = new Client(order.ClientName);
                 db.CreateClient(client);
@@ -72,23 +66,22 @@ namespace Transportation_Management_System
                 // Insert order in database
                 db.CreateOrder(order);
             }
-            catch(Exception)
+            catch (Exception)
             {
                 throw;
             }
-            
+
             return order;
         }
 
-
         ///
         /// \brief Return a list of active, completed or all orders in our system.
-        /// 
+        ///
         /// \param orderStatus  - <b>int</b> - 0 for active, 1 for completed, 2 for all orders.
-        /// 
+        ///
         /// \return A list of orders.
-        /// 
-        public List<Order> GetOrders(int orderStatus) 
+        ///
+        public List<Order> GetOrders(int orderStatus)
         {
             List<Order> orderList = new List<Order>();
 
@@ -102,7 +95,7 @@ namespace Transportation_Management_System
             {
                 orderList = db.GetCompletedOrders();
             }
-            else if (orderStatus==2)
+            else if (orderStatus == 2)
             {
                 orderList = db.GetAllOrders();
             }
@@ -110,13 +103,12 @@ namespace Transportation_Management_System
             return orderList;
         }
 
-
         ///
         /// \brief Inserts a new invoice in the Invoice table
         ///
         /// \param orderObj  - <b>Order</b> - An Order object with all its information
         /// \return invoice -   <b>Invoice</b>  -   An Invoice object with all its information
-        /// 
+        ///
         /// \return An invoice object
         public Invoice CreateInvoice(Order orderObj)
         {
@@ -143,17 +135,13 @@ namespace Transportation_Management_System
                 throw new ArgumentNullException(e);
             }
 
-
             TimeSpan timeInDays = TimeSpan.FromHours(hours);
             double days = timeInDays.TotalDays;
-
-
 
             decimal totalCost = TripManager.CalculateTotalCostTrips(trips);
             string clientName = orderObj.ClientName;
             string origin = orderObj.Origin.ToString();
             string destination = orderObj.Destination.ToString();
-
 
             invoice.OrderID = orderID;
             invoice.TotalAmount = Math.Round(totalCost, 2);
@@ -166,26 +154,25 @@ namespace Transportation_Management_System
             return invoice;
         }
 
-
         ///
         /// \brief Return a list of active, or all clients in the TMS system.
-        /// 
+        ///
         /// \param activeStatus  - <b>int</b> - 0 for active, 1 for all orders.
-        /// 
+        ///
         /// \return A list of clients.
-        /// 
+        ///
         public List<Client> FetchClients(int activeStatus)
         {
             List<Client> clientList;
             DAL db = new DAL();
-            
+
             // Only active clients
             if (activeStatus == 0)
             {
                 clientList = db.GetActiveClients();
             }
             // All clients
-            else 
+            else
             {
                 clientList = db.GetClients();
             }
@@ -193,14 +180,13 @@ namespace Transportation_Management_System
             return clientList;
         }
 
-
         ///
         /// \brief Used to check if an order has an invoice.
-        /// 
+        ///
         /// \param order  - <b>Order</b> - Order object with all it's attributes.
-        /// 
+        ///
         /// \return true - if order has an invoice, false - if it does not.
-        /// 
+        ///
         public bool InvoiceGeneration(Order order)
         {
             DAL db = new DAL();

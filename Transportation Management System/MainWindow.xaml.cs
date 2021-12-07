@@ -1,5 +1,4 @@
-﻿
-/* -- FILEHEADER COMMENT --
+﻿/* -- FILEHEADER COMMENT --
     FILE		:	Logger.cs
     PROJECT		:	Transportation Management System
     PROGRAMMER	:  * Ana De Oliveira
@@ -10,20 +9,8 @@
     DESCRIPTION	:	This file contains the source for the MainWindow UI.
 */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Transportation_Management_System
 {
@@ -32,10 +19,9 @@ namespace Transportation_Management_System
     /// </summary>
     public partial class MainWindow : Window
     {
-
         ///
         /// \brief This constructor is used to initialize the main window UI.
-        /// 
+        ///
         public MainWindow()
         {
             InitializeComponent();
@@ -43,12 +29,12 @@ namespace Transportation_Management_System
 
         ///
         /// \brief Event handler for when user presses and drags on screen.
-        /// 
+        ///
         /// \param sender  - <b>object</b> - object that invoked the event handler.
         /// \param e  - <b>RoutedEventArgs</b> - base class used to pass data to event handler.
-        /// 
+        ///
         /// \return None - void
-        /// 
+        ///
         private void MainWindow_OnMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
@@ -59,12 +45,12 @@ namespace Transportation_Management_System
 
         ///
         /// \brief Event handler for when Button is clicked.
-        /// 
+        ///
         /// \param sender  - <b>object</b> - object that invoked the event handler.
         /// \param e  - <b>RoutedEventArgs</b> - base class used to pass data to event handler.
-        /// 
+        ///
         /// \return None - void
-        /// 
+        ///
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Close();
@@ -72,12 +58,12 @@ namespace Transportation_Management_System
 
         ///
         /// \brief Event handler for when Signin button is clicked.
-        /// 
+        ///
         /// \param sender  - <b>object</b> - object that invoked the event handler.
         /// \param e  - <b>RoutedEventArgs</b> - base class used to pass data to event handler.
-        /// 
+        ///
         /// \return None - void
-        /// 
+        ///
         private void Signin_Button_Click(object sender, RoutedEventArgs e)
         {
             string loginResult = CheckLogin();
@@ -87,30 +73,29 @@ namespace Transportation_Management_System
                 // go to the page of selected user type
                 if (loginResult.Contains("Buyer"))
                 {
-                    var buyer = new BuyerPage();
+                    BuyerPage buyer = new BuyerPage();
                     buyer.Show();
                 }
                 else if (loginResult.Contains("Planner"))
                 {
-                    var planner = new PlannerPage();
+                    PlannerPage planner = new PlannerPage();
                     planner.Show();
                 }
                 else if (loginResult.Contains("Admin"))
                 {
-                    var admin = new AdminPage();
+                    AdminPage admin = new AdminPage();
                     admin.Show();
                 }
                 App.Current.MainWindow.Hide();
             }
         }
 
-
         ///
         /// \brief Used to check the user log in information
-        /// 
-        /// 
+        ///
+        ///
         /// \return user type based on user.
-        /// 
+        ///
         private string CheckLogin()
         {
             DAL auth = new DAL();
@@ -136,7 +121,7 @@ namespace Transportation_Management_System
                 }
             }
             string UserType = auth.GetUserType(UsernameText.Text);
-        
+
             return UserType;
         }
     }

@@ -1,5 +1,4 @@
-﻿
-/* -- FILEHEADER COMMENT --
+﻿/* -- FILEHEADER COMMENT --
     FILE		:	Rate.cs
     PROJECT		:	Transportation Management System
     PROGRAMMER	:  * Ana De Oliveira
@@ -10,11 +9,7 @@
     DESCRIPTION	:	This file contains the source for the Rate class.
 */
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Transportation_Management_System
 {
@@ -27,10 +22,10 @@ namespace Transportation_Management_System
         LTL
     }
 
-    /// 
+    ///
     /// \class Rate
-    /// 
-    /// \brief The purpose of this class is to hold the OSHTRates 
+    ///
+    /// \brief The purpose of this class is to hold the OSHTRates
     ///
     /// This class will hold the rates that will be added on top of the
     /// FTL and LTL rates
@@ -39,18 +34,18 @@ namespace Transportation_Management_System
     ///
     public class Rate
     {
-
         /// A dictionary with the rate type and value
         public Dictionary<RateType, double> RateValuePair { get; set; }
 
         ///
         /// \brief This overloaded Rate class constructor is used to access a Rate class with empty attributes.
-        /// 
-        public Rate() { }
+        ///
+        public Rate()
+        { }
 
         ///
         /// \brief This Rate class constructor is used to values to the dictionary as key value pairs.
-        /// 
+        ///
         public Rate(RateType newType, double newValue)
         {
             RateValuePair.Add(newType, newValue);

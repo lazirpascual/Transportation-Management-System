@@ -1,5 +1,4 @@
-﻿
-/* -- FILEHEADER COMMENT --
+﻿/* -- FILEHEADER COMMENT --
     FILE		:	ContractMarketPlace.cs
     PROJECT		:	Transportation Management System
     PROGRAMMER	:  * Ana De Oliveira
@@ -10,20 +9,15 @@
     DESCRIPTION	:	This file contains the source for the ContractMarketPlace class.
 */
 
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data.SqlClient;
-using System.Data;
-using MySql.Data.MySqlClient;
 
 namespace Transportation_Management_System
 {
-    /// 
+    ///
     /// \class ContractMarketPlace
-    /// 
+    ///
     /// \brief The purpose of this class is to manage all the communication with the Contract Market Place.
     ///
     /// \author <i>Team Blank</i>
@@ -43,13 +37,11 @@ namespace Transportation_Management_System
         public string Password { get; set; }
 
         /// The port to connect to the ContractMarketPlace database
-        public int Port { get; set; }           
-
-
+        public int Port { get; set; }
 
         ///
         /// \brief Construct the ContractMarketPlace object by setting the database connection information.
-        /// 
+        ///
         public ContractMarketPlace()
         {
             CMPServer = "159.89.117.198";
@@ -59,30 +51,27 @@ namespace Transportation_Management_System
             Password = "Snodgr4ss!";
         }
 
-
         ///
         /// \brief Returns the string connection for the database.
-        /// 
+        ///
         /// \return String representation of the database connection info.
-        /// 
+        ///
         public override string ToString()
         {
             return $"SERVER={CMPServer};DATABASE={DBName};PORT={Port};UID={UID};PASSWORD={Password}";
         }
 
-
-
         ///
         /// \brief Returns a list of all contracts fetched from the ContractMarketPlace
-        /// 
+        ///
         /// \return A list of all active contracts from the ContractMarketPlace
-        /// 
+        ///
         public List<Contract> GetContracts()
         {
             List<Contract> contracts = new List<Contract>();
             try
             {
-                string conString = this.ToString();
+                string conString = ToString();
                 using (MySqlConnection con = new MySqlConnection(conString))
                 {
                     MySqlCommand cmd = new MySqlCommand("SELECT * FROM Contract", con);
@@ -93,18 +82,20 @@ namespace Transportation_Management_System
                     {
                         while (rdr.Read())
                         {
-                            Contract cons = new Contract();
-                            cons.ClientName = rdr["CLIENT_NAME"].ToString();
-                            cons.JobType = (JobType) int.Parse(rdr["JOB_TYPE"].ToString());
-                            cons.Quantity = int.Parse(rdr["QUANTITY"].ToString());
-                            cons.Origin = (City) Enum.Parse(typeof(City), rdr["ORIGIN"].ToString(), true);
-                            cons.Destination = (City) Enum.Parse(typeof(City), rdr["DESTINATION"].ToString(), true);
-                            cons.VanType = (VanType) int.Parse(rdr["VAN_TYPE"].ToString());
+                            Contract cons = new Contract
+                            {
+                                ClientName = rdr["CLIENT_NAME"].ToString(),
+                                JobType = (JobType)int.Parse(rdr["JOB_TYPE"].ToString()),
+                                Quantity = int.Parse(rdr["QUANTITY"].ToString()),
+                                Origin = (City)Enum.Parse(typeof(City), rdr["ORIGIN"].ToString(), true),
+                                Destination = (City)Enum.Parse(typeof(City), rdr["DESTINATION"].ToString(), true),
+                                VanType = (VanType)int.Parse(rdr["VAN_TYPE"].ToString())
+                            };
                             contracts.Add(cons);
                         }
                     }
                 }
-            }         
+            }
             catch (Exception)
             {
                 throw;
