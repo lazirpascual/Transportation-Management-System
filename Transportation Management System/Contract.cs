@@ -1,4 +1,13 @@
-﻿namespace Transportation_Management_System
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Data.SqlClient;
+using System.Data;
+using MySql.Data.MySqlClient;
+
+namespace Transportation_Management_System
 {
     public enum JobType
     {
@@ -36,7 +45,7 @@
         public City Origin { get; set; }
 
         /// Gets and Sets the contract's Destination
-        public City Destination { get; set; }
+        public City Destination { get; set; } 
 
         /// Gets and Sets the contract's VanType
         public VanType VanType { get; set; }

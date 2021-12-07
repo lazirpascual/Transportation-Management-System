@@ -1,7 +1,12 @@
-﻿//using MySql.Data;
-using MySql.Data.MySqlClient;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+//using MySql.Data;
+using System.Data.SqlClient;
+using System.Data;
+using MySql.Data.MySqlClient;
 
 namespace Transportation_Management_System
 {
@@ -29,7 +34,7 @@ namespace Transportation_Management_System
         public string Password { get; set; }
 
         /// The port to connect to the ContractMarketPlace database
-        public int Port { get; set; }
+        public int Port { get; set; }           
 
 
 
@@ -80,20 +85,18 @@ namespace Transportation_Management_System
                     {
                         while (rdr.Read())
                         {
-                            Contract cons = new Contract
-                            {
-                                ClientName = rdr["CLIENT_NAME"].ToString(),
-                                JobType = (JobType)int.Parse(rdr["JOB_TYPE"].ToString()),
-                                Quantity = int.Parse(rdr["QUANTITY"].ToString()),
-                                Origin = (City)Enum.Parse(typeof(City), rdr["ORIGIN"].ToString(), true),
-                                Destination = (City)Enum.Parse(typeof(City), rdr["DESTINATION"].ToString(), true),
-                                VanType = (VanType)int.Parse(rdr["VAN_TYPE"].ToString())
-                            };
+                            Contract cons = new Contract();
+                            cons.ClientName = rdr["CLIENT_NAME"].ToString();
+                            cons.JobType = (JobType) int.Parse(rdr["JOB_TYPE"].ToString());
+                            cons.Quantity = int.Parse(rdr["QUANTITY"].ToString());
+                            cons.Origin = (City) Enum.Parse(typeof(City), rdr["ORIGIN"].ToString(), true);
+                            cons.Destination = (City) Enum.Parse(typeof(City), rdr["DESTINATION"].ToString(), true);
+                            cons.VanType = (VanType) int.Parse(rdr["VAN_TYPE"].ToString());
                             contracts.Add(cons);
                         }
                     }
                 }
-            }
+            }         
             catch (Exception)
             {
                 throw;

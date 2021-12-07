@@ -35,10 +35,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Views\favicon.ico</ApplicationIcon>
-  </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject>Transportation_Management_System.App</StartupObject>
+    <ApplicationIcon>favicon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="BCrypt.Net-Next, Version=4.0.2.0, Culture=neutral, PublicKeyToken=1e11be04b6288443, processorArchitecture=MSIL">
@@ -112,70 +109,71 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Models\CarrierCity.cs" />
-    <Compile Include="Controllers\TripManager.cs" />
-    <Compile Include="Views\CarrierSelection.xaml.cs">
+    <Compile Include="CarrierCity.cs" />
+    <Compile Include="CarrierSelection.xaml.cs">
       <DependentUpon>CarrierSelection.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controllers\Helper.cs" />
-    <Compile Include="Models\Invoice.cs" />
-    <Compile Include="Views\InvoiceInformation.cs">
+    <Compile Include="Helper.cs" />
+    <Compile Include="Invoice.cs" />
+    <Compile Include="InvoiceInformation.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\InvoiceInformation.Designer.cs">
+    <Compile Include="InvoiceInformation.Designer.cs">
       <DependentUpon>InvoiceInformation.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controllers\Logger.cs" />
-    <Compile Include="Models\Order.cs" />
-    <Compile Include="Controllers\Buyer.cs" />
-    <Compile Include="Models\Client.cs" />
-    <Compile Include="Models\Rate.cs" />
-    <Compile Include="Controllers\Planner.cs" />
-    <Compile Include="Models\Carrier.cs" />
-    <Compile Include="Models\Route.cs" />
-    <Compile Include="Models\Trip.cs" />
-    <Compile Include="Controllers\Admin.cs" />
-    <Compile Include="Models\User.cs" />
-    <Page Include="Views\AdminPage.xaml">
+    <Compile Include="Logger.cs" />
+    <Compile Include="Order.cs" />
+    <Compile Include="OrderManager.cs" />
+    <Compile Include="Buyer.cs" />
+    <Compile Include="Client.cs" />
+    <Compile Include="Rate.cs" />
+    <Compile Include="Planner.cs" />
+    <Compile Include="Carrier.cs" />
+    <Compile Include="CarrierManager.cs" />
+    <Compile Include="Route.cs" />
+    <Compile Include="Trip.cs" />
+    <Compile Include="Admin.cs" />
+    <Compile Include="User.cs" />
+    <Page Include="AdminPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\BuyerPage.xaml">
+    <Page Include="BuyerPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\CarrierSelection.xaml">
+    <Page Include="CarrierSelection.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\MainWindow.xaml">
+    <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="Views\AdminPage.xaml.cs">
+    <Compile Include="AdminPage.xaml.cs">
       <DependentUpon>AdminPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\Contract.cs" />
-    <Compile Include="Models\ContractMarketPlace.cs" />
-    <Compile Include="Views\BuyerPage.xaml.cs">
+    <Compile Include="Contract.cs" />
+    <Compile Include="ContractMarketPlace.cs" />
+    <Compile Include="BuyerPage.xaml.cs">
       <DependentUpon>BuyerPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\DAL.cs" />
-    <Compile Include="Views\MainWindow.xaml.cs">
+    <Compile Include="DAL.cs" />
+    <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\PlannerPage.xaml">
+    <Page Include="PlannerPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Views\PlannerPage.xaml.cs">
+    <Compile Include="PlannerPage.xaml.cs">
       <DependentUpon>PlannerPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -191,7 +189,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Views\InvoiceInformation.resx">
+    <EmbeddedResource Include="InvoiceInformation.resx">
       <DependentUpon>InvoiceInformation.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -208,7 +206,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Views\logo_white.png">
+    <Resource Include="logo_white.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
@@ -216,14 +214,13 @@
     <Compile Include="DOxygenMainProjectPage.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Views\logo.ico" />
+    <Resource Include="logo.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Views\favicon.ico" />
+    <Resource Include="favicon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Views\favicon.png" />
+    <Resource Include="favicon.png" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

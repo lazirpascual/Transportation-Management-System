@@ -147,7 +147,9 @@ namespace Transportation_Management_System
             Database.Background = Brushes.LightSkyBlue;
             RouteGrid.Visibility = Visibility.Visible;
 
-            List<Route> routeList = admin.GetRoutesAD();
+
+            List<Route> routeList = new List<Route>();
+            routeList = admin.GetRoutesAD();
 
             RouteDatabase.ItemsSource = routeList;
         }
@@ -567,7 +569,7 @@ namespace Transportation_Management_System
             string west;
             string east;
 
-            Route route;
+            Route route = null;
 
             try
             {

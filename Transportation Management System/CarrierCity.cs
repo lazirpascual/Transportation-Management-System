@@ -1,4 +1,10 @@
-﻿namespace Transportation_Management_System
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Transportation_Management_System
 {
     public class CarrierCity
     {
@@ -15,7 +21,7 @@
         public int LTLAval { set; get; }
 
         public CarrierCity() { }
-
+        
         public CarrierCity(Carrier newCarrier, City newDepot, int newFTL, int newLTL)
         {
             Carrier = newCarrier;

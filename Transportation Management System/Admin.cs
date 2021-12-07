@@ -1,4 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.IO;
+using Microsoft.Win32;
+using System.Data;
+using System.Diagnostics;
+using System.Configuration;
 
 namespace Transportation_Management_System
 {
@@ -14,8 +23,10 @@ namespace Transportation_Management_System
     ///
     class Admin : User
     {
+        private string LogDirectory { get; set; }
+        private string LogFile { get; set; }
 
-        private readonly DAL db = new DAL();
+        private DAL db = new DAL();
 
         ///
         /// \brief This constructor is used to initialize the log file name and directory
@@ -24,7 +35,8 @@ namespace Transportation_Management_System
         ///        
         public Admin()
         {
-
+            LogFile = "tms.log";
+            LogDirectory = Directory.GetCurrentDirectory();
         }
 
         ///
@@ -35,9 +47,9 @@ namespace Transportation_Management_System
         ///  
         public string ViewLogFiles()
         {
-
+                              
             return Logger.GetCurrentLogDirectory();
-
+                        
         }
 
         ///
@@ -108,7 +120,7 @@ namespace Transportation_Management_System
 
         public void CarrierCity(CarrierCity carrierCity, int CR)
         {
-            if (CR == 0)
+            if(CR==0)
             {
                 db.RemoveCarrierCity(carrierCity);
             }
@@ -116,7 +128,7 @@ namespace Transportation_Management_System
             {
                 db.CreateCarrierCity(carrierCity);
             }
-
+            
         }
 
 
@@ -199,7 +211,7 @@ namespace Transportation_Management_System
         {
             DAL db = new DAL();
             bool userCreated = false;
-            if (db.CreateUser(user) == true)
+            if(db.CreateUser(user)==true)
             {
                 userCreated = true;
             }

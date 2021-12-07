@@ -1,5 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.IO;
 
 namespace Transportation_Management_System
 {
@@ -21,7 +25,7 @@ namespace Transportation_Management_System
         /// 
         /// \return A list of all contracts from the marketplace
         /// 
-        public List<Contract> FetchContracts()
+        public List<Contract> FetchContracts() 
         {
             ContractMarketPlace cmp = new ContractMarketPlace();
             List<Contract> cons = cmp.GetContracts();
@@ -35,7 +39,7 @@ namespace Transportation_Management_System
         /// \param contract  - <b>Contract</b> - The selected contract for the order to be created
         /// 
         /// \return Order object
-        public Order GenerateOrder(Contract contract)
+        public Order GenerateOrder(Contract contract) 
         {
             // Create an order object
 
@@ -43,7 +47,7 @@ namespace Transportation_Management_System
 
             // Check if Client exists, If it doesn't exists, create it
             DAL db = new DAL();
-            if (db.FilterClientByName(order.ClientName) == null)
+            if(db.FilterClientByName(order.ClientName) == null)
             {
                 Client client = new Client(order.ClientName);
                 db.CreateClient(client);
@@ -55,11 +59,11 @@ namespace Transportation_Management_System
                 // Insert order in database
                 db.CreateOrder(order);
             }
-            catch (Exception)
+            catch(Exception)
             {
                 throw;
             }
-
+            
             return order;
         }
 
@@ -79,7 +83,7 @@ namespace Transportation_Management_System
         /// 
         /// \return A list of all active orders
         /// 
-        public List<Order> GetOrders(int orderStatus)
+        public List<Order> GetOrders(int orderStatus) 
         {
             List<Order> orderList = new List<Order>();
 
@@ -93,7 +97,7 @@ namespace Transportation_Management_System
             {
                 orderList = db.GetCompletedOrders();
             }
-            else if (orderStatus == 2)
+            else if (orderStatus==2)
             {
                 orderList = db.GetAllOrders();
             }
@@ -127,30 +131,30 @@ namespace Transportation_Management_System
                 hours = trips[0].TotalTime;
                 distance = trips[0].TotalDistance;
             }
-            catch (System.ArgumentOutOfRangeException)
+            catch(System.ArgumentOutOfRangeException)
             {
                 string e = $"Trip for order #{orderObj.OrderID} not found";
                 Logger.Log(e, LogLevel.Error);
                 throw new ArgumentNullException(e);
             }
 
-
+            
             TimeSpan timeInDays = TimeSpan.FromHours(hours);
             double days = timeInDays.TotalDays;
 
-
-
-            decimal totalCost = TripManager.CalculateTotalCostTrips(trips);
+            
+            
+            decimal totalCost = Trip.CalculateTotalCostTrips(trips);
             string clientName = orderObj.ClientName;
             string origin = orderObj.Origin.ToString();
             string destination = orderObj.Destination.ToString();
-
+            
 
             invoice.OrderID = orderID;
             invoice.TotalAmount = Math.Round(totalCost, 2);
             invoice.ClientName = clientName;
             invoice.Origin = (City)Enum.Parse(typeof(City), origin, true);
-            invoice.Destination = (City)Enum.Parse(typeof(City), destination, true);
+            invoice.Destination= (City)Enum.Parse(typeof(City), destination, true);
             invoice.Days = Math.Round(days, 1);
             invoice.TotalKM = distance;
 
@@ -197,14 +201,14 @@ namespace Transportation_Management_System
         {
             List<Client> clientList;
             DAL db = new DAL();
-
+            
             // Only active clients
             if (activeStatus == 0)
             {
                 clientList = db.GetActiveClients();
             }
             // All clients
-            else
+            else 
             {
                 clientList = db.GetClients();
             }
