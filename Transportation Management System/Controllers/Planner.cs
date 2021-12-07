@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Transportation_Management_System
 {
@@ -26,7 +23,7 @@ namespace Transportation_Management_System
         /// 
         /// \return Returns list of all fetched orders
         /// 
-        public List<Order> FetchOrders(int orderStatus) 
+        public List<Order> FetchOrders(int orderStatus)
         {
             List<Order> orderList;
 
@@ -75,7 +72,7 @@ namespace Transportation_Management_System
         /// 
         /// \return Returns void
         /// 
-        public void SelectOrderCarrier(Order currentOrder, int carrierID) 
+        public void SelectOrderCarrier(Order currentOrder, int carrierID)
         {
             DAL db = new DAL();
             Trip trip = new Trip();
@@ -86,7 +83,10 @@ namespace Transportation_Management_System
             trip.DestinationCity = currentOrder.Destination;
             trip.JobType = currentOrder.JobType;
             trip.VanType = currentOrder.VanType;
-            trip.CalculateDistanceAndTime();
+
+            TripManager tm = new TripManager();
+            tm.CalculateDistanceAndTime(trip);
+
             db.CreateTrip(trip);
         }
 
@@ -144,7 +144,7 @@ namespace Transportation_Management_System
         {
             DAL db = new DAL();
             Buyer buyer = new Buyer();
-            List<Order> orders = new List<Order>();
+            List<Order> orders;
 
             // If it's for the all time
             if (!timePeriod)

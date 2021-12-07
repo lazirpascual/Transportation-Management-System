@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Transportation_Management_System
+﻿namespace Transportation_Management_System
 {
     public enum UserRole
     {
@@ -35,7 +29,7 @@ namespace Transportation_Management_System
 
         /// used to represent the password of the user
         public string Password { get; set; }
-        
+
         /// used to represent the email of the user
         public string Email { get; set; }
 
@@ -43,7 +37,7 @@ namespace Transportation_Management_System
         public bool IsActive { get; set; }
 
         /// used to represent type or role of a user
-        public UserRole UserType { get; set; }   
+        public UserRole UserType { get; set; }
 
 
         public User(string firstName, string lastName, string username, string password, string email, UserRole userType)

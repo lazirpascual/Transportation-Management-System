@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Diagnostics;
 using System.Configuration;
+using System.Diagnostics;
 using System.IO;
 
 
@@ -117,10 +113,10 @@ namespace Transportation_Management_System
             configuration.AppSettings.Settings["LogDirectory"].Value = newDirectory;
             configuration.Save(ConfigurationSaveMode.Full, true);
             ConfigurationManager.RefreshSection("appSettings");
-            
+
             // Move the log file from the old directory to the new one
             try
-            {   
+            {
                 // If the log was already set up previously
                 if (isSetup)
                 {
@@ -131,11 +127,11 @@ namespace Transportation_Management_System
                     {
                         Trace.Listeners.Remove(Trace.Listeners[2]);
                     }
-                    
+
                     isSetup = false;
                 }
 
-                
+
                 UpdateLogFileInNewDirectory(oldDirectory, newDirectory);
 
                 // If logger not set up, do it
@@ -143,7 +139,7 @@ namespace Transportation_Management_System
 
                 return 0;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Logger.Log($"We couldn't change the log directory. {e.Message}", LogLevel.Error);
 
@@ -167,7 +163,7 @@ namespace Transportation_Management_System
         public static void UpdateLogFileInNewDirectory(string oldDirectory, string newDirectory)
         {
             string logFileName = ConfigurationManager.AppSettings.Get("LogFileName");
-            
+
             string oldPath = String.Format($"{oldDirectory}\\{logFileName}");
             string newPath = String.Format($"{newDirectory}\\{logFileName}");
 

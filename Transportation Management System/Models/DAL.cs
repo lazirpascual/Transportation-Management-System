@@ -1,14 +1,9 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BC = BCrypt.Net.BCrypt;
-using MySql.Data;
-using MySql.Data.MySqlClient;
-using System.Diagnostics;
 using System.Configuration;
-using System.IO;
+using System.Linq;
+using BC = BCrypt.Net.BCrypt;
 
 namespace Transportation_Management_System
 {
@@ -52,7 +47,7 @@ namespace Transportation_Management_System
                 Password = ConfigurationManager.AppSettings.Get("Password");
                 DatabaseName = ConfigurationManager.AppSettings.Get("DatabaseName");
 
-                if(Server == "" || User == "" || Port == "" || Password == "" || DatabaseName == "")
+                if (Server == "" || User == "" || Port == "" || Password == "" || DatabaseName == "")
                 {
                     throw new Exception("We couldn't retrieve the information about the database. Please check your config file.");
                 }
@@ -62,7 +57,7 @@ namespace Transportation_Management_System
                 Logger.Log(e.Message, LogLevel.Critical);
                 throw;
             }
-            
+
         }
 
 
@@ -77,7 +72,7 @@ namespace Transportation_Management_System
             List<string> availableFields = new List<string>()
             { "Server" , "User" ,"Port", "Password", "DatabaseName"};
 
-            if(!availableFields.Contains(fieldToChange))
+            if (!availableFields.Contains(fieldToChange))
             {
                 throw new KeyNotFoundException($"Error. We couldn't find any field called {fieldToChange} in the database connection string.");
             }
@@ -274,7 +269,7 @@ namespace Transportation_Management_System
                         cmd.Parameters.AddWithValue("@Password", Helper.HashPass(usr.Password));
                         cmd.Parameters.AddWithValue("@Email", usr.Email);
                         cmd.Parameters.AddWithValue("@IsActive", 1);
-                        cmd.Parameters.AddWithValue("@UserType", (int) usr.UserType);
+                        cmd.Parameters.AddWithValue("@UserType", (int)usr.UserType);
 
                         // Execute the insertion and check the number of rows affected
                         // An exception will be thrown if the column is repeated
@@ -303,7 +298,7 @@ namespace Transportation_Management_System
         ///
         /// \param order  - <b>Order</b> - An Order object to be created with all its information
         /// 
-        public void CreateOrder(Order order) 
+        public void CreateOrder(Order order)
         {
             string sql = "INSERT INTO Orders (ClientID, Origin, Destination, JobType, Quantity, VanType, OrderCreationDate) " +
                 "VALUES (@ClientID, @Origin, @Destination, @JobType, @Quantity, @VanType, @OrderCreationDate)";
@@ -398,7 +393,7 @@ namespace Transportation_Management_System
         ///
         /// \param client  - <b>Client</b> - A Client object to be created with all their information
         /// 
-        public void CreateClient(Client client) 
+        public void CreateClient(Client client)
         {
             string sql = "INSERT INTO Clients (ClientName) VALUES (@ClientName)";
 
@@ -535,7 +530,7 @@ namespace Transportation_Management_System
                         cmd.Parameters.AddWithValue("@Distance", newRoute.Distance);
                         cmd.Parameters.AddWithValue("@Time", newRoute.Time);
                         cmd.Parameters.AddWithValue("@Destination", newRoute.Destination);
-                        
+
                         // Execute the insertion and check the number of rows affected
                         // An exception will be thrown if the column is repeated
                         cmd.ExecuteNonQuery();
@@ -557,7 +552,7 @@ namespace Transportation_Management_System
         /// 
         public List<Route> GetRoutes()
         {
-            List<Route> routeList= new List<Route>();
+            List<Route> routeList = new List<Route>();
             string qSQL = "SELECT * FROM Routes";
             try
             {
@@ -582,8 +577,8 @@ namespace Transportation_Management_System
 
                                 if (int.TryParse(rdr["Distance"].ToString(), out int d)) route.Distance = d;
                                 if (double.TryParse(rdr["Time"].ToString(), out double t)) route.Time = t;
-                                if (Int32.TryParse(rdr["West"].ToString(), out int w)) route.West = (City) w;
-                                if (Int32.TryParse(rdr["East"].ToString(), out int e)) route.East = (City) e;
+                                if (Int32.TryParse(rdr["West"].ToString(), out int w)) route.West = (City)w;
+                                if (Int32.TryParse(rdr["East"].ToString(), out int e)) route.East = (City)e;
 
                                 routeList.Add(route);
                             }
@@ -613,7 +608,7 @@ namespace Transportation_Management_System
         ///
         /// \param carrier  - <b>Carrier</b> - An Carrier object with all their information
         /// 
-        public long CreateCarrier(Carrier carrier) 
+        public long CreateCarrier(Carrier carrier)
         {
 
             string sql = "INSERT INTO Carriers (CarrierName, FTLRate, LTLRate, reefCharge) VALUES (@CarrierName, @FTLRate, @LTLRate, @reefCharge)";
@@ -713,7 +708,7 @@ namespace Transportation_Management_System
         ///
         /// \param newCarrier  - <b>Carrier</b> - The new carrier information to be used in the update
         /// 
-        public void UpdateCarrier(Carrier newCarrier) 
+        public void UpdateCarrier(Carrier newCarrier)
         {
             string sql = "UPDATE Carriers SET CarrierName=@CarrierName, FTLRate=@FTLRate, LTLRate=@LTLRate, ReefCharge=@ReefCharge WHERE CarrierID=@CarrierID";
 
@@ -800,7 +795,7 @@ namespace Transportation_Management_System
         /// 
         /// \return The found carrier or null otherwise
         /// 
-        public Carrier GetCarrier(int carrierId) 
+        public Carrier GetCarrier(int carrierId)
         {
             string qSQL = "SELECT * FROM Carriers WHERE CarrierID=@CarrierID";
             Carrier carr = null;
@@ -846,7 +841,7 @@ namespace Transportation_Management_System
         ///
         /// \param carrier  - <b>Carrier</b> - The new carrier information to be used in the deactivation
         /// 
-        public void DeactivateCarrier(Carrier carrier) 
+        public void DeactivateCarrier(Carrier carrier)
         {
 
             string sql = "UPDATE Carriers SET IsActive=0 WHERE CarrierID=@CarrierID";
@@ -1003,7 +998,7 @@ namespace Transportation_Management_System
                 // job type is LTL
                 qSQL = "SELECT * FROM Carriers INNER JOIN CarrierCity ON CarrierCity.CarrierID = Carriers.CarrierID WHERE DepotCity=@DepotCity AND IsActive=1 AND LTLAval>0";
             }
-        
+
             try
             {
                 string conString = this.ToString();
@@ -1062,7 +1057,7 @@ namespace Transportation_Management_System
         {
             Carrier carrier = new Carrier();
             string qSQL = "SELECT * FROM Carriers WHERE CarrierID=@CarrierID";
-            
+
             try
             {
                 string conString = this.ToString();
@@ -1166,7 +1161,7 @@ namespace Transportation_Management_System
         /// 
         /// \return A list of all registered uses
         /// 
-        public List<User> GetUsers() 
+        public List<User> GetUsers()
         {
             List<User> usersList = new List<User>();
             string qSQL = "SELECT * FROM Users";
@@ -1259,7 +1254,7 @@ namespace Transportation_Management_System
         /// 
         /// \return The found client of null if none are found
         /// 
-        public Client FilterClientByName(string name) 
+        public Client FilterClientByName(string name)
         {
             string sql = "SELECT ClientID, ClientName FROM Clients WHERE ClientName=@ClientName";
             Client client = null;
@@ -1568,14 +1563,14 @@ namespace Transportation_Management_System
 
                         // Execute the insertion and check the number of rows affected
                         // An exception will be thrown if the column is repeated
-                        if(cmd.ExecuteNonQuery() == 0)
+                        if (cmd.ExecuteNonQuery() == 0)
                         {
                             throw new ArgumentException("Invalid Order");
                         }
                     }
                 }
             }
-            catch(ArgumentException e)
+            catch (ArgumentException e)
             {
                 Logger.Log(e.Message, LogLevel.Error);
                 throw;
@@ -1797,8 +1792,10 @@ namespace Transportation_Management_System
         /// 
         public Rate GetOSHTRates()
         {
-            Rate OSHTRates = new Rate();
-            OSHTRates.RateValuePair = new Dictionary<RateType, double>();
+            Rate OSHTRates = new Rate
+            {
+                RateValuePair = new Dictionary<RateType, double>()
+            };
             string qSQL = "SELECT Rate, RateType FROM Rates WHERE Name='OSHT'";
 
             try
@@ -1860,15 +1857,15 @@ namespace Transportation_Management_System
         }
 
 
-            ///
-            /// \brief Used to create a trip using trip object
-            ///
-            /// \param trip  - <b>Trip</b> - Order to select the invoic
-            /// \param carrierToSelect  - <b>Carrier</b> - trip object
-            /// 
-            /// \return Returns void
-            /// 
-            public void CreateTrip(Trip trip)
+        ///
+        /// \brief Used to create a trip using trip object
+        ///
+        /// \param trip  - <b>Trip</b> - Order to select the invoic
+        /// \param carrierToSelect  - <b>Carrier</b> - trip object
+        /// 
+        /// \return Returns void
+        /// 
+        public void CreateTrip(Trip trip)
         {
             string sql = "INSERT INTO Trips (OrderID, CarrierID, OriginCity, DestinationCity, JobType, VanType, TotalDistance, TotalTime) VALUE (@OrderID, @CarrierID, @OriginCity, @DestinationCity, @JobType, @VanType, @TotalDistance, @TotalTime)";
 
@@ -2007,7 +2004,7 @@ namespace Transportation_Management_System
         /// 
         /// \return A list with all trips attached to a specific orders
         /// 
-        public List<Order> FilterCompletedOrdersByTime(bool onlyPast2Weeks) 
+        public List<Order> FilterCompletedOrdersByTime(bool onlyPast2Weeks)
         {
             List<Order> orders = new List<Order>();
 
@@ -2022,7 +2019,7 @@ namespace Transportation_Management_System
                 {
                     // Filter all orders from the past 2 weeks
                     string qSQL = "SELECT * FROM Orders INNER JOIN Clients ON Orders.ClientID = Clients.ClientID WHERE IsCompleted=1 AND OrderCompletedDate between date_sub(now(),INTERVAL 2 WEEK) and now()";
-                    
+
                     string conString = this.ToString();
                     using (MySqlConnection conn = new MySqlConnection(conString))
                     {
@@ -2063,7 +2060,7 @@ namespace Transportation_Management_System
 
 
             return orders;
-            
+
         }
 
 
@@ -2077,7 +2074,7 @@ namespace Transportation_Management_System
         public void BackupDatabase(string backUpFilePath)
         {
             string fileName = $"TMS-DB-Backup-{DateTime.Now:MM-dd-yyyy HH-mm-ss}.sql";
-            if(backUpFilePath == "")
+            if (backUpFilePath == "")
             {
                 throw new ArgumentNullException("Backup file path was not provided. Backup failed.");
             }
@@ -2100,7 +2097,7 @@ namespace Transportation_Management_System
                     }
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Logger.Log(e.Message, LogLevel.Error);
                 throw;

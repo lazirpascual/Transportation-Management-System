@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-//using MySql.Data;
-using System.Data.SqlClient;
-using System.Data;
-using MySql.Data.MySqlClient;
+﻿//using MySql.Data;
 using BC = BCrypt.Net.BCrypt;
 
 namespace Transportation_Management_System

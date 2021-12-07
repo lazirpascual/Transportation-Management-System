@@ -1,66 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Transportation_Management_System
 {
-    public enum City
-    {
-        Null = -1,
-        Windsor,
-        London,
-        Hamilton,
-        Toronto,
-        Oshawa,
-        Belleville,
-        Kingston,
-        Ottawa,
-    }
-
     /// 
-    /// \class Trip
+    /// \class TripManager
     /// 
-    /// \brief The purpose of this class is to model the trip required for the order
+    /// \brief The purpose of this class is to perform the calculations for the trip
     ///
-    /// This class will demonstrate the attributes and behaviours of the Trip. It will calculate the total
-    /// distance and the total time required for the trip.
+    /// This class will perform the calculations related to the trips such as 
     /// 
     ///
     ///
     /// \author <i>Team Blank</i>
     ///
-    public class Trip
+    public class TripManager
     {
-        /// The trip ID for the Trip
-        public long TripID { get; set; }
-
-        /// The order ID for the Trip
-        public long OrderID { get; set; }
-
-        /// The carrier ID for the Trip
-        public long CarrierID { get; set; }
-
-        /// The starting city for the transport
-        public City OriginCity { get; set; }
-
-        /// The destination city for the transport
-        public City DestinationCity { get; set; }
-
-        /// The total distance for the transport
-        public int TotalDistance { get; set; }
-
-        /// The total number of days needed for the trip
-        public double TotalTime { get; set; }
-
-        /// The JobType for the trip
-        public JobType JobType { get; set; }
-
-        /// The VanType for the trip
-        public VanType VanType { get; set; }
-
-
 
         ///
         /// \brief This method will calculate the total cost for all trips
@@ -113,7 +68,7 @@ namespace Transportation_Management_System
                 }
             }
 
-            return (decimal) totalCost;
+            return (decimal)totalCost;
         }
 
 
@@ -125,11 +80,11 @@ namespace Transportation_Management_System
         /// 
         /// \return A keyValuePair with the distance and time between those two cities
         /// 
-        public void CalculateDistanceAndTime()
+        public void CalculateDistanceAndTime(Trip trip)
         {
-            City origin = OriginCity;
-            City destination = DestinationCity;
-            JobType jb = JobType;
+            City origin = trip.OriginCity;
+            City destination = trip.DestinationCity;
+            JobType jb = trip.JobType;
 
             int totalDistance = 0;
             double totalTime = 0.0;
@@ -145,8 +100,8 @@ namespace Transportation_Management_System
             // Check if origin and destination are the same, return 0
             if (origin == destination)
             {
-                TotalTime = 0.0;
-                TotalDistance = 0;
+                trip.TotalTime = 0.0;
+                trip.TotalDistance = 0;
 
                 return;
             }
@@ -262,9 +217,8 @@ namespace Transportation_Management_System
 
 
             // Populate fields
-            TotalTime = totalTime;
-            TotalDistance = totalDistance;
+            trip.TotalTime = totalTime;
+            trip.TotalDistance = totalDistance;
         }
-
     }
 }
