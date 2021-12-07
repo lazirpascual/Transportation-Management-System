@@ -65,4 +65,85 @@ namespace Transportation_Management_System
             }
         }
     }
+
+    public class QuantityConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter,
+                System.Globalization.CultureInfo culture)
+        {
+            switch (value)
+            {
+                case 0:
+                    return "N/A";
+                default:
+                    return value;
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter,
+                System.Globalization.CultureInfo culture)
+        {
+            switch (value)
+            {
+                case "N/A":
+                    return 0;
+                default:
+                    return value;
+            }
+        }
+    }
+
+    public class DirectionConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter,
+                System.Globalization.CultureInfo culture)
+        {
+            switch (value.ToString())
+            {
+                case "Null":
+                    return "END";
+                default:
+                    return value;
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter,
+                System.Globalization.CultureInfo culture)
+        {
+            switch (value)
+            {
+                case "END":
+                    return "Null";
+                default:
+                    return value;
+            }
+        }
+    }
+
+    public class TimeConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter,
+                System.Globalization.CultureInfo culture)
+        {
+            switch (value)
+            {
+                case 0.0:
+                    return "N/A";
+                default:
+                    return value;
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter,
+                System.Globalization.CultureInfo culture)
+        {
+            switch (value)
+            {
+                case "N/A":
+                    return 0;
+                default:
+                    return value;
+            }
+        }
+    }
 }

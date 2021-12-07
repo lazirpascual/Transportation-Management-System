@@ -13,6 +13,7 @@
     <Window.Resources>
         <local:StatusConverter x:Key="StatusConverter"/>
         <local:DateConverter x:Key="DateConverter"/>
+        <local:QuantityConverter x:Key="QuantityConverter"/>
     </Window.Resources>
     <Viewbox>
         <Grid>
@@ -54,7 +55,7 @@
                             <GridViewColumn Header="Destination" Width="70" DisplayMemberBinding="{Binding Destination}" />
                             <GridViewColumn Header="Job Type" Width="55" DisplayMemberBinding="{Binding JobType}" />
                             <GridViewColumn Header="Van Type" Width="55" DisplayMemberBinding="{Binding VanType}" />
-                            <GridViewColumn Header="Qty" Width="40" DisplayMemberBinding="{Binding Quantity}" />
+                            <GridViewColumn Header="Qty" Width="40" DisplayMemberBinding="{Binding Quantity, Converter={StaticResource QuantityConverter}}" />
                             <GridViewColumn Header="Status" Width="70" DisplayMemberBinding="{Binding IsCompleted, Converter={StaticResource StatusConverter}}" />
                             <GridViewColumn Header="Creation Date" Width="70" DisplayMemberBinding="{Binding OrderCreationDate, Converter={StaticResource DateConverter}}" />
                             <GridViewColumn Header="Completion" Width="70" DisplayMemberBinding="{Binding OrderCompletionDate, Converter={StaticResource DateConverter}}" />
@@ -66,7 +67,7 @@
 
             </Grid>
             <Grid x:Name="InvoicesGrid" Visibility="Hidden">
-                <Button x:Name ="GenerateInvoice" Content="Generate Invoice" FontSize="16" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="28" Margin="724,369,0,0" Click="GenerateInvoice_Click"/>
+                <Button x:Name ="GenerateInvoice" Content="Generate Invoice" FontSize="16" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="28" Margin="724,369,0,0" Click="GenerateInvoice_Click" Visibility="Hidden"/>
                 <ListView x:Name="InvoiceList" Margin="174,22,38,73" SelectionMode="Single" SelectionChanged="InvoiceList_SelectionChanged" Height="324">
                     <ListView.View>
                         <GridView>
@@ -93,7 +94,7 @@
                             <GridViewColumn Header="Destination" Width="100" DisplayMemberBinding="{Binding Destination}" />
                             <GridViewColumn Header="Job Type" Width="70" DisplayMemberBinding="{Binding JobType}" />
                             <GridViewColumn Header="Origin" Width="70" DisplayMemberBinding="{Binding Origin}" />
-                            <GridViewColumn Header="Quantity" Width="70" DisplayMemberBinding="{Binding Quantity}" />
+                            <GridViewColumn Header="Quantity" Width="70" DisplayMemberBinding="{Binding Quantity, Converter={StaticResource QuantityConverter}}" />
                             <GridViewColumn Header="Van Type" Width="70" DisplayMemberBinding="{Binding VanType}" />
                         </GridView>
                     </ListView.View>

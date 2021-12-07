@@ -185,7 +185,10 @@ namespace Transportation_Management_System
 
         private void InvoiceList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            GenerateInvoice.Visibility = Visibility.Visible;
+            if (InvoiceList.SelectedItem != null)
+            {
+                GenerateInvoice.Visibility = Visibility.Visible;
+            }         
         }
 
         private void GenerateInvoice_Click(object sender, RoutedEventArgs e)

@@ -9,6 +9,12 @@
         Closing="Window_Closing"
         Title="Administrator" Height="434" Width="797"
         Icon="/favicon.png">
+
+    <Window.Resources>
+        <local:DirectionConverter x:Key="DirectionConverter"/>
+        <local:QuantityConverter x:Key="QuantityConverter"/>
+        <local:TimeConverter x:Key="TimeConverter"/>
+    </Window.Resources>
     <Viewbox>
         <Grid>
             <Border RenderTransformOrigin="0.5,0.5" Height="419">
@@ -131,10 +137,10 @@
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Destination" Width="160" DisplayMemberBinding="{Binding Destination}" />
-                            <GridViewColumn Header="Distance" Width="60" DisplayMemberBinding="{Binding Distance}" />
-                            <GridViewColumn Header="Time" Width="60" DisplayMemberBinding="{Binding Time}" />
-                            <GridViewColumn Header="West" Width="160" DisplayMemberBinding="{Binding West}" />
-                            <GridViewColumn Header="East" Width="160" DisplayMemberBinding="{Binding East}" />
+                            <GridViewColumn Header="Km's" Width="60" DisplayMemberBinding="{Binding Distance, Converter={StaticResource QuantityConverter}}" />
+                            <GridViewColumn Header="Time (h)" Width="60" DisplayMemberBinding="{Binding Time, Converter={StaticResource TimeConverter}}" />
+                            <GridViewColumn Header="West" Width="160" DisplayMemberBinding="{Binding West, Converter={StaticResource DirectionConverter}}" />
+                            <GridViewColumn Header="East" Width="160" DisplayMemberBinding="{Binding East, Converter={StaticResource DirectionConverter}}" />
                         </GridView>
                     </ListView.View>
                 </ListView>

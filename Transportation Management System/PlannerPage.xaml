@@ -13,6 +13,7 @@
     <Window.Resources>
         <local:StatusConverter x:Key="StatusConverter"/>
         <local:DateConverter x:Key="DateConverter"/>
+        <local:QuantityConverter x:Key="QuantityConverter"/>
     </Window.Resources>
     <Viewbox>
         <Grid>
@@ -64,7 +65,7 @@
                             <GridViewColumn Header="Destination" Width="90" DisplayMemberBinding="{Binding Destination}" />
                             <GridViewColumn Header="Job Type" Width="60" DisplayMemberBinding="{Binding JobType}" />
                             <GridViewColumn Header="Van Type" Width="60" DisplayMemberBinding="{Binding VanType}" />
-                            <GridViewColumn Header="Quantity" Width="50" DisplayMemberBinding="{Binding Quantity}" />
+                            <GridViewColumn Header="Qty" Width="50" DisplayMemberBinding="{Binding Quantity,Converter={StaticResource QuantityConverter}}" />
                             <GridViewColumn Header="Status" Width="70" DisplayMemberBinding="{Binding IsCompleted, Converter={StaticResource StatusConverter}}" />
                             <GridViewColumn Header="Creation Date" Width="70" DisplayMemberBinding="{Binding OrderCreationDate, Converter={StaticResource DateConverter}}" />
                             <GridViewColumn Header="Completion Date" Width="70" DisplayMemberBinding="{Binding OrderCompletionDate, Converter={StaticResource DateConverter}}" />
