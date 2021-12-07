@@ -189,7 +189,9 @@ namespace Transportation_Management_System
                 CompleteOrder.Visibility = Visibility.Hidden;
             }
             OrderProgressBar.Value = result;
-            HoursLabel.Content = $"Hours Left: {TotalTimeSpan.Hours}";
+
+            TimeSpan TimeRemaining = expectedDeliveryDate - DateTime.Now;
+            HoursLabel.Content = $"Time Left: {(int)TimeRemaining.TotalHours} hrs, {TimeRemaining.Minutes} mins";
         }
 
         private void Selection_Changed(object sender, RoutedEventArgs e)

@@ -70,12 +70,12 @@
                             <GridViewColumn Header="Completion Date" Width="70" DisplayMemberBinding="{Binding OrderCompletionDate}" />
                         </GridView>
                     </ListView.View>
+                    <Grid x:Name="OrderProgress" Visibility="Visible" >
+                        <ProgressBar x:Name="OrderProgressBar" Value="2" HorizontalAlignment="Left" Height="20" Margin="644,375,0,0" VerticalAlignment="Top" Width="123" Minimum="0" Maximum="100"/>
+                        <Label x:Name="HoursLabel" Height="23" Width="120" BorderThickness="0" Padding="0" Background="Transparent" Margin="450,200,203,24"/>
+                        <Label  Height="23" Margin="660,375,43,21" Content="Order Progress" Width="120" BorderThickness="0" Padding="0" Background="Transparent"/>
+                    </Grid>
                 </ListView>
-                <Grid x:Name="OrderProgress" Visibility="Hidden" >
-                    <ProgressBar x:Name="OrderProgressBar" Value="2" HorizontalAlignment="Left" Height="20" Margin="555,373,0,0" VerticalAlignment="Top" Width="123" Minimum="0" Maximum="100"/>
-                    <Label HorizontalAlignment="Left" Height="23" Margin="573,375,0,0" Content="Order Progress" VerticalAlignment="Top" Width="120" BorderThickness="0" Padding="0" Background="Transparent"/>
-                    <Label x:Name="HoursLabel" HorizontalAlignment="Left" Height="23" Margin="700,375,0,0" Content="Hours Left: " VerticalAlignment="Top" Width="120" BorderThickness="0" Padding="0" Background="Transparent"/>
-                </Grid>
             </Grid>
         </Grid>
     </Viewbox>
