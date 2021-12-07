@@ -233,7 +233,6 @@ namespace Transportation_Management_System
 
             // Hide all grids
             ReportsGrid.Visibility = Visibility.Hidden;
-            ActivitiesGrid.Visibility = Visibility.Hidden;
             OrdersGrid.Visibility = Visibility.Hidden;
 
 

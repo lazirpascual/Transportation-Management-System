@@ -7,7 +7,8 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen" 
         Closing="Window_Closing"
-        Title="Buyer" Height="414" Width="799">
+        Title="Buyer" Height="414" Width="799"
+        Icon="/favicon.png">
     <Viewbox>
         <Grid>
             <Border RenderTransformOrigin="0.5,0.5" Height="419">
@@ -78,10 +79,11 @@
                         </GridView>
                     </ListView.View>
                 </ListView>
-            </Grid>
+            </Grid>er
             <Grid x:Name="MarketPlaceGrid" Visibility="Hidden">
                 <Button x:Name="AcceptClient" Content="Accept" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="696,373,0,0" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Click="AcceptClient_Click"/>
                 <ListView x:Name="ContractsList" Margin="189,10,37,61" SelectionMode="Single" Height="324" Width="657">
+
                     <ListView.View>
                         <GridView x:Name="ContractsListGrid">
                             <GridViewColumn Header="Client Name" Width="120" DisplayMemberBinding="{Binding ClientName}" />
