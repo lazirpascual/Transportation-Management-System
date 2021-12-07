@@ -475,6 +475,7 @@ namespace Transportation_Management_System
         private void ResetStatus()
         {
             // Hide all grids
+            CreateUserGrid.Visibility = Visibility.Hidden;
             AdminLog.Visibility = Visibility.Hidden;
             GeneralGrid.Visibility = Visibility.Hidden;
             DatabaseButtons.Visibility = Visibility.Hidden;
@@ -488,6 +489,7 @@ namespace Transportation_Management_System
             LogFiles.Background = Brushes.WhiteSmoke;
             Database.Background = Brushes.WhiteSmoke;
             Configuration.Background = Brushes.WhiteSmoke;
+            UserCreation.Background = Brushes.WhiteSmoke;
         }
 
        
@@ -795,6 +797,11 @@ namespace Transportation_Management_System
                 type = (UserRole)Enum.Parse(typeof(UserRole), newType, true);
 
                 User user = new User(firstName, lastName, username, password, email, type);
+                if(admin.CreateAUser(user)==true)
+                {
+                    System.Windows.MessageBox.Show("User successfully added to the system.", "Attention", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                
 
                 //save it to the database
             }
@@ -805,6 +812,12 @@ namespace Transportation_Management_System
             }
 
         }
-                
+
+        private void CreateUser_Click(object sender, RoutedEventArgs e)
+        {
+            ResetStatus();
+            UserCreation.Background = Brushes.LightSkyBlue;
+            CreateUserGrid.Visibility = Visibility.Visible;
+        }
     }
 }

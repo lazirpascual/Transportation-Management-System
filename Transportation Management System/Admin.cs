@@ -119,5 +119,22 @@ namespace Transportation_Management_System
 
             return "";
         }
+
+        ///
+        /// \brief This method is called to create a user for the TMS application
+        /// 
+        /// 
+        /// \return Returns TRUE if backup is successful, else FALSE
+        /// 
+        public bool CreateAUser(User user)
+        {
+            DAL db = new DAL();
+            bool userCreated = false;
+            if(db.CreateUser(user)==true)
+            {
+                userCreated = true;
+            }
+            return userCreated;
+        }
     }
 }
