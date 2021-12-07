@@ -21,13 +21,13 @@
             </Border>
 
             <Grid>
-            <Button x:Name ="UserCreation" Content="Create User" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,157,0,0" Click="CreateUser_Click"/>
+                <Button x:Name ="UserCreation" Content="Create User" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,157,0,0" Click="CreateUser_Click"/>
 
-            <Button x:Name ="Backup" Content="Backup" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,209,0,0" Click="Backup_Click"/>
-            <Button x:Name ="LogFiles" Content="Log File" Background="WhiteSmoke" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,261,0,0" Click="LogFiles_Click"/>
-            <Button x:Name ="Database" Content="Database" Background="WhiteSmoke" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,312,0,0" Click="Database_Click"/>
-            <Button x:Name ="Configuration" Content="General Config" Background="WhiteSmoke" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,363,0,0" Click="Configuration_Click"/>
-            <TextBox x:Name="AdminLog" Margin="146,10,20,10" MaxWidth="620" MaxHeight="390" Visibility="Visible" AcceptsReturn="False" IsReadOnly="True" TextWrapping="Wrap" Background="GhostWhite" VerticalScrollBarVisibility="Auto"/>
+                <Button x:Name ="Backup" Content="Backup" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,209,0,0" Click="Backup_Click"/>
+                <Button x:Name ="LogFiles" Content="Log File" Background="WhiteSmoke" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,261,0,0" Click="LogFiles_Click"/>
+                <Button x:Name ="Database" Content="Database" Background="WhiteSmoke" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,312,0,0" Click="Database_Click"/>
+                <Button x:Name ="Configuration" Content="General Config" Background="WhiteSmoke" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,363,0,0" Click="Configuration_Click"/>
+                <TextBox x:Name="AdminLog" Margin="146,10,20,10" MaxWidth="620" MaxHeight="390" Visibility="Visible" AcceptsReturn="False" IsReadOnly="True" TextWrapping="Wrap" Background="GhostWhite" VerticalScrollBarVisibility="Auto"/>
             </Grid>
             <Grid x:Name="CreateUserGrid" Visibility="Hidden">
                 <Label Content="Create New User" FontWeight="Bold" HorizontalAlignment="Left" Margin="182,37,0,0" VerticalAlignment="Top"/>
@@ -45,24 +45,29 @@
                 <PasswordBox x:Name="UserPassword" HorizontalAlignment="Left" Height="23" Margin="265,241,0,0" VerticalAlignment="Top" Width="120"/>
                 <TextBox x:Name="UserType" HorizontalAlignment="Left" Height="23" Margin="265,280,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
             </Grid>
-
             <Grid x:Name="GeneralGrid" Visibility="Hidden">
-                <TextBox x:Name="IPBox" HorizontalAlignment="Left" Height="23" Margin="246,67,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                <TextBox x:Name="PortBox" HorizontalAlignment="Left" Height="23" Margin="246,110,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                <Label x:Name="DatabaseConfig" Content="Database Configuration" FontWeight="Bold" HorizontalAlignment="Left" Margin="157,22,0,0" VerticalAlignment="Top" Width="225"/>
-                <Label x:Name="IPLabel" Content="IP Address" HorizontalAlignment="Left" Margin="157,64,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.528,-0.41"/>
-                <Label x:Name="PortLabel" Content="Port Number" HorizontalAlignment="Left" Margin="157,110,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.528,-0.41"/>
-                <Label x:Name="LogLabel" Content="LogFile Configuration" FontWeight="Bold" HorizontalAlignment="Left" Margin="157,165,0,0" VerticalAlignment="Top" Width="225"/>
-                <TextBox x:Name="LogPath" HorizontalAlignment="Left" Height="23" Margin="246,209,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="473"/>
-                <Label x:Name ="LogPathLabel" Content="Log Path" HorizontalAlignment="Left" Margin="157,206,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.528,-0.41"/>
-                <Button x:Name="SelectPath" Content="Select Path" HorizontalAlignment="Left" Margin="246,246,0,0" VerticalAlignment="Top" Width="75" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Click="SelectPath_Click"/>
-                <Button x:Name="IPUpdate" Content="Update" HorizontalAlignment="Left" Margin="398,67,0,0" VerticalAlignment="Top" Width="75" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed"/>
-                <Button x:Name="PortUpdate" Content="Update" HorizontalAlignment="Left" Margin="398,110,0,0" VerticalAlignment="Top" Width="75" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed"/>
-                <Button x:Name="PathUpdate" Content="Update" HorizontalAlignment="Left" Margin="326,246,0,0" VerticalAlignment="Top" Width="75" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Click="PathUpdate_Click"/>
+                <TextBox Name="ServerBox" HorizontalAlignment="Left" Height="23" Margin="246,53,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="450"/>
+                <TextBox Name="PortBox" HorizontalAlignment="Left" Height="23" Margin="246,87,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="194"/>
+                <Label Name="DatabaseConfig" Content="Database Configuration" FontWeight="Bold" HorizontalAlignment="Left" Margin="157,22,0,0" VerticalAlignment="Top" Width="225"/>
+                <Label Name="IPLabel" Content="Server" HorizontalAlignment="Left" Margin="157,50,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.528,-0.41"/>
+                <Label Name="PortLabel" Content="Port Number" HorizontalAlignment="Left" Margin="157,84,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.528,-0.41"/>
+                <Label Name="LogLabel" Content="LogFile Configuration" FontWeight="Bold" HorizontalAlignment="Left" Margin="157,291,0,0" VerticalAlignment="Top" Width="225"/>
+                <TextBox Name="LogPath" HorizontalAlignment="Left" Height="23" Margin="246,335,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="473"/>
+                <Label Name ="LogPathLabel" Content="Log Path" HorizontalAlignment="Left" Margin="157,332,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.528,-0.41"/>
+                <Button Name="SelectPath" Content="Select Path" HorizontalAlignment="Left" Margin="246,374,0,0" VerticalAlignment="Top" Width="75" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Click="SelectPath_Click"/>
+                <Button Name="DatabaseUpdate" Content="Update" HorizontalAlignment="Left" Margin="365,235,0,0" VerticalAlignment="Top" Width="75" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Click="DatabaseUpdate_Click"/>
+                <Button Name="PathUpdate" Content="Update" HorizontalAlignment="Left" Margin="326,374,0,0" VerticalAlignment="Top" Width="75" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Click="PathUpdate_Click"/>
+                <Label x:Name="PortLabel_Copy" Content="Password" HorizontalAlignment="Left" Margin="157,153,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.528,-0.41"/>
+                <TextBox x:Name="UserBox" HorizontalAlignment="Left" Height="23" Margin="246,122,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="194"/>
+                <Label x:Name="PortLabel_Copy1" Content="User" HorizontalAlignment="Left" Margin="157,119,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.528,-0.41"/>
+                <PasswordBox x:Name="PasswordBox" HorizontalAlignment="Left" Height="23" Margin="246,156,0,0" VerticalAlignment="Top" Width="194"/>
+                <Label x:Name="PortLabel_Copy2" Content="DatabaseName" HorizontalAlignment="Left" Margin="157,186,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.528,-0.41"/>
+                <TextBox x:Name="DatabaseBox" HorizontalAlignment="Left" Height="23" Margin="246,189,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="194"/>
             </Grid>
             <Grid x:Name="DatabaseButtons" Visibility="Hidden">
                 <Button x:Name ="CarrierData" FontSize="16" Content="Carriers" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="146,312,0,0" Click="CarrierData_Click"/>
                 <Button x:Name ="RouteData" FontSize="16" Content="Routes" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="146,363,0,0" Click="RouteData_Click"/>
+                <Button x:Name ="RatesFeesData" FontSize="16" Content="Rates" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="146,261,0,0" Click="RatesFeesData_Click"/>
             </Grid>
             <Grid x:Name="CarrierGrid" Visibility="Hidden">
                 <TextBox x:Name="CarrierName" HorizontalAlignment="Left" Height="23" Margin="228,289,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
@@ -80,7 +85,6 @@
                 <Label x:Name="LTLRateLabel" Content="LTLRate" HorizontalAlignment="Left" Margin="358,320,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.032,0.428" Width="82"/>
                 <Label x:Name="ReeferChargeLabel" Content="ReeferCharge" HorizontalAlignment="Left" Margin="146,320,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.032,0.428" Width="82"/>
                 <Button x:Name="AddCarrier" Content="Add" HorizontalAlignment="Left" Margin="684,376,0,0" VerticalAlignment="Top" Width="75" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Click="AddCarrier_Click"/>
-
                 <Button x:Name="UpdateCarrier" Content="Update" HorizontalAlignment="Left" Margin="246,376,0,0" VerticalAlignment="Top" Width="75" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Click="UpdateCarrier_Click"/>
                 <Button x:Name="Clear" Content="Clear Fields" HorizontalAlignment="Left" Margin="160,376,0,0" VerticalAlignment="Top" Width="80" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Click="ClearButton_Click"/>
                 <Button x:Name="DeleteCarrier" Content="Delete" HorizontalAlignment="Left" Margin="595,376,0,0" VerticalAlignment="Top" Width="75" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Click="DeleteCarrier_Click"/>
@@ -125,6 +129,21 @@
                             <GridViewColumn Header="Time" Width="60" DisplayMemberBinding="{Binding Time}" />
                             <GridViewColumn Header="West" Width="160" DisplayMemberBinding="{Binding West}" />
                             <GridViewColumn Header="East" Width="160" DisplayMemberBinding="{Binding East}" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Grid>
+            <Grid x:Name="RatesGrid" Visibility="Hidden">
+                <TextBox x:Name="NewFTLRate" HorizontalAlignment="Left" Height="23" Margin="270,63,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <TextBox x:Name="NewLTLRate" HorizontalAlignment="Left" Height="23" Margin="270,122,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <Label Content="FTL Rate" Margin="165,63,530,0" VerticalAlignment="Top"/>
+                <Label Content="LTL Rate" Margin="165,122,530,0" VerticalAlignment="Top"/>
+                <Button Name="UpdateRate" Content="Update" HorizontalAlignment="Left" Margin="306,245,0,0" VerticalAlignment="Top" Width="84" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Click="UpdateRate_Click"/>
+                <ListView x:Name="RatesDatabase" Margin="432,25,31,151"  SelectionMode="Single" PreviewMouseLeftButtonUp="RouteDatabase_PreviewMouseLeftButtonUp">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Type" Width="160" DisplayMemberBinding="{Binding Type}" />
+                            <GridViewColumn Header="Value" Width="160" DisplayMemberBinding="{Binding Value}" />
                         </GridView>
                     </ListView.View>
                 </ListView>
