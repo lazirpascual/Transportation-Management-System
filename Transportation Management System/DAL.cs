@@ -438,7 +438,7 @@ namespace Transportation_Management_System
         ///
         public void CreateInvoice(Invoice invoice)
         {
-            string sql = "INSERT INTO Invoices VALUES (@OrderID, @ClientName, @Origin, @Destination, @TotalAmount, @TotalDistance, @TotalDays)";
+            string sql = "INSERT INTO Invoices VALUES (@OrderID, @ClientName, @Origin, @Destination, @TotalAmount, @TotalDistance, @TotalDays, @CompletedDate)";
 
             try
             {
@@ -448,6 +448,7 @@ namespace Transportation_Management_System
 
                     using (MySqlCommand cmd = new MySqlCommand(sql, conn))
                     {
+                        invoice.CompletedDate = DateTime.Now;
                         // Populate all arguments in the insert
                         cmd.Parameters.AddWithValue("@OrderID", invoice.OrderID);
                         cmd.Parameters.AddWithValue("@ClientName", invoice.ClientName);
@@ -456,6 +457,7 @@ namespace Transportation_Management_System
                         cmd.Parameters.AddWithValue("@TotalAmount", invoice.TotalAmount);
                         cmd.Parameters.AddWithValue("@TotalDistance", invoice.TotalKM);
                         cmd.Parameters.AddWithValue("@TotalDays", invoice.Days);
+                        cmd.Parameters.AddWithValue("@CompletedDate", invoice.CompletedDate);
 
                         // Execute the insertion and check the number of rows affected
                         // An exception will be thrown if the column is repeated
