@@ -48,8 +48,8 @@
             </Grid>
 
             <Grid x:Name="OrdersGrid" Visibility="Hidden">
-                <Button x:Name="CompleteOrder" Content="Complete Order" HorizontalAlignment="Left" VerticalAlignment="Top" Width="110" Visibility="Visible" Margin="710,372,0,0" Click="Complete_Order"  Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" />
-                <Button x:Name="ViewCarrier" Content="View Available Carriers" HorizontalAlignment="Left" VerticalAlignment="Top" Width="165" Margin="655,372,0,0" Click="View_Carrier" Visibility="Hidden"  Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" />
+                <Button x:Name="CompleteOrder" Content="Complete Order" HorizontalAlignment="Left" VerticalAlignment="Top" Width="110" Visibility="Visible" Margin="700,372,0,0" Click="Complete_Order"  Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" />
+                <Button x:Name="ViewCarrier" Content="View Available Carriers" HorizontalAlignment="Left" VerticalAlignment="Top" Width="165" Margin="645,372,0,0" Click="View_Carrier" Visibility="Hidden"  Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" />
 
                 <RadioButton x:Name="AllBox" Content="All Orders" Background="WhiteSmoke" Margin="156,368,590,29" IsChecked="False" Click="AllBox_Click"/>
                 <RadioButton x:Name="ActiveBox" Content="Active Orders" Background="WhiteSmoke" Margin="238,368,488,29" IsChecked="False" Click="ActiveBox_Click"/>
@@ -74,7 +74,7 @@
                 <Grid x:Name="OrderProgress" Visibility="Hidden" >
                     <ProgressBar x:Name="OrderProgressBar" Value="2" HorizontalAlignment="Left" Height="20" Margin="555,373,0,0" VerticalAlignment="Top" Width="123" Minimum="0" Maximum="100"/>
                     <Label HorizontalAlignment="Left" Height="23" Margin="573,375,0,0" Content="Order Progress" VerticalAlignment="Top" Width="120" BorderThickness="0" Padding="0" Background="Transparent"/>
-
+                    <Label x:Name="HoursLabel" HorizontalAlignment="Left" Height="23" Margin="700,375,0,0" Content="Hours Left: " VerticalAlignment="Top" Width="120" BorderThickness="0" Padding="0" Background="Transparent"/>
                 </Grid>
             </Grid>
         </Grid>

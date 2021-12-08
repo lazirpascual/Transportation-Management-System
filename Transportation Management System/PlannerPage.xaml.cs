@@ -181,12 +181,15 @@ namespace Transportation_Management_System
             {
                 result = 100;
                 CompleteOrder.Visibility = Visibility.Visible;
+                OrderProgress.Visibility = Visibility.Hidden;
             }
             else
             {
+                OrderProgress.Visibility = Visibility.Visible;
                 CompleteOrder.Visibility = Visibility.Hidden;
             }
             OrderProgressBar.Value = result;
+            HoursLabel.Content = $"Hours Left: {TotalTimeSpan.Hours}";
         }
 
         private void Selection_Changed(object sender, RoutedEventArgs e)
@@ -197,10 +200,9 @@ namespace Transportation_Management_System
             {
                 if (planner.CarrierAssigned(currentOrder) == true && currentOrder.IsCompleted == 0)
                 {
-                    // carrier has already been assigned, display complete order button
-                    Simulate_OrderStatus();
-                    OrderProgress.Visibility = Visibility.Visible;
+                    // carrier has already been assigned, display complete order button                             
                     ViewCarrier.Visibility = Visibility.Hidden;
+                    Simulate_OrderStatus();
                 }
                 else
                 {
