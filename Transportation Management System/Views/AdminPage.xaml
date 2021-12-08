@@ -8,7 +8,7 @@
         WindowStartupLocation="CenterScreen"
         Closing="Window_Closing"
         Title="Administrator" Height="430" Width="800"
-        Icon="/favicon.png">
+        Icon="favicon.png">
 
     <Window.Background>
         <LinearGradientBrush EndPoint="1,1" StartPoint="0,0">

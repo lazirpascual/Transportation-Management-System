@@ -68,8 +68,8 @@
       <DependentUpon>BuyerPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="DAL.cs" />
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <Compile Include="LoginPage.xaml.cs">
+      <DependentUpon>LoginPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -152,7 +152,7 @@
     <Compile Include="D:\OneDrive - Conestoga College\College\3. Fall 2021\Soft Qual\Assignment\TeamBlank_Group16\Transportation Management System\obj\Debug\AdminPage.g.cs" />
     <Compile Include="D:\OneDrive - Conestoga College\College\3. Fall 2021\Soft Qual\Assignment\TeamBlank_Group16\Transportation Management System\obj\Debug\BuyerPage.g.cs" />
     <Compile Include="D:\OneDrive - Conestoga College\College\3. Fall 2021\Soft Qual\Assignment\TeamBlank_Group16\Transportation Management System\obj\Debug\CarrierSelection.g.cs" />
-    <Compile Include="D:\OneDrive - Conestoga College\College\3. Fall 2021\Soft Qual\Assignment\TeamBlank_Group16\Transportation Management System\obj\Debug\MainWindow.g.cs" />
+    <Compile Include="D:\OneDrive - Conestoga College\College\3. Fall 2021\Soft Qual\Assignment\TeamBlank_Group16\Transportation Management System\obj\Debug\LoginPage.g.cs" />
     <Compile Include="D:\OneDrive - Conestoga College\College\3. Fall 2021\Soft Qual\Assignment\TeamBlank_Group16\Transportation Management System\obj\Debug\PlannerPage.g.cs" />
     <Compile Include="D:\OneDrive - Conestoga College\College\3. Fall 2021\Soft Qual\Assignment\TeamBlank_Group16\Transportation Management System\obj\Debug\App.g.cs" />
   </ItemGroup>

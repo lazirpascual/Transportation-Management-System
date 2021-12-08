@@ -1,0 +1,103 @@
+﻿<Window x:Class="Transportation_Management_System.BuyerPage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Transportation_Management_System"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Closing="Window_Closing"
+        Title="Buyer" Height="430" Width="800"
+        Icon="favicon.png">
+
+    <Window.Resources>
+        <local:StatusConverter x:Key="StatusConverter"/>
+        <local:DateConverter x:Key="DateConverter"/>
+        <local:QuantityConverter x:Key="QuantityConverter"/>
+    </Window.Resources>
+    <Window.Background>
+        <LinearGradientBrush EndPoint="1,1" StartPoint="0,0">
+            <GradientStop Color="LightBlue" Offset="0.0" />
+            <GradientStop Color="Navy" Offset="1.8"/>
+        </LinearGradientBrush>
+    </Window.Background>
+    <Viewbox>
+        <Grid>
+            <Border RenderTransformOrigin="0.5,0.5" Height="419">
+                <Image Source="logo_white.png" Margin="-20,10,697,281" />
+            </Border>
+            <Button x:Name ="Invoice" Content="Invoices" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,261,0,0" Click="Invoice_Click" />
+            <Button x:Name ="Orders" Content="Orders" Background="WhiteSmoke" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,312,0,0" Click="Orders_Click" />
+            <Button x:Name ="Clients" Content="Clients" Background="WhiteSmoke" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,363,0,0" Click="Clients_Click" />
+            <Button x:Name ="MarketPlace" Content="MarketPlace" Background="WhiteSmoke" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,210,0,0" Click="MarketPlace_Click" />
+            <Grid x:Name="ClientsGrid" Visibility="Visible">
+                <ListView x:Name="ClientsList" Margin="146,10,47,61" Height="324" Width="657">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Client Name" Width="100" DisplayMemberBinding="{Binding ClientName}" />
+                            <GridViewColumn Header="Client ID" Width="100" DisplayMemberBinding="{Binding ClientID}" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Grid>
+
+            <Grid x:Name="OrdersGrid" Visibility="Hidden">
+                <RadioButton x:Name="AllBox" Content="All Orders" Background="WhiteSmoke" Margin="175,370,566,27" IsChecked="False" Click="AllBox_Click" />
+                <RadioButton x:Name="ActiveBox" Content="Active Orders" Background="WhiteSmoke" Margin="266,370,431,27" IsChecked="False" Click="ActiveBox_Click" />
+                <RadioButton x:Name="CompletedBox" Content="Completed Orders" Background="WhiteSmoke" Margin="373,370,280,27" IsChecked="False" Click="CompletedBox_Click" />
+                <ListView x:Name="OrdersList" Margin="145,10,21,61" Height="324" Width="657">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="ID" Width="40" DisplayMemberBinding="{Binding OrderID}" />
+                            <GridViewColumn Header="Client Name" Width="95" DisplayMemberBinding="{Binding ClientName}" />
+                            <GridViewColumn Header="Accepted Date" Width="70" DisplayMemberBinding="{Binding OrderAcceptedDate}" />
+                            <GridViewColumn Header="Origin" Width="80" DisplayMemberBinding="{Binding Origin}" />
+                            <GridViewColumn Header="Destination" Width="70" DisplayMemberBinding="{Binding Destination}" />
+                            <GridViewColumn Header="Job Type" Width="55" DisplayMemberBinding="{Binding JobType}" />
+                            <GridViewColumn Header="Van Type" Width="55" DisplayMemberBinding="{Binding VanType}" />
+                            <GridViewColumn Header="Qty" Width="40" DisplayMemberBinding="{Binding Quantity, Converter={StaticResource QuantityConverter}}" />
+                            <GridViewColumn Header="Status" Width="70" DisplayMemberBinding="{Binding IsCompleted, Converter={StaticResource StatusConverter}}" />
+                            <GridViewColumn Header="Creation Date" Width="70" DisplayMemberBinding="{Binding OrderCreationDate, Converter={StaticResource DateConverter}}" />
+                            <GridViewColumn Header="Completion" Width="70" DisplayMemberBinding="{Binding OrderCompletionDate, Converter={StaticResource DateConverter}}" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Grid>
+            <Grid x:Name="CarriersGrid">
+            </Grid>
+            <Grid x:Name="InvoicesGrid" Visibility="Hidden">
+                <Button x:Name ="GenerateInvoice" Content="Generate Invoice" FontSize="16" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="28" Margin="724,369,0,0" Click="GenerateInvoice_Click" Visibility="Hidden"/>
+                <ListView x:Name="InvoiceList" Margin="174,22,38,73" SelectionMode="Single" SelectionChanged="InvoiceList_SelectionChanged" Height="324">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="OrderID" Width="50" DisplayMemberBinding="{Binding OrderID}" />
+                            <GridViewColumn Header="Client Name" Width="100" DisplayMemberBinding="{Binding ClientName}" />
+                            <GridViewColumn Header="Creation" Width="70" DisplayMemberBinding="{Binding OrderCreationDate}" />
+                            <GridViewColumn Header="Origin" Width="70" DisplayMemberBinding="{Binding Origin}" />
+                            <GridViewColumn Header="Destination" Width="80" DisplayMemberBinding="{Binding Destination}" />
+                            <GridViewColumn Header="Job Type" Width="70" DisplayMemberBinding="{Binding JobType}" />
+                            <GridViewColumn Header="Van Type" Width="70" DisplayMemberBinding="{Binding VanType}" />
+                            <GridViewColumn Header="Qty" Width="40" DisplayMemberBinding="{Binding Quantity, Converter={StaticResource QuantityConverter}}" />
+                            <GridViewColumn Header="Completion Date" Width="100" DisplayMemberBinding="{Binding OrderCompletionDate}" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Grid>
+            <Grid x:Name="MarketPlaceGrid" Visibility="Visible">
+                <Button x:Name="AcceptClient" Content="Accept" HorizontalAlignment="Left" VerticalAlignment="Top" Width="80" Margin="766,374,0,0" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Click="AcceptClient_Click" Height="25" />
+                <ListView x:Name="ContractsList" Margin="189,10,37,61" SelectionMode="Single" Height="324" Width="657">
+                    <ListView.View>
+                        <GridView x:Name="ContractsListGrid">
+                            <GridViewColumn Header="Client Name" Width="120" DisplayMemberBinding="{Binding ClientName}" />
+                            <GridViewColumn Header="Destination" Width="100" DisplayMemberBinding="{Binding Destination}" />
+                            <GridViewColumn Header="Job Type" Width="70" DisplayMemberBinding="{Binding JobType}" />
+                            <GridViewColumn Header="Origin" Width="70" DisplayMemberBinding="{Binding Origin}" />
+                            <GridViewColumn Header="Quantity" Width="70" DisplayMemberBinding="{Binding Quantity, Converter={StaticResource QuantityConverter}}" />
+                            <GridViewColumn Header="Van Type" Width="70" DisplayMemberBinding="{Binding VanType}" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Grid>
+        </Grid>
+    </Viewbox>
+</Window>

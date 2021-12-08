@@ -6,7 +6,7 @@
                    * Lazir Pascual
                    * Rohullah Noory
     DATE		:	2021-12-07
-    DESCRIPTION	:	This file contains the source for the MainWindow UI.
+    DESCRIPTION	:	This file contains the source for the LoginPage UI.
 */
 
 using System.Windows;
@@ -15,14 +15,14 @@ using System.Windows.Input;
 namespace Transportation_Management_System
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for LoginPage.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class LoginPage : Window
     {
         ///
         /// \brief This constructor is used to initialize the main window UI.
         ///
-        public MainWindow()
+        public LoginPage()
         {
             InitializeComponent();
         }
@@ -35,7 +35,7 @@ namespace Transportation_Management_System
         ///
         /// \return None - void
         ///
-        private void MainWindow_OnMouseDown(object sender, MouseButtonEventArgs e)
+        private void LoginPage_OnMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
             {
