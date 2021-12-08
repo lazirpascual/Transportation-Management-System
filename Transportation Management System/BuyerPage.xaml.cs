@@ -69,24 +69,25 @@ namespace Transportation_Management_System
         }
 
         ///
-        /// \brief Event handler for when Invoice button is clicked.
+        /// \brief Event handler for when an order is selected in the list.
         ///
         /// \param sender  - <b>object</b> - object that invoked the event handler.
         /// \param e  - <b>RoutedEventArgs</b> - base class used to pass data to event handler.
         ///
         /// \return None - void
         ///
-        private void Invoice_Click(object sender, RoutedEventArgs e)
+        private void Selection_Changed(object sender, RoutedEventArgs e)
         {
-            ResetStatus();
-            InvoicesGrid.Visibility = Visibility.Visible;
-            Invoice.Background = Brushes.LightSkyBlue;
-
-            List<Order> orderList = buyer.GetOrders(1);
-            InvoiceList.ItemsSource = orderList;
-            // sort invoice by order completion date
-            CollectionView viewInvoice = (CollectionView)CollectionViewSource.GetDefaultView(InvoiceList.ItemsSource);
-            viewInvoice.SortDescriptions.Add(new SortDescription("OrderCompletionDate", ListSortDirection.Ascending));
+            // order selection has changed
+            Order currentOrder = (Order)OrdersList.SelectedItem;
+            if (currentOrder != null && currentOrder.IsCompleted == 1)
+            {
+                GenerateInvoice.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                GenerateInvoice.Visibility = Visibility.Hidden;
+            }
         }
 
         ///
@@ -224,14 +225,12 @@ namespace Transportation_Management_System
             OrdersGrid.Visibility = Visibility.Hidden;
             MarketPlaceGrid.Visibility = Visibility.Hidden;
             CarriersGrid.Visibility = Visibility.Hidden;
-            InvoicesGrid.Visibility = Visibility.Hidden;
             GenerateInvoice.Visibility = Visibility.Hidden;
 
             // Reset menu buttons to non-clicked status
             MarketPlace.Background = Brushes.WhiteSmoke;
             Clients.Background = Brushes.WhiteSmoke;
             Orders.Background = Brushes.WhiteSmoke;
-            Invoice.Background = Brushes.WhiteSmoke;
 
             AllBox.IsChecked = false;
             ActiveBox.IsChecked = false;
@@ -265,22 +264,6 @@ namespace Transportation_Management_System
         }
 
         ///
-        /// \brief Event handler for when an invoice is selected.
-        ///
-        /// \param sender  - <b>object</b> - object that invoked the event handler.
-        /// \param e  - <b>RoutedEventArgs</b> - base class used to pass data to event handler.
-        ///
-        /// \return None - void
-        ///
-        private void InvoiceList_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (InvoiceList.SelectedItem != null)
-            {
-                GenerateInvoice.Visibility = Visibility.Visible;
-            }         
-        }
-
-        ///
         /// \brief Event handler for when GenerateInvoice button is clicked.
         ///
         /// \param sender  - <b>object</b> - object that invoked the event handler.
@@ -290,7 +273,7 @@ namespace Transportation_Management_System
         ///
         private void GenerateInvoice_Click(object sender, RoutedEventArgs e)
         {
-            Order selectedOrder = (Order)InvoiceList.SelectedItem;
+            Order selectedOrder = (Order)OrdersList.SelectedItem;
             Invoice invoice = buyer.CreateInvoice(selectedOrder);
 
             DAL db = new DAL();
