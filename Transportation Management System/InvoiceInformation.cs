@@ -102,10 +102,6 @@ namespace Transportation_Management_System
                 string title = "File Saved";
                 MessageBox.Show(success, title, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            else
-            {
-                MessageBox.Show("Failed to open save file dialog", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
         }
 
         ///
