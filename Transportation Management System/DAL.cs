@@ -1976,60 +1976,55 @@ namespace Transportation_Management_System
         ///
         /// \brief Returns a list with all orders filtered by 2 weeks or all time
         ///
-        /// \param orderId  - <b>int</b> - If of the order to filter the trip
+        /// \param onlyPast2Weeks  - <b>bool</b> - If we need to filter by the last 2 weeks
         ///
-        /// \return A list with all trips attached to a specific orders
+        /// \return A list with all invoices
         ///
-        public List<Order> FilterCompletedOrdersByTime(bool onlyPast2Weeks)
+        public List<Invoice> FilterInvoicesByTime(bool onlyPast2Weeks)
         {
-            List<Order> orders = new List<Order>();
+            List<Invoice> invoices = new List<Invoice>();
 
             try
             {
+                string qSQL;
+
                 // If all time
-                if (!onlyPast2Weeks)
+                if (onlyPast2Weeks)
                 {
-                    orders = GetCompletedOrders();
+                    // Filter all invoices from the past 2 weeks
+                    qSQL = "SELECT * FROM Invoices WHERE CompletedDate between date_sub(@CurrentDatetime, INTERVAL 2 WEEK) and @CurrentDatetime";
                 }
                 else
                 {
-                    // Filter all orders from the past 2 weeks
-                    string qSQL = "SELECT * FROM Orders INNER JOIN Clients ON Orders.ClientID = Clients.ClientID WHERE IsCompleted=1 AND OrderCompletedDate between date_sub(now(),INTERVAL 2 WEEK) and now()";
+                    qSQL = "SELECT * FROM Invoices";
+                }
 
-                    string conString = ToString();
-                    using (MySqlConnection conn = new MySqlConnection(conString))
+                string conString = ToString();
+                using (MySqlConnection conn = new MySqlConnection(conString))
+                {
+                    conn.Open();
+                    using (MySqlCommand cmd = new MySqlCommand(qSQL, conn))
                     {
-                        conn.Open();
-                        using (MySqlCommand cmd = new MySqlCommand(qSQL, conn))
+                        cmd.Parameters.AddWithValue("@CurrentDatetime", DateTime.Now);
+
+                        MySqlDataReader rdr = cmd.ExecuteReader();
+                        if (rdr.HasRows)
                         {
-                            MySqlDataReader rdr = cmd.ExecuteReader();
-                            if (rdr.HasRows)
+                            while (rdr.Read())
                             {
-                                while (rdr.Read())
+                                Invoice invoice = new Invoice()
                                 {
-                                    Order order = new Order
-                                    {
-                                        ClientName = rdr["ClientName"].ToString(),
-                                        OrderID = int.Parse(rdr["OrderID"].ToString())
-                                    };
-                                    if (DateTime.TryParse(rdr["OrderDate"].ToString(), out DateTime dt))
-                                    {
-                                        order.OrderCreationDate = dt;
-                                    }
+                                    OrderID = int.Parse(rdr["OrderID"].ToString()),
+                                    ClientName = rdr["ClientName"].ToString(),
+                                    Origin = (City)Enum.Parse(typeof(City), rdr["Origin"].ToString(), true),
+                                    Destination = (City)Enum.Parse(typeof(City), rdr["Destination"].ToString(), true),
+                                    TotalAmount = decimal.Parse(rdr["TotalAmount"].ToString()),
+                                    TotalKM = int.Parse(rdr["TotalDistance"].ToString()),
+                                    Days = double.Parse(rdr["TotalDays"].ToString()),
+                                    CompletedDate = DateTime.Parse(rdr["OrderDate"].ToString())
+                                };
 
-                                    order.Origin = (City)Enum.Parse(typeof(City), rdr["Origin"].ToString(), true);
-                                    order.Destination = (City)Enum.Parse(typeof(City), rdr["Destination"].ToString(), true);
-                                    order.JobType = (JobType)int.Parse(rdr["JobType"].ToString());
-                                    order.VanType = (VanType)int.Parse(rdr["VanType"].ToString());
-                                    order.Quantity = int.Parse(rdr["Quantity"].ToString());
-                                    order.IsCompleted = int.Parse(rdr["IsCompleted"].ToString());
-                                    if (DateTime.TryParse(rdr["OrderCompletedDate"].ToString(), out dt))
-                                    {
-                                        order.OrderCompletionDate = dt;
-                                    }
-
-                                    orders.Add(order);
-                                }
+                                invoices.Add(invoice);
                             }
                         }
                     }
@@ -2041,7 +2036,7 @@ namespace Transportation_Management_System
                 throw;
             }
 
-            return orders;
+            return invoices;
         }
 
         ///
