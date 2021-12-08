@@ -34,9 +34,9 @@
                             <GridViewColumn Header="Client Name" Width="100" DisplayMemberBinding="{Binding ClientName}" />
                             <GridViewColumn Header="Origin" Width="80" DisplayMemberBinding="{Binding Origin}" />
                             <GridViewColumn Header="Destination" Width="90" DisplayMemberBinding="{Binding Destination}" />
-                            <GridViewColumn Header="Distance" Width="90" DisplayMemberBinding="{Binding TotalKM}" />
+                            <GridViewColumn Header="Distance (KM)" Width="90" DisplayMemberBinding="{Binding TotalKM}" />
                             <GridViewColumn Header="Days Taken" Width="90" DisplayMemberBinding="{Binding Days}" />
-                            <GridViewColumn Header="Total" Width="70" DisplayMemberBinding="{Binding TotalAmount}" />
+                            <GridViewColumn Header="Total ($)" Width="70" DisplayMemberBinding="{Binding TotalAmount}" />
                         </GridView>
                     </ListView.View>
                 </ListView>

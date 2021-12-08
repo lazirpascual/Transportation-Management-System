@@ -1748,6 +1748,7 @@ namespace Transportation_Management_System
         public Rate GetOSHTRates()
         {
             Rate OSHTRates = new Rate();
+            OSHTRates.RateValuePair = new Dictionary<RateType, double>();
             string qSQL = "SELECT Rate, RateType FROM Rates WHERE Name='OSHT'";
 
             try
