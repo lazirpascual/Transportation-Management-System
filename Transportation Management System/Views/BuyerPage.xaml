@@ -26,10 +26,9 @@
             <Border RenderTransformOrigin="0.5,0.5" Height="419">
                 <Image Source="logo_white.png" Margin="-20,10,697,281" />
             </Border>
-            <Button x:Name ="Invoice" Content="Invoices" Background="WhiteSmoke" Foreground="DarkBlue" FontSize="16" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,261,0,0" Click="Invoice_Click" />
             <Button x:Name ="Orders" Content="Orders" Background="WhiteSmoke" FontSize="16" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,312,0,0" Click="Orders_Click" />
             <Button x:Name ="Clients" Content="Clients" Background="WhiteSmoke" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,363,0,0" Click="Clients_Click" />
-            <Button x:Name ="MarketPlace" Content="MarketPlace" Background="WhiteSmoke" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,210,0,0" Click="MarketPlace_Click" />
+            <Button x:Name ="MarketPlace" Content="MarketPlace" Background="WhiteSmoke" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkBlue" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="46" Margin="10,261,0,0" Click="MarketPlace_Click" />
             <Grid x:Name="ClientsGrid" Visibility="Visible">
                 <ListView x:Name="ClientsList" Margin="146,10,47,61" Height="324" Width="657">
                     <ListView.View>
@@ -40,12 +39,12 @@
                     </ListView.View>
                 </ListView>
             </Grid>
-
             <Grid x:Name="OrdersGrid" Visibility="Hidden">
                 <RadioButton x:Name="AllBox" Content="All Orders" Background="WhiteSmoke" Margin="175,370,566,27" IsChecked="False" Click="AllBox_Click" />
                 <RadioButton x:Name="ActiveBox" Content="Active Orders" Background="WhiteSmoke" Margin="266,370,431,27" IsChecked="False" Click="ActiveBox_Click" />
                 <RadioButton x:Name="CompletedBox" Content="Completed Orders" Background="WhiteSmoke" Margin="373,370,280,27" IsChecked="False" Click="CompletedBox_Click" />
-                <ListView x:Name="OrdersList" Margin="145,10,21,61" Height="324" Width="657">
+                <Button x:Name ="GenerateInvoice" Content="Generate Invoice" FontSize="16" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="28" Margin="724,369,0,0" Click="GenerateInvoice_Click" />
+                <ListView x:Name="OrdersList" Margin="145,10,21,61" Height="324" Width="657" SelectionChanged="Selection_Changed">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="ID" Width="40" DisplayMemberBinding="{Binding OrderID}" />
@@ -59,26 +58,6 @@
                             <GridViewColumn Header="Status" Width="70" DisplayMemberBinding="{Binding IsCompleted, Converter={StaticResource StatusConverter}}" />
                             <GridViewColumn Header="Creation Date" Width="70" DisplayMemberBinding="{Binding OrderCreationDate, Converter={StaticResource DateConverter}}" />
                             <GridViewColumn Header="Completion" Width="70" DisplayMemberBinding="{Binding OrderCompletionDate, Converter={StaticResource DateConverter}}" />
-                        </GridView>
-                    </ListView.View>
-                </ListView>
-            </Grid>
-            <Grid x:Name="CarriersGrid">
-            </Grid>
-            <Grid x:Name="InvoicesGrid" Visibility="Hidden">
-                <Button x:Name ="GenerateInvoice" Content="Generate Invoice" FontSize="16" Background="WhiteSmoke" Foreground="DarkBlue" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="28" Margin="724,369,0,0" Click="GenerateInvoice_Click" Visibility="Hidden"/>
-                <ListView x:Name="InvoiceList" Margin="174,22,38,73" SelectionMode="Single" SelectionChanged="InvoiceList_SelectionChanged" Height="324">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn Header="OrderID" Width="50" DisplayMemberBinding="{Binding OrderID}" />
-                            <GridViewColumn Header="Client Name" Width="100" DisplayMemberBinding="{Binding ClientName}" />
-                            <GridViewColumn Header="Creation" Width="70" DisplayMemberBinding="{Binding OrderCreationDate}" />
-                            <GridViewColumn Header="Origin" Width="70" DisplayMemberBinding="{Binding Origin}" />
-                            <GridViewColumn Header="Destination" Width="80" DisplayMemberBinding="{Binding Destination}" />
-                            <GridViewColumn Header="Job Type" Width="70" DisplayMemberBinding="{Binding JobType}" />
-                            <GridViewColumn Header="Van Type" Width="70" DisplayMemberBinding="{Binding VanType}" />
-                            <GridViewColumn Header="Qty" Width="40" DisplayMemberBinding="{Binding Quantity, Converter={StaticResource QuantityConverter}}" />
-                            <GridViewColumn Header="Completion Date" Width="100" DisplayMemberBinding="{Binding OrderCompletionDate}" />
                         </GridView>
                     </ListView.View>
                 </ListView>
