@@ -260,6 +260,7 @@ namespace Transportation_Management_System
         ///
         /// \param usr  - <b>User</b> - An User object with all their information
         ///
+        /// \return True if user was created, false othewise
         public bool CreateUser(User usr)
         {
             string sql = "INSERT INTO Users (FirstName, LastName, Username, PasswordHash, Email, UserType) " +
@@ -479,6 +480,7 @@ namespace Transportation_Management_System
         ///
         /// \param newRoute  - <b>Route</b> - The new route information to be used in the update
         ///
+        /// \return True if is existent, false otherwise
         public bool IsExistentInvoice(long orderID)
         {
             bool isExistent = false;
@@ -622,6 +624,7 @@ namespace Transportation_Management_System
         ///
         /// \param carrier  - <b>Carrier</b> - An Carrier object with all their information
         ///
+        /// \return The inserted carrier id
         public long CreateCarrier(Carrier carrier)
         {
             string sql = "INSERT INTO Carriers (CarrierName, FTLRate, LTLRate, reefCharge) VALUES (@CarrierName, @FTLRate, @LTLRate, @reefCharge)";
@@ -753,7 +756,8 @@ namespace Transportation_Management_System
         /// \brief Update an existing carrier's attributes
         ///
         /// \param newCarrier  - <b>Carrier</b> - The new carrier information to be used in the update
-        ///
+        /// \param oldCity  - <b>City</b> - The the old carrier city
+        /// 
         public void UpdateCarrierCity(CarrierCity newCarrierCity, City oldCity)
         {
             string sql = "UPDATE CarrierCity SET DepotCity=@DepotCity, FTLAval=@FTLAval, LTLAval=@LTLAval WHERE CarrierID=@CarrierID AND DepotCity=@OldDepotCity";
@@ -1569,6 +1573,7 @@ namespace Transportation_Management_System
         ///
         /// \param order  - <b>Order</b> - selected order
         ///
+        /// \return True if carrier is assigned, false othewise
         public bool IsCarriedAssigned(Order currentOrder)
         {
             bool isCarrierAssigned = false;
@@ -1605,6 +1610,8 @@ namespace Transportation_Management_System
         ///
         /// \param order  - <b>Order</b> - selected order
         ///
+        /// \return True if invoice is generated already, false otherwise
+        /// 
         public bool IsInvoiceGenerated(Order order)
         {
             bool isInvoiceGenerated = false;
@@ -1804,6 +1811,13 @@ namespace Transportation_Management_System
             return OSHTRates;
         }
 
+
+        ///
+        /// \brief Update the OSHT Rate in the Rates table
+        /// 
+        /// \param newRate  -   <b>double</b> - the new rate value
+        /// \param rateType  -   <b>RateType</b> - the rate type to be updated
+        ///
         public void UpdateOSHTRate(double newRate, RateType rateType)
         {
             string sql = "UPDATE Rates SET Rate=@Rate WHERE Name='OSHT' AND RateType=@rateType";
@@ -1832,10 +1846,7 @@ namespace Transportation_Management_System
         ///
         /// \brief Used to create a trip using trip object
         ///
-        /// \param trip  - <b>Trip</b> - Order to select the invoic
-        /// \param carrierToSelect  - <b>Carrier</b> - trip object
-        ///
-        /// \return Returns void
+        /// \param trip  - <b>Trip</b> - Trip to be created
         ///
         public void CreateTrip(Trip trip)
         {
@@ -1926,7 +1937,7 @@ namespace Transportation_Management_System
         ///
         /// \param currentOrder  - <b>Order</b> - Order to get the total time for
         ///
-        /// \return Returns Double
+        /// \return The total time of a trip
         ///
         public double GetTotalTimeFromTrip(Order currentOrder)
         {
