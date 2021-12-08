@@ -21,6 +21,7 @@ using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
+using MySql.Data.MySqlClient;
 
 namespace Transportation_Management_System
 {
@@ -823,6 +824,21 @@ namespace Transportation_Management_System
                 newPassword = PasswordBox.Password;
                 newDatabase = DatabaseBox.Text;
 
+                var connectionString = $"server={newServer};user={newUser};database={newDatabase};port={newPort};password={newPassword}; convert zero datetime=True";
+
+                try
+                {
+                    using (MySqlConnection conn = new MySqlConnection(connectionString))
+                    {
+                        conn.Open();
+                    }
+                }
+                catch (Exception)
+                {
+                    System.Windows.MessageBox.Show("Unable to connect to MySQL. Data information was invalid", "Invalid Database Information", MessageBoxButton.OK, MessageBoxImage.Error);
+                    throw new ArgumentException();
+                }
+
                 // Insert the information to the config file
                 admin.UpdateDatabaseConString(fieldServer, newServer);
                 admin.UpdateDatabaseConString(fieldPort, newPort);
@@ -832,6 +848,10 @@ namespace Transportation_Management_System
                 System.Windows.MessageBox.Show("Database Information successfully updated", "Database Updated", MessageBoxButton.OK, MessageBoxImage.Information);
 
                 Logger.Log($" Database setting information was successfully updated.", LogLevel.Information);
+            }
+            catch (ArgumentException)
+            {
+                return;
             }
             catch (Exception)
             {
