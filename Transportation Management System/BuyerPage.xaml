@@ -77,7 +77,7 @@
                             <GridViewColumn Header="Destination" Width="80" DisplayMemberBinding="{Binding Destination}" />
                             <GridViewColumn Header="Job Type" Width="70" DisplayMemberBinding="{Binding JobType}" />
                             <GridViewColumn Header="Van Type" Width="70" DisplayMemberBinding="{Binding VanType}" />
-                            <GridViewColumn Header="Qty" Width="30" DisplayMemberBinding="{Binding Quantity}" />
+                            <GridViewColumn Header="Qty" Width="40" DisplayMemberBinding="{Binding Quantity, Converter={StaticResource QuantityConverter}}" />
                             <GridViewColumn Header="Completion Date" Width="100" DisplayMemberBinding="{Binding OrderCompletionDate}" />
                         </GridView>
                     </ListView.View>
