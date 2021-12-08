@@ -196,6 +196,7 @@ $RECYCLE.BIN/
 **/*.sln.ide
 
 # Visual Studio temp something
+./.vs/
 .vs/
 **/.vs/*
 
