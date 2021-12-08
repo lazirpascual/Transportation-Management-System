@@ -8,7 +8,7 @@
         WindowStartupLocation="CenterScreen"
         Closing="Window_Closing"
         Title="Planner" Height="430" Width="800"
-        Icon="/favicon.png">
+        Icon="favicon.png">
 
     <Window.Resources>
         <local:StatusConverter x:Key="StatusConverter"/>

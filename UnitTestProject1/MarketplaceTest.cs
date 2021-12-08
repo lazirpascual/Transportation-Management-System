@@ -12,13 +12,15 @@ namespace UnitTestProject1
         [TestMethod]
         public void GetContracts_FunctionalTest()
         {
-            Contract firstContract = new Contract();
-            firstContract.ClientName = "Space J";
-            firstContract.Destination = City.Toronto;
-            firstContract.JobType = 0;
-            firstContract.Origin = City.Kingston;
-            firstContract.Quantity = 0;
-            firstContract.VanType = VanType.Reefer;
+            Contract firstContract = new Contract
+            {
+                ClientName = "Space J",
+                Destination = City.Toronto,
+                JobType = 0,
+                Origin = City.Kingston,
+                Quantity = 0,
+                VanType = VanType.Reefer
+            };
 
             var cmpTest = new ContractMarketPlace();
             var cmpContracts = cmpTest.GetContracts();
@@ -30,13 +32,15 @@ namespace UnitTestProject1
         [TestMethod]
         public void GetContracts_ExceptionTest()
         {
-            Contract firstContract = new Contract();
-            firstContract.ClientName = "Malmart";
-            firstContract.Destination = City.Windsor;
-            firstContract.JobType = 0;
-            firstContract.Origin = City.Belleville;
-            firstContract.Quantity = 0;
-            firstContract.VanType = 0;
+            Contract firstContract = new Contract
+            {
+                ClientName = "Malmart",
+                Destination = City.Windsor,
+                JobType = 0,
+                Origin = City.Belleville,
+                Quantity = 0,
+                VanType = 0
+            };
 
             var cmpTest = new ContractMarketPlace();
             var cmpContracts = cmpTest.GetContracts();
