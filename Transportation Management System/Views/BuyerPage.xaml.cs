@@ -224,7 +224,6 @@ namespace Transportation_Management_System
             ClientsGrid.Visibility = Visibility.Hidden;
             OrdersGrid.Visibility = Visibility.Hidden;
             MarketPlaceGrid.Visibility = Visibility.Hidden;
-            CarriersGrid.Visibility = Visibility.Hidden;
             GenerateInvoice.Visibility = Visibility.Hidden;
 
             // Reset menu buttons to non-clicked status
