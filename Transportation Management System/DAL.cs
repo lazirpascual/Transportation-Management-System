@@ -2016,14 +2016,14 @@ namespace Transportation_Management_System
                             {
                                 Invoice invoice = new Invoice()
                                 {
-                                    OrderID = int.Parse(rdr["OrderID"].ToString()),
+                                    OrderID = long.Parse(rdr["OrderID"].ToString()),
                                     ClientName = rdr["ClientName"].ToString(),
                                     Origin = (City)Enum.Parse(typeof(City), rdr["Origin"].ToString(), true),
                                     Destination = (City)Enum.Parse(typeof(City), rdr["Destination"].ToString(), true),
                                     TotalAmount = decimal.Parse(rdr["TotalAmount"].ToString()),
                                     TotalKM = int.Parse(rdr["TotalDistance"].ToString()),
                                     Days = double.Parse(rdr["TotalDays"].ToString()),
-                                    CompletedDate = DateTime.Parse(rdr["OrderDate"].ToString())
+                                    CompletedDate = DateTime.Parse(rdr["CompletedDate"].ToString())
                                 };
 
                                 invoices.Add(invoice);
