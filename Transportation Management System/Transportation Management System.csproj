@@ -214,9 +214,6 @@
     <Compile Include="DOxygenMainProjectPage.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="logo.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="favicon.ico" />
   </ItemGroup>
   <ItemGroup>

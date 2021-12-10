@@ -1994,7 +1994,7 @@ namespace Transportation_Management_System
                 else
                 {
                     // Filter all orders from the past 2 weeks
-                    string qSQL = "SELECT * FROM Orders INNER JOIN Clients ON Orders.ClientID = Clients.ClientID WHERE IsCompleted=1 AND OrderCompletedDate between date_sub(now(),INTERVAL 2 WEEK) and now()";
+                    string qSQL = "SELECT * FROM Orders INNER JOIN Clients ON Orders.ClientID = Clients.ClientID WHERE IsCompleted=1 AND OrderCompletedDate between date_sub(@CurrentDatetime ,INTERVAL 2 WEEK) and @CurrentDatetime";
 
                     string conString = ToString();
                     using (MySqlConnection conn = new MySqlConnection(conString))
@@ -2002,6 +2002,8 @@ namespace Transportation_Management_System
                         conn.Open();
                         using (MySqlCommand cmd = new MySqlCommand(qSQL, conn))
                         {
+                            cmd.Parameters.AddWithValue("@CurrentDatetime", DateTime.Now);
+
                             MySqlDataReader rdr = cmd.ExecuteReader();
                             if (rdr.HasRows)
                             {
