@@ -290,8 +290,8 @@ namespace Transportation_Management_System
         ///
         private void GenerateInvoice_Click(object sender, RoutedEventArgs e)
         {
-            Order selectedInvoice = (Order)InvoiceList.SelectedItem;
-            Invoice invoice = buyer.CreateInvoice(selectedInvoice);
+            Order selectedOrder = (Order)InvoiceList.SelectedItem;
+            Invoice invoice = buyer.CreateInvoice(selectedOrder);
 
             DAL db = new DAL();
             // If invoice doesn't exist, create one

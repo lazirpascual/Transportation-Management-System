@@ -9,6 +9,8 @@
     DESCRIPTION	:	This file contains the source for the Invoice class.
 */
 
+using System;
+
 namespace Transportation_Management_System
 {
     ///
@@ -47,5 +49,8 @@ namespace Transportation_Management_System
 
         /// The number of days taken to complete the order
         public double Days { set; get; }
+
+        /// The number of days taken to complete the order
+        public DateTime CompletedDate { get; set; }
     }
 }

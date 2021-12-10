@@ -117,7 +117,6 @@ namespace Transportation_Management_System
             long orderID = orderObj.OrderID;
 
             DAL db = new DAL();
-            db.UpdateInvoiceGenerated(orderID);
             List<Trip> trips = db.FilterTripsByOrderId(orderID);
 
             double hours;
@@ -150,6 +149,7 @@ namespace Transportation_Management_System
             invoice.Destination = (City)Enum.Parse(typeof(City), destination, true);
             invoice.Days = Math.Round(days, 1);
             invoice.TotalKM = distance;
+            invoice.CompletedDate = DateTime.Now;
 
             return invoice;
         }
