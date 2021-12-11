@@ -30,7 +30,7 @@ The project was creating using C# and WPF, supported with a MySQL Database. Agil
   - Performing backups for the local TMS database
   - Logging all interactions performed within the system
 
-# Screenshots
+# Application Preview
 
 ## 1. Login Page
 
