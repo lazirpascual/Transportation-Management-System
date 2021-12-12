@@ -1,10 +1,9 @@
 # Transportation-Management-System
 
-This application is a working prototype designed for organizations who desire to have their cargo shipped via truck or train.
-It is a software system that effectively manages the shipping of goods accross the country, where companies can keep track of the purchasing, scheduling, monitoring and billing of their orders. The results of this project can greatly benefit organizations who ship their goods through models like LTL (Less Than Load) and FTL (Full Truck Load).
+This application is a working prototype for a software system that effectively manages the shipping of goods across Ontario, where companies can keep track of the purchasing, scheduling, monitoring, and billing of their orders. It is designed for organizations who desire to have their cargo shipped via truck or train. The results of this project can greatly benefit organizations who ship their goods through models like LTL (less-than-truckload) and FTL (full-truckload).
  <br />
 
-The project was creating using C# and WPF, supported with a MySQL Database. Agile Methodology and Test-Driven Development were also incorporated throughout the entirety of the project lifecycle.
+The project was created using C# and WPF, supported with a MySQL Database. Agile Methodology, Test-Driven Development, and the use of Git as a version-control system were all incorporated throughout the entirety of the project lifecycle.
  <br />
 
 ## 🛠 Tech Stack
