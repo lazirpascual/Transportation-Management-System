@@ -14,7 +14,7 @@ The project was created using C# and WPF, supported with a MySQL Database. Agile
 - **Languages Used**: C# </br>
 - **Database**: MySQL </br>
 - **Testing**: .NET Unit Testing Framework </br>
-- **Deployment**: Windows Installer </br>
+- **Deployment**: Windows Installer </br> 
 
 ## ⚙️ Features
 
