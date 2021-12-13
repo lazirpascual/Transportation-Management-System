@@ -52,7 +52,7 @@ The admin also has the ability to initiate a backup to be performed on the local
 
 ![preview](https://i.imgur.com/Xz1lLpG.png)
 
-- The Planner employee is responsible for furthering the order by selecting one or more registered Carriers to fulfill the Order, in the form of Trips. Once assigned, the Planner monitors the progression of time in the application, ensuring that when all Trips on an order are completed, the Order will be marked as Completed and sent back to the Buyer for Invoice Generation. Finally, the planner can generate a summary report of all invoice data, with the option to filter the invoices generated for the past 2 weeks.
+- The Planner employee is responsible for furthering the order by selecting one or more registered Carriers to fulfill the Order, in the form of Trips. Once assigned, the Planner monitors the progression of time in the application, ensuring that when all Trips on an order are completed, the Order will be marked as Completed and sent back to the Buyer for Invoice Generation. Finally, the planner user can generate a summary report of all invoice data, with the option to filter the invoices generated for the past 2 weeks.
 
 
 # Development Process
